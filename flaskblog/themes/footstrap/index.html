@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block mainbody %}
+<div class="cover container-fluid" style="background-image: url('{{site.cover_url}}')">
+  <div class="col-12 col-md-9 cover-body">
+    <div class="bio">
+      <img class="avatar" src="{{ site.avatar }}" alt="{{ site.name }}">
+      <h1 class="display-3 heading">{{ site.name }}</h1>
+      <p class="lead site-des">{{ site.description }}</p>
+    </div>
+    <div class="links lead">
+      <ul>
+        <li class="link-item">
+          <a href="{{ url_for('blog') }}">Blog</a>
+        </li>
+        <li class="link-item">
+          <a href="{{ url_for('about') }}">About</a>
+        </li>
+        <li class="link-item">
+          <a href="//resume.frostming.win">Resume</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footercls %}fixed-bottom{% endblock %}

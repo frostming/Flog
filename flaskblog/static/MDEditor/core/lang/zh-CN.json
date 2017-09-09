@@ -1,0 +1,121 @@
+{
+	"button": {
+		"save": "節省",
+		"reset": "全部重設",
+		"cancel": "退出",
+		"table": "表",
+		"quotation": "引用",
+		"anchor": "錨",
+		"hr": "水平線",
+		"youtube": "YouTube 視頻",
+		"code": "碼",
+		"mail": "電子郵件地址",
+		"phone": "電話號碼",
+		"attachment": "附錄",
+		"header": "標題",
+		"bold": "脂肪",
+		"italic": "斜體",
+		"underline": "強調",
+		"strikethrough": "三振",
+		"olist": "編號列表",
+		"ulist": "未編號列表",
+		"hyperlink": "超鏈接",
+		"unlink": "刪除超鏈接",
+		"image": "圖像",
+		"preview": "預覽",
+		"help": "幫助",
+		"frame": {
+			"cancel": "退出",
+			"insert": "插入"
+		}
+	},
+	"label": {
+		"wordCounter": "話"
+	},
+	"message": {
+		"preview": {
+			"empty": "你還沒有寫任何東西！"
+		},
+		"attachment": {
+			"error": {
+				"max": "要上傳的文件太大了！",
+				"not": "此文件類型是不允許的！",
+				"unknown": "發生未知錯誤！"
+			}
+		},
+		"error": "請檢查您的互聯網連接！"
+	},
+	"tooltip": {
+		"close": "閉幕",
+		"insert": "單擊要插入",
+		"sethyperlink": "點擊創建一個鏈接"
+	},
+	"source": {
+		"placeholder": {
+			"table": {
+				"rows": "行數...",
+				"columns": "列數..."
+			},
+			"anchor": {
+				"name": "錨點名稱..."
+			},
+			"youtube": {
+				"id": "YouTube 視頻識別號..."
+			},
+			"mail": {
+				"mail": "電子郵件地址..."
+			},
+			"phone": {
+				"number": "電話號碼或 Skype 用戶名..."
+			},
+			"hyperlink": {
+				"href": "鏈接網址...",
+				"text": "鏈接文本..."
+			},
+			"image": {
+				"src": "圖片網址...",
+				"alt": "替代文本..."
+			}
+		},
+		"label": {
+			"table": {
+				"title": "插入表格"
+			},
+			"anchor": {
+				"title": "添加錨點",
+				"reference": "鏈接錨"
+			},
+			"youtube": {
+				"title": "YouTube 插入視頻"
+			},
+			"mail": {
+				"title": "輸入電子郵件地址"
+			},
+			"phone": {
+				"title": "將電話號碼"
+			},
+			"hyperlink": {
+				"title": "插入超鏈接"
+			},
+			"image": {
+				"title": "插入圖片"
+			},
+			"attachment": {
+				"title": "附錄",
+				"fileupload": "上傳文件",
+				"empty": "目前，還沒有文件！",
+				"deleteall": "刪除所有文件",
+				"images": "圖片",
+				"audio": "音頻文件",
+				"videos": "視頻",
+				"word": "Word 文檔和文本文檔",
+				"excel": "Excel 工作簿",
+				"powerpoint": "PowerPoint 簡報",
+				"pdf": "PDF 文件",
+				"code": "代碼文件",
+				"archives": "存檔",
+				"other": "更多文件"
+			}
+		}
+	}
+}

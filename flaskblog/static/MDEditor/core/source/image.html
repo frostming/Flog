@@ -1,0 +1,35 @@
+<div style='text-align: center;'>
+	<div class='col-xs-5' style='float: none !important; margin: 0px auto !important;'>
+		<h4 data-element="MDEditor_%ELEMENTNAME%_source_image_headline"></h4>
+		<br />
+		<input type='text' class='form-control' data-element='MDEditor_%ELEMENTNAME%_source_image_input_src' />
+		<br />
+		<input type='text' class='form-control' data-element='MDEditor_%ELEMENTNAME%_source_image_input_alt' />
+	</div>
+</div>
+<script type='text/javascript' language='javascript'>
+	$("[data-element]").each(function () {
+		$(this).mdeditorCreateElementID();
+	});
+
+	var elementName;
+	var language;
+	elementName = mdeditor.elementName;
+	language = mdeditor.lang;
+
+	$('#MDEditor_' + elementName + '_source_image_headline').html(language.source.label.image.title);
+	$('#MDEditor_' + elementName + '_source_image_input_src').attr('placeholder', language.source.placeholder.image.src);
+	$('#MDEditor_' + elementName + '_source_image_input_alt').attr('placeholder', language.source.placeholder.image.alt);
+
+	$('#MDEditor_' + elementName + '_body_optioncontainer_buttons_insert').off();
+	$('#MDEditor_' + elementName + '_body_optioncontainer_buttons_insert').click(function () {
+		if (typeof $('#MDEditor_' + elementName + '_source_image_input_src').val() !== undefined && $('#MDEditor_' + elementName + '_source_image_input_src').val() != '') {
+			$('#MDEditor_' + elementName + '_hiddenarea').val("![" + $('#MDEditor_' + elementName + '_source_image_input_alt').val() + "](" + $('#MDEditor_' + elementName + '_source_image_input_src').val() + ")");
+			mdeditorOptioncontainerInsertElement(elementName);
+		} else {
+			$('#MDEditor_' + elementName + '_source_image_input_src').css('border', '1px solid #b10000');
+		}
+	});
+	
+	submitForm(elementName);
+</script>

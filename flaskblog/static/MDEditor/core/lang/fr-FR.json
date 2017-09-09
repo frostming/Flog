@@ -1,0 +1,121 @@
+{
+	"button": {
+		"save": "Sauver",
+		"reset": "Réinitialiser tous les",
+		"cancel": "Abandonner",
+		"table": "Table",
+		"quotation": "Citer",
+		"anchor": "Ancre",
+		"hr": "Ligne horizontale",
+		"youtube": "YouTube vidéo",
+		"code": "Code",
+		"mail": "Adresse e-mail",
+		"phone": "Numéro de téléphone",
+		"attachment": "Appendice",
+		"header": "Titre",
+		"bold": "Graisse",
+		"italic": "Italique",
+		"underline": "Souligner",
+		"strikethrough": "Barré",
+		"olist": "Liste numérotée",
+		"ulist": "Liste non numérotée",
+		"hyperlink": "Lien hypertexte",
+		"unlink": "Supprimer un lien hypertexte",
+		"image": "Image",
+		"preview": "Avant-première",
+		"help": "Aider",
+		"frame": {
+			"cancel": "Abandonner",
+			"insert": "Insertion"
+		}
+	},
+	"label": {
+		"wordCounter": "Paroles"
+	},
+	"message": {
+		"preview": {
+			"empty": "Vous avez encore rien écrit!"
+		},
+		"attachment": {
+			"error": {
+				"max": "Le fichier à télécharger est trop grand!",
+				"not": "Ce type de fichier n'est pas autorisé!",
+				"unknown": "Une erreur inconnue s'est produite!"
+			}
+		},
+		"error": "S'il vous plaît vérifier votre connexion Internet!"
+	},
+	"tooltip": {
+		"close": "Fermeture",
+		"insert": "Cliquez pour insérer",
+		"sethyperlink": "Cliquez sur pour créer un lien"
+	},
+	"source": {
+		"placeholder": {
+			"table": {
+				"rows": "Nombre de lignes...",
+				"columns": "Nombre de colonnes..."
+			},
+			"anchor": {
+				"name": "Nom Anchor..."
+			},
+			"youtube": {
+				"id": "YouTube ID de la vidéo..."
+			},
+			"mail": {
+				"mail": "Adresse e-mail..."
+			},
+			"phone": {
+				"number": "Numéro de téléphone ou le nom Skype..."
+			},
+			"hyperlink": {
+				"href": "Lien URL...",
+				"text": "Link texte..."
+			},
+			"image": {
+				"src": "Image URL...",
+				"alt": "Le texte de remplacement..."
+			}
+		},
+		"label": {
+			"table": {
+				"title": "Insérer un tableau"
+			},
+			"anchor": {
+				"title": "Ajouter Anchor",
+				"reference": "Lien pour ancrer"
+			},
+			"youtube": {
+				"title": "Insérer la YouTube vidéo"
+			},
+			"mail": {
+				"title": "Entrez l'adresse e-mail"
+			},
+			"phone": {
+				"title": "Insérer le numéro de téléphone"
+			},
+			"hyperlink": {
+				"title": "Insérer un lien hypertexte"
+			},
+			"image": {
+				"title": "Insérez l'image"
+			},
+			"attachment": {
+				"title": "Appendice",
+				"fileupload": "Télécharger un fichier",
+				"empty": "Actuellement, il n'y a pas de fichiers!",
+				"deleteall": "Supprimer tous les fichiers",
+				"images": "Photos",
+				"audio": "Les fichiers audio",
+				"videos": "Vidéos",
+				"word": "Des documents Word et texte",
+				"excel": "Classeurs Excel",
+				"powerpoint": "Présentations PowerPoint",
+				"pdf": "PDF Documents",
+				"code": "Les fichiers de code",
+				"archives": "Archives",
+				"other": "Plus de fichiers"
+			}
+		}
+	}
+}

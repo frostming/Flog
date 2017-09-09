@@ -1,0 +1,58 @@
+{% extends 'page.html' %}
+
+{% block extclass %}has-bg{% endblock %}
+
+{% block pagehead %}
+<section class="blog-head">
+  <a href="/" class="blog-head-logo">
+    <img class="avatar" src="{{ site.avatar }}" alt="{{ site.name }}">
+  </a>
+  <h1 class="heading">{{site.name}}</h1>
+  <div class="divider"></div>
+</section>
+{% endblock %}
+
+{% block pagecontent %}
+<section class="blog-list">
+  <div class="container-fluid d-flex justify-content-center">
+    <div class="col-12 col-md-9 col-xl-6">
+      {% for post in posts.items %}
+        <div class="post-info d-flex align-items-center justify-content-between">
+          <div flex="1">
+            <div class="post-meta">
+              <time datetime="{{post.date}}">{{ moment(post.date).format('ll') }}</time>
+            </div>
+            <div class="post-item-content">
+              <a href="{{post.url}}">
+                <h3 class="post-item-title">{{post.title}}</h3>
+              </a>
+              {% if post.description %}
+              <a href="{{post.url}}">
+                <p class="post-item-subtitle lead">{{post.description}}</p>
+              </a>
+              {% endif %}
+            </div>
+          </div>
+          {% if post.image %}
+            <div class="post-item-image">
+              <a href="{{post.url}}">
+                <img src="{{post.image}}" alt="post.title">
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <div class="paginate d-flex justify-content-between">
+        <a href="{{url_for('blog', page=posts.prev_num)}}"
+        {% if posts.has_prev %} style="visibility: visible;"{% endif %}>
+          <i class="fa fa-fw fa-angle-left"></i> Newer Posts
+        </a>
+        <a href="{{url_for('blog', page=posts.next_num)}}"
+        {% if posts.has_next %} style="visibility: visible;"{% endif %}>
+          Older Posts <i class="fa fa-fw fa-angle-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

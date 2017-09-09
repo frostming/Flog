@@ -1,0 +1,78 @@
+
+<div style='text-align: center;'>
+	<div class='col-xs-5' style='float: none !important; margin: 0px auto !important;'>
+		<h4 data-element="MDEditor_%ELEMENTNAME%_source_table_headline"></h4>
+		<br />
+		<input type='number' class='form-control' data-element='MDEditor_%ELEMENTNAME%_source_table_input_rows' min='1' max='100000' />
+		<br />
+		<input type='number' class='form-control' data-element='MDEditor_%ELEMENTNAME%_source_table_input_columns' min='1' max='1000' />
+	</div>
+</div>
+<script type='text/javascript' language='javascript'>
+	$("[data-element]").each(function () {
+		$(this).mdeditorCreateElementID();
+	});
+
+	var elementName;
+	var language;
+	elementName = mdeditor.elementName;
+	language = mdeditor.lang;
+
+	$('#MDEditor_' + elementName + '_source_table_headline').html(language.source.label.table.title);
+	$('#MDEditor_' + elementName + '_source_table_input_rows').attr('placeholder', language.source.placeholder.table.rows);
+	$('#MDEditor_' + elementName + '_source_table_input_columns').attr('placeholder', language.source.placeholder.table.columns);
+	$('#MDEditor_' + elementName + '_source_mail_input_mail').val($('#MDEditor_' + elementName + '_body_edit_textarea').textrange().text);
+
+	$('#MDEditor_' + elementName + '_body_optioncontainer_buttons_insert').off();
+	$('#MDEditor_' + elementName + '_body_optioncontainer_buttons_insert').click(function () {
+		if (typeof $('#MDEditor_' + elementName + '_source_table_input_rows').val() !== undefined && $('#MDEditor_' + elementName + '_source_table_input_rows').val() != '' && isNaN($('#MDEditor_' + elementName + '_source_table_input_rows').val()) === false && $('#MDEditor_' + elementName + '_source_table_input_rows').val() > 1) {
+			if (typeof $('#MDEditor_' + elementName + '_source_table_input_columns').val() !== undefined && $('#MDEditor_' + elementName + '_source_table_input_columns').val() != '' && isNaN($('#MDEditor_' + elementName + '_source_table_input_columns').val()) === false && $('#MDEditor_' + elementName + '_source_table_input_columns').val() > 0) {
+				var rows;
+				var columns;
+				rows = $('#MDEditor_' + elementName + '_source_table_input_rows').val();
+				columns = $('#MDEditor_' + elementName + '_source_table_input_columns').val();
+
+				var output;
+				var k;
+				output = '| ';
+				k = 1;
+
+				for (var i = 0; i < columns; i++) {
+					output += 'Column header | ';
+				}
+
+				output += "\r\n";
+
+				for (var i = 0; i < columns; i++) {
+					if (i == 0) {
+						output += '|';
+					}
+					output += ':----- |';
+				}
+
+				output += "\r\n";
+
+				for (var j = 1; j < rows; j++) {
+					for (var i = 0; i < columns; i++) {
+						if (i == 0) {
+							output += '| ';
+						}
+						output += 'Column cell ' + k++ + ' | ';
+					}
+
+					output += "\r\n";
+				}
+
+				$('#MDEditor_' + elementName + '_hiddenarea').val(output);
+				mdeditorOptioncontainerInsertElement(elementName);
+			} else {
+				$('#MDEditor_' + elementName + '_source_table_input_columns').css('border', '1px solid #b10000');
+			}
+			$('#MDEditor_' + elementName + '_source_table_input_rows').css('border', '1px solid #cccccc');
+		} else {
+			$('#MDEditor_' + elementName + '_source_table_input_rows').css('border', '1px solid #b10000');
+		}
+	});
+	
+	submitForm(elementName);
+</script>

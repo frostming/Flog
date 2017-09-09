@@ -1,0 +1,41 @@
+<div style='text-align: center;'>
+	<div class='col-xs-5' style='float: none !important; margin: 0px auto !important;'>
+		<h4 data-element="MDEditor_%ELEMENTNAME%_source_hyperlink_headline"></h4>
+		<br />
+		<input type='text' class='form-control' data-element='MDEditor_%ELEMENTNAME%_source_hyperlink_input_href' />
+		<br />
+		<input type='text' class='form-control' data-element='MDEditor_%ELEMENTNAME%_source_hyperlink_input_text' />
+	</div>
+</div>
+<script type='text/javascript' language='javascript'>
+	$("[data-element]").each(function () {
+		$(this).mdeditorCreateElementID();
+	});
+
+	var elementName;
+	var language;
+	elementName = mdeditor.elementName;
+	language = mdeditor.lang;
+
+	$('#MDEditor_' + elementName + '_source_hyperlink_headline').html(language.source.label.hyperlink.title);
+	$('#MDEditor_' + elementName + '_source_hyperlink_input_href').attr('placeholder', language.source.placeholder.hyperlink.href);
+	$('#MDEditor_' + elementName + '_source_hyperlink_input_text').attr('placeholder', language.source.placeholder.hyperlink.text);
+	$('#MDEditor_' + elementName + '_source_hyperlink_input_text').val($('#MDEditor_' + elementName + '_body_edit_textarea').textrange().text);
+
+	$('#MDEditor_' + elementName + '_body_optioncontainer_buttons_insert').off();
+	$('#MDEditor_' + elementName + '_body_optioncontainer_buttons_insert').click(function () {
+		if (typeof $('#MDEditor_' + elementName + '_source_hyperlink_input_href').val() !== undefined && $('#MDEditor_' + elementName + '_source_hyperlink_input_href').val() != '') {
+			if (typeof $('#MDEditor_' + elementName + '_source_hyperlink_input_text').val() !== undefined && $('#MDEditor_' + elementName + '_source_hyperlink_input_text').val() != '') {
+				$('#MDEditor_' + elementName + '_hiddenarea').val("[" + $('#MDEditor_' + elementName + '_source_hyperlink_input_text').val() + "](" + $('#MDEditor_' + elementName + '_source_hyperlink_input_href').val() + ")");
+				mdeditorOptioncontainerInsertElement(elementName);
+			} else {
+				$('#MDEditor_' + elementName + '_source_hyperlink_input_text').css('border', '1px solid #b10000');
+			}
+			$('#MDEditor_' + elementName + '_source_hyperlink_input_href').css('border', '1px solid #cccccc');
+		} else {
+			$('#MDEditor_' + elementName + '_source_hyperlink_input_href').css('border', '1px solid #b10000');
+		}
+	});
+	
+	submitForm(elementName);
+</script>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+	<head>
+		<meta charset='utf-8' />
+		<title>Markdown Editor</title>
+
+		<style type='text/css'>
+			html, body {
+				padding: 0px;
+				margin: 0px;
+			}
+
+			#wrapper {
+				padding-top: 1%;
+				width: 700px;
+				margin: 0 auto;
+			}
+		</style>
+
+		<link rel='stylesheet' type='text/css' href='http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' />
+		<link rel='stylesheet' type='text/css' href='http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' />
+		<link rel='stylesheet' type='text/css' href='../mdeditor.css' />
+		<script type='text/javascript' language='javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+		<script type='text/javascript' language='javascript' src='../mdeditor.js'></script>
+	</head>
+	<body>
+		<div style='position: absolute; padding: 20px 30px;'>
+			<ul class='dropdown-menu' style='position: relative; display: block;'>
+				<li class='dropdown-header'>Examples</li>
+				<li><a href='./index.html'>Standard</a></li>
+				<li><a href='./standard_helpbutton.html'>Standard with Helpbutton</a></li>
+				<li><a href='./full.html'>Full</a></li>
+				<li><a href='./full_metro.html'>Full, Metro Theme</a></li>
+				<li class='divider'></li>
+				<li class='dropdown-header'>GitHub</li>
+				<li><a href='https://github.com/Teddy95/MDEditor'>View source</a></li>
+				<li><a href='https://github.com/Teddy95/MDEditor/releases'>Releases</a></li>
+				<li><a href='https://github.com/Teddy95/MDEditor/archive/master.zip'>Download</a></li>
+			</ul>
+		</div>
+		<div id='wrapper'>
+			<h1>MDEditor Example: Standard</h1>
+
+			<br />
+
+			<form action='' method='post'>
+				<textarea id='mdeditor' name='textareaContent'></textarea>
+			</form>
+		</div>
+		<script type='text/javascript' language='javascript'>
+		/*$('#mdeditor').mdeditor();*/
+		$('#mdeditor').mdeditor();
+		</script>
+	</body>
+</html>

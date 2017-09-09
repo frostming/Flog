@@ -1,0 +1,365 @@
+@charset "utf-8";
+/* CSS Document - mdeditor.css */
+
+/* MD Editor */
+
+.MDEditor {
+	display: block;
+	min-width: 620px;
+	position: relative;
+	clear: both;
+	overflow: hidden;
+}
+
+.MDEditor_body {
+	position: relative;
+}
+
+.MDEditor_buttons {
+	background-color: #f9f9f9;
+	border-radius: 3px 3px 0px 0px;
+	padding: 10px;
+	border: 1px solid #cccccc;
+}
+
+.MDEditor_body_edit_textarea {
+	display: block;
+	min-width: 100%;
+	max-width: 100%;
+	border-right: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
+	border-top: 0px solid transparent;
+	border-bottom: 0px solid transparent;
+	min-height: 180px;
+	font-size: 14px;
+	font-family: monospace !important;
+	padding-left: 5px;
+}
+
+.MDEditor_body_edit_textarea, .MDEditor_body_actioncontainer, .MDEditor_body_optioncontainer {
+	box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.MDEditor_body_actioncontainer_content img, .MDEditor_body_optioncontainer_content img {
+	max-width: 550px !important;
+}
+
+.MDEditor_footer {
+	font-size: 11px;
+	overflow: hidden;
+	background-color: #f9f9f9;
+	border-radius: 0px 0px 3px 3px;
+	border: 1px solid #cccccc;
+	padding: 10px;
+}
+
+.MDEditor_footer > p {
+	margin: 0px !important;
+}
+
+.MDEditor_footer a {
+	cursor: pointer;
+}
+
+.MDEditor_body_optioncontainer, .MDEditor_body_actioncontainer {
+	position: absolute;
+	height: 100% !important;
+	width: 100% !important;
+	background-color: rgba(254, 254, 254, 0.97);
+	top: 0px;
+	left: 0px;
+	border-right: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
+	border-top: 0px solid transparent;
+	border-bottom: 0px solid transparent;
+	overflow-y: auto;
+	overflow-x: auto;
+	display: none;
+}
+
+.MDEditor_body_optioncontainer > div, .MDEditor_body_actioncontainer > div {
+	position: relative;
+	display: table;
+	height: 100% !important;
+	width: 100% !important;
+}
+
+.MDEditor_body_optioncontainer > div > div, .MDEditor_body_actioncontainer > div > div {
+	position: relative;
+	display: table-row;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.MDEditor_body_optioncontainer > div > div:nth-child(1), .MDEditor_body_actioncontainer > div > div:nth-child(2) {
+	height: 100%;
+}
+
+.MDEditor_body_optioncontainer_content, .MDEditor_body_actioncontainer_content {
+	display: table-cell;
+	text-align: center;
+	padding: 10px;
+}
+
+.MDEditor_body_optioncontainer_buttons {
+	text-align: right;
+	display: table-cell;
+	padding: 10px;
+}
+
+.MDEditor_body_actioncontainer > div > div:first-child {
+	position: absolute !important;
+	display: block !important;
+	top: 12px;
+	right: 12px;
+	z-index: 2;
+}
+
+.MDEditor_body_actioncontainer > div > div:first-child i, .MDEditor_body_actioncontainer > div > div:first-child a {
+	line-height: 0;
+}
+
+.MDEditor_body_actioncontainer > div > div:first-child a {
+	color: #999999 !important;
+	cursor: pointer;
+	transition: all 0.2s;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-ms-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	font-size: 17px;
+}
+
+.MDEditor_body_actioncontainer > div > div:first-child a:hover {
+	color: #666666 !important;
+	cursor: pointer;
+}
+
+.MDEditor_body_actioncontainer_content_preview, .MDEditor_body_actioncontainer_content_error, .MDEditor_body_actioncontainer_content_copyright, .MDEditor_body_actioncontainer_content_attachment {
+	text-align: left !important;
+	width: 93.5% !important;
+	margin: 0 auto;
+}
+
+.MDEditor_ajaxloader {
+	margin: 25px;
+}
+
+.MDEditor_attachment_image, .MDEditor_attachment_image.MDEditor_addition {
+	display: inline-block;
+	border: 2px solid #f5f5f5;
+	overflow: hidden;
+	margin-left: 5px;
+	width: 115px;
+	height: 100px;
+	transition: all 0.2s;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-ms-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	position: relative;
+	background-size: cover !important;
+}
+
+.MDEditor_attachment_placeholder, .MDEditor_attachment_placeholder.MDEditor_addition {
+	display: inline-block;
+	border: 2px solid #f5f5f5;
+	overflow: hidden;
+	margin-left: 5px;
+	width: 80px !important;
+	height: 80px !important;
+	background-color: #f9f9f9;
+	text-align: center;
+	transition: all 0.2s;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-ms-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	position: relative;
+}
+
+.MDEditor_attachment_image:hover, .MDEditor_attachment_placeholder:hover, .MDEditor_attachment_image.MDEditor_addition:hover, .MDEditor_attachment_placeholder.MDEditor_addition:hover {
+	border: 2px solid #ff9500 !important;
+	cursor: pointer;
+}
+
+.MDEditor_attachment_image.MDEditor_addition:before, .MDEditor_attachment_placeholder.MDEditor_addition:before {
+	content: "\f00c";
+	font-family: FontAwesome;
+	color: #ffffff;
+	font-size: 13px;
+	position: absolute;
+	z-index: 2;
+	top: 2px;
+	right: 3px;
+	display: inline-block;
+}
+
+.MDEditor_attachment_image.MDEditor_addition:after, .MDEditor_attachment_placeholder.MDEditor_addition:after {
+	content: "";
+	position: absolute;
+	z-index: 1;
+	top: -4px;
+	right: -16px;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-bottom: 25px solid #ff9500;
+	background-color: #ff9500;
+	width: 0px;
+	height: 0px;
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	display: inline-block;
+}
+
+.MDEditor_attachment_placeholder p {
+	color: #666666;
+}
+
+.MDEditor_attachment_placeholder i {
+	color: #cccccc;
+	font-size: 30px;
+	margin-top: 10px;
+}
+
+.MDEditor_body_actioncontainer_content_attachment > p {
+	padding: 15px 0px 5px 0px;
+	border-bottom: 1px solid #eeeeee;
+}
+
+/* Tipsy */
+
+.tipsy {
+	font-size: 13px;
+	position: absolute;
+	padding: 5px;
+	z-index: 100000;
+	font-family: arial;
+}
+
+.tipsy-inner {
+	background-color: #000;
+	color: #FFF;
+	max-width: 200px;
+	padding: 5px 8px 4px 8px;
+	text-align: center;
+}
+
+/* Rounded corners */
+.tipsy-inner {
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+  
+/* Uncomment for shadow */
+/*.tipsy-inner { box-shadow: 0 0 5px #000000; -webkit-box-shadow: 0 0 5px #000000; -moz-box-shadow: 0 0 5px #000000; }*/
+
+.tipsy-arrow {
+	position: absolute;
+	width: 0; height: 0;
+	line-height: 0;
+	border: 5px dashed #000;
+}
+  
+/* Rules to colour arrows */
+.tipsy-arrow-n {
+	border-bottom-color: #000;
+}
+.tipsy-arrow-s {
+	border-top-color: #000;
+}
+.tipsy-arrow-e {
+	border-left-color: #000;
+}
+.tipsy-arrow-w {
+	border-right-color: #000;
+}
+  
+.tipsy-n .tipsy-arrow {
+	top: 0px; 
+	left: 50%; 
+	margin-left: -5px; 
+	border-bottom-style: solid; 
+	border-top: none; 
+	border-left-color: transparent; 
+	border-right-color: transparent;
+}
+
+.tipsy-nw .tipsy-arrow {
+	top: 0;
+	left: 10px;
+	border-bottom-style: solid;
+	border-top: none;
+	border-left-color: transparent;
+	border-right-color: transparent;
+}
+
+.tipsy-ne .tipsy-arrow {
+	top: 0;
+	right: 10px;
+	border-bottom-style: solid;
+	border-top: none;
+	border-left-color: transparent;
+	border-right-color: transparent;
+}
+
+.tipsy-s .tipsy-arrow {
+	bottom: 0;
+	left: 50%;
+	margin-left: -5px;
+	border-top-style: solid;
+	border-bottom: none;
+	border-left-color: transparent;
+	border-right-color: transparent;
+}
+
+.tipsy-sw .tipsy-arrow {
+	bottom: 0;
+	left: 10px;
+	border-top-style: solid;
+	border-bottom: none; 
+	border-left-color: transparent;
+	border-right-color: transparent;
+}
+
+.tipsy-se .tipsy-arrow {
+	bottom: 0;
+	right: 10px;
+	border-top-style: solid;
+	border-bottom: none;
+	border-left-color: transparent;
+	border-right-color: transparent;
+}
+
+.tipsy-e .tipsy-arrow {
+	right: 0;
+	top: 50%;
+	margin-top: -5px;
+	border-left-style: solid;
+	border-right: none;
+	border-top-color: transparent;
+	border-bottom-color: transparent; 
+}
+
+.tipsy-w .tipsy-arrow {
+	left: 0;
+	top: 50%;
+	margin-top: -5px;
+	border-right-style: solid;
+	border-left: none;
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+}
+
+/* Bootstrap modification */
+
+.form-control:focus {
+	border-color: #66AFE9 !important;
+}
+
+pre {
+	background-color: #f8f8f8 !important;
+	word-wrap: break-word !important;
+	word-break: break-all !important;
+}

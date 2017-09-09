@@ -1,0 +1,34 @@
+<!doctype html>
+{% from '_partials/seo.html' import seo with context %}
+<html lang="en" prefix="og: http://ogp.me/ns#">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>{% block title %}{{page.title|capitalize}}{% endblock %} | {{site.name}}</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  {{ seo(self.title()) }}
+  {% include '_partials/head.html' %}
+  {% block extracss %}
+  {% endblock %}
+</head>
+
+<body>
+
+  {% block mainbody %}{% endblock %}
+
+  {% block footer %}
+  <footer class="footer {% block footercls %}{% endblock %}">
+    {% include '_partials/footer.html' with context %}
+  </footer>
+  {% endblock %}
+
+  {% block scripts %}
+    <script src="{{ site.cdn.jquery }}" crossorgin="anonymous"></script>
+    <script src="{{ site.cdn.popper }}" crossorgin="anonymous"></script>
+    <script src="{{ site.cdn.bootstrapjs }}" crossorgin="anonymous"></script>
+    {{ moment.include_moment(local_js=site.cdn.moment) }}
+  {% endblock %}
+  {% block extrajs %}{% endblock %}
+</body>

@@ -1,0 +1,17 @@
+{% macro seo(title) %}
+  <meta name="flog" content="{{ site.user }}">
+  <meta name="description" content="{{ site.description }}">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{title|capitalize}}">
+  <meta property="og:description" content="{{ site.description }}">
+  <meta property="og:url" content="{{ request.url }}">
+  <meta property="og:image" content="{{ site.favicon }}">
+  <meta property="og:image:width" content="600">
+  <meta property="og:image:height" content="600">
+  {% if site.twitter %}
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:creator" content="@{{ site.twitter }}">
+  {% endif %}
+  <link rel="canonical" href="{{ request.url }}">
+{% endmacro %}

@@ -1,0 +1,77 @@
+{% extends 'page.html' %}
+
+{% block title %}{{post.title|capitalize}}{% endblock %}
+{% block extracss %}
+<link rel="stylesheet" href="{{ url_for('theme.static', filename='yue.css') }}">
+{% include '_partials/highlight.html' %}
+<link rel="stylesheet" href="{{ url_for('theme.static', filename='article.css')}}">
+
+<link rel="stylesheet" href="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/photoswipe/4.1.2/default-skin/default-skin.min.css">
+{% endblock %}
+
+{% block navstyle %}navbar-dark{% endblock %}
+{% block pagehead %}
+  <div class="container-fluid post-cover" {% if post.image %}style="background-image:url({{post.image}});"{% endif %}>
+  </div>
+{% endblock %}
+
+{% block pagecontent %}
+<article class="post-content">
+  <div class="container-fluid d-flex justify-content-center">
+    <div class="col d-none d-lg-block">
+    {% block leftside %}
+      {% if toc %}
+      <div class="post-toc sticky-top">
+        <div class="toc-head">
+          TABLE OF CONTENTS
+        </div>
+        {{ toc | safe }}
+      </div>
+      {% endif %}
+    {% endblock %}
+    </div>
+    <div class="col-12 col-md-9 col-xl-6" id="post-container">
+      <div class="d-flex d-xs-block justify-content-between align-items-center">
+        <div class="post-meta">
+          <time datetime="{{post.date}}">{{ moment(post.date).format('ll') }}</time>
+          {% if post.author %}
+          <span class="post-author">{{post.author}}</span>
+          {% endif %}
+        </div>
+        <div class="post-tags">
+          {% for tag in post.tags %}
+            <a href="{{tag.url}}">{{tag.text}}</a>
+          {% endfor %}
+        </div>
+      </div>
+      <h1 class="post-title">{{post.title}}</h1>
+      <div class="post-subtitle">{% if post.description %}{{post.description}}{% endif %}</div>
+      <div class="post-text yue">
+        {{ content | safe }}
+      </div>
+      {% if post.last_modified %}
+      <div class="last-modified">
+        Last edited <time datetime="{{post.last_modified}}">{{moment(post.last_modified).fromNow()}}</time>
+      </div>
+      {% endif %}
+    </div>
+    <div class="col d-none d-xl-block">
+    {% block rightside %}{% endblock %}
+    </div>
+  </div>
+</article>
+{% endblock %}
+
+{% block additional %}
+{% include '_partials/pswp.html' %}
+{% include '_partials/disqus.html' %}
+<a id="totop" title="Return to the top" class="invisible" href="javascript:void(0)"><i class="fa fa-fw fa-arrow-up"></i></a>
+{% endblock %}
+
+{% block extrajs %}
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-574571fdae7f0521"></script>
+  <script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.js" charset="utf-8"></script>
+  <script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe-ui-default.min.js" charset="utf-8"></script>
+  {% include '_partials/flogjs.html' %}
+{% endblock %}

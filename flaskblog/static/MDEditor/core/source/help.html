@@ -1,0 +1,271 @@
+<script type='text/javascript' language='javascript'>
+	if ($('#MDEditor_' + mdeditor.elementName + '_body_edit_textarea').height() < 400) {
+		$('#MDEditor_' + mdeditor.elementName + '_body_edit_textarea').animate({
+			height: 400
+		}, 150);
+	}
+</script>
+<div id='MDEditor_helpcontainer_replace'>
+	<table border='0' style='width: 100%;'>
+		<tbody>
+			<tr>
+				<td style='width: 200px; text-align: left; vertical-align: top; display: block;'>
+					<div class='MDEditor_container_help_menu' style='position: fixed;'>
+						<ul class='dropdown-menu' style='position: relative; display: block;'>
+							<li><a href='#mdanchor_about'>About MDEditor</a></li>
+							<li class='divider'></li>
+							<li><a href='#mdanchor_headers'>Headers</a></li>
+							<li><a href='#mdanchor_emphasis'>Emphasis</a></li>
+							<li><a href='#mdanchor_lists'>Lists</a></li>
+							<li><a href='#mdanchor_links'>Links</a></li>
+							<li><a href='#mdanchor_images'>Images</a></li>
+							<li><a href='#mdanchor_code'>Code and Syntax</a></li>
+							<li><a href='#mdanchor_tables'>Tables</a></li>
+							<li><a href='#mdanchor_blockquotes'>Blockquotes</a></li>
+							<li><a href='#mdanchor_html'>Inline HTML</a></li>
+							<li><a href='#mdanchor_hr'>Horizontal Rule</a></li>
+							<li><a href='#mdanchor_br'>Line Breaks</a></li>
+							<li><a href='#mdanchor_youtube'>YouTube Videos</a></li>
+						</ul>
+					</div>
+				</td>
+				<td style='text-align: left; vertical-align: top; padding-right: 30px;'>
+					<h1 id='mdanchor_about'>About MDEditor</h1>
+
+					<hr />
+
+					<p>MDEditor is an easy and fast Markdown editor, developed by Andre Sieverding.</p>
+
+					<p>
+						<i class='fa fa-github-alt'></i> <a href='https://github.com/Teddy95/MDEditor'>MDEditor on GitHub</a><br />
+						<i class='fa fa-legal'></i> <a href='https://github.com/Teddy95/MDEditor/blob/master/LICENSE.md'>License</a>
+					</p>
+
+					<h1 id='mdanchor_headers'>Headers</h1>
+
+					<hr />
+
+					<p>Markdown:</p>
+
+					<pre>A First Level Header<br />====================<br /><br />A Second Level Header<br />---------------------<br /><br /># Header 1<br /><br />## Header 2<br /><br />### Header 3</pre>
+
+					<p>Output:</p>
+
+					<pre>&lt;h1&gt;A First Level Header&lt;/h1&gt;<br /><br />&lt;h2&gt;A Second Level Header&lt;/h2&gt;<br /><br />&lt;h1&gt;Header 1&lt;/h1&gt;<br /><br />&lt;h2&gt;Header 2&lt;/h2&gt;<br /><br />&lt;h3&gt;Header 3&lt;/h3&gt;</pre>
+
+					<h1 id='mdanchor_emphasis'>Phrase Emphasis</h1>
+
+					<hr />
+
+					<p>Markdown uses asterisks and underscores to indicate spans of emphasis.</p>
+
+					<p>Markdown:</p>
+
+					<pre>Some of these words *are emphasized*.<br />Some of these words _are emphasized also_.<br /><br />Use two asterisks for **strong emphasis**.<br />Or, if you prefer, __use two underscores instead__.</pre>
+
+					<p>Output:</p>
+
+					<pre>&lt;p&gt;Some of these words &lt;em&gt;are emphasized&lt;/em&gt;.<br />Some of these words &lt;em&gt;are emphasized also&lt;/em&gt;.&lt;/p&gt;<br /><br />&lt;p&gt;Use two asterisks for &lt;strong&gt;strong emphasis&lt;/strong&gt;.<br />Or, if you prefer, &lt;strong&gt;use two [...]&lt;/strong&gt;.&lt;/p&gt;</pre>
+
+					<h1 id='mdanchor_lists'>Lists</h1>
+
+					<hr />
+
+					<p>Unordered (bulleted) lists use asterisks, pluses, and hyphens (*, +, and -) as list markers. These three markers are interchangable; this:</p>
+
+					<pre>*   Candy.<br />*   Gum.<br />*   Booze.</pre>
+
+					<p>this:</p>
+
+					<pre>+   Candy.<br />+   Gum.<br />+   Booze.</pre>
+
+					<p>and this:</p>
+
+					<pre>-   Candy.<br />-   Gum.<br />-   Booze.</pre>
+
+					<p>Output:</p>
+
+					<pre>&lt;ul&gt;<br />&lt;li&gt;Candy.&lt;/li&gt;<br />&lt;li&gt;Gum.&lt;/li&gt;<br />&lt;li&gt;Booze.&lt;/li&gt;<br />&lt;/ul&gt;</pre>
+
+					<p>Ordered (numbered) lists use regular numbers, followed by periods, as list markers:</p>
+
+					<pre>1.  Red.<br />2.  Green.<br />3.  Blue.</pre>
+
+					<p>Output:</p>
+
+					<pre>&lt;ol&gt;<br />&lt;li&gt;Red.&lt;/li&gt;<br />&lt;li&gt;Green.&lt;/li&gt;<br />&lt;li&gt;Blue.&lt;/li&gt;<br />&lt;/ol&gt;</pre>
+
+					<p>If you put blank lines between items, you’ll get <code>&lt;p&gt;</code> tags for the list item text. You can create multi-paragraph list items by indenting the paragraphs by 4 spaces or 1 tab:</p>
+
+					<pre>*   A list item.<br /><br />    With multiple paragraphs.<br /><br />*   Another item in the list.</pre>
+
+					<p>Output:</p>
+
+					<pre>&lt;ul&gt;<br />&lt;li&gt;&lt;p&gt;A list item.&lt;/p&gt;<br />&lt;p&gt;With multiple paragraphs.&lt;/p&gt;&lt;/li&gt;<br />&lt;li&gt;&lt;p&gt;Another item in the list.&lt;/p&gt;&lt;/li&gt;<br />&lt;/ul&gt;</pre>
+
+					<h1 id='mdanchor_links'>Links</h1>
+
+					<hr />
+
+					<p>Markdown supports two styles for creating links: inline and reference. With both styles, you use square brackets to delimit the text you want to turn into a link.</p>
+
+					<p>Inline-style links use parentheses immediately after the link text. For example:</p>
+
+					<pre>This is an [example link](http://example.com/).</pre>
+
+					<p>Output:</p>
+
+					<pre>&lt;p&gt;This is an &lt;a href="http://example.com/"&gt;<br />example link&lt;/a&gt;.&lt;/p&gt;</pre>
+
+					<p>Optionally, you may include a title attribute in the parentheses:</p>
+
+					<pre>This is an<br />[example link](http://example.com/ "With a Title").</pre>
+
+					<p>Output:</p>
+
+					<pre>&lt;p&gt;This is an &lt;a href=&quot;http://example.com/&quot;<br />title=&quot;With a Title&quot;&gt; example link&lt;/a&gt;.&lt;/p&gt;</pre>
+
+					<p>Reference-style links allow you to refer to your links by names, which you define elsewhere in your document:</p>
+
+					<pre>I get 10 times more traffic from [Google][1]<br />than from [Yahoo][2] or [MSN][3].<br /><br />[1]: http://google.com/		"Google"<br />[2]: http://search.yahoo.com/	"Yahoo Search"<br />[3]: http://search.msn.com/	"MSN Search"</pre>
+
+					<p>Output:</p>
+
+					<pre wrap='on'>&lt;p&gt;I get 10 times more traffic from&lt;a href=&quot;http://google.com/&quot; title=&quot;Google&quot;&gt;Google&lt;/a&gt;than from &lt;a href=&quot;http://search.yahoo.com/&quot; title=&quot;Yahoo Search&quot;&gt;Yahoo&lt;/a&gt; or &lt;a href=&quot;http://search.msn.com/&quot; title=&quot;MSN Search&quot;&gt;MSN&lt;/a&gt;.&lt;/p&gt;</pre>
+
+					<p>The title attribute is optional. Link names may contain letters, numbers and spaces, but are not case sensitive:</p>
+
+					<pre>I start my morning with a cup of coffee and<br />[The New York Times][NY Times].<br /><br />[ny times]: http://www.nytimes.com/</pre>
+
+					<p>Output:</p>
+
+					<pre wrap='on'>&lt;p&gt;I start my morning with a cup of coffee and<br />&lt;a href=&quot;http://www.nytimes.com/&quot;&gt;The New York Times&lt;/a&gt;.&lt;/p&gt;</pre>
+
+					<h1 id='mdanchor_images'>Images</h1>
+
+					<hr />
+
+					<p>Image syntax is very much like link syntax.</p>
+
+					<p>Inline (titles are optional):</p>
+
+					<pre>![alt text](/path/to/img.jpg "Title")</pre>
+
+					<p>Reference-style:</p>
+
+					<pre>![alt text][id]<br /><br />[id]: /path/to/img.jpg "Title"</pre>
+
+					<p>Both of the above examples produce the same output:</p>
+
+					<pre wrap='on'>&lt;img src=&quot;/path/to/img.jpg&quot; alt=&quot;alt text&quot;<br />title=&quot;Title&quot; /&gt;</pre>
+
+					<h1 id='mdanchor_code'>Code</h1>
+
+					<hr />
+
+					<p>In a regular paragraph, you can create code span by wrapping text in backtick quotes. Any ampersands (&amp;) and angle brackets (&lt; or &gt;) will automatically be translated into HTML entities. This makes it easy to use Markdown to write about HTML example code:</p>
+
+					<pre>I strongly recommend against using any `&lt;blink&gt;` tags.<br /><br />I wish SmartyPants used named entities like `&amp;mdash;`<br />instead of decimal-encoded entites like `&amp;#8212;`.</pre>
+
+					<p>Output:</p>
+
+					<pre wrap='on'>&lt;p&gt;I strongly recommend against using any<br />&lt;code&gt;&lt;blink&gt;&lt;/code&gt; tags.&lt;/p&gt;<br /><br />&lt;p&gt;I wish SmartyPants used named entities like<br />&lt;code&gt;&amp;mdash;&lt;/code&gt; instead of decimal-encoded<br />entites like &lt;code&gt;&amp;#8212;&lt;/code&gt;.&lt;/p&gt;</pre>
+
+					<p>To specify an entire block of pre-formatted code, indent every line of the block by 4 spaces or 1 tab. Just like with code spans, &amp;, &lt;, and &gt; characters will be escaped automatically.</p>
+
+					<p>Markdown:</p>
+
+					<pre>I strongly recommend against using any `&lt;blink&gt;` tags.<br /><br />I wish SmartyPants used named entities like `&amp;mdash;`<br />instead of decimal-encoded entites like `&amp;#8212;`.</pre>
+
+					<p>Output:</p>
+
+					<pre wrap='on'>&lt;p&gt;If you want your page to validate under XHTML 1.0 Strict,<br />you've got to put paragraph tags in your blockquotes:&lt;/p&gt;<br /><br />&lt;pre&gt;&lt;code&gt;&lt;blockquote&gt;<br />    &lt;p&gt;For example.&lt;/p&gt;<br />&lt;/blockquote&gt;<br />&lt;/code&gt;&lt;/pre&gt;</pre>
+
+					<h1 id='mdanchor_tables'>Tables</h1>
+
+					<hr />
+
+					<p>Tables aren't part of the core Markdown spec, but they are part of GFM and Markdown Here supports them. They are an easy way of adding tables to your email -- a task that would otherwise require copy-pasting from another application.</p>
+
+					<p>Markdown:</p>
+
+					<pre wrap='on'>Colons can be used to align columns.<br /><br />| Tables        | Are           | Cool  |<br />| ------------- |:-------------:| -----:|<br />| col 3 is      | right-aligned | $1600 |<br />| col 2 is      | centered      |   $12 |<br />| zebra stripes | are neat      |    $1 |<br /><br />The outer pipes (|) are optional, and you don't need to make the raw Markdown line up prettily. You can also use inline Markdown.<br /><br />Markdown | Less | Pretty<br />--- | --- | ---<br />*Still* | `renders` | **nicely**<br />1 | 2 | 3</pre>
+
+					<p>Output:</p>
+
+					<pre wrap='on'>&lt;table&gt;<br />&lt;thead&gt;&lt;tr&gt;<br />&lt;th&gt;Tables&lt;/th&gt;<br />&lt;th align=&quot;center&quot;&gt;Are&lt;/th&gt;<br />&lt;th align=&quot;right&quot;&gt;Cool&lt;/th&gt;<br />&lt;/tr&gt;&lt;/thead&gt;<br />&lt;tbody&gt;<br />&lt;tr&gt;<br />&lt;td&gt;col 3 is&lt;/td&gt;<br />&lt;td align=&quot;center&quot;&gt;right-aligned&lt;/td&gt;<br />&lt;td align=&quot;right&quot;&gt;$1600&lt;/td&gt;<br />&lt;/tr&gt;<br />&lt;tr&gt;<br />&lt;td&gt;col 2 is&lt;/td&gt;<br />&lt;td align=&quot;center&quot;&gt;centered&lt;/td&gt;<br />&lt;td align=&quot;right&quot;&gt;$12&lt;/td&gt;<br />&lt;/tr&gt;<br />&lt;tr&gt;<br />&lt;td&gt;zebra stripes&lt;/td&gt;<br />&lt;td align=&quot;center&quot;&gt;are neat&lt;/td&gt;<br />&lt;td align=&quot;right&quot;&gt;$1&lt;/td&gt;<br />&lt;/tr&gt;<br />&lt;/tbody&gt;<br />&lt;/table&gt;<br /><br />&lt;p&gt;Colons can be used to align columns. The outer pipes (|) are optional, and you don't need to make the raw Markdown line up prettily. You can also use inline Markdown.&lt;/p&gt;<br /><br />&lt;table&gt;<br />&lt;thead&gt;&lt;tr&gt;<br />&lt;th&gt;Markdown&lt;/th&gt;<br />&lt;th&gt;Less&lt;/th&gt;<br />&lt;th&gt;Pretty&lt;/th&gt;<br />&lt;/tr&gt;&lt;/thead&gt;<br />&lt;tbody&gt;<br />&lt;tr&gt;<br />&lt;td&gt;&lt;em&gt;Still&lt;/em&gt;&lt;/td&gt;<br />&lt;td&gt;&lt;code&gt;renders&lt;/code&gt;&lt;/td&gt;<br />&lt;td&gt;&lt;strong&gt;nicely&lt;/strong&gt;&lt;/td&gt;<br />&lt;/tr&gt;<br />&lt;tr&gt;<br />&lt;td&gt;1&lt;/td&gt;<br />&lt;td&gt;2&lt;/td&gt;<br />&lt;td&gt;3&lt;/td&gt;<br />&lt;/tr&gt;<br />&lt;/tbody&gt;<br />&lt;/table&gt;</pre>
+
+					<h1 id='mdanchor_blockquotes'>Blockquotes</h1>
+
+					<hr />
+
+					<p>Markdown:</p>
+
+					<pre wrap='on'>&gt; Blockquotes are very handy in email to emulate reply text.<br />&gt; This line is part of the same quote.<br /><br />Quote break.<br /><br />&gt; This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can *put* **Markdown** into a blockquote.</pre>
+
+					<p>Output:</p>
+
+					<pre wrap='on'>&lt;blockquote&gt;<br />&lt;p&gt;Blockquotes are very handy in email to emulate reply text.<br />This line is part of the same quote.&lt;/p&gt;<br />&lt;/blockquote&gt;<br /><br />&lt;p&gt;Quote break.&lt;/p&gt;<br /><br />&lt;blockquote&gt;<br />&lt;p&gt;This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can &lt;em&gt;put&lt;/em&gt; &lt;strong&gt;Markdown&lt;/strong&gt; into a blockquote. &lt;/p&gt;<br />&lt;/blockquote&gt;</pre>
+
+					<h1 id='mdanchor_html'>Inline HTML</h1>
+
+					<hr />
+
+					<p>Markdown’s syntax is intended for one purpose: to be used as a format for writing for the web.</p>
+
+					<p>Markdown is not a replacement for HTML, or even close to it. Its syntax is very small, corresponding only to a very small subset of HTML tags. The idea is not to create a syntax that makes it easier to insert HTML tags. In my opinion, HTML tags are already easy to insert. The idea for Markdown is to make it easy to read, write, and edit prose. HTML is a publishing format; Markdown is a writing format. Thus, Markdown’s formatting syntax only addresses issues that can be conveyed in plain text.</p>
+
+					<p>For any markup that is not covered by Markdown’s syntax, you simply use HTML itself. There’s no need to preface it or delimit it to indicate that you’re switching from Markdown to HTML; you just use the tags.</p>
+
+					<p>The only restrictions are that block-level HTML elements — e.g. &lt;div&gt;, &lt;table&gt;, &lt;pre&gt;, &lt;p&gt;, etc. — must be separated from surrounding content by blank lines, and the start and end tags of the block should not be indented with tabs or spaces. Markdown is smart enough not to add extra (unwanted) &lt;p&gt; tags around HTML block-level tags.</p>
+
+					<p>For example, to add an HTML table to a Markdown article:</p>
+
+					<pre wrap='on'>This is a regular paragraph.<br /><br />&lt;table&gt;<br />	&lt;tr&gt;<br />		&lt;td&gt;Foo&lt;/td&gt;<br />	&lt;/tr&gt;<br />&lt;/table&gt;<br /><br />This is another regular paragraph.</pre>
+
+					<p>Note that Markdown formatting syntax is not processed within block-level HTML tags. E.g., you can’t use Markdown-style *emphasis* inside an HTML block.</p>
+
+					<p>Span-level HTML tags — e.g. &lt;span&gt;, &lt;cite&gt;, or &lt;del&gt; — can be used anywhere in a Markdown paragraph, list item, or header. If you want, you can even use HTML tags instead of Markdown formatting; e.g. if you’d prefer to use HTML &lt;a&gt; or &lt;img&gt; tags instead of Markdown’s link or image syntax, go right ahead.</p>
+
+					<p>Unlike block-level HTML tags, Markdown syntax is processed within span-level tags.</p>
+
+					<h1 id='mdanchor_hr'>Horizontal Rule</h1>
+
+					<hr />
+
+					<p>Markdown:</p>
+
+					<pre>Three or more...<br /><br />---<br /><br />Hyphens<br /><br />***<br /><br />Asterisks<br /><br />___<br /><br />Underscores</pre>
+
+					<p>Output:</p>
+
+					<pre>&lt;p&gt;Three or more...&lt;/p&gt;<br />&lt;hr&gt;<br />&lt;p&gt;Hyphens&lt;/p&gt;<br />&lt;hr&gt;<br />&lt;p&gt;Asterisks&lt;/p&gt;<br />&lt;hr&gt;<br />&lt;p&gt;Underscores&lt;/p&gt;</pre>
+
+					<h1 id='mdanchor_br'>Line Breaks</h1>
+
+					<hr />
+
+					<p>Enter two whitespaces at the and of a line:</p>
+
+					<pre wrap='on'>This is a simple line.<br />And this text is in the same line and in the same paragraph!<br /><br />Here's a line for us to start with.<br /><br />This line is separated from the one above by two newlines, so it will be a *separate paragraph*.<br /><br />This line is also a separate paragraph, but with two whitespace at the end  <br />This line is only separated by a single newline, so it's a separate line in the *same paragraph*.</pre>
+
+					<p>Output:</p>
+
+					<pre wrap='on'>&lt;p&gt;This is a simple line.<br />And this text is in the same line and in the same paragraph!&lt;/p&gt;<br /><br />&lt;p&gt;Here's a line for us to start with.&lt;/p&gt;<br /><br />&lt;p&gt;This line is separated from the one above by two newlines, so it will be a *separate paragraph*.&lt;/p&gt;<br /><br />&lt;p&gt;This line is also a separate paragraph, but with two whitespace at the end&lt;br /&gt;<br />This line is only separated by a single newline, so it's a separate line in the *same paragraph*.&lt;/p&gt;</pre>
+
+					<h1 id='mdanchor_youtube'>YouTube Videos</h1>
+
+					<hr />
+
+					<p>They can't be added directly but you can add an image with a link to the video like this:</p>
+
+					<pre wrap='on'>&lt;a href=&quot;http://www.youtube.com/watch?feature=player_embedded&v=<span style='color: red;'>YOUTUBE_VIDEO_ID_HERE</span>&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;http://img.youtube.com/vi/<span style='color: red;'>YOUTUBE_VIDEO_ID_HERE</span>/0.jpg&quot; alt=&quot;IMAGE ALT TEXT HERE&quot; width=&quot;240&quot; height=&quot;180&quot; border=&quot;10&quot; /&gt;&lt;/a&gt;</pre>
+
+					<p>Or, in pure Markdown, but losing the image sizing and border:</p>
+
+					<pre wrap='on'>[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/<span style='color: red;'>YOUTUBE_VIDEO_ID_HERE</span>/0.jpg)](http://www.youtube.com/watch?v=<span style='color: red;'>YOUTUBE_VIDEO_ID_HERE</span>)</pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

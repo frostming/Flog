@@ -1,0 +1,6 @@
+<div class="social-links d-flex">
+  {% for item in site.sociallinks %}
+  <a href="{{item.link}}" class="social-item" title="{{item.name}}"><i class="fa fa-fw fa-{%if item.icon %}{{item.icon}}{% else %}globe{%endif%}"></i></a>
+  {% endfor %}
+  <a href="{{url_for('feed')}}" class="social-item" title="RSS"><i class="fa fa-fw fa-rss"></i></a>
+</div>

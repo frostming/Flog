@@ -1,0 +1,130 @@
+{
+	"button": {
+		"save": "Save",
+		"reset": "Delete",
+		"cancel": "Cancel",
+		"table": "Table",
+		"quotation": "Quotation",
+		"anchor": "Anchor",
+		"hr": "Horizontal Rule",
+		"youtube": "YouTube Video",
+		"code": "Code",
+		"mail": "E-Mail Address",
+		"phone": "Phone Number",
+		"attachment": "Attachment",
+		"header": "Header",
+		"bold": "Bold",
+		"italic": "Italic",
+		"underline": "Underline",
+		"strikethrough": "Strikethrough",
+		"olist": "Ordered List",
+		"ulist": "Unordered List",
+		"hyperlink": "Hyperlink",
+		"unlink": "Unlink",
+		"image": "Image",
+		"preview": "Preview",
+		"help": "Help",
+		"frame": {
+			"cancel": "Cancel",
+			"insert": "Insert"
+		}
+	},
+	"label": {
+		"wordCounter": "Words"
+	},
+	"message": {
+		"preview": {
+			"empty": "You haven't written anything yet!"
+		},
+		"attachment": {
+			"error": {
+				"max": "The selected file is to large!",
+				"not": "This file type is not allowed!",
+				"unknown": "An unknown error has occurred!"
+			},
+			"createdir": {
+				"text": "Directory name",
+				"default": "New folder"
+			},
+			"rename": "New filename"
+		},
+		"error": "Please check your internet connection!"
+	},
+	"tooltip": {
+		"close": "Close",
+		"insert": "Click to insert",
+		"sethyperlink": "Click to create a hyperlink to"
+	},
+	"source": {
+		"placeholder": {
+			"table": {
+				"rows": "Number of rows...",
+				"columns": "Number of columns..."
+			},
+			"anchor": {
+				"name": "Anchor name..."
+			},
+			"youtube": {
+				"id": "YouTube Video ID..."
+			},
+			"mail": {
+				"mail": "E-Mail address..."
+			},
+			"phone": {
+				"number": "Phone number or Skype name..."
+			},
+			"hyperlink": {
+				"href": "Link url...",
+				"text": "Link text..."
+			},
+			"image": {
+				"src": "Image url...",
+				"alt": "Alternative text..."
+			}
+		},
+		"label": {
+			"table": {
+				"title": "Insert Table"
+			},
+			"anchor": {
+				"title": "Insert Anchor",
+				"reference": "Link to anchor"
+			},
+			"youtube": {
+				"title": "Insert YouTube Video"
+			},
+			"mail": {
+				"title": "Insert E-Mail Address"
+			},
+			"phone": {
+				"title": "Insert Phone Number"
+			},
+			"hyperlink": {
+				"title": "Insert Hyperlink"
+			},
+			"image": {
+				"title": "Insert Image"
+			},
+			"attachment": {
+				"title": "Attachment",
+				"fileupload": "Upload file",
+				"empty": "Currently there are no files!",
+				"upload": "Upload file",
+				"createdir": "Create directory",
+				"rename": "Rename",
+				"deleteall": "Delete files",
+				"directories": "Directories",
+				"images": "Images",
+				"audio": "Audio files",
+				"videos": "Videos",
+				"word": "Word documents",
+				"excel": "Excel workbooks",
+				"powerpoint": "PowerPoint presentations",
+				"pdf": "PDF files",
+				"code": "Code files",
+				"archives": "Archives",
+				"other": "Other files"
+			}
+		}
+	}
+}

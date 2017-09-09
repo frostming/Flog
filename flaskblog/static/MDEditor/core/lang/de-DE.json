@@ -1,0 +1,130 @@
+{
+	"button": {
+		"save": "Speichern",
+		"reset": "Alles zurücksetzen",
+		"cancel": "Abbrechen",
+		"table": "Tabelle",
+		"quotation": "Zitat",
+		"anchor": "Anker",
+		"hr": "Horizontale Linie",
+		"youtube": "YouTube Video",
+		"code": "Code",
+		"mail": "E-Mail Adresse",
+		"phone": "Telefonnummer",
+		"attachment": "Anhang",
+		"header": "Überschrift",
+		"bold": "Fett",
+		"italic": "Kursiv",
+		"underline": "Unterstrichen",
+		"strikethrough": "Durchgestrichen",
+		"olist": "Nummerierte Liste",
+		"ulist": "Unnummerierte Liste",
+		"hyperlink": "Hyperlink",
+		"unlink": "Hyperlink entfernen",
+		"image": "Bild",
+		"preview": "Vorschau",
+		"help": "Hilfe",
+		"frame": {
+			"cancel": "Abbrechen",
+			"insert": "Einfügen"
+		}
+	},
+	"label": {
+		"wordCounter": "Wörter"
+	},
+	"message": {
+		"preview": {
+			"empty": "Sie haben noch nichts geschrieben!"
+		},
+		"attachment": {
+			"error": {
+				"max": "Die hochzuladende Datei ist zu groß!",
+				"not": "Dieser Dateityp ist nicht erlaubt!",
+				"unknown": "Ein unbekannter Fehler ist aufgetreten!"
+			},
+			"createdir": {
+				"text": "Verzeichnisname",
+				"default": "Neuer Ordner"
+			},
+			"rename": "Neuer Dateiname"
+		},
+		"error": "Bitte prüfen Sie ihre Internetverbindung!"
+	},
+	"tooltip": {
+		"close": "Schließen",
+		"insert": "Klicken zum Einfügen von",
+		"sethyperlink": "Klicken zum Erstellen einer Verlinkung zu"
+	},
+	"source": {
+		"placeholder": {
+			"table": {
+				"rows": "Anzahl der Reihen...",
+				"columns": "Anzahl der Spalten..."
+			},
+			"anchor": {
+				"name": "Anker Name..."
+			},
+			"youtube": {
+				"id": "YouTube Video ID..."
+			},
+			"mail": {
+				"mail": "E-Mail Adresse..."
+			},
+			"phone": {
+				"number": "Telefonnummer oder Skype Name..."
+			},
+			"hyperlink": {
+				"href": "Link URL...",
+				"text": "Link text..."
+			},
+			"image": {
+				"src": "Bild URL...",
+				"alt": "Alternativer text..."
+			}
+		},
+		"label": {
+			"table": {
+				"title": "Tabelle einfügen"
+			},
+			"anchor": {
+				"title": "Anker einfügen",
+				"reference": "Link zum Anker"
+			},
+			"youtube": {
+				"title": "YouTube Video einfügen"
+			},
+			"mail": {
+				"title": "E-Mail Adresse einfügen"
+			},
+			"phone": {
+				"title": "Telefonnummer einfügen"
+			},
+			"hyperlink": {
+				"title": "Hyperlink einfügen"
+			},
+			"image": {
+				"title": "Bild einfügen"
+			},
+			"attachment": {
+				"title": "Anhang",
+				"fileupload": "Datei hochladen",
+				"empty": "Zur Zeit sind keine Dateien vorhanden!",
+				"upload": "Datei hochladen",
+				"createdir": "Verzeichnis anlegen",
+				"rename": "Umbenennen",
+				"deleteall": "Dateien löschen",
+				"directories": "Verzeichnisse",
+				"images": "Bilder",
+				"audio": "Audio Dateien",
+				"videos": "Videos",
+				"word": "Word- und Textdokumente",
+				"excel": "Excel Arbeitsmappen",
+				"powerpoint": "PowerPoint Präsentationen",
+				"pdf": "PDF Dokumente",
+				"code": "Code Dateien",
+				"archives": "Archive",
+				"other": "Weitere Dateien"
+			}
+		}
+	}
+}

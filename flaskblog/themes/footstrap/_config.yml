@@ -1,0 +1,50 @@
+# footstrap theme config file
+
+
+# Site meta data
+name: Frost's Blog
+user: frostming
+description: 醉后不知天在水，满船清梦压星河。
+avatar: /assets/images/avatar.jpeg
+# twitter: yourtwittername
+
+cover_url: /assets/images/cover.jpg
+
+# CDN links
+cdn:
+  bootstrapcss: https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css
+  bootstrapjs: https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js
+
+  jquery: https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js
+  popper: https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js
+  fontawesome: https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css
+
+  moment: https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js
+
+
+navlinks:
+  - name: tags
+    url: internal
+
+  - name: about
+    url: internal
+
+  # - name: tags:
+  #   url: internal
+
+sociallinks:
+  - name: GitHub
+    icon: github
+    link: https://github.com/frostming
+
+  - name: Email
+    icon: envelope
+    link: mailto:mianghong@gmaill.com
+
+  - name: Instagram
+    icon: instagram
+    link: https://www.instagram.com/frostming90
+
+  - name: 知乎
+    icon:
+    link: https://www.zhihu.com/people/frostming

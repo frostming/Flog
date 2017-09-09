@@ -1,0 +1,50 @@
+<div style='text-align: center;'>
+	<div class='col-xs-5' style='float: none !important; margin: 0px auto !important;'>
+		<h4 data-element="MDEditor_%ELEMENTNAME%_source_hyperlink_headline"></h4>
+		<br />
+		<input type='text' class='form-control' data-element='MDEditor_%ELEMENTNAME%_source_hyperlink_input_id' />
+		<br />
+		<div class='checkbox'>
+			<label>
+				<input type='radio' name='MDEditor_optioncontainer_form_radio_name_embeddingType' value='markdown' checked='checked' data-element='MDEditor_%ELEMENTNAME%_source_hyperlink_input_text' style='display: inline;' /> Markdown
+			</label>
+		</div>
+		<div class='checkbox'>
+			<label>
+				<input type='radio' name='MDEditor_optioncontainer_form_radio_name_embeddingType' value='html' data-element='MDEditor_%ELEMENTNAME%_source_hyperlink_input_text' style='display: inline;' /> HTML
+			</label>
+		</div>
+	</div>
+</div>
+<script type='text/javascript' language='javascript'>
+	$("[data-element]").each(function () {
+		$(this).mdeditorCreateElementID();
+	});
+
+	var elementName;
+	var language;
+	elementName = mdeditor.elementName;
+	language = mdeditor.lang;
+
+	$('#MDEditor_' + elementName + '_source_hyperlink_headline').html(language.source.label.youtube.title);
+	$('#MDEditor_' + elementName + '_source_hyperlink_input_id').attr('placeholder', language.source.placeholder.youtube.id);
+
+	$('#MDEditor_' + elementName + '_body_optioncontainer_buttons_insert').off();
+	$('#MDEditor_' + elementName + '_body_optioncontainer_buttons_insert').click(function () {
+		if (typeof $('#MDEditor_' + elementName + '_source_hyperlink_input_id').val() !== undefined && $('#MDEditor_' + elementName + '_source_hyperlink_input_id').val() != '') {
+			if ($('input[name="MDEditor_optioncontainer_form_radio_name_embeddingType"]:checked').val() === 'markdown') {
+				$('#MDEditor_' + elementName + '_hiddenarea').val("[![YouTube Video](http://img.youtube.com/vi/" + $('#MDEditor_' + elementName + '_source_hyperlink_input_id').val() + "/0.jpg)](http://www.youtube.com/watch?v=" + $('#MDEditor_' + elementName + '_source_hyperlink_input_id').val() + ")");
+				mdeditorOptioncontainerInsertElement(elementName);
+			}
+
+			if ($('input[name="MDEditor_optioncontainer_form_radio_name_embeddingType"]:checked').val() === 'html') {
+				$('#MDEditor_' + elementName + '_hiddenarea').val("<iframe id=\"ytplayer\" type=\"text/html\" width=\"640\" height=\"360\" src=\"https://www.youtube.com/embed/" + $('#MDEditor_' + elementName + '_source_hyperlink_input_id').val() + "\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\">");
+				mdeditorOptioncontainerInsertElement(elementName);
+			}
+		} else {
+			$('#MDEditor_' + elementName + '_source_hyperlink_input_id').css('border', '1px solid #b10000');
+		}
+	});
+	
+	submitForm(elementName);
+</script>

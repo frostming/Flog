@@ -1,0 +1,33 @@
+<div style='text-align: center;'>
+	<div class='col-xs-5' style='float: none !important; margin: 0px auto !important;'>
+		<h4 data-element="MDEditor_%ELEMENTNAME%_source_phone_headline"></h4>
+		<br />
+		<input type='text' class='form-control' data-element='MDEditor_%ELEMENTNAME%_source_phone_input_number' />
+	</div>
+</div>
+<script type='text/javascript' language='javascript'>
+	$("[data-element]").each(function () {
+		$(this).mdeditorCreateElementID();
+	});
+
+	var elementName;
+	var language;
+	elementName = mdeditor.elementName;
+	language = mdeditor.lang;
+
+	$('#MDEditor_' + elementName + '_source_phone_headline').html(language.source.label.phone.title);
+	$('#MDEditor_' + elementName + '_source_phone_input_number').attr('placeholder', language.source.placeholder.phone.number);
+	$('#MDEditor_' + elementName + '_source_phone_input_number').val($('#MDEditor_' + elementName + '_body_edit_textarea').textrange().text);
+
+	$('#MDEditor_' + elementName + '_body_optioncontainer_buttons_insert').off();
+	$('#MDEditor_' + elementName + '_body_optioncontainer_buttons_insert').click(function () {
+		if (typeof $('#MDEditor_' + elementName + '_source_phone_input_number').val() !== undefined && $('#MDEditor_' + elementName + '_source_phone_input_number').val() != '') {
+			$('#MDEditor_' + elementName + '_hiddenarea').val("[" + $('#MDEditor_' + elementName + '_source_phone_input_number').val() + "](callto:" + $('#MDEditor_' + elementName + '_source_phone_input_number').val().replace('/', '').replace(/\s/g, '') + ")");
+			mdeditorOptioncontainerInsertElement(elementName);
+		} else {
+			$('#MDEditor_' + elementName + '_source_phone_input_number').css('border', '1px solid #b10000');
+		}
+	});
+	
+	submitForm(elementName);
+</script>

@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+
+{% block mainbody %}
+{% block nav %}
+<nav class="navbar fixed-top navbar-expand-lg {% block navstyle %}navbar-light{% endblock %} {% block extclass %}{% endblock %}">
+  {% include '_partials/nav.html' %}
+</nav>
+{% endblock %}
+
+
+<div class="main {{ self.extclass() }}" role="main" itemscope itemtype="http://schema.org/Article">
+  <meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{request.url}}">
+  {% block pagehead %}{% endblock %}
+  {% block pagecontent %}{% endblock %}
+  {% block additional %}{% endblock %}
+</div>
+{% endblock %}

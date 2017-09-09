@@ -1,0 +1,121 @@
+{
+	"button": {
+		"save": "Guardar",
+		"reset": "Restablecer todo",
+		"cancel": "Abortar",
+		"table": "Tabla",
+		"quotation": "Cita",
+		"anchor": "Ancla",
+		"hr": "Línea Horizontal",
+		"youtube": "YouTube vídeo",
+		"code": "Código",
+		"mail": "Dirección de correo electrónico",
+		"phone": "Número telefónico",
+		"attachment": "Apéndice",
+		"header": "Título",
+		"bold": "Audaz",
+		"italic": "Itálico",
+		"underline": "Subrayar",
+		"strikethrough": "Tachado",
+		"olist": "Lista numerada",
+		"ulist": "Lista",
+		"hyperlink": "Hiperenlace",
+		"unlink": "Quitar hipervínculo",
+		"image": "Imagen",
+		"preview": "Avance",
+		"help": "Ayudar",
+		"frame": {
+			"cancel": "Abortar",
+			"insert": "Inserción"
+		}
+	},
+	"label": {
+		"wordCounter": "Palabras"
+	},
+	"message": {
+		"preview": {
+			"empty": "No ha escrito nada todavía!"
+		},
+		"attachment": {
+			"error": {
+				"max": "El archivo a subir es demasiado grande!",
+				"not": "Este tipo de archivo no está permitido!",
+				"unknown": "Se ha producido un error desconocido!"
+			}
+		},
+		"error": "Por favor, compruebe su conexión a Internet!"
+	},
+	"tooltip": {
+		"close": "Cierre",
+		"insert": "Haga clic para insertar",
+		"sethyperlink": "Haga clic en para crear un enlace"
+	},
+	"source": {
+		"placeholder": {
+			"table": {
+				"rows": "Número de filas...",
+				"columns": "Número de columnas..."
+			},
+			"anchor": {
+				"name": "Nombre del Ancla..."
+			},
+			"youtube": {
+				"id": "ID del YouTube vídeo..."
+			},
+			"mail": {
+				"mail": "Dirección de correo electrónico..."
+			},
+			"phone": {
+				"number": "Número de teléfono o el nombre de Skype..."
+			},
+			"hyperlink": {
+				"href": "Enlace URL...",
+				"text": "Texto del enlace..."
+			},
+			"image": {
+				"src": "URL de la imagen...",
+				"alt": "Texto alternativo..."
+			}
+		},
+		"label": {
+			"table": {
+				"title": "Insertar Tabla"
+			},
+			"anchor": {
+				"title": "Añadir Anchor",
+				"reference": "Enlace para anclar"
+			},
+			"youtube": {
+				"title": "YouTube Video incrustar"
+			},
+			"mail": {
+				"title": "Introduzca la dirección de correo electrónico"
+			},
+			"phone": {
+				"title": "Introduzca el número de teléfono"
+			},
+			"hyperlink": {
+				"title": "Insertar hipervínculo"
+			},
+			"image": {
+				"title": "Insertar imagen"
+			},
+			"attachment": {
+				"title": "Apéndice",
+				"fileupload": "Subir un archivo",
+				"empty": "Actualmente no hay archivos!",
+				"deleteall": "Elimine todos los archivos",
+				"images": "Imagen",
+				"audio": "Los archivos de audio",
+				"videos": "Vídeos",
+				"word": "Documentos de Word y de texto",
+				"excel": "Libros de Excel",
+				"powerpoint": "Presentaciones en PowerPoint",
+				"pdf": "Documentos PDF",
+				"code": "Los archivos de código",
+				"archives": "Archivo",
+				"other": "Más archivos"
+			}
+		}
+	}
+}

@@ -1,0 +1,121 @@
+{
+	"button": {
+		"save": "保存",
+		"reset": "すべてをリセット",
+		"cancel": "中止",
+		"table": "テーブル",
+		"quotation": "引用",
+		"anchor": "アンカー",
+		"hr": "水平線",
+		"youtube": "YouTube ビデオ",
+		"code": "コード",
+		"mail": "E-mail アドレス",
+		"phone": "電話番号",
+		"attachment": "付録",
+		"header": "見出し",
+		"bold": "大胆な",
+		"italic": "イタリック",
+		"underline": "下線",
+		"strikethrough": "三振",
+		"olist": "番号付きリスト",
+		"ulist": "番号なしリスト",
+		"hyperlink": "ハイパーリンク",
+		"unlink": "ハイパーリンクを削除する",
+		"image": "画像",
+		"preview": "プレビュー",
+		"help": "助け",
+		"frame": {
+			"cancel": "中止",
+			"insert": "挿入"
+		}
+	},
+	"label": {
+		"wordCounter": "言葉"
+	},
+	"message": {
+		"preview": {
+			"empty": "あなたはまだ何も書いていません！"
+		},
+		"attachment": {
+			"error": {
+				"max": "アップロードするファイルが大きすぎます！",
+				"not": "このファイルタイプは許可されていません！",
+				"unknown": "不明なエラーが発生しました！"
+			}
+		},
+		"error": "インターネット接続をチェックしてください！"
+	},
+	"tooltip": {
+		"close": "決算",
+		"insert": "挿入するためにクリック",
+		"sethyperlink": "リンクを作成するためにクリック"
+	},
+	"source": {
+		"placeholder": {
+			"table": {
+				"rows": "行の数...",
+				"columns": "列数..."
+			},
+			"anchor": {
+				"name": "アンカー名..."
+			},
+			"youtube": {
+				"id": "YouTube ビデオ識別番号..."
+			},
+			"mail": {
+				"mail": "メールアドレス..."
+			},
+			"phone": {
+				"number": "電話番号または Skype 名..."
+			},
+			"hyperlink": {
+				"href": "リンク先 URL...",
+				"text": "リンクテキスト..."
+			},
+			"image": {
+				"src": "画像の URL...",
+				"alt": "代替テキスト..."
+			}
+		},
+		"label": {
+			"table": {
+				"title": "表を挿入"
+			},
+			"anchor": {
+				"title": "アンカーを追加",
+				"reference": "アンカーへのリンク"
+			},
+			"youtube": {
+				"title": "YouTube のビデオを埋め込む"
+			},
+			"mail": {
+				"title": "メールアドレスを入力してください"
+			},
+			"phone": {
+				"title": "電話番号を挿入する"
+			},
+			"hyperlink": {
+				"title": "ハイパーリンクの挿入"
+			},
+			"image": {
+				"title": "画像を挿入"
+			},
+			"attachment": {
+				"title": "付録",
+				"fileupload": "ファイルをアップロード",
+				"empty": "現在、ファイルはありません！",
+				"deleteall": "すべてのファイルを削除します。",
+				"images": "写真",
+				"audio": "オーディオファイル",
+				"videos": "動画",
+				"word": "Word 文書やテキスト文書",
+				"excel": "Excel ブック",
+				"powerpoint": "PowerPoint プレゼンテーション",
+				"pdf": "PDF ドキュメント",
+				"code": "コードファイル",
+				"archives": "アーカイブ",
+				"other": "複数のファイル"
+			}
+		}
+	}
+}

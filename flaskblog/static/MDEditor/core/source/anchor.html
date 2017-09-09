@@ -1,0 +1,52 @@
+<div style='text-align: center;'>
+	<div class='col-xs-5' style='float: none !important; margin: 0px auto !important;'>
+		<h4 data-element="MDEditor_%ELEMENTNAME%_source_anchor_headline"></h4>
+		<br />
+		<input type='text' class='form-control' data-element='MDEditor_%ELEMENTNAME%_source_anchor_input_name' />
+		<br />
+		<p>
+			<span data-element='MDEditor_%ELEMENTNAME%_source_anchor_reference'></span>:
+			<br />
+			<div style='padding-top: 5px; padding-bottom: 5px; overflow: auto; border: 1px solid #cccccc;'>
+				<code>
+					[Link to Anchor](#<span data-element='MDEditor_%ELEMENTNAME%_source_anchor_reference_preview'></span>)
+				</code>
+			</div>
+		</p>
+	</div>
+</div>
+<script type='text/javascript' language='javascript'>
+	$("[data-element]").each(function () {
+		$(this).mdeditorCreateElementID();
+	});
+
+	var elementName;
+	var language;
+	elementName = mdeditor.elementName;
+	language = mdeditor.lang;
+
+	$('#MDEditor_' + elementName + '_source_anchor_headline').html(language.source.label.anchor.title);
+	$('#MDEditor_' + elementName + '_source_anchor_reference').html(language.source.label.anchor.reference);
+	$('#MDEditor_' + elementName + '_source_anchor_input_name').attr('placeholder', language.source.placeholder.anchor.name);
+	$('#MDEditor_' + elementName + '_source_anchor_input_name').val($('#MDEditor_' + elementName + '_body_edit_textarea').textrange().text);
+
+	$('#MDEditor_' + elementName + '_source_anchor_input_name').off();
+	$('#MDEditor_' + elementName + '_source_anchor_input_name').keyup(function () {
+		$('#MDEditor_' + elementName + '_source_anchor_reference_preview').html(encodeURIComponent($('#MDEditor_' + elementName + '_source_anchor_input_name').val().replace(/\s/g, '')));
+	});
+	$('#MDEditor_' + elementName + '_source_anchor_input_name').change(function () {
+		$('#MDEditor_' + elementName + '_source_anchor_reference_preview').html(encodeURIComponent($('#MDEditor_' + elementName + '_source_anchor_input_name').val().replace(/\s/g, '')));
+	});
+
+	$('#MDEditor_' + elementName + '_body_optioncontainer_buttons_insert').off();
+	$('#MDEditor_' + elementName + '_body_optioncontainer_buttons_insert').click(function () {
+		if (typeof $('#MDEditor_' + elementName + '_source_anchor_input_name').val() !== undefined && $('#MDEditor_' + elementName + '_source_anchor_input_name').val() != '') {
+			$('#MDEditor_' + elementName + '_hiddenarea').val("<a name='" + $('#MDEditor_' + elementName + '_source_anchor_input_name').val().replace(/\s/g, '') + "'></a> " + $('#MDEditor_' + elementName + '_source_anchor_input_name').val());
+			mdeditorOptioncontainerInsertElement(elementName);
+		} else {
+			$('#MDEditor_' + elementName + '_source_anchor_input_name').css('border', '1px solid #b10000');
+		}
+	});
+	
+	submitForm(elementName);
+</script>
