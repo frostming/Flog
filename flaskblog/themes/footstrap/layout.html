@@ -25,10 +25,7 @@
   {% endblock %}
 
   {% block scripts %}
-    <script src="{{ site.cdn.jquery }}" crossorgin="anonymous"></script>
-    <script src="{{ site.cdn.popper }}" crossorgin="anonymous"></script>
-    <script src="{{ site.cdn.bootstrapjs }}" crossorgin="anonymous"></script>
-    {{ moment.include_moment(local_js=site.cdn.moment) }}
+    {% include '_partials/scripts.html' %}
   {% endblock %}
   {% block extrajs %}{% endblock %}
 </body>

@@ -7,7 +7,7 @@
 <div class="collapse navbar-collapse align-items-center justify-content-between" id="navbarNavAltMarkup">
   <div class="navbar-nav">
     {% for item in site.navlinks %}
-      <a href="{%-if item.url == 'internal' %}{{url_for(item['name'].lower())}}{%-else %}{{item.url}}{%endif%}" class="nav-item nav-link">{{item.name|title}}</a>
+      <a href="{%-if item.url == 'internal' %}{{url_for(item['name'].lower())}}{%-else %}{{item.url}}{%endif%}" class="nav-item nav-link">{{_(item.name)|title}}</a>
     {% endfor %}
   </div>
   {% include '_partials/social_links.html' %}

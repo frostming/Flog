@@ -1,0 +1,28 @@
+{% macro render_posts(posts) %}
+  {% for post in posts %}
+  <div class="post-info d-flex align-items-center justify-content-between" data-type="article">
+    <div flex="1">
+      <div class="post-meta">
+        <time datetime="{{post.date}}">{{ moment(post.date).format('ll') }}</time>
+      </div>
+      <div class="post-item-content">
+        <a href="{{post.url}}">
+          <h3 class="post-item-title">{{post.title}}</h3>
+        </a>
+        {% if post.description %}
+        <a href="{{post.url}}">
+          <p class="post-item-subtitle lead">{{post.description}}</p>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+    {% if post.image %}
+      <div class="post-item-image">
+        <a href="{{post.url}}">
+          <img src="{{post.image}}" alt="{{post.title}}">
+        </a>
+      </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+{% endmacro %}

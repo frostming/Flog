@@ -7,6 +7,7 @@ import io
 from .md import md
 from .models import Post, Tag
 from urllib.parse import urljoin
+from .utils import get_tag_cloud
 
 
 @app.route('/')
@@ -17,7 +18,8 @@ def home():
 @app.route('/blog')
 @app.route('/blog/page/<int:page>')
 def blog(page=None):
-    posts = Post.query.order_by(Post.date.desc()).paginate(page, 10)
+    posts = Post.query.order_by(Post.date.desc())\
+        .paginate(page, app.config['BLOG_PER_PAGE'])
     # return posts
     return render_template('blog.html', posts=posts)
 
@@ -38,14 +40,14 @@ def about():
 
 
 @app.route('/tags')
-def tags():
-    return
-
-
-@app.route('/tag/<text>')
-def tag(text):
-    tag = Tag.query.filter_by(url=request.path).first_or_404()
-    return
+@app.route('/tags#<text>')
+def tags(text=None):
+    if not text:
+        tag = None
+    else:
+        tag = Tag.query.filter_by(url=request.path).first_or_404()
+    tag_cloud = get_tag_cloud()
+    return render_template('tags.html', stag=tag, tag_cloud=tag_cloud)
 
 
 @app.route('/favicon.ico')

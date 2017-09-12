@@ -34,8 +34,8 @@ def createadmin(username, email, password):
 
 @app.cli.command()
 @click.argument('folder', type=click.Path(exists=True))
-def importfile(folder):
-    """Input a folder of markdown files to import to Floag"""
+def imp(folder):
+    """Input a folder of markdown files to import as posts"""
     def _import_file(filepath):
         if not filepath.endswith('.md') and not filepath.endswith('.markdown'):
             return
@@ -57,3 +57,26 @@ def importfile(folder):
         for filename in os.listdir(folder):
             full_fp = os.path.join(folder, filename)
             _import_file(full_fp)
+
+
+@app.cli.command()
+@click.option('-o', '--output', type=click.Path(file_okay=False))
+def exp(output):
+    """Export all the posts to markdown files, including post meta"""
+    if not output:
+        output = '.'
+    if not os.path.exists(output):
+        os.mkdir(output)
+    cwd = os.getcwd()
+    os.chdir(output)
+    for post in Post.query:
+        meta = post.to_dict()
+        filename = meta.pop('url').rsplit('/', 1)[-1] + '.md'
+        content = meta.pop('content')
+        container = io.StringIO()
+        yaml.dump(meta, container, allow_unicode=True)
+        with open(filename, 'w', encoding='utf-8') as fp:
+            fp.write('---\n' + container.getvalue().rstrip() +
+                     '\n---\n\n' + content)
+        click.echo('Writing to file %s' % os.path.join(output, filename))
+    os.chdir(cwd)

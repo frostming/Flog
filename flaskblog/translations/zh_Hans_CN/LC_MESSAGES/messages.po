@@ -1,0 +1,55 @@
+# Chinese (Simplified, China) translations for PROJECT.
+# Copyright (C) 2017 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2017-09-10 12:49+0800\n"
+"PO-Revision-Date: 2017-09-10 11:03+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_Hans_CN\n"
+"Language-Team: zh_Hans_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.0\n"
+
+#: themes/footstrap/blog.html:48
+msgid "Newer Posts"
+msgstr "较新文章"
+
+#: themes/footstrap/blog.html:52
+msgid "Older Posts"
+msgstr "较旧文章"
+
+#: themes/footstrap/index.html:14
+msgid "Blog"
+msgstr "博客"
+
+#: themes/footstrap/index.html:17
+msgid "About"
+msgstr "关于"
+
+#: themes/footstrap/index.html:20
+msgid "Resume"
+msgstr "简历"
+
+#: themes/footstrap/post.html:27
+msgid "TABLE OF CONTENTS"
+msgstr "目录"
+
+#: themes/footstrap/post.html:55
+msgid "Last edited"
+msgstr "最后编辑于"
+
+#: themes/footstrap/_partials/footer.html:2
+msgid "Copyright"
+msgstr "版权所有"
+
+
+msgid "Tags"
+msgstr "标签"

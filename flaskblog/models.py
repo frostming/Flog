@@ -4,6 +4,7 @@ from datetime import datetime
 from slugify import slugify
 from flask import url_for
 from sqlalchemy import event
+from random import sample
 
 
 tags = db.Table(
@@ -24,8 +25,8 @@ class Post(db.Model):
     comment = db.Column(db.Boolean, default=True)
     description = db.Column(db.String(400))
     author = db.Column(db.String(50))
-    tags = db.relationship('Tag', secondary=tags, lazy='subquery',
-                           backref=db.backref('posts', lazy=True))
+    tags = db.relationship('Tag', secondary=tags,
+                           backref=db.backref('posts'))
     url = db.Column(db.String(100))
     category = db.Column(db.String(50), db.ForeignKey('category.text'))
 
@@ -59,14 +60,14 @@ class Post(db.Model):
             comment=self.comment,
             description=self.description,
             author=self.author,
-            tags=self.tags,
+            tags=[tag.text for tag in self.tags],
             url=self.url,
             content=self.content,
-            last_modified=self.last_modified
+            last_modified=self.last_modified,
         )
 
     def __repr__(self):
-        return self.title
+        return '<Post: %s>' % self.title
 
     @property
     def previous(self):
@@ -77,6 +78,12 @@ class Post(db.Model):
     def next(self):
         return Post.query.order_by(Post.id.asc())\
             .filter(Post.id > self.id).first()
+
+    def related_post(self, maxnum=1):
+        posts = Post.query.join(Post.tags)\
+                          .filter(Tag.text.in_([tag.text for tag in self.tags]))
+        num = min(posts.count(), maxnum)
+        return sample(posts.all(), num)
 
 
 @event.listens_for(Post, 'before_insert')
@@ -120,6 +127,10 @@ class Tag(db.Model):
 
     def __repr__(self):
         return self.text
+
+    @property
+    def heat(self):
+        return self.posts.count()
 
 
 class Category(db.Model):

@@ -1,4 +1,5 @@
 import re
+from slugify import slugify
 from mistune_contrib import toc
 from mistune import escape, escape_link
 from mistune import BlockLexer, Renderer
@@ -61,6 +62,15 @@ class FlogRenderer(toc.TocMixin, Renderer):
             self.plugins[name] = func
             return func
 
+    def header(self, text, level, raw=None):
+        link = slugify(text)
+        rv = '<h%d id="%s">%s</h%d>\n' % (
+            level, link, text, level
+        )
+        self.toc_tree.append((link, text, level, raw))
+        self.toc_count += 1
+        return rv
+
     def image(self, src, title, text):
         src = escape_link(src)
         text = escape(text, quote=True)
@@ -109,18 +119,22 @@ class FlogRenderer(toc.TocMixin, Renderer):
                 # based on first level
                 first_level = l
                 last_level = l
-                yield '<a class="list-group-item" href="#toc-%d">%s</a>\n' % (index, text)
+                yield '<a class="list-group-item" href="#%s">%s</a>\n' \
+                    % (index, text)
             elif last_level == l:
-                yield '<a class="list-group-item" href="#toc-%d">%s</a>\n' % (index, text)
+                yield '<a class="list-group-item" href="#%s">%s</a>\n' \
+                    % (index, text)
             elif last_level == l - 1:
                 last_level = l
-                yield '<div class="list-group">\n<a class="list-group-item" href="#toc-%d">%s</a>\n' % (index, text)
+                yield '<div class="list-group">\n<a class="list-group-item"'\
+                    ' href="#%s">%s</a>\n' % (index, text)
             elif last_level > l:
                 # close indention
                 while last_level > l:
                     yield '</div>\n'
                     last_level -= 1
-                yield '<a class="list-group-item" href="#toc-%d">%s</a>\n' % (index, text)
+                yield '<a class="list-group-item" href="#%s">%s</a>\n' \
+                    % (index, text)
 
         # close tags
         while last_level > first_level:

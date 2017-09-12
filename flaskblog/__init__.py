@@ -3,6 +3,7 @@ from flask_blogtheme import BlogTheme
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_moment import Moment
+from flask_babel import Babel
 import os
 import os.path as op
 from .md import md
@@ -17,6 +18,7 @@ BlogTheme(app, theme_folder='themes')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 moment = Moment(app)
+babel = Babel(app)
 blog_folder = os.path.join(app.root_path, '_posts')
 
 

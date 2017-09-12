@@ -9,10 +9,25 @@
 {% endblock %}
 
 
-<div class="main {{ self.extclass() }}" role="main" itemscope itemtype="http://schema.org/Article">
+<div class="main {{ self.extclass() }}" id="main" itemscope itemtype="http://schema.org/Article">
   <meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{request.url}}">
   {% block pagehead %}{% endblock %}
-  {% block pagecontent %}{% endblock %}
+  <section role="main">
+    <div class="container-fluid d-flex justify-content-center">
+      <div class="col d-none d-lg-block">
+        {% block leftside %}
+        {% endblock %}
+      </div>
+      <div class="col-12 col-md-9 col-xl-6">
+        {% block centercontent %}
+        {% endblock %}
+      </div>
+      <div class="col d-none d-lg-block">
+        {% block rightside %}
+        {% endblock %}
+      </div>
+    </div>
+  </section>
   {% block additional %}{% endblock %}
 </div>
 {% endblock %}

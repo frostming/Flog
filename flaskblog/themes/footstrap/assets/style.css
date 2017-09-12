@@ -115,6 +115,7 @@ img.avatar {
 
 .navbar-dark a.social-item:hover{
   color: rgba(255, 255, 255, .8);
+  text-decoration: none;
 }
 
 .navbar-light .social-item {
@@ -123,6 +124,7 @@ img.avatar {
 
 .navbar-light a.social-item:hover {
   color: rgba(0, 0, 0, .8);
+  text-decoration: none;
 }
 
 .blog-head {
@@ -202,7 +204,7 @@ img.avatar {
   background-size: cover;
 }
 
-.main {
+#main {
   min-height: 80vh;
 }
 
@@ -225,4 +227,37 @@ img.avatar {
   text-decoration: none;
   color: rgba(0, 0, 0, .7);
   border-color: rgba(0, 0, 0, .7);
+}
+
+.post-tags a {
+  color: rgba(0, 0, 0, .35);
+  border-bottom: 1px rgba(0, 0, 0, .25) solid;
+  margin-left: 10px;
+  transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.post-tags a:hover {
+  text-decoration: none;
+  color: rgba(0, 0, 0, .75);
+  border-color: rgba(0, 0, 0, .75);
+}
+
+.post-tags a::before {
+  content: "# "
+}
+
+#tag-cloud a {
+  margin-bottom: 20px;
+  margin-left: 0;
+  margin-right: 30px;
+  display: inline-block;
+}
+
+#tag-cloud a.active {
+  font-weight: 600;
+}
+
+.tag-posts h2 {
+  margin-bottom: 1em;
+  color: #bcbcbc;
 }

@@ -29,8 +29,8 @@ navlinks:
   - name: about
     url: internal
 
-  # - name: tags:
-  #   url: internal
+  - name: blog
+    url: internal
 
 sociallinks:
   - name: GitHub
@@ -46,5 +46,5 @@ sociallinks:
     link: https://www.instagram.com/frostming90
 
   - name: 知乎
-    icon:
+    icon: iconfont||zhihu
     link: https://www.zhihu.com/people/frostming

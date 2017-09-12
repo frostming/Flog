@@ -38,7 +38,7 @@ class PostModelView(ModelView):
     can_view_details = True
     column_exclude_list = ['content']
     form_columns = ['content', 'title', 'description',
-                    'author', 'tags', 'image']
+                    'author', 'tags', 'image', 'layout']
     create_template = 'admin/createmodel.html'
     edit_template = 'admin/editmodel.html'
     form_widget_args = {

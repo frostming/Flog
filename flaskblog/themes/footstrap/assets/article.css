@@ -13,7 +13,7 @@
     font-size: .96em;
 }
 
-.photo figure img {
+figure img {
   margin-bottom: 0;
   cursor: pointer;
 }
@@ -216,21 +216,4 @@
 
 #totop:hover {
   color: rgba(0, 0, 0, .7);
-}
-
-.post-tags a {
-  color: rgba(0, 0, 0, .35);
-  border-bottom: 1px rgba(0, 0, 0, .25) solid;
-  margin-left: 10px;
-  transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-}
-
-.post-tags a:hover {
-  text-decoration: none;
-  color: rgba(0, 0, 0, .75);
-  border-color: rgba(0, 0, 0, .75);
-}
-
-.post-tags a::before {
-  content: "# "
 }
