@@ -1,0 +1,67 @@
+{% extends 'admin/base.html' %}
+{% import 'admin/layout.html' as layout with context -%}
+{% import 'admin/static.html' as admin_static with context %}
+
+{% block head_css %}
+  <link rel="stylesheet" href="{{ site.cdn.bootstrapcss }}">
+  <link rel="stylesheet" href="{{ site.cdn.fontawesome }}">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/select2/4.0.3/css/select2.min.css">
+  <link href="{{ admin_static.url(filename='admin/css/bootstrap3/admin.css', v='1.1.1') }}" rel="stylesheet">
+  {% if admin_view.extra_css %}
+    {% for css_url in admin_view.extra_css %}
+      <link href="{{ css_url }}" rel="stylesheet">
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
+{% block page_body %}
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3" role="navigation">
+    {% block brand %}
+      <a class="navbar-brand" href="{{ admin_view.admin.url }}">{{ admin_view.admin.name }}</a>
+    {% endblock %}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    {% block main_menu %}
+    <ul class="navbar-nav mr-auto">
+      {{ layout.menu() }}
+    </ul>
+    {% endblock %}
+    {% block menu_links %}
+    <ul class="nav navbar-nav">
+      {{ layout.menu_links() }}
+    </ul>
+    {% endblock %}
+    {% block access_control %}
+    {% endblock %}
+  </nav>
+
+  {% block messages %}
+  {{ layout.messages() }}
+  {% endblock %}
+
+  {# store the jinja2 context for form_rules rendering logic #}
+  {% set render_ctx = h.resolve_ctx() %}
+
+  {% block body %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block tail_js %}
+<script src="{{ site.cdn.jquery }}"></script>
+<script type="text/javascript">
+  $.fn.size = function () {
+    return this.length;
+  };
+</script>
+<script src="{{ site.cdn.popper }}"></script>
+<script src="{{ site.cdn.bootstrapjs }}"></script>
+<script src="{{ admin_static.url(filename='vendor/moment.min.js', v='2.9.0') }}" type="text/javascript"></script>
+<script src="https://cdn.bootcss.com/select2/4.0.2/js/select2.min.js" charset="utf-8"></script>
+{% if admin_view.extra_js %}
+  {% for js_url in admin_view.extra_js %}
+    <script src="{{ js_url }}" type="text/javascript"></script>
+  {% endfor %}
+{% endif %}
+{% endblock %}

@@ -9,7 +9,7 @@ from random import sample
 
 tags = db.Table(
     'tags',
-    db.Column('tag_text', db.String(50), db.ForeignKey('tag.text')),
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
     db.Column('post_id', db.Integer, db.ForeignKey('post.id'))
 )
 
@@ -20,15 +20,16 @@ class Post(db.Model):
     date = db.Column(db.DateTime, default=datetime.utcnow)
     last_modified = db.Column(db.DateTime, onupdate=datetime.utcnow)
     image = db.Column(db.String(400))
-    layout = db.Column(db.String(20))
+    lang = db.Column(db.String(20))
     content = db.Column(db.Text)
     comment = db.Column(db.Boolean, default=True)
     description = db.Column(db.String(400))
     author = db.Column(db.String(50))
     tags = db.relationship('Tag', secondary=tags,
-                           backref=db.backref('posts'))
+                           backref=db.backref('posts', cascade='all'),
+                           cascade='all')
     url = db.Column(db.String(100))
-    category = db.Column(db.String(50), db.ForeignKey('category.text'))
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
     def __init__(self, **kwargs):
         tags = kwargs.pop('tags', [])
@@ -36,27 +37,24 @@ class Post(db.Model):
         super(Post, self).__init__(**kwargs)
         tags_column = []
         for tag in tags:
-            tag_object = Tag.query.get(tag)
+            tag_object = Tag.query.filter_by(text=tag).first()
             if not tag_object:
                 tag_object = Tag(text=tag)
-                db.session.add(tag_object)
             tags_column.append(tag_object)
         self.tags = tags_column
         if category:
-            category_object = Category.query.get(category)
+            category_object = Category.query.filter_by(text=category).first()
             if not category_object:
                 category_object = Category(text=category)
-                db.session.add(category_object)
-            self.category = category
-        db.session.commit()
+            self.category = category_object
 
     def to_dict(self):
         return dict(
             title=self.title,
             date=self.date,
             image=self.image,
-            category=self.category,
-            layout=self.layout,
+            category=self.category.text,
+            lang=self.lang,
             comment=self.comment,
             description=self.description,
             author=self.author,
@@ -117,7 +115,8 @@ class User(db.Model):
 
 
 class Tag(db.Model):
-    text = db.Column(db.String(50), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(50))
     url = db.Column(db.String(100))
 
     def __init__(self, **kwargs):
@@ -126,7 +125,7 @@ class Tag(db.Model):
         super(Tag, self).__init__(**kwargs)
 
     def __repr__(self):
-        return self.text
+        return '<Tag: {}>'.format(self.text)
 
     @property
     def heat(self):
@@ -134,8 +133,12 @@ class Tag(db.Model):
 
 
 class Category(db.Model):
-    text = db.Column(db.String(50), primary_key=True)
-    posts = db.relationship('Post')
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(50))
+    posts = db.relationship('Post',
+                            cascade='all, delete-orphan',
+                            backref=db.backref('category',
+                                               cascade='all'))
 
     def __repr__(self):
-        return self.text
+        return '<Category: {}>'.format(self.text)

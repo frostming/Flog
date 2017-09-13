@@ -1,3 +1,4 @@
+{% if post.comment %}
 <section id="comments" class="d-flex justify-content-center">
   <div class="col-12 col-md-9 col-xl-6">
     <div id="disqus_thread"></div>
@@ -24,3 +25,4 @@ var disqus_config = function () {
 })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+{% endif %}

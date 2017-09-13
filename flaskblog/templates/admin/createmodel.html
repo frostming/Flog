@@ -1,37 +1,33 @@
 {% extends 'admin/model/create.html' %}
+{% import 'admin/lib.html' as lib with context %}
+
 {% block head %}
-  {{ super() }}
-  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='MDEditor/mdeditor.css') }}">
+<link rel="stylesheet" href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css">
+<style>
+  .CodeMirror, .CodeMirror-scroll {
+    min-height: 80vh;
+  }
+</style>
+{% endblock %}
+
+{% block navlinks %}
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+      <a class="nav-link" href="{{ return_url }}">{{ _gettext('List') }}</a>
+  </li>
+  <li class="nav-item" class="active">
+      <a class="nav-link" href="javascript:void(0)">{{ _gettext('Create') }}</a>
+  </li>
+</ul>
 {% endblock %}
 
 {% block tail %}
   {{ super() }}
-  <script src="{{ url_for('static', filename='MDEditor/mdeditor.js')}}"></script>
+  <script src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js" charset="utf-8"></script>
   <script type="text/javascript">
-    $(document).ready(function(){
-      (function(selector) {
-        var option = {
-          output: 'markdown', // choose between markdown and html
-          language: 'en-US', // language of editor
-          width: '100%', // width of editor
-          height: '550px', // height of textarea in the editor
-          specialBar: true, // includes the second (special) toolbar
-          formControl: true, // includes form submit, reset and a go back button
-          codeIcon: true, // includes button for code markup
-          headerIcon: true, // includes button for a header markup
-          helpIcon: true, // includes help button
-          preview: true, // includes preview button
-          wordCounter: true, // includes word counter
-          includeTipsy: true, // includes tipsy, if you haven't already done this
-          syntaxHighlighting: true, // activate syntax highlighting in code examples (highlight.js)
-          wordWrap: true, // wordwrap in textarea
-          theme: false, // choose a theme -> false = no theme
-          tabs: true, // activate tabs in textarea
-          lineBreaks: true, // activate line breaks in markdown (insert automatically 2 white spaces)
-        };
-        $(selector).mdeditor(option);
-      })('[data-role=mdeditor]');
+    var simplemde = new SimpleMDE({ element: $("[data-role='mdeditor']")[0] });
+    $('[data-role="select2-free"]').each(function(){
+      $(this).select2({tags: true});
     });
   </script>
 {% endblock %}

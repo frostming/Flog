@@ -1,5 +1,5 @@
 <!doctype html>
-{% from '_partials/seo.html' import seo with context %}
+{% from '_partials/helper.html' import seo with context %}
 <html lang="en" prefix="og: http://ogp.me/ns#">
 
 <head>
@@ -8,6 +8,7 @@
   <title>{% block title %}{{page.title|capitalize}}{% endblock %} | {{site.name}}</title>
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="alternate" type="application/atom+xml" title="{{site.name}} atom feed" href="{{ url_for('feed') }}">
   {{ seo(self.title()) }}
   {% include '_partials/head.html' %}
   {% block extracss %}
