@@ -4,7 +4,7 @@ click==6.7
 decorator==4.1.2
 Flask==0.12.2
 Flask-Admin==1.5.0
--e git+git@github.com:frostming/Flask-BlogTheme.git#egg=Flask_BlogTheme
+-e git+https://github.com/frostming/Flask-BlogTheme.git#egg=Flask_BlogTheme
 Flask-Migrate==2.1.1
 Flask-Moment==0.5.1
 Flask-SQLAlchemy==2.2
