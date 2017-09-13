@@ -34,3 +34,4 @@ Werkzeug==0.12.2
 WTForms==2.1
 Flask-Babel==0.11.2
 gunicorn==19.7.1
+pymysql
