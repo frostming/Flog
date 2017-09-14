@@ -1,6 +1,6 @@
 Flask==0.12.2
 Flask-Admin==1.5.0
-Flask-BlogTheme==0.2.1
+Flask-BlogTheme==0.2.2
 Flask-Migrate==2.1.1
 Flask-Moment==0.5.1
 Flask-SQLAlchemy==2.2
