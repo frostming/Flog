@@ -121,7 +121,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True)
     email = db.Column(db.String(100))
-    password = db.Column(db.String(64))
+    password = db.Column(db.String(200))
 
     def __init__(self, **kwargs):
         password = kwargs.pop('password')
