@@ -1,17 +1,18 @@
 from datetime import datetime
-from wtforms import SelectField
-from flask_admin import Admin
+from wtforms import (SelectField, StringField, PasswordField,
+                     SubmitField, Form, validators)
+from flask_admin import Admin, AdminIndexView, expose
+from flask_admin.helpers import validate_form_on_submit
+from flask_login import login_user, logout_user, current_user
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.contrib.sqla.form import AdminModelConverter
-from flask_admin.contrib.sqla.fields import QuerySelectField, QuerySelectMultipleField
+from flask_admin.contrib.sqla.fields import (QuerySelectField,
+                                             QuerySelectMultipleField)
+from werkzeug.security import check_password_hash
 from . import db, app
-from .models import Post, Tag, Category
-from flask import url_for
+from .models import Post, Tag, Category, User
+from flask import url_for, redirect, request
 from slugify import slugify
-
-
-admin = Admin(name='FlogAdmin', template_mode='bootstrap3',
-              base_template='admin/bootstrap4.html')
 
 
 class AutoAddSelectField(QuerySelectField):
@@ -114,5 +115,59 @@ class PostModelView(ModelView):
         'lang': dict(choices=[('en', 'English'), ('zh', 'Chinese')])
     }
 
+    def is_accessible(self):
+        return current_user.is_authenticated
 
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('admin.login', next=request.url))
+
+
+class LoginForm(Form):
+    username = StringField('User Name',
+                           validators=[validators.InputRequired()])
+    password = PasswordField('Password',
+                             validators=[validators.InputRequired()])
+
+    def validate_login(self, field):
+        user = self.get_user()
+
+        if user is None:
+            raise validators.ValidationError('Invalid user')
+
+        # we're comparing the plaintext pw with the the hash from the db
+        if not check_password_hash(user.password, self.password.data):
+            # to compare plain text passwords use
+            # if user.password != self.password.data:
+            raise validators.ValidationError('Invalid password')
+
+    def get_user(self):
+        return User.query.filter_by(username=self.username.data).first()
+
+
+class FlogAdminView(AdminIndexView):
+    @expose('/')
+    def index(self):
+        if not (current_user and current_user.is_authenticated):
+            return redirect(url_for('.login'))
+        else:
+            return super(FlogAdminView, self).index()
+
+    @expose('/login', methods=('POST', 'GET'))
+    def login(self):
+        form = LoginForm(request.form)
+        if validate_form_on_submit(form):
+            user = form.get_user()
+            login_user(user)
+            return redirect(url_for('.index'))
+        return self.render('admin/login.html', form=form)
+
+    @expose('/logout')
+    def logout(self):
+        logout_user()
+        return redirect(url_for('.index'))
+
+
+admin = Admin(name='FlogAdmin', template_mode='bootstrap3',
+              base_template='admin/bootstrap4.html',
+              index_view=FlogAdminView())
 admin.add_view(PostModelView(Post, db.session))

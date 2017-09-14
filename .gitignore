@@ -102,3 +102,4 @@ ENV/
 .sass-cache/
 dumps/
 *.sqlite3
+src/

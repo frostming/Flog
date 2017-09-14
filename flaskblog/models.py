@@ -5,6 +5,8 @@ from slugify import slugify
 from flask import url_for
 import sqlalchemy as sa
 from random import sample
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash
 
 
 tags = db.Table(
@@ -115,11 +117,17 @@ def update_post(mapper, connection, target):
                              title=slugify(target.title))
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20))
+    username = db.Column(db.String(64), unique=True)
     email = db.Column(db.String(100))
-    password = db.Column(db.String(20))
+    password = db.Column(db.String(64))
+
+    def __init__(self, **kwargs):
+        password = kwargs.pop('password')
+        password = generate_password_hash(password)
+        kwargs['password'] = password
+        super(User, self).__init__(**kwargs)
 
 
 class Tag(db.Model):

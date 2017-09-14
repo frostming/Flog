@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_moment import Moment
 from flask_babel import Babel
+from flask_login import LoginManager
 import os
 import os.path as op
 from .md import md
@@ -19,17 +20,22 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 moment = Moment(app)
 babel = Babel(app)
-blog_folder = os.path.join(app.root_path, '_posts')
+login_manager = LoginManager(app)
 
 
 from . import cli   # noqa
 from . import views  # noqa
 from . import templating  # noqa
-from .models import Post, Tag, Category, auto_delete_orphans    # noqa
+from .models import Post, Tag, Category, auto_delete_orphans, User    # noqa
 from .admin import admin    # noqa
 auto_delete_orphans(Tag.posts)
 auto_delete_orphans(Category.posts)
 admin.init_app(app)
+
+
+@login_manager.user_loader
+def get_user(uid):
+    return User.query.get(uid)
 
 
 @app.shell_context_processor
