@@ -6,7 +6,10 @@ import os
 import io
 from .md import md
 from .models import Post, Tag
-from urllib.parse import urljoin
+try:
+    from urllib.parse import urljoin
+except ImportError:
+    from urlparse import urljoin
 from .utils import get_tag_cloud
 
 

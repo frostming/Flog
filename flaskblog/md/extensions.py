@@ -7,8 +7,8 @@ from mistune import BlockLexer, Renderer
 
 class FlogBlockLexer(BlockLexer):
     IMAGE_RE = re.compile(
-        r'[ ]*(!\[([^\[\]]*)?\]\(([^)]+)\))'
-        r'([ ]+(!\[([^\[\]]*)?\]\(([^)]+)\)))*$', re.M
+        r'[ ]*(!\[([^\[\]]+)?\]\(([^)]+)\))'
+        r'([ ]+(!\[([^\[\]]+)?\]\(([^)]+)\)))*$', re.M
     )
 
     TAG_RE = re.compile(

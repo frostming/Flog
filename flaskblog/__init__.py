@@ -25,8 +25,10 @@ blog_folder = os.path.join(app.root_path, '_posts')
 from . import cli   # noqa
 from . import views  # noqa
 from . import templating  # noqa
-from .models import Post    # noqa
+from .models import Post, Tag, Category, auto_delete_orphans    # noqa
 from .admin import admin    # noqa
+auto_delete_orphans(Tag.posts)
+auto_delete_orphans(Category.posts)
 admin.init_app(app)
 
 

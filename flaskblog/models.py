@@ -3,7 +3,7 @@ from . import db, app
 from datetime import datetime
 from slugify import slugify
 from flask import url_for
-from sqlalchemy import event
+import sqlalchemy as sa
 from random import sample
 
 
@@ -12,6 +12,15 @@ tags = db.Table(
     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
     db.Column('post_id', db.Integer, db.ForeignKey('post.id'))
 )
+
+
+def auto_delete_orphans(attr):
+    target_class = attr.parent.class_
+
+    @sa.event.listens_for(sa.orm.Session, 'after_flush')
+    def delete_orphan_listener(session, ctx):
+        session.query(target_class).filter(~attr.any())\
+                                   .delete(synchronize_session=False)
 
 
 class Post(db.Model):
@@ -26,8 +35,7 @@ class Post(db.Model):
     description = db.Column(db.String(400))
     author = db.Column(db.String(50))
     tags = db.relationship('Tag', secondary=tags,
-                           backref=db.backref('posts', cascade='all'),
-                           cascade='all')
+                           backref='posts')
     url = db.Column(db.String(100))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
@@ -84,7 +92,7 @@ class Post(db.Model):
         return sample(posts.all(), num)
 
 
-@event.listens_for(Post, 'before_insert')
+@sa.event.listens_for(Post, 'before_insert')
 def init_url(mapper, connection, target):
     if not target.date:
         target.date = datetime.utcnow()
@@ -96,7 +104,7 @@ def init_url(mapper, connection, target):
                              title=slugify(target.title))
 
 
-@event.listens_for(Post, 'before_update')
+@sa.event.listens_for(Post, 'before_update')
 def update_post(mapper, connection, target):
     target.last_modified = datetime.utcnow()
 
@@ -136,9 +144,7 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(50))
     posts = db.relationship('Post',
-                            cascade='all, delete-orphan',
-                            backref=db.backref('category',
-                                               cascade='all'))
+                            backref='category')
 
     def __repr__(self):
         return '<Category: {}>'.format(self.text)

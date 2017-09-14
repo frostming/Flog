@@ -16,7 +16,6 @@ MARKDOWN_RE = re.compile(
 @app.cli.command()
 def init():
     """Application initialization"""
-    db.drop_all()
     db.create_all()
 
 
