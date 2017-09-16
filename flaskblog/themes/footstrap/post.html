@@ -3,7 +3,7 @@
 {% block title %}{{post.title|capitalize}}{% endblock %}
 {% block extracss %}
 <meta name="description" content="{{post.description}}">
-<meta name="keywords" content="{{post.tags|join(', ')}}">
+<meta name="keywords" content="{{post.tags|join(', ', 'text')}}">
 <meta name="author" content="{{post.author}}">
 <link rel="stylesheet" href="{{ url_for('theme.static', filename='yue.css') }}">
 {% include '_partials/highlight.html' %}
