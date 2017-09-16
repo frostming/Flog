@@ -270,6 +270,7 @@ img.avatar {
   margin-left: 10px;
   padding-left: 2em;
   border-left: 1px dashed rgba(0, 0, 0, .3);
+  padding-bottom: 2em;
 }
 
 .blog-right h2 {
