@@ -4,6 +4,10 @@ from flask import request
 from datetime import datetime
 from slugify import slugify
 from . import app
+try:
+    from urllib.parse import urljoin
+except ImportError:
+    from urlparse import urljoin
 
 
 @app.template_filter()
@@ -21,7 +25,7 @@ def blog_objects():
     url = request.url
     title = request.url_rule.endpoint
     rv = {'url': url, 'title': title}
-    return {'page': rv}
+    return {'page': rv, 'urljoin': urljoin}
 
 
 @app.template_filter('slugify')
@@ -32,10 +36,3 @@ def make_slugify(s):
 @app.template_filter('render')
 def render_markdown(s):
     return Markup(md(s))
-
-
-@app.template_filter('toc')
-def render_toc(s):
-    md.renderer.reset_toc()
-    md(s)
-    return Markup(md.renderer.render_toc(level=3))

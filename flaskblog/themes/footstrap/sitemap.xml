@@ -10,8 +10,8 @@
   </url>
   {% for post in posts %}
   <url>
-    <loc>{{request.url_root+post.url}}</loc>
-    <lastmod>{{post.last_modified.isoformat()}}</lastmod>
+    <loc>{{urljoin(request.url_root, post.url)}}</loc>
+    <lastmod>{{post.last_modified.strftime('%Y-%m-%dT%H:%M:%S')}}.000Z</lastmod>
     <priority>0.8</priority>
   </url>
   {% endfor %}
