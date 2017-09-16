@@ -21,8 +21,10 @@ def home():
 @app.route('/blog')
 @app.route('/blog/page/<int:page>')
 def blog(page=None):
-    paginate = Post.query.order_by(Post.date.desc())\
-        .paginate(page, app.config['BLOG_PER_PAGE'])
+    paginate = Post.query.join(Post.category)\
+                         .filter(Category.text != 'About')\
+                         .order_by(Post.date.desc())\
+                         .paginate(page, app.config['BLOG_PER_PAGE'])
     tag_cloud = get_tag_cloud()
     return render_template('blog.html', posts=paginate.items,
                            tag_cloud=tag_cloud, paginate=paginate)

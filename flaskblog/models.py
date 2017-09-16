@@ -101,6 +101,7 @@ def init_url(mapper, connection, target):
 
     year = str(target.date.year)
     date = target.date.strftime('%m-%d')
+    target.last_modified = datetime.utcnow()
     with app.test_request_context():
         target.url = url_for('post', year=year, date=date,
                              title=slugify(target.title))
