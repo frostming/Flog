@@ -5,7 +5,7 @@ from flask import render_template, request, abort, send_file
 import os
 import io
 from .md import md
-from .models import Post, Tag
+from .models import Post, Tag, Category
 try:
     from urllib.parse import urljoin
 except ImportError:
@@ -40,7 +40,9 @@ def post(year, date, title):
 
 @app.route('/about')
 def about():
-    return
+    post = Post.query.join(Post.category).filter(Category.text == 'About')\
+                                         .first_or_404()
+    return render_template('post.html', post=post, content=md(post.content))
 
 
 @app.route('/tag/<text>')
