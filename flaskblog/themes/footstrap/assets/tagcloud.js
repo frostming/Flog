@@ -53,16 +53,16 @@
   }
 
   function colorIncrement (color, range) {
-    return jQuery.map(toRGB(color.end), function(n, i) {
-      return (n - toRGB(color.start)[i])/range;
+    return jQuery.map(rgbToHsl(toRGB(color.end)), function(n, i) {
+      return (n - rgbToHsl(toRGB(color.start))[i])/range;
     });
   }
 
   function tagColor (color, increment, weighting) {
-    rgb = jQuery.map(toRGB(color.start), function(n, i) {
-      ref = Math.round(n + (increment[i] * weighting));
-      if (ref > 255) {
-        ref = 255;
+    hsl = jQuery.map(rgbToHsl(toRGB(color.start)), function(n, i) {
+      ref = n + (increment[i] * weighting);
+      if (ref > 1) {
+        ref = 1;
       } else {
         if (ref < 0) {
           ref = 0;
@@ -70,7 +70,7 @@
       }
       return ref;
     });
-    return toHex(rgb);
+    return toHex(hslToRgb(hsl));
   }
 
   function compareWeights(a, b)
@@ -78,92 +78,51 @@
     return a - b;
   }
 
+  function rgbToHsl(array){
+  	var r = array[0]/255, g = array[1]/255, b = array[2]/255;
+  	var max = Math.max(r, g, b), min = Math.min(r, g, b);
+  	var h, s, l = (max + min) / 2;
+
+  	if (max == min) { h = s = 0; }
+  	else {
+  		var d = max - min;
+  		s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+  		switch (max){
+  			case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+  			case g: h = (b - r) / d + 2; break;
+  			case b: h = (r - g) / d + 4; break;
+  		}
+
+  		h /= 6;
+  	}
+
+  	return [h, s, l];
+  }
+
+  function hslToRgb(array) {
+    var h = array[0], s = array[1], l = array[2];
+    var r, g, b;
+
+    if(s == 0){
+        r = g = b = l; // achromatic
+    }else{
+      var hue2rgb = function hue2rgb(p, q, t){
+          if(t < 0) t += 1;
+          if(t > 1) t -= 1;
+          if(t < 1/6) return p + (q - p) * 6 * t;
+          if(t < 1/2) return q;
+          if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+          return p;
+      }
+
+      var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      var p = 2 * l - q;
+      r = hue2rgb(p, q, h + 1/3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1/3);
+  }
+
+  return [(r*255+0.5)|0, (g*255+0.5)|0, (b*255+0.5)|0];
+  }
 })(jQuery);
-
-
-$(window).load(function(){
-
-	/* For quick copy-paste */
-    $('input').focus(function(){this.select();});
-
-	/* Change color on every key input. */
-	$('#hex').bind('blur keydown', function (event) {
-		var el = this;
-		setTimeout(function () {
-			var rgb = [],
-			    $input = $(el),
-			    fail = false,
-			    original = $input.val(),
-
-			hex = (original+'').replace(/#/, '');
-
-			if (original.length === 1 && original !== '#') { $input.val('#' + original); }
-			if (hex.length == 3) hex = hex + hex;
-
-			for (var i = 0; i < 6; i+=2) {
-			   rgb.push(parseInt(hex.substr(i,2),16));
-			   fail = fail || rgb[rgb.length - 1].toString() === 'NaN';
-			}
-
-			$('#rgb').val(fail ? '' : 'rgb(' + rgb.join(',') + ')');
-			$('#hsl').val(fail ? '' : 'hsl(' + rgbToHsl.apply(null, rgb).join(',') + ')');
-
-			$('body').css('backgroundColor', $('#rgb').val());
-	    }, 13);
-	});
-
-    /* Function to convert rgb-to-hsl. */
-
-	function rgbToHsl(r, g, b){
-		r /= 255, g /= 255, b /= 255;
-		var max = Math.max(r, g, b), min = Math.min(r, g, b);
-		var h, s, l = (max + min) / 2;
-
-		if (max == min) { h = s = 0; }
-		else {
-			var d = max - min;
-			s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-
-			switch (max){
-				case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-				case g: h = (b - r) / d + 2; break;
-				case b: h = (r - g) / d + 4; break;
-			}
-
-			h /= 6;
-		}
-
-		return [(h*100+0.5)|0, ((s*100+0.5)|0) + '%', ((l*100+0.5)|0) + '%'];
-	}
-});
-
-
-$(document).ready(function() {
-
-    if ( !("placeholder" in document.createElement("input")) ) {
-        $("input[placeholder], textarea[placeholder]").each(function() {
-            var val = $(this).attr("placeholder");
-            if ( this.value == "" ) {
-                this.value = val;
-            }
-            $(this).focus(function() {
-                if ( this.value == val ) {
-                    this.value = "";
-                }
-            }).blur(function() {
-                if ( $.trim(this.value) == "" ) {
-                    this.value = val;
-                }
-            })
-        });
-
-        // Clear default placeholder values on form submit
-        $('form').submit(function() {
-            $(this).find("input[placeholder], textarea[placeholder]").each(function() {
-                if ( this.value == $(this).attr("placeholder") ) {
-                    this.value = "";
-                }
-            });
-        });
-    }
-});
