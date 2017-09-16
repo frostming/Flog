@@ -261,3 +261,9 @@ img.avatar {
   margin-bottom: 1em;
   color: #bcbcbc;
 }
+
+@media (min-width: 1200px) {
+  #center {
+    max-width: 1000px;
+  }
+}

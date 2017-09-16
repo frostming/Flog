@@ -103,3 +103,8 @@ ENV/
 dumps/
 *.sqlite3
 src/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

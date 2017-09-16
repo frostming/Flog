@@ -14,15 +14,15 @@
   {% block pagehead %}{% endblock %}
   <section role="main">
     <div class="container-fluid d-flex justify-content-center">
-      <div class="col d-none d-lg-block">
+      <div class="col d-none d-xl-block">
         {% block leftside %}
         {% endblock %}
       </div>
-      <div class="col-12 col-md-9 col-xl-6">
+      <div class="col-12 col-md-9" id="center">
         {% block centercontent %}
         {% endblock %}
       </div>
-      <div class="col d-none d-lg-block">
+      <div class="col d-none d-xl-block">
         {% block rightside %}
         {% endblock %}
       </div>
