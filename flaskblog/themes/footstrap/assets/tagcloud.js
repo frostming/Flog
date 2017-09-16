@@ -25,7 +25,7 @@
       }
       if (opts.color) {
         // change color to background-color
-        $(this).css({"color": tagColor(opts.color, colorIncr, weighting)});
+        $(this).css({"background-color": tagColor(opts.color, colorIncr, weighting)});
       }
     });
   };

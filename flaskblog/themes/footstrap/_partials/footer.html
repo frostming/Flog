@@ -1,3 +1,8 @@
-<div class="container-fluid">
-  <p>{{_('Copyright')}}&copy;<a href="http://frostming.win">Frost Ming</a> 2016-{{current_time.year}}</p>
+<div class="container d-flex justify-content-between">
+  <div id="copyright">
+    <a href="{{url_for('home')}}">Frost Ming</a>&copy;2016-{{current_time.year}} {{_('All rights reserved')}}
+  </div>
+  <div class="site-info">
+    <a href="{{url_for('sitemap')}}">Sitemap</a>
+  </div>
 </div>

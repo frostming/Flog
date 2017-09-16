@@ -23,14 +23,15 @@ cdn:
 
 
 navlinks:
-  - name: tags
+
+  - name: blog
     url: internal
 
   - name: about
     url: internal
 
-  - name: blog
-    url: internal
+  - name: resume
+    url: //resume.frostming.win
 
 sociallinks:
   - name: GitHub

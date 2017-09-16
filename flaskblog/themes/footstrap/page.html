@@ -2,32 +2,33 @@
 
 
 {% block mainbody %}
-{% block nav %}
-<nav class="navbar fixed-top navbar-expand-lg {% block navstyle %}navbar-light{% endblock %} {% block extclass %}{% endblock %}">
-  {% include '_partials/nav.html' %}
-</nav>
-{% endblock %}
+  {% block nav %}
+  <nav class="navbar fixed-top navbar-expand-lg {% block navstyle %}navbar-light{% endblock %} {% block extclass %}{% endblock %}">
+    {% include '_partials/nav.html' %}
+  </nav>
+  {% endblock %}
 
-
-<div class="main {{ self.extclass() }}" id="main" itemscope itemtype="http://schema.org/Article">
-  <meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{request.url}}">
   {% block pagehead %}{% endblock %}
-  <section role="main">
-    <div class="container-fluid d-flex justify-content-center">
-      <div class="col d-none d-xl-block">
-        {% block leftside %}
-        {% endblock %}
+  {% block pagebody %}
+  <div class="main {{ self.extclass() }}" id="main" itemscope itemtype="http://schema.org/Article">
+    <meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{request.url}}">
+    <section role="main">
+      <div class="container-fluid d-flex justify-content-center">
+        <div class="col d-none d-xl-block">
+          {% block leftside %}
+          {% endblock %}
+        </div>
+        <div class="col-12 col-md-9{%block xl_class%}{%endblock-%}">
+          {% block centercontent %}
+          {% endblock %}
+        </div>
+        <div class="col d-none d-xl-block">
+          {% block rightside %}
+          {% endblock %}
+        </div>
       </div>
-      <div class="col-12 col-md-9" id="center">
-        {% block centercontent %}
-        {% endblock %}
-      </div>
-      <div class="col d-none d-xl-block">
-        {% block rightside %}
-        {% endblock %}
-      </div>
-    </div>
-  </section>
-  {% block additional %}{% endblock %}
-</div>
+    </section>
+    {% block additional %}{% endblock %}
+  </div>
+  {% endblock %}
 {% endblock %}

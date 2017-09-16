@@ -137,7 +137,7 @@ class Tag(db.Model):
 
     def __init__(self, **kwargs):
         with app.test_request_context():
-            kwargs['url'] = url_for('tags') + '#' + slugify(kwargs['text'])
+            kwargs['url'] = url_for('tag', text=slugify(kwargs['text']))
         super(Tag, self).__init__(**kwargs)
 
     def __repr__(self):

@@ -1,7 +1,7 @@
 from . import app
 from datetime import datetime
 from werkzeug.contrib.atom import AtomFeed
-from flask import render_template, request, abort
+from flask import render_template, request, abort, send_file
 import os
 import io
 from .md import md
@@ -21,10 +21,11 @@ def home():
 @app.route('/blog')
 @app.route('/blog/page/<int:page>')
 def blog(page=None):
-    posts = Post.query.order_by(Post.date.desc())\
+    paginate = Post.query.order_by(Post.date.desc())\
         .paginate(page, app.config['BLOG_PER_PAGE'])
-    # return posts
-    return render_template('blog.html', posts=posts)
+    tag_cloud = get_tag_cloud()
+    return render_template('blog.html', posts=paginate.items,
+                           tag_cloud=tag_cloud, paginate=paginate)
 
 
 @app.route('/<int:year>/<date>/<title>')
@@ -42,15 +43,14 @@ def about():
     return
 
 
-@app.route('/tags')
-@app.route('/tags#<text>')
-def tags(text=None):
-    if not text:
-        tag = None
-    else:
-        tag = Tag.query.filter_by(url=request.path).first_or_404()
+@app.route('/tag/<text>')
+def tag(text):
+    tag = Tag.query.filter_by(url=request.path).first_or_404()
+    posts = Post.query.join(Post.tags).filter(Tag.text == tag.text)\
+                                      .order_by(Post.date.desc())
     tag_cloud = get_tag_cloud()
-    return render_template('tags.html', stag=tag, tag_cloud=tag_cloud)
+    return render_template('blog.html', posts=posts, tag_cloud=tag_cloud,
+                           tag=tag)
 
 
 @app.route('/favicon.ico')
@@ -71,3 +71,11 @@ def feed():
                  updated=post.last_modified,
                  published=post.date)
     return feed.get_response()
+
+
+@app.route('/sitemap.xml')
+def sitemap():
+    posts = Post.query.order_by(Post.date.desc())
+    fp = io.BytesIO(render_template('sitemap.xml', posts=posts)
+                    .encode('utf-8'))
+    return send_file(fp, attachment_filename='sitemap.xml')
