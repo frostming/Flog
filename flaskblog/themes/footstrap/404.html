@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block title %}404 NOT FOUND{% endblock %}
+
+{% block mainbody %}
+<div class="cover">
+  <div class="mx-auto my-auto">
+    <h1 class="display-3">404</h1>
+    <p>The requested URL was not found on the server.<br/>If you entered the URL manually please check your spelling and try again.</p>
+    <a href="{{url_for('home')}}" class="btn btn-outline-dark">Return to Home Page</a>
+  </div>
+</div>
+{% endblock %}
