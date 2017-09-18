@@ -128,7 +128,7 @@ class LoginForm(Form):
     password = PasswordField('Password',
                              validators=[validators.InputRequired()])
 
-    def validate_login(self, field):
+    def validate_username(self, field):
         user = self.get_user()
 
         if user is None:

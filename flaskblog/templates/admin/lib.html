@@ -117,7 +117,7 @@
 {# ---------------------- Forms -------------------------- #}
 {% macro render_field(form, field, kwargs={}, caller=None) %}
   {% set direct_error = h.is_field_error(field.errors) %}
-  <div class="form-group{{ ' has-error' if direct_error else '' }}">
+  <div class="form-group{{ ' was-validated' if direct_error else '' }}">
     <label for="{{ field.id }}" class="control-label">{{ field.label.text }}
         {% if h.is_required_form_field(field) %}
           <strong style="color: red">&#42;</strong>
@@ -132,11 +132,11 @@
       <p class="help-block">{{ field.description|safe }}</p>
       {% endif %}
       {% if direct_error %}
-        <ul class="help-block input-errors">
         {% for e in field.errors if e is string %}
-          <li>{{ e }}</li>
+        <div class="invalid-feedback">
+          {{ e }}
+        </div>
         {% endfor %}
-        </ul>
       {% endif %}
     </div>
     {% if caller %}

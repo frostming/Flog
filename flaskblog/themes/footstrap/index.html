@@ -1,25 +1,17 @@
 {% extends 'layout.html' %}
 
 {% block mainbody %}
-<div class="cover container-fluid" style="background-image: url('{{site.cover_url}}')">
-  <div class="col-12 col-md-9 cover-body">
+<div class="cover text-light" style="background-image: url('{{site.cover_url}}')">
+  <div class="mx-auto my-auto">
     <div class="bio">
       <img class="avatar" src="{{ site.avatar }}" alt="{{ site.name }}">
       <h1 class="display-3 heading">{{ site.name }}</h1>
       <p class="lead site-des">{{ site.description }}</p>
     </div>
     <div class="links lead">
-      <ul>
-        <li class="link-item">
-          <a href="{{ url_for('blog') }}">{{_('Blog')}}</a>
-        </li>
-        <li class="link-item">
-          <a href="{{ url_for('about') }}">{{_('About')}}</a>
-        </li>
-        <li class="link-item">
-          <a href="//resume.frostming.win">{{_('Resume')}}</a>
-        </li>
-      </ul>
+      {% for item in site.navlinks %}
+        <a href="{%-if item.url == 'internal' %}{{url_for(item['name'].lower())}}{%-else %}{{item.url}}{%endif%}" class="btn btn-outline-light">{{_(item.name)|title}}</a>
+      {% endfor %}
     </div>
   </div>
 </div>

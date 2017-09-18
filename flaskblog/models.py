@@ -148,6 +148,9 @@ class Tag(db.Model):
     def heat(self):
         return self.posts.count()
 
+    def __str__(self):
+        return self.text
+
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -157,3 +160,6 @@ class Category(db.Model):
 
     def __repr__(self):
         return '<Category: {}>'.format(self.text)
+
+    def __str__(self):
+        return self.text

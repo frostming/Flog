@@ -23,7 +23,7 @@ def get_current_time():
 @app.context_processor
 def blog_objects():
     url = request.url
-    title = request.url_rule.endpoint
+    title = request.url_rule.endpoint if request.url_rule else ''
     rv = {'url': url, 'title': title}
     return {'page': rv, 'urljoin': urljoin}
 

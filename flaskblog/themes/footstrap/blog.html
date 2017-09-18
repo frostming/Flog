@@ -15,37 +15,48 @@
 
 
 {% block pagebody %}
-<div class="container d-lg-flex">
-  <div class="col-12 col-lg-8">
-    {% if tag %}
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-lg-8">
+      {% if tag %}
       <h2><i class="fa fa-fw fa-tag"></i> {{tag.text}}</h2>
       <hr/>
-    {% endif %}
-    {{ helper.render_posts(posts) }}
+      {% endif %}
+      {{ helper.render_posts(posts) }}
 
-    {% if paginate %}
-    <div class="paginate d-flex justify-content-between">
-      <a href="{{url_for('blog', page=paginate.prev_num)}}"
-      {% if paginate.has_prev %} style="visibility: visible;"{% endif %}>
+      {% if paginate %}
+      <div class="paginate d-flex justify-content-between">
+        <a href="{{url_for('blog', page=paginate.prev_num)}}"
+        {% if paginate.has_prev %} style="visibility: visible;"{% endif %}>
         <i class="fa fa-fw fa-angle-left"></i> {{_('Newer Posts')}}
       </a>
       <a href="{{url_for('blog', page=paginate.next_num)}}"
       {% if paginate.has_next %} style="visibility: visible;"{% endif %}>
-        {{_('Older Posts')}} <i class="fa fa-fw fa-angle-right"></i>
+      {{_('Older Posts')}} <i class="fa fa-fw fa-angle-right"></i>
       </a>
+      </div>
+      {% endif %}
     </div>
-    {% endif %}
-  </div>
-  <div class="col-12 col-lg-4 blog-right">
-    <h2>{{_('Tags')}}</h2>
-    <div class="post-tags" id="tag-cloud">
-      {% for tag, heat in tag_cloud %}
-        <a href="{{tag.url}}" rel="{{heat}}">
-          {{tag.text}}
-        </a>
-      {% endfor %}
+    <div class="col-12 col-lg-4 blog-right">
+      <div class="right-section">
+        <h2>{{_('Categories')}}</h2>
+        {% for cat in categories %}
+          <a href="{{url_for('category', cat_id=cat.id)}}" class="post-cat"><i class="fa fa-folder-open"></i> {{cat}}</a>
+        {% endfor %}
+      </div>
+      <div class="right-section">
+        <h2>{{_('Tags')}}</h2>
+        <div class="post-tags" id="tag-cloud">
+          {% for tag, heat in tag_cloud %}
+          <a href="{{tag.url}}" rel="{{heat}}">
+            {{tag.text}}
+          </a>
+          {% endfor %}
+        </div>
+      </div>
     </div>
   </div>
+
 </div>
 {% endblock %}
 

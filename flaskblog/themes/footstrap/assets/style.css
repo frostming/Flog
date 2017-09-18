@@ -41,11 +41,6 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
-.cover-body {
-  margin: auto;
-  color: white;
-}
-
 img.avatar {
   border: white 5px solid;
   border-radius: 50%;
@@ -150,6 +145,16 @@ img.avatar {
   transition: color 0.2s ease-in-out;
 }
 
+.post-cat {
+  color: inherit;
+  margin-left: 1em;
+}
+
+.post-cat:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
 .post-meta time {
   font-weight: 300;
   font-family: "Roboto Condensed", -apple-system, "Helvetica Nueue", Helvetica, Arial, sans-serif;
@@ -158,12 +163,12 @@ img.avatar {
 
 .post-meta .post-author {
   font-weight: 600;
+  margin-left: 4px;
 }
 
 .post-meta .post-author::before {
   content: "/ ";
   color: rgba(0, 0, 0, .1);
-  margin: 0 4px;
 }
 
 .post-meta:hover {
@@ -262,12 +267,7 @@ img.avatar {
   color: #bcbcbc;
 }
 
-.site-info > a {
-  margin-left: 1em;
-}
-
 .blog-right {
-  margin-left: 10px;
   padding-left: 2em;
   border-left: 1px dashed rgba(0, 0, 0, .3);
   padding-bottom: 2em;
@@ -275,4 +275,18 @@ img.avatar {
 
 .blog-right h2 {
   margin-bottom: 1em;
+}
+
+@media (max-width: 900px) {
+  .bio > h1 {
+    font-size: 3em;
+  }
+
+  .bio > img {
+    width: 30%;
+  }
+}
+
+.right-section+.right-section {
+  margin-top: 1em;
 }

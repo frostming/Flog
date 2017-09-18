@@ -26,8 +26,10 @@ def blog(page=None):
                          .order_by(Post.date.desc())\
                          .paginate(page, app.config['BLOG_PER_PAGE'])
     tag_cloud = get_tag_cloud()
+    categories = Category.query.filter(Category.text != 'About').all()
     return render_template('blog.html', posts=paginate.items,
-                           tag_cloud=tag_cloud, paginate=paginate)
+                           tag_cloud=tag_cloud, paginate=paginate,
+                           categories=categories)
 
 
 @app.route('/<int:year>/<date>/<title>')
@@ -53,8 +55,19 @@ def tag(text):
     posts = Post.query.join(Post.tags).filter(Tag.text == tag.text)\
                                       .order_by(Post.date.desc())
     tag_cloud = get_tag_cloud()
+    categories = Category.query.filter(Category.text != 'About').all()
     return render_template('blog.html', posts=posts, tag_cloud=tag_cloud,
-                           tag=tag)
+                           tag=tag, categories=categories)
+
+
+@app.route('/cat/<int:cat_id>')
+def category(cat_id):
+    cat = Category.query.get(cat_id)
+    posts = cat.posts
+    categories = Category.query.filter(Category.text != 'About').all()
+    tag_cloud = get_tag_cloud()
+    return render_template('blog.html', posts=posts, tag_cloud=tag_cloud,
+                           categories=categories)
 
 
 @app.route('/favicon.ico')
@@ -83,3 +96,8 @@ def sitemap():
     fp = io.BytesIO(render_template('sitemap.xml', posts=posts)
                     .encode('utf-8'))
     return send_file(fp, attachment_filename='sitemap.xml')
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html')
