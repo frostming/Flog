@@ -34,7 +34,7 @@
 {% block xl_class %} post-center{% endblock %}
 {% block centercontent %}
 <article id="post-container" itemscope itemtype="http://schema.org/Article">
-  <div class="d-flex d-xs-block justify-content-between align-items-center">
+  <div class="d-lg-flex justify-content-between align-items-center">
     <div class="post-meta">
       <time datetime="{{post.date}}" itemprop="pubDate">{{ moment(post.date).format('ll') }}</time>
       {% if post.author %}

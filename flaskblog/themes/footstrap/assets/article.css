@@ -1,16 +1,16 @@
-.post-content .post-text.yue, .yue h1, .yue h2, .yue h3, .yue h4,
+.post-text.yue, .yue h1, .yue h2, .yue h3, .yue h4,
 .yue h5, .yue h6 {
   font-family: inherit;
-}
-
-.yue pre {
-  font-size: .86em;
 }
 
 .yue blockquote {
     position: relative;
     padding: .4em 0 0 2em;
     font-size: .96em;
+}
+
+pre code {
+  font-size: .9em;
 }
 
 figure img {
@@ -121,13 +121,21 @@ figure img {
   margin: 0;
 }
 
+.photo figure:first-of-type {
+  padding-left: 0;
+}
+
+.photo figure:last-of-type {
+  padding-right: 0;
+}
+
 @media (min-width: 992px) {
   #post-container {
-    padding: 0 100px;
+    padding: 0 120px;
   }
 
   .photo {
-    margin: 50px -100px;
+    margin: 50px -120px;
   }
 }
 
@@ -220,6 +228,6 @@ figure img {
 
 @media (min-width:1200px) {
   .post-center {
-    max-width: 1000px;
+    max-width: 976px;
   }
 }

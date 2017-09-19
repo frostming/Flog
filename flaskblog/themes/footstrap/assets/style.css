@@ -143,6 +143,11 @@ img.avatar {
 .post-meta {
   color: rgba(0, 0, 0, .4);
   transition: color 0.2s ease-in-out;
+  font-size: 14px;
+}
+
+.post-info h3 {
+  font-size: 1.5em;
 }
 
 .post-cat {
@@ -215,6 +220,10 @@ img.avatar {
 
 .paginate {
   padding: 20px 0;
+}
+
+.post-tags {
+  font-size: 14px;
 }
 
 .paginate a {

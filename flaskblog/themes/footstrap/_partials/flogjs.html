@@ -36,7 +36,7 @@
             width = this.naturalWidth,
             height = this.naturalHeight;
 
-        var item = {src: src, w: width, h: height};
+        var item = {src: src, w: width, h: height, el: this};
         var figcaption = $(this).find('+figcaption').first();
         if(figcaption.length !== 0) item.title = figcaption.html();
         items.push(item);
@@ -53,6 +53,18 @@
 
           var options = {
               index: i,
+              getThumbBoundsFn: function(index) {
+                // See Options->getThumbBoundsFn section of docs for more info
+                var thumbnail = items[index].el,
+                  pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                  rect = thumbnail.getBoundingClientRect();
+
+                return {
+                  x: rect.left,
+                  y: rect.top + pageYScroll,
+                  w: rect.width
+                };
+              },
           };
 
           // Initialize PhotoSwipe
