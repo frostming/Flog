@@ -137,10 +137,10 @@ figure img {
   .photo {
     margin: 50px -120px;
   }
-}
 
-.photo+.photo {
-  margin-top: -50px;
+  .photo+.photo {
+    margin-top: -50px;
+  }
 }
 
 .post-toc {
