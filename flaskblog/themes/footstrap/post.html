@@ -52,11 +52,10 @@
   <div class="post-text yue" itemprop="content">
     {{ content | safe }}
   </div>
-  {% if post.last_modified %}
-  <div class="last-modified">
+  <div class="post-tail">
     {{_('Last edited')}} <time datetime="{{post.last_modified}}">{{moment(post.last_modified).fromNow()}}</time>
+    <a href="#disqus_thread" class="pull-right">Link</a>
   </div>
-  {% endif %}
 </article>
 {% endblock %}
 

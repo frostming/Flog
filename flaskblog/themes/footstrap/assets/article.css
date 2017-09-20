@@ -198,11 +198,19 @@ figure img {
   padding-bottom: 10px;
 }
 
-.last-modified {
+.post-tail {
   margin-top: .5em;
   font-family: "Roboto Condensed", -apple-system, "Helvetica Nueue", Helvetica, Arial, sans-serif;
   font-weight: 300;
   color: #888;
+}
+
+.post-tail a {
+  color: inherit;
+}
+
+.post-tail a:hover {
+  text-decoration: none;
 }
 
 #comments {
@@ -230,4 +238,13 @@ figure img {
   .post-center {
     max-width: 976px;
   }
+}
+
+.win .yue {
+  font-size: 16px;
+}
+
+#cc {
+  margin: 5px 0;
+
 }
