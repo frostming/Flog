@@ -1,5 +1,15 @@
 <script type="text/javascript">
-  -1!==navigator.platform.indexOf("Win")&&(document.body.className="win");
+  var hasMobileUA = function () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  };
+  var isMobile = function() {
+    return window.screen.width < 767 && this.hasMobileUA();
+  };
+  (-1!==navigator.platform.indexOf("Win")||isMobile())&&(document.body.className="win");
   $(document).ready(function () {
     var headerHeight = $('.post-cover').outerHeight();
     $(window).on('scroll', function() {
