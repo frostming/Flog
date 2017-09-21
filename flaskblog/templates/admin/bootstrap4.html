@@ -23,18 +23,20 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    {% block main_menu %}
-    <ul class="navbar-nav mr-auto">
-      {{ layout.menu() }}
-    </ul>
-    {% endblock %}
-    {% block menu_links %}
-    <ul class="nav navbar-nav">
-      {{ layout.menu_links() }}
-    </ul>
-    {% endblock %}
-    {% block access_control %}
-    {% endblock %}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      {% block main_menu %}
+      <ul class="navbar-nav mr-auto">
+        {{ layout.menu() }}
+      </ul>
+      {% endblock %}
+      {% block menu_links %}
+      <ul class="nav navbar-nav">
+        {{ layout.menu_links() }}
+      </ul>
+      {% endblock %}
+      {% block access_control %}
+      {% endblock %}
+    </div>
   </nav>
 
   {% block messages %}
