@@ -22,52 +22,52 @@
     {% endif %}
 
     {% if min > 0 %}
-    <li>
-        <a href="{{ generator(0) }}">&laquo;</a>
+    <li class="page-item">
+        <a class="page-link" href="{{ generator(0) }}">&laquo;</a>
     </li>
     {% else %}
-    <li class="disabled">
-        <a href="javascript:void(0)">&laquo;</a>
+    <li class="page-item disabled">
+        <a class="page-link" href="javascript:void(0)">&laquo;</a>
     </li>
     {% endif %}
     {% if page > 0 %}
-    <li>
-        <a href="{{ generator(page-1) }}">&lt;</a>
+    <li class="page-item">
+        <a class="page-link" href="{{ generator(page-1) }}">&lt;</a>
     </li>
     {% else %}
-    <li class="disabled">
-        <a href="javascript:void(0)">&lt;</a>
+    <li class="page-item disabled">
+        <a class="page-link" href="javascript:void(0)">&lt;</a>
     </li>
     {% endif %}
 
     {% for p in range(min, max) %}
     {% if page == p %}
-    <li class="active">
-        <a href="javascript:void(0)">{{ p + 1 }}</a>
+    <li class="page-item active">
+        <a class="page-link" href="javascript:void(0)">{{ p + 1 }}</a>
     </li>
     {% else %}
-    <li>
-        <a href="{{ generator(p) }}">{{ p + 1 }}</a>
+    <li class="page-item">
+        <a class="page-link" href="{{ generator(p) }}">{{ p + 1 }}</a>
     </li>
     {% endif %}
     {% endfor %}
 
     {% if page + 1 < pages %}
-    <li>
-        <a href="{{ generator(page + 1) }}">&gt;</a>
+    <li class="page-item">
+        <a class="page-link" href="{{ generator(page + 1) }}">&gt;</a>
     </li>
     {% else %}
-    <li class="disabled">
-        <a href="javascript:void(0)">&gt;</a>
+    <li class="page-item disabled">
+        <a class="page-link" href="javascript:void(0)">&gt;</a>
     </li>
     {% endif %}
     {% if max < pages %}
-    <li>
-        <a href="{{ generator(pages - 1) }}">&raquo;</a>
+    <li class="page-item">
+        <a class="page-link" href="{{ generator(pages - 1) }}">&raquo;</a>
     </li>
     {% else %}
-    <li class="disabled">
-        <a href="javascript:void(0)">&raquo;</a>
+    <li class="page-item disabled">
+        <a class="page-link" href="javascript:void(0)">&raquo;</a>
     </li>
     {% endif %}
 </ul>
@@ -77,21 +77,21 @@
 {% macro simple_pager(page, have_next, generator) -%}
 <ul class="pagination">
   {% if page > 0 %}
-  <li>
-      <a href="{{ generator(page - 1) }}">&lt;</a>
+  <li class="page-item">
+      <a class="page-link" href="{{ generator(page - 1) }}">&lt;</a>
   </li>
   {% else %}
-  <li class="disabled">
-      <a href="{{ generator(0) }}">&lt;</a>
+  <li class="page-item disabled">
+      <a class="page-link" href="{{ generator(0) }}">&lt;</a>
   </li>
   {% endif %}
   {% if have_next %}
-  <li>
-      <a href="{{ generator(page + 1) }}">&gt;</a>
+  <li class="page-item">
+      <a class="page-link" href="{{ generator(page + 1) }}">&gt;</a>
   </li>
   {% else %}
-  <li class="disabled">
-      <a href="{{ generator(page) }}">&gt;</a>
+  <li class="page-item disabled">
+      <a class="page-link" href="{{ generator(page) }}">&gt;</a>
   </li>
   {% endif %}
 </ul>
