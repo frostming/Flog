@@ -15,10 +15,15 @@ if 'RDS_HOSTNAME' in os.environ:
     db_user = os.environ['RDS_USERNAME']
     db_password = os.environ['RDS_PASSWORD']
     db_host = os.environ['RDS_HOSTNAME']
-    db_port = os.environ['RDS_PORT']
-    SQLALCHEMY_DATABASE_URI = ('mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'
-                               .format(db_user, db_password, db_host, db_port,
-                                       db_name))
+    db_port = os.environ.get('RDS_PORT')
+    if db_port:
+        SQLALCHEMY_DATABASE_URI = ('mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'
+                                   .format(db_user, db_password, db_host, db_port,
+                                           db_name))
+    else:
+        SQLALCHEMY_DATABASE_URI = ('mysql+pymysql://{}:{}@{}/{}?charset=utf8'
+                                   .format(db_user, db_password, db_host,
+                                           db_name))
 else:
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + op.join(here, 'db.sqlite3')
 
