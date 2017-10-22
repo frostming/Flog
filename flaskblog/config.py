@@ -9,8 +9,7 @@ BLOG_THEME_NAME = 'footstrap'
 BLOG_THEME_PROCESSOR = 'site'
 SECRET_KEY = 'flask blog'
 
-# aws environment
-if 'RDS_HOSTNAME' in os.environ:
+if 'RDS_HOSTNAME' in os.environ:    # AWS environment
     db_name = os.environ['RDS_DB_NAME']
     db_user = os.environ['RDS_USERNAME']
     db_password = os.environ['RDS_PASSWORD']
@@ -24,6 +23,8 @@ if 'RDS_HOSTNAME' in os.environ:
         SQLALCHEMY_DATABASE_URI = ('mysql+pymysql://{}:{}@{}/{}?charset=utf8'
                                    .format(db_user, db_password, db_host,
                                            db_name))
+elif 'DATABASE_URL' in os.environ:     # Heroku environment
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
 else:
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + op.join(here, 'db.sqlite3')
 
