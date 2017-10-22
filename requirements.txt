@@ -9,6 +9,6 @@ python-slugify==1.2.4
 PyYAML==3.12
 Flask-Babel==0.11.2
 gunicorn==19.7.1
-pymysql
 mistune-contrib==0.1
 Flask-Login==0.4.0
+psycopg2
