@@ -95,7 +95,7 @@ class AutoAddModelConverter(AdminModelConverter):
 class PostModelView(ModelView):
     can_view_details = True
     column_exclude_list = ['content']
-    form_columns = ['content', 'title', 'description', 'category',
+    form_columns = ['content', 'title', 'slug', 'description', 'category',
                     'author', 'tags', 'image', 'lang', 'comment']
     create_template = 'admin/createmodel.html'
     edit_template = 'admin/editmodel.html'

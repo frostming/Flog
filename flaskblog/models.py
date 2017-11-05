@@ -38,7 +38,7 @@ class Post(db.Model):
     author = db.Column(db.String(50))
     tags = db.relationship('Tag', secondary=tags,
                            backref='posts')
-    url = db.Column(db.String(100))
+    slug = db.Column(db.String(100))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
     def __init__(self, **kwargs):
@@ -58,6 +58,11 @@ class Post(db.Model):
                 category_object = Category(text=category)
             self.category = category_object
 
+    @property
+    def url(self):
+        return '/%d/%0d-%0d/%s' % (self.date.year, self.date.month,
+                                   self.date.day, self.slug)
+
     def to_dict(self):
         return dict(
             title=self.title,
@@ -69,7 +74,7 @@ class Post(db.Model):
             description=self.description,
             author=self.author,
             tags=[tag.text for tag in self.tags],
-            url=self.url,
+            slug=self.slug,
             content=self.content,
             last_modified=self.last_modified,
         )
@@ -96,26 +101,21 @@ class Post(db.Model):
 
 @sa.event.listens_for(Post, 'before_insert')
 def init_url(mapper, connection, target):
+    if taraget.slug:
+        return
+
     if not target.date:
         target.date = datetime.utcnow()
 
     year = str(target.date.year)
     date = target.date.strftime('%m-%d')
     target.last_modified = datetime.utcnow()
-    with app.test_request_context():
-        target.url = url_for('post', year=year, date=date,
-                             title=slugify(target.title))
+    target.slug = slugify(target.title)
 
 
 @sa.event.listens_for(Post, 'before_update')
 def update_post(mapper, connection, target):
     target.last_modified = datetime.utcnow()
-
-    year = str(target.date.year)
-    date = target.date.strftime('%m-%d')
-    with app.test_request_context():
-        target.url = url_for('post', year=year, date=date,
-                             title=slugify(target.title))
 
 
 class User(db.Model, UserMixin):

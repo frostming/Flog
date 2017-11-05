@@ -34,7 +34,13 @@ def blog(page=None):
 
 @app.route('/<int:year>/<date>/<title>')
 def post(year, date, title):
-    post = Post.query.filter_by(url=request.path).first_or_404()
+    post = None
+    for item in Post.query.all():
+        if item.url == request.url:
+            post = item
+            break
+    if not post:
+        abort(404)
     md.renderer.reset_toc()
     content = md(post.content)
     toc = md.renderer.render_toc(level=3)

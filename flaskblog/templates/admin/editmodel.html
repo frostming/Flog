@@ -33,7 +33,11 @@
   {{ super() }}
   <script src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js" charset="utf-8"></script>
   <script type="text/javascript">
-    var simplemde = new SimpleMDE({ element: $("[data-role='mdeditor']")[0] });
+    var simplemde = new SimpleMDE({
+      element: $("[data-role='mdeditor']")[0],
+      uniqueId: "post-{{model.id}}",
+      delay: 30000,
+    });
     $('[data-role="select2-free"]').each(function(){
       $(this).select2({tags: true});
     });
