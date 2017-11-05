@@ -36,7 +36,7 @@ def blog(page=None):
 def post(year, date, title):
     post = None
     for item in Post.query.all():
-        if item.url == request.url:
+        if item.url == request.path:
             post = item
             break
     if not post:
