@@ -6,8 +6,9 @@
 </button>
 <div class="collapse navbar-collapse align-items-center justify-content-between" id="navbarNavAltMarkup">
   <div class="navbar-nav">
-    {% for item in site.navlinks %}
-      <a href="{%-if item.url == 'internal' %}{{url_for(item['name'].lower())}}{%-else %}{{item.url}}{%endif%}" class="nav-item nav-link">{{_(item.name)|title}}</a>
+    <a href="{{url_for('about')}}" class="nav-item nav-link">{{_('About')}}</a>
+    {% for item in categories %}
+      <a href="{{url_for('category', cat_id=item.id)}}" class="nav-item nav-link">{{_(item.text)|title}}</a>
     {% endfor %}
   </div>
   {% include '_partials/social_links.html' %}

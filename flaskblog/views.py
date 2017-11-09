@@ -26,10 +26,8 @@ def blog(page=None):
                          .order_by(Post.date.desc())\
                          .paginate(page, app.config['BLOG_PER_PAGE'])
     tag_cloud = get_tag_cloud()
-    categories = Category.query.filter(Category.text != 'About').all()
     return render_template('blog.html', posts=paginate.items,
-                           tag_cloud=tag_cloud, paginate=paginate,
-                           categories=categories)
+                           tag_cloud=tag_cloud, paginate=paginate)
 
 
 @app.route('/<int:year>/<date>/<title>')
@@ -63,7 +61,7 @@ def tag(text):
     tag_cloud = get_tag_cloud()
     categories = Category.query.filter(Category.text != 'About').all()
     return render_template('blog.html', posts=posts, tag_cloud=tag_cloud,
-                           tag=tag, categories=categories)
+                           tag=tag)
 
 
 @app.route('/cat/<int:cat_id>')
@@ -73,7 +71,7 @@ def category(cat_id):
     categories = Category.query.filter(Category.text != 'About').all()
     tag_cloud = get_tag_cloud()
     return render_template('blog.html', posts=posts, tag_cloud=tag_cloud,
-                           categories=categories)
+                           cat=cat)
 
 
 @app.route('/favicon.ico')

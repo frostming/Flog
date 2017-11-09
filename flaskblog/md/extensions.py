@@ -1,6 +1,6 @@
 import re
 from slugify import slugify
-from mistune_contrib import toc
+from mistune_contrib import toc, pangu
 from mistune import escape, escape_link
 from mistune import BlockLexer, Renderer
 
@@ -47,7 +47,7 @@ class FlogBlockLexer(BlockLexer):
         })
 
 
-class FlogRenderer(toc.TocMixin, Renderer):
+class FlogRenderer(toc.TocMixin, pangu.PanguRendererMixin, Renderer):
     IMG_RE = re.compile(r'<figure.*?>.+?</figure>')
 
     def __init__(self, *args, **kwargs):
@@ -61,6 +61,7 @@ class FlogRenderer(toc.TocMixin, Renderer):
                 name = func.__name__
             self.plugins[name] = func
             return func
+        return wrapper
 
     def header(self, text, level, raw=None):
         link = slugify(text)

@@ -4,6 +4,7 @@ from flask import request
 from datetime import datetime
 from slugify import slugify
 from . import app
+from .models import Category
 try:
     from urllib.parse import urljoin
 except ImportError:
@@ -24,8 +25,9 @@ def get_current_time():
 def blog_objects():
     url = request.url
     title = request.url_rule.endpoint if request.url_rule else ''
+    categories = Category.query.filter(Category.text != 'About').all()
     rv = {'url': url, 'title': title}
-    return {'page': rv, 'urljoin': urljoin}
+    return {'page': rv, 'urljoin': urljoin, 'categories': categories}
 
 
 @app.template_filter('slugify')

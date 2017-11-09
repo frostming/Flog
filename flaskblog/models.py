@@ -61,7 +61,7 @@ class Post(db.Model):
     @property
     def url(self):
         return '/%d/%02d-%02d/%s' % (self.date.year, self.date.month,
-                                   self.date.day, self.slug)
+                                     self.date.day, self.slug)
 
     def to_dict(self):
         return dict(

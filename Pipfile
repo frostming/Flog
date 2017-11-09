@@ -1,0 +1,29 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+flask = "==0.12.2"
+flask-admin = "==1.5.0"
+flask-blogtheme = "==0.2.2"
+flask-migrate = "==2.1.1"
+flask-moment = "==0.5.1"
+flask-sqlalchemy = "==2.2"
+mistune = "==0.7.4"
+python-slugify = "==1.2.4"
+pyyaml = "==3.12"
+flask-babel = "==0.11.2"
+gunicorn = "==19.7.1"
+flask-login = "==0.4.0"
+"psycopg2" = "*"
+mistune-contrib = {git = "https://github.com/frostming/mistune-contrib.git", editable = true}
+
+
+[dev-packages]
+
+ipython = "*"
+flask-shell-ipython = "*"

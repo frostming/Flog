@@ -5,10 +5,20 @@
 
 {% block pagehead %}
 <section class="blog-head">
-  <a href="/" class="blog-head-logo">
-    <img class="avatar" src="{{ site.avatar }}" alt="{{ site.name }}">
-  </a>
-  <h1 class="heading">{{site.name}}</h1>
+  {% if not cat and not tag %}
+    <a href="/" class="blog-head-logo">
+      <img class="avatar" src="{{ site.avatar }}" alt="{{ site.name }}">
+    </a>
+  {% endif %}
+  <h1 class="heading">
+  {% if cat %}
+    Category: {{cat.text}}
+  {% elif tag %}
+    Tag: {{tag.text}}
+  {% else %}
+    {{site.name}}
+  {% endif %}
+  </h1>
   <div class="divider"></div>
 </section>
 {% endblock %}
@@ -18,10 +28,6 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-lg-8">
-      {% if tag %}
-      <h2><i class="fa fa-fw fa-tag"></i> {{tag.text}}</h2>
-      <hr/>
-      {% endif %}
       {{ helper.render_posts(posts) }}
 
       {% if paginate %}
@@ -38,12 +44,6 @@
       {% endif %}
     </div>
     <div class="col-12 col-lg-4 blog-right">
-      <div class="right-section">
-        <h2>{{_('Categories')}}</h2>
-        {% for cat in categories %}
-          <a href="{{url_for('category', cat_id=cat.id)}}" class="post-cat"><i class="fa fa-folder-open"></i> {{cat}}</a>
-        {% endfor %}
-      </div>
       <div class="right-section">
         <h2>{{_('Tags')}}</h2>
         <div class="post-tags" id="tag-cloud">

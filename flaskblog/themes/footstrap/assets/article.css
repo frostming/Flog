@@ -9,6 +9,11 @@
     font-size: .96em;
 }
 
+.pangu {
+  margin-left: .12em;
+  margin-right: .12em;
+}
+
 pre code {
   font-size: .9em;
 }
