@@ -2,6 +2,8 @@
 
 *A simple and elegant blog engine powered by Flask*
 
+![](http://o7u6qrlad.bkt.clouddn.com/490da787a2d5bee34c002bbff7776d4d.png)
+
 ## Start a development server
 
 1. Install [pipenv](https://github.com/kennethreitz/pipenv)
