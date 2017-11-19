@@ -6,7 +6,7 @@ import re
 import io
 import yaml
 import os
-from .models import Post, Tag
+from .models import Post
 
 MARKDOWN_RE = re.compile(
     r'(?:-{3}\n(?P<meta>.+?\n)-{3}\n+)?(?P<content>.*)',

@@ -1,5 +1,6 @@
-from .models import Post, Tag
 from sqlalchemy import func
+
+from .models import Post, Tag
 
 
 def get_tag_cloud():

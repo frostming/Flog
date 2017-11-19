@@ -1,6 +1,6 @@
 # Flog
 
-*A simple and elegant blog engine powered by Flask*
+*A simple and elegant blog engine powered by Flask*: [DEMO](https://flog-demo.herokuapp.com/)
 
 ![](preview.png)
 
@@ -34,6 +34,12 @@ $ pipenv run flask createadmin
 ```bash
 $ FLASK_APP=application.py pipenv run flask run
 ```
+
+6. Access the admin interface
+
+Go to `$your_domain/admin` and login with the admin user name and password set in step 4.
+
+7. Start writing a post!
 
 ## Deploy the app to web server
 

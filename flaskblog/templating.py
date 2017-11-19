@@ -1,10 +1,13 @@
-from jinja2 import Markup
-from .md import md
-from flask import request
 from datetime import datetime
+
+from flask import request
+from jinja2 import Markup
 from slugify import slugify
+
 from . import app
+from .md import md
 from .models import Category
+
 try:
     from urllib.parse import urljoin
 except ImportError:

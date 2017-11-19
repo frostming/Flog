@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-from . import db, app
 from datetime import datetime
-from slugify import slugify
-from flask import url_for
-import sqlalchemy as sa
 from random import sample
+
+import sqlalchemy as sa
+from flask import url_for
 from flask_login import UserMixin
+from slugify import slugify
 from werkzeug.security import generate_password_hash
 
+from . import app, db
 
 tags = db.Table(
     'tags',
@@ -101,14 +102,12 @@ class Post(db.Model):
 
 @sa.event.listens_for(Post, 'before_insert')
 def init_url(mapper, connection, target):
-    if taraget.slug:
+    if target.slug:
         return
 
     if not target.date:
         target.date = datetime.utcnow()
 
-    year = str(target.date.year)
-    date = target.date.strftime('%m-%d')
     target.last_modified = datetime.utcnow()
     target.slug = slugify(target.title)
 

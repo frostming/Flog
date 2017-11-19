@@ -1,18 +1,17 @@
-from datetime import datetime
-from wtforms import (SelectField, StringField, PasswordField,
-                     SubmitField, Form, validators)
+from flask import redirect, request, url_for
 from flask_admin import Admin, AdminIndexView, expose
-from flask_admin.helpers import validate_form_on_submit
-from flask_login import login_user, logout_user, current_user
 from flask_admin.contrib.sqla import ModelView
-from flask_admin.contrib.sqla.form import AdminModelConverter
 from flask_admin.contrib.sqla.fields import (QuerySelectField,
                                              QuerySelectMultipleField)
+from flask_admin.contrib.sqla.form import AdminModelConverter
+from flask_admin.model.fields import AjaxSelectField, AjaxSelectMultipleField
+from flask_admin.helpers import validate_form_on_submit
+from flask_login import current_user, login_user, logout_user
 from werkzeug.security import check_password_hash
-from . import db, app
-from .models import Post, Tag, Category, User
-from flask import url_for, redirect, request
-from slugify import slugify
+from wtforms import Form, PasswordField, SelectField, StringField, validators
+
+from . import db
+from .models import Category, Post, Tag, User
 
 
 class AutoAddSelectField(QuerySelectField):

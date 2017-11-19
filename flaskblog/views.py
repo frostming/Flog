@@ -1,16 +1,17 @@
-from . import app
-from datetime import datetime
-from werkzeug.contrib.atom import AtomFeed
-from flask import render_template, request, abort, send_file
-import os
 import io
+
+from flask import abort, render_template, request, send_file
+from werkzeug.contrib.atom import AtomFeed
+
+from . import app
 from .md import md
-from .models import Post, Tag, Category
+from .models import Category, Post, Tag
+from .utils import get_tag_cloud
+
 try:
     from urllib.parse import urljoin
 except ImportError:
     from urlparse import urljoin
-from .utils import get_tag_cloud
 
 
 @app.route('/')
@@ -59,7 +60,6 @@ def tag(text):
     posts = Post.query.join(Post.tags).filter(Tag.text == tag.text)\
                                       .order_by(Post.date.desc())
     tag_cloud = get_tag_cloud()
-    categories = Category.query.filter(Category.text != 'About').all()
     return render_template('blog.html', posts=posts, tag_cloud=tag_cloud,
                            tag=tag)
 
@@ -68,7 +68,6 @@ def tag(text):
 def category(cat_id):
     cat = Category.query.get(cat_id)
     posts = cat.posts
-    categories = Category.query.filter(Category.text != 'About').all()
     tag_cloud = get_tag_cloud()
     return render_template('blog.html', posts=posts, tag_cloud=tag_cloud,
                            cat=cat)
