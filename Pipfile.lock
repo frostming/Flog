@@ -9,9 +9,9 @@
             "os_name": "posix",
             "platform_machine": "x86_64",
             "platform_python_implementation": "CPython",
-            "platform_release": "16.7.0",
+            "platform_release": "17.2.0",
             "platform_system": "Darwin",
-            "platform_version": "Darwin Kernel Version 16.7.0: Thu Jun 15 17:36:27 PDT 2017; root:xnu-3789.70.16~2/RELEASE_X86_64",
+            "platform_version": "Darwin Kernel Version 17.2.0: Fri Sep 29 18:27:05 PDT 2017; root:xnu-4570.20.62~3/RELEASE_X86_64",
             "python_full_version": "3.6.3",
             "python_version": "3.6",
             "sys_platform": "darwin"
@@ -83,6 +83,7 @@
         },
         "flask-migrate": {
             "hashes": [
+                "sha256:493f9b3795985b9b4915bf3b7d16946697f027b73545384e7d9e3a79f989d2fe",
                 "sha256:b709ca8642559c3c5a81a33ab10839fa052177accd5ba821047a99db635255ed"
             ],
             "version": "==2.1.1"
@@ -143,7 +144,8 @@
         },
         "mistune-contrib": {
             "editable": true,
-            "git": "https://github.com/frostming/mistune-contrib.git"
+            "git": "https://github.com/frostming/mistune-contrib.git",
+            "ref": "36c5ff9d2c8308bd03bf28fe28cc0755a6a86864"
         },
         "psycopg2": {
             "hashes": [
@@ -354,11 +356,11 @@
         },
         "pexpect": {
             "hashes": [
-                "sha256:f853b52afaf3b064d29854771e2db509ef80392509bde2dd7a6ecf2dfc3f0018",
-                "sha256:3d132465a75b57aa818341c6521392a06cc660feb3988d7f1074f39bd23c9a92"
+                "sha256:2b50dd8caa5007b10b0afcf075095814780b104b4a5cf9d8fbdc8bbc754e5ca4",
+                "sha256:00ab0872f80f5db740499e7a1283a7c3b97bea542d72df84d83dea17d0afd2d9"
             ],
             "markers": "sys_platform != 'win32'",
-            "version": "==4.2.1"
+            "version": "==4.3.0"
         },
         "pickleshare": {
             "hashes": [
