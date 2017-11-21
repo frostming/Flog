@@ -1,6 +1,7 @@
 import io
+from urllib import parse
 
-from flask import abort, render_template, request, send_file
+from flask import abort, render_template, request, send_file, redirect
 from werkzeug.contrib.atom import AtomFeed
 
 from . import app
@@ -12,6 +13,14 @@ try:
     from urllib.parse import urljoin
 except ImportError:
     from urlparse import urljoin
+
+
+@app.before_request
+def redirect_nonwww():
+    url_parts = parse.urlparse(request.url)
+    if url_parts.netloc[:4] == 'www.':
+        url_parts = url_parts._replace(netloc=url_parts.netloc[4:])
+        return redirect(parse.urlunparse(url_parts), code=301)
 
 
 @app.route('/')
