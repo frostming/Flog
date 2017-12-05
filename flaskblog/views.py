@@ -59,8 +59,9 @@ def post(year, date, title):
 @app.route('/about')
 def about():
     lang = request.args.get('lang', 'zh')
-    post = Post.query.join(Post.category).filter(Category.text == 'About')\
-                                         .filter_by(lang=lang).first_or_404()
+    post = Post.query.filter_by(lang=lang)\
+               .join(Post.category).filter(Category.text == 'About')\
+               .first_or_404()
     return render_template('post.html', post=post, content=md(post.content))
 
 
