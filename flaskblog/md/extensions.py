@@ -55,11 +55,12 @@ class FlogRenderer(toc.TocMixin, pangu.PanguRendererMixin, Renderer):
         self.reset_toc()
         self.plugins = {}
 
-    def register_tag_plugin(name=None):
+    def register_tag_plugin(self, name=None):
         def wrapper(func):
-            if name is None:
-                name = func.__name__
-            self.plugins[name] = func
+            oname = name
+            if oname is None:
+                oname = func.__name__
+            self.plugins[oname] = func
             return func
         return wrapper
 
@@ -109,8 +110,8 @@ class FlogRenderer(toc.TocMixin, pangu.PanguRendererMixin, Renderer):
 
         yield '<div class="list-group" id="table-of-content">\n'
 
-        for toc in self.toc_tree:
-            index, text, l, raw = toc
+        for item in self.toc_tree:
+            index, text, l, raw = item
 
             if l > level:
                 # ignore this level
