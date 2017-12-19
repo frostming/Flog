@@ -53,13 +53,13 @@ figure img {
     opacity: .96;
 }
 
-.post-content hr {
+.post-text hr {
     display: block;
     border: 0;
     margin: 2.24em auto 2.86em;
 }
 
-.post-content hr::after {
+.post-text hr::after {
     color: rgba(0,0,0,.2);
     font-size: 1.1em;
     display: block;
@@ -76,7 +76,7 @@ figure img {
     margin: 40px 0 20px;
 }
 
-.post-content .footnote-ref>a {
+.post-text .footnote-ref>a {
     display: inline-block;
     text-indent: 0;
     width: 14px;
@@ -91,7 +91,7 @@ figure img {
     transition: all .1s ease;
 }
 
-.post-content .footnote-ref>a:hover {
+.post-text .footnote-ref>a:hover {
     color: #fff;
     background-color: rgba(0,0,0,.98);
 }
