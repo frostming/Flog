@@ -1,8 +1,13 @@
 {% extends 'page.html' %}
 
+{% block lang %}{{post.lang}}{% endblock %}
 {% block title %}{{post.title|capitalize}}{% endblock %}
+{% block ogtype %}article{% endblock %}
+{% block description %}{%-if post.description %}{{post.description}}{%-endif %}{% endblock %}
+{% block ogimg %}{%-if post.image %}{{post.image}}{%-endif %}{% endblock %}
 {% block extracss %}
-<meta name="description" content="{{post.description}}">
+<meta name="weibo:article:create_at" content="{{post.date|date('%Y-%m-%dT%H:%M:%SZ')}}">
+<meta name="weibo:article:update_at" content="{{post.last_modified|date('%Y-%m-%dT%H:%M:%SZ')}}">
 <meta name="keywords" content="{{post.tags|join(', ', 'text')}}">
 <meta name="author" content="{{post.author}}">
 <link rel="stylesheet" href="{{ url_for('theme.static', filename='yue.css') }}">
