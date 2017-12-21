@@ -172,8 +172,9 @@ img.avatar {
 }
 
 .post-meta .post-author::before {
-  content: "/ ";
+  content: "/";
   color: rgba(0, 0, 0, .1);
+  margin-right: 3px;
 }
 
 .post-meta:hover {
@@ -251,6 +252,7 @@ img.avatar {
 }
 
 #tag-cloud a {
+  font-size: 0.8em;
   color: white;
   border-radius: 10px;
   margin-right: 10px;
@@ -264,7 +266,14 @@ img.avatar {
 }
 
 .post-tags a::before {
-  content: "# "
+  content: "#";
+  font-weight: 900;
+  color: rgba(0, 0, 0, .1);
+  margin-right: 1px;
+}
+
+.post-tags a:hover::before {
+  color: rgba(0, 0, 0, .5);
 }
 
 #tag-cloud a.active {
