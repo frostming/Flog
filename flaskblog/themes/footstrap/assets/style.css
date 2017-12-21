@@ -253,10 +253,11 @@ img.avatar {
 
 #tag-cloud a {
   font-size: 0.8em;
-  color: white;
-  border-radius: 10px;
-  margin-right: 10px;
-  margin-bottom: .5em;
+  border-radius: 100px;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-bottom: 5px;
+  border: 1px solid;
 }
 
 .post-tags a:hover {

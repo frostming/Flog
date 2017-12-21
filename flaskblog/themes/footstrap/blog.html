@@ -45,12 +45,10 @@
     </div>
     <div class="col-12 col-lg-4 blog-right">
       <div class="right-section">
-        <h2>{{_('Tags')}}</h2>
+        <h2><i class="fa fa-tags"></i>{{_('Tags')}}</h2>
         <div class="post-tags" id="tag-cloud">
           {% for tag, heat in tag_cloud %}
-          <a href="{{tag.url}}" rel="{{heat}}">
-            {{tag.text}}
-          </a>
+            <a href="{{tag.url}}" rel="{{heat}}">{{tag.text}}</a>
           {% endfor %}
         </div>
       </div>
