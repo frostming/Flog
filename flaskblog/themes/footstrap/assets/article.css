@@ -134,17 +134,30 @@ figure img {
   padding-right: 0;
 }
 
+.photo {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.photo+.photo {
+  margin-top: -50px;
+}
+
 @media (min-width: 992px) {
   #post-container {
     padding: 0 120px;
   }
 
   .photo {
-    margin: 50px -120px;
+    margin-left: -120px;
+    margin-right: -120px;
   }
+}
 
-  .photo+.photo {
-    margin-top: -50px;
+@media (max-width: 992px) {
+  .photo {
+    margin-left: -15px;
+    margin-right: -15px;
   }
 }
 
