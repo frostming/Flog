@@ -159,6 +159,10 @@ figure img {
     margin-left: -15px;
     margin-right: -15px;
   }
+
+  .photo figure {
+    padding: 3px 0px;
+  }
 }
 
 .post-toc {
