@@ -117,7 +117,7 @@ figure img {
   margin-bottom: 2em;
   font-weight: 300;
   font-size: 1.65em;
-  color: rgba(0, 0, 0, .7);
+  color: rgba(0, 0, 0, .45);
 }
 
 .photo figure {
@@ -144,7 +144,7 @@ figure img {
 }
 
 @media (min-width: 992px) {
-  #post-container {
+  #post-container, .related {
     padding: 0 120px;
   }
 
@@ -239,8 +239,8 @@ figure img {
 #comments {
   margin-top: 2em;
   padding-top: .5em;
-  border-top: 2px rgba(0, 0, 0, .1) solid;
-  background-color: #eaeaea;
+  border-top: 1px rgba(0, 0, 0, .1) solid;
+  background-color: rgba(0, 0, 0, .05);
 }
 
 #totop {
@@ -270,4 +270,15 @@ figure img {
 #cc {
   margin: 5px 0;
 
+}
+
+.related a:hover {
+  text-decoration: none;
+}
+
+.related-title {
+  font-family: "Roboto Condensed", -apple-system, "Helvetica Nueue", Helvetica, Arial, sans-serif;
+  border-top: 1px rgba(0, 0, 0, .1) solid;
+  font-weight: 300;
+  color: rgba(0, 0, 0, .3);
 }

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from random import sample
+from random import choice
 
 import sqlalchemy as sa
 from flask import url_for
@@ -93,11 +93,12 @@ class Post(db.Model):
         return Post.query.order_by(Post.id.asc())\
             .filter(Post.id > self.id).first()
 
-    def related_post(self, maxnum=1):
-        posts = Post.query.join(Post.tags)\
-                          .filter(Tag.text.in_([tag.text for tag in self.tags]))
-        num = min(posts.count(), maxnum)
-        return sample(posts.all(), num)
+    def related_post(self):
+        posts = Post.query.join(Post.tags).filter(
+            Tag.id.in_([tag.id for tag in self.tags]),
+            Post.id != self.id)
+        if posts.count() > 0:
+            return choice(posts.all())
 
 
 @sa.event.listens_for(Post, 'before_insert')
