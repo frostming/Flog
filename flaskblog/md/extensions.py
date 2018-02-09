@@ -1,11 +1,11 @@
 import re
 from slugify import slugify
-from mistune_contrib import toc, pangu
+from mistune_contrib import toc, pangu, math
 from mistune import escape, escape_link
-from mistune import BlockLexer, Renderer
+from mistune import BlockLexer, Renderer, InlineLexer
 
 
-class FlogBlockLexer(BlockLexer):
+class FlogBlockLexer(math.MathBlockMixin, BlockLexer):
     IMAGE_RE = re.compile(
         r'[ ]*(!\[([^\[\]]+)?\]\(([^)]+)\))'
         r'([ ]+(!\[([^\[\]]+)?\]\(([^)]+)\)))*$', re.M
@@ -19,6 +19,7 @@ class FlogBlockLexer(BlockLexer):
     def __init__(self, *args, **kwargs):
         super(FlogBlockLexer, self).__init__(*args, **kwargs)
         self.install_extensions()
+        self.enable_math()
 
     def install_extensions(self):
         self.rules.image_block = self.IMAGE_RE
@@ -47,7 +48,14 @@ class FlogBlockLexer(BlockLexer):
         })
 
 
-class FlogRenderer(toc.TocMixin, pangu.PanguRendererMixin, Renderer):
+class FlogInline(math.MathInlineMixin, InlineLexer):
+    def __init__(self, *args, **kwargs):
+        super(FlogInline, self).__init__(*args, **kwargs)
+        self.enable_math()
+
+
+class FlogRenderer(toc.TocMixin, pangu.PanguRendererMixin,
+                   math.MathRendererMixin, Renderer):
     IMG_RE = re.compile(r'<figure.*?>.+?</figure>')
 
     def __init__(self, *args, **kwargs):

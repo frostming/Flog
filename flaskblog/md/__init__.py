@@ -1,5 +1,5 @@
 from mistune import Markdown
-from .extensions import FlogRenderer, FlogBlockLexer
+from .extensions import FlogRenderer, FlogBlockLexer, FlogInline
 
 
 renderer = FlogRenderer()
@@ -16,4 +16,5 @@ class FlogMarkdown(Markdown):
         return self.renderer.tag_plugin(self, **self.token)
 
 
-md = FlogMarkdown(renderer=renderer, block=FlogBlockLexer())
+md = FlogMarkdown(renderer=renderer, block=FlogBlockLexer(),
+                  inline=FlogInline(renderer))
