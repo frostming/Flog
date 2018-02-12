@@ -1,11 +1,10 @@
 import hashlib
 import hmac
-import os
 import time
 from collections import OrderedDict
 from urllib.parse import urlencode
 
-from flask import json, request
+from flask import request, current_app
 from sqlalchemy import func
 
 from .models import Post, Tag
@@ -40,10 +39,8 @@ def calc_token():
     headers = dict()
     if path[0] != '/':
         path = '/' + path
-    here = os.path.dirname(__file__)
-    secrets = json.load(open(os.path.join(here, '.cos_secret.json')))
-    secret_id = secrets.pop('secret_id')
-    secret_key = secrets.pop('secret_key')
+    secret_id = current_app.config['COS_SECRET_ID']
+    secret_key = current_app.config['COS_SECRET_KEY']
     now = int(time.time())
     expired = now + 600
 
