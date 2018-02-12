@@ -110,3 +110,5 @@ src/
 !.elasticbeanstalk/*.global.yml
 
 .vscode/
+
+flaskblog/.cos_secret.json

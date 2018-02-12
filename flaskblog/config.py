@@ -31,3 +31,7 @@ else:
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 BLOG_PER_PAGE = 10
+
+ENABLE_COS_UPLOAD = True
+COS_BUCKET = "frostming-tencent-1252779928"
+COS_REGION = "ap-guangzhou"

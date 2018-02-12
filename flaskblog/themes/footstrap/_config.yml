@@ -20,6 +20,7 @@ cdn:
   fontawesome: https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css
 
   moment: https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js
+  mathjax: https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js
 
 
 navlinks:

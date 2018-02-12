@@ -7,7 +7,7 @@ from werkzeug.contrib.atom import AtomFeed
 from . import app
 from .md import md
 from .models import Category, Post, Tag
-from .utils import get_tag_cloud
+from .utils import get_tag_cloud, calc_token
 
 try:
     from urllib.parse import urljoin
@@ -115,3 +115,7 @@ def sitemap():
 @app.errorhandler(404)
 def not_found(error):
     return render_template('404.html')
+
+
+if app.config.get('ENABLE_COS_UPLOAD', False):
+    app.add_url_rule('/upload-token', 'upload_token', calc_token)

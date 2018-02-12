@@ -38,4 +38,14 @@
       $(this).select2({tags: true});
     });
   </script>
+  {% if config.ENABLE_COS_UPLOAD %}
+  <script>
+    window.cosConfig = {
+      bucket: '{{config.COS_BUCKET}}',
+      region: '{{config.COS_REGION}}'
+    }
+  </script>
+  <script src="{{url_for('static', filename='js/cos-js-sdk-v5.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/cos-upload.js')}}"></script>
+  {% endif %}
 {% endblock %}
