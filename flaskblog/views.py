@@ -1,5 +1,5 @@
 import io
-from urllib import parse
+from urllib.parse import urlparse, urlunparse
 
 from flask import abort, render_template, request, send_file, redirect
 from werkzeug.contrib.atom import AtomFeed
@@ -17,10 +17,15 @@ except ImportError:
 
 @app.before_request
 def redirect_nonwww():
-    url_parts = parse.urlparse(request.url)
-    if url_parts.netloc[:4] == 'www.':
-        url_parts = url_parts._replace(netloc=url_parts.netloc[4:])
-        return redirect(parse.urlunparse(url_parts), code=301)
+    """URL normalization and redirect"""
+    url_parts = urlparse(request.url)
+    netloc = url_parts.netloc
+    if netloc[:4] == 'www.':
+        netloc = netloc[4:]
+    if netloc[-4:] == '.win':
+        netloc = netloc[:-4] + '.com'
+    if netloc != url_parts.netloc:
+        return redirect(urlunparse(url_parts._replace(netloc=netloc)), code=301)
 
 
 @app.route('/')
