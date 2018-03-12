@@ -26,6 +26,7 @@ gunicorn = "==19.7.1"
 flask-login = "==0.4.0"
 "psycopg2" = "*"
 mistune-contrib = {git = "https://github.com/frostming/mistune-contrib.git", editable = true}
+flask-sslify = "*"
 
 
 [dev-packages]
