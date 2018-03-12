@@ -133,7 +133,8 @@
         },
         "mistune-contrib": {
             "editable": true,
-            "git": "https://github.com/frostming/mistune-contrib.git"
+            "git": "https://github.com/frostming/mistune-contrib.git",
+            "ref": "36c5ff9d2c8308bd03bf28fe28cc0755a6a86864"
         },
         "psycopg2": {
             "hashes": [
@@ -361,7 +362,7 @@
                 "sha256:d32550b75a818b289bd4c1f96b60c89957811da205afcceab75bc8b4857ea5b3",
                 "sha256:db3e43032d23787d3e9aec8c7ef1e0d2c3c589d5f303477661ebda2ca6d4bfba"
             ],
-            "markers": "python_version in '2.6 2.7 3.2 3.3'",
+            "markers": "python_version == '3.3'",
             "version": "==2.3.0"
         },
         "pexpect": {
