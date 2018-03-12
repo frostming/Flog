@@ -22,8 +22,8 @@ def redirect_nonwww():
     netloc = url_parts.netloc
     if netloc[:4] == 'www.':
         netloc = netloc[4:]
-    # if netloc[-4:] == '.win':
-    #     netloc = netloc[:-4] + '.com'
+    if netloc[-4:] == '.win':
+        netloc = netloc[:-4] + '.com'
     if netloc != url_parts.netloc:
         return redirect(urlunparse(url_parts._replace(netloc=netloc)), code=301)
 
