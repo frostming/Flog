@@ -5,7 +5,7 @@ verify_ssl = true
 name = "pypi"
 
 [requires]
-python_version = "3.6.3"
+python_full_version = "3.6.4"
 
 [packages]
 
