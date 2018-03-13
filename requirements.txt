@@ -24,7 +24,7 @@ python-slugify==1.2.4
 pytz==2018.3
 pyyaml==3.12
 six==1.11.0
-sqlalchemy==1.2.5
+sqlalchemy==1.2.0b3
 unidecode==1.0.22
 werkzeug==0.14.1
 wtforms==2.1
