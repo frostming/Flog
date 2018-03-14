@@ -5,7 +5,6 @@ from flask_migrate import Migrate
 from flask_moment import Moment
 from flask_babel import Babel
 from flask_login import LoginManager
-from flask_sslify import SSLify
 from .md import md
 
 
@@ -17,7 +16,6 @@ migrate = Migrate(app, db)
 moment = Moment(app)
 babel = Babel(app)
 login_manager = LoginManager(app)
-sslify = SSLify(app, permanent=True)
 
 
 from . import cli   # noqa

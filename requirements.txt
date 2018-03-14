@@ -9,7 +9,6 @@ flask-login==0.4.0
 flask-migrate==2.1.1
 flask-moment==0.5.1
 flask-sqlalchemy==2.2
-flask-sslify==0.1.5
 flask==0.12.2
 gunicorn==19.7.1
 itsdangerous==0.24
