@@ -18,12 +18,13 @@ except ImportError:
 @app.before_request
 def redirect_old_domain():
     """URL normalization and redirect"""
-    parts = urlparse(request.url)._asdict()
-    parts['netloc'] = 'frostming.com'
-    parts['scheme'] = 'https'
-    new_url = urlunparse([v for v in parts.values()])
-    if new_url != request.url:
-        return redirect(new_url, code=301)
+    if not app.debug:
+        parts = urlparse(request.url)._asdict()
+        parts['netloc'] = 'frostming.com'
+        parts['scheme'] = 'https'
+        new_url = urlunparse([v for v in parts.values()])
+        if new_url != request.url:
+            return redirect(new_url, code=301)
 
 
 @app.after_request

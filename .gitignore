@@ -112,3 +112,4 @@ src/
 .vscode/
 
 flaskblog/.cos_secret.json
+.envrc
