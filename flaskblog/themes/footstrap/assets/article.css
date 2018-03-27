@@ -243,6 +243,10 @@ figure img {
   background-color: rgba(0, 0, 0, .05);
 }
 
+#comments a {
+  color: #5094c2;
+}
+
 #totop {
   position: fixed;
   bottom: 40px;
