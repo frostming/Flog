@@ -1,4 +1,4 @@
-# Flog
+# frostming.com
 
 *A simple and elegant blog engine powered by Flask*
 
