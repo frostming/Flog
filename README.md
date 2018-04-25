@@ -1,6 +1,6 @@
 # Flog
 
-*A simple and elegant blog engine powered by Flask*: [DEMO](https://flog-demo.herokuapp.com/)
+*A simple and elegant blog engine powered by Flask*
 
 ![](preview.png)
 
