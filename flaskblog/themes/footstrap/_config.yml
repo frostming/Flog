@@ -50,3 +50,6 @@ sociallinks:
   - name: 知乎
     icon: iconfont||zhihu
     link: https://www.zhihu.com/people/frostming
+
+# Google webmaster site verification token
+google_site_verification: h8jxTRuS6ULFwI6WDoBx0H-7GSBn8vvXSrgX08TrYYc
