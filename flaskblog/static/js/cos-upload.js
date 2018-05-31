@@ -34,7 +34,7 @@ inputEle.onchange = function() {
     Body: file,
   }, function(error, data) {
     if(!error) {
-      simplemde.codemirror.replaceSelection(`![](http://${data.Location})`)
+      simplemde.codemirror.replaceSelection(`![](https://${data.Location})`)
     }
   })
 }
