@@ -98,7 +98,17 @@ class FlogRenderer(toc.TocMixin, pangu.PanguRendererMixin,
             images = '<div class="photo-set d-lg-flex">%s</div>' % images
         rv.append(images)
         rv.append('</div>')
-        return '\n'.join(rv)
+        return '\n'.join(rv) + '\n'
+
+    def block_code(self, code, lang=None):
+        rv = [
+            '<div class="block-code">\n'
+            '<div class="code-head clearfix">{}<span class="copy-code" title="Copy code"></span></div>\n'
+            .format((lang or '').title()),
+            super(FlogRenderer, self).block_code(code, lang),
+            '</div>\n'
+        ]
+        return ''.join(rv)
 
     def tag_plugin(self, md, plugin, args, body, endtag):
         plugin_func = self.plugins[plugin]

@@ -171,11 +171,10 @@
   margin: 0;
   padding: 0;
 }
-.yue code,
+code,
 .yue tt {
   color: #808080;
   font-size: 0.96em;
-  background-color: #f9f9f7;
   padding: 1px 2px;
   border: 1px solid #eee;
   border-radius: 3px;
@@ -183,23 +182,15 @@
   word-wrap: break-word;
 }
 .yue pre {
-  margin: 1.64em 0;
-  padding: 7px;
   border: none;
-  border-left: 3px solid #dadada;
-  padding-left: 10px;
   overflow: auto;
   line-height: 1.5;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  color: #4c4c4c;
-  background-color: #f9f9f7;
 }
 .yue pre code,
 .yue pre tt {
-  color: #4c4c4c;
+  padding: 1em;
   border: none;
-  background: none;
-  padding: 0;
 }
 .yue table {
   width: 100%;
