@@ -1,7 +1,10 @@
-{% extends 'layout.html' %}
+{% extends 'page.html' %}
+{% import '_partials/helper.html' as helper with context %}
 
-{% block mainbody %}
-<div class="cover text-light" style="background-image: url('{{site.cover_url}}')">
+{% block extclass %}has-bg{% endblock %}
+
+{% block pagehead %}
+<div class="cover float-section text-light" style="background-image: url('{{site.cover_url}}')">
   <div class="mx-auto my-auto">
     <div class="bio">
       <img class="avatar" src="{{ site.avatar }}" alt="{{ site.name }}">
@@ -15,6 +18,80 @@
     </div>
   </div>
 </div>
+
+<section class="blog-head">
+  {% if not cat and not tag %}
+    <a href="/" class="blog-head-logo">
+      <img class="avatar" src="{{ site.avatar }}" alt="{{ site.name }}">
+    </a>
+  {% endif %}
+  <h1 class="heading">
+  {% if cat %}
+    Category: {{cat.text}}
+  {% elif tag %}
+    Tag: {{tag.text}}
+  {% else %}
+    {{site.name}}
+  {% endif %}
+  </h1>
+  <div class="divider"></div>
+</section>
 {% endblock %}
 
-{% block footercls %}fixed-bottom{% endblock %}
+
+{% block pagebody %}
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-lg-8">
+      {{ helper.render_posts(posts) }}
+
+      {% if paginate %}
+      <div class="paginate d-flex justify-content-between">
+        <a href="{{url_for('home', page=paginate.prev_num)}}"
+        {% if paginate.has_prev %} style="visibility: visible;"{% endif %}>
+        <i class="fa fa-fw fa-angle-left"></i> {{_('Newer Posts')}}
+      </a>
+      <a href="{{url_for('home', page=paginate.next_num)}}"
+      {% if paginate.has_next %} style="visibility: visible;"{% endif %}>
+      {{_('Older Posts')}} <i class="fa fa-fw fa-angle-right"></i>
+      </a>
+      </div>
+      {% endif %}
+    </div>
+    <div class="col-12 col-lg-4 blog-right">
+      <div class="right-section">
+        <h2><i class="fa fa-tags"></i>{{_('Tags')}}</h2>
+        <div class="post-tags" id="tag-cloud">
+          {% for tag, heat in tag_cloud %}
+            <a href="{{tag.url}}" rel="{{heat}}">{{tag.text}}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extrajs %}
+<script type="text/javascript">
+  if($('#tag-cloud').length !== 0) {
+    async('{{url_for("theme.static", filename="tagcloud.js")}}', function(){
+      $.fn.tagcloud.defaults = {
+          //size: {start: 1, end: 1, unit: 'em'},
+          color: {start: '#4c98ca', end: '#d24848'},
+      };
+      $('#tag-cloud > a').tagcloud();
+    })
+  }
+  $(window).on('scroll', function(){
+    var headerHeight = document.getElementsByClassName('blog-head')[0].clientHeight;
+    $('.cover').animate({
+      height: headerHeight,
+      opacity: 0
+    }, 400, function(){
+      $(this).addClass('invisible');
+    });
+  });
+</script>
+{% endblock %}

@@ -36,20 +36,15 @@ def set_hsts_header(response):
 
 
 @app.route('/')
-def home():
-    return render_template('index.html')
-
-
-@app.route('/blog')
-@app.route('/blog/page/<int:page>')
-def blog(page=None):
+@app.route('/page/<int:page>')
+def home(page=None):
     paginate = Post.query.join(Post.category)\
                          .filter(Category.text != 'About')\
                          .order_by(Post.date.desc())\
                          .paginate(page, app.config['BLOG_PER_PAGE'])
     tag_cloud = get_tag_cloud()
     return render_template(
-        'blog.html',
+        'index.html',
         posts=paginate.items,
         tag_cloud=tag_cloud,
         paginate=paginate)

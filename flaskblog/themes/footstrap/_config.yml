@@ -26,10 +26,10 @@ cdn:
 navlinks:
 
   - name: blog
-    url: internal
+    url: /
 
   - name: about
-    url: internal
+    url: /about
 
   - name: resume
     url: //resume.frostming.com
