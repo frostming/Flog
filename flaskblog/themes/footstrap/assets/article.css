@@ -250,7 +250,7 @@ figure img {
 }
 
 @media (min-width:1200px) {
-  .post-container {
+  #post-container {
     max-width: 1400px;
   }
 }
