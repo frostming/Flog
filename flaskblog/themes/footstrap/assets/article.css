@@ -143,17 +143,6 @@ figure img {
   margin-top: -50px;
 }
 
-@media (min-width: 992px) {
-  #post-container, .related {
-    padding: 0 120px;
-  }
-
-  .photo {
-    margin-left: -120px;
-    margin-right: -120px;
-  }
-}
-
 @media (max-width: 992px) {
   .photo {
     margin-left: -15px;
@@ -167,8 +156,8 @@ figure img {
 
 .post-toc {
   top: 70px;
-  text-align: right;
   font-weight: 300;
+  font-size: 14px;
 }
 
 .toc-head {
@@ -182,19 +171,19 @@ figure img {
 }
 
 #table-of-content .list-group-item:hover {
-  border-right: 2px rgba(0, 0, 0, .7) solid;
+  border-left: 2px rgba(0, 0, 0, .7) solid;
   color: #444444;
 }
 
 #table-of-content .list-group-item.active {
   font-weight: 600;
-  border-right: 3px rgba(0, 0, 0, .7) solid;
+  border-left: 3px rgba(0, 0, 0, .7) solid;
   background-color: transparent;
   color: #444444;
 }
 
 #table-of-content>.list-group-item {
-  padding: 5px 20px;
+  padding: 2px 10px;
 }
 
 #table-of-content>.list-group>.list-group-item {
@@ -208,7 +197,7 @@ figure img {
 }
 
 .post-toc #table-of-content {
-  border-right: 1px rgba(0, 0, 0, .1) solid;
+  border-left: 1px rgba(0, 0, 0, .1) solid;
 }
 
 #table-of-content .list-group {
@@ -240,7 +229,6 @@ figure img {
   margin-top: 2em;
   padding-top: .5em;
   border-top: 1px rgba(0, 0, 0, .1) solid;
-  background-color: rgba(0, 0, 0, .05);
 }
 
 #comments a {
@@ -262,8 +250,8 @@ figure img {
 }
 
 @media (min-width:1200px) {
-  .post-center {
-    max-width: 976px;
+  .post-container {
+    max-width: 1400px;
   }
 }
 

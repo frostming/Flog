@@ -25,7 +25,7 @@
   </section>
 {% endblock %}
 
-{% block leftside %}
+{% block rightside %}
   {% if toc %}
   <div class="post-toc sticky-top">
     <div class="toc-head">
@@ -36,9 +36,8 @@
   {% endif %}
 {% endblock %}
 
-{% block xl_class %} post-center{% endblock %}
-{% block centercontent %}
-<article id="post-container" itemscope itemtype="http://schema.org/Article">
+{% block content %}
+<article itemscope itemtype="http://schema.org/Article">
   <div class="d-lg-flex justify-content-between align-items-center">
     <div class="post-meta">
       <time datetime="{{post.date}}" itemprop="pubDate">{{ moment(post.date).format('ll') }}</time>
@@ -78,11 +77,11 @@
   </div>
 </section>
 {% endif %}
+{% include '_partials/disqus.html' %}
 {% endblock %}
 
 {% block additional %}
   {% include '_partials/pswp.html' %}
-  {% include '_partials/disqus.html' %}
   <a id="totop" title="Return to the top" class="invisible" href="javascript:void(0)"><i class="fa fa-fw fa-arrow-up"></i></a>
 {% endblock %}
 

@@ -1,0 +1,1 @@
+from flaskblog import app

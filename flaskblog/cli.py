@@ -21,8 +21,8 @@ def init():
 
 
 @app.cli.command()
-@click.option('--username', prompt='Please input a username:')
-@click.option('--email', prompt='Please input your email address:')
+@click.option('--username', prompt='Please input a username')
+@click.option('--email', prompt='Please input your email address')
 @click.password_option()
 def createadmin(username, email, password):
     """Create an admin user"""
