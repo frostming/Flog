@@ -4,10 +4,6 @@
     <loc>{{url_for('home', _external=True)}}</loc>
     <priority>1.0</priority>
   </url>
-  <url>
-    <loc>{{url_for('blog', _external=True)}}</loc>
-    <priority>0.9</priority>
-  </url>
   {% for post in posts %}
   <url>
     <loc>{{urljoin(request.url_root, post.url)}}</loc>
