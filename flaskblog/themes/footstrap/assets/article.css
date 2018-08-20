@@ -120,36 +120,36 @@ figure img {
   color: rgba(0, 0, 0, .45);
 }
 
-.photo figure {
+.photo-set figure {
   position: relative;
   padding: 3px;
   margin: 0;
 }
 
-.photo figure:first-of-type {
+.photo-set figure:first-of-type {
   padding-left: 0;
 }
 
-.photo figure:last-of-type {
+.photo-set figure:last-of-type {
   padding-right: 0;
 }
 
-.photo {
+.photo-set {
   margin-top: 50px;
   margin-bottom: 50px;
 }
 
-.photo+.photo {
+.photo-set+.photo-set {
   margin-top: -50px;
 }
 
 @media (max-width: 992px) {
-  .photo {
+  .photo-set {
     margin-left: -15px;
     margin-right: -15px;
   }
 
-  .photo figure {
+  .photo-set figure {
     padding: 3px 0px;
   }
 }

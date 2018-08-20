@@ -5,7 +5,7 @@ from jinja2 import Markup
 from slugify import slugify
 
 from . import app
-from .md import md
+from .md import markdown
 from .models import Category
 
 try:
@@ -40,4 +40,4 @@ def make_slugify(s):
 
 @app.template_filter('render')
 def render_markdown(s):
-    return Markup(md(s))
+    return Markup(markdown(s))

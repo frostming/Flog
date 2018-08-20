@@ -84,7 +84,7 @@
       $('#tag-cloud > a').tagcloud();
     })
   }
-  $(window).on('scroll', function(){
+  var dismissCover = function(){
     var headerHeight = document.getElementsByClassName('blog-head')[0].clientHeight;
     $('.cover').animate({
       height: headerHeight,
@@ -92,6 +92,12 @@
     }, 400, function(){
       $(this).addClass('invisible');
     });
+  };
+  $(window).on('scroll', dismissCover);
+  $(window).on('hashchange', function() {
+    if (location.href !== location.origin + '/') {
+      dismissCover();
+    }
   });
 </script>
 {% endblock %}

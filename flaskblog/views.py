@@ -5,7 +5,7 @@ from flask import abort, render_template, request, send_file, redirect
 from werkzeug.contrib.atom import AtomFeed
 
 from . import app
-from .md import md
+from .md import markdown
 from .models import Category, Post, Tag
 from .utils import get_tag_cloud, calc_token
 
@@ -59,9 +59,8 @@ def post(year, date, title):
             break
     if not post:
         abort(404)
-    md.renderer.reset_toc()
-    content = md(post.content)
-    toc = md.renderer.render_toc(level=3)
+    content = markdown(post.content)
+    toc = markdown.renderer.render_toc()
     return render_template('post.html', post=post, content=content, toc=toc)
 
 
@@ -71,7 +70,7 @@ def about():
     post = Post.query.filter_by(lang=lang)\
                .join(Post.category).filter(Category.text == 'About')\
                .first_or_404()
-    return render_template('post.html', post=post, content=md(post.content))
+    return render_template('post.html', post=post, content=markdown(post.content))
 
 
 @app.route('/tag/<text>')
@@ -106,7 +105,7 @@ def feed():
     for post in posts:
         feed.add(
             post.title,
-            str(md(post.content)),
+            str(markdown(post.content)),
             content_type='html',
             author=post.author or 'Unnamed',
             url=urljoin(request.url_root, post.url),

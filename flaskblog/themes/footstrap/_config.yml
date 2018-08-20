@@ -26,7 +26,7 @@ cdn:
 navlinks:
 
   - name: blog
-    url: /
+    url: /#
 
   - name: about
     url: /about

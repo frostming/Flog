@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 from flask_moment import Moment
 from flask_babel import Babel
 from flask_login import LoginManager
-from .md import md
+from .md import markdown
 
 
 app = Flask(__name__)
@@ -35,4 +35,4 @@ def get_user(uid):
 
 @app.shell_context_processor
 def shell_context():
-    return {'db': db, 'Post': Post, 'md': md}
+    return {'db': db, 'Post': Post, 'markdown': markdown}

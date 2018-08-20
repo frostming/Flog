@@ -1,164 +1,78 @@
 import re
-from slugify import slugify
-from mistune_contrib import toc, pangu, math
-from mistune import escape, escape_link
-from mistune import BlockLexer, Renderer, InlineLexer
+from marko import block
+from marko.ext.gfm import GFMParser, GFMRenderer
+from marko.ext import toc, pangu, footnote
 
 
-class FlogBlockLexer(math.MathBlockMixin, BlockLexer):
-    IMAGE_RE = re.compile(
-        r'[ ]*(!\[([^\[\]]+)?\]\(([^)]+)\))'
-        r'([ ]+(!\[([^\[\]]+)?\]\(([^)]+)\)))*$', re.M
+class PhotoSet(block.BlockElement):
+    pattern = re.compile(
+        r' {,3}(!\[([^\[\]\n]+)?\]\(([^)\n]+)\))'
+        r'( {,3}(!\[([^\[\]\n]+)?\]\(([^)\n]+)\)))*[^\n\S]*$\n?', re.M
     )
+    inline_children = True
 
-    TAG_RE = re.compile(
-        r'^\{%\s?([^%\n\s]+)\s([^%\n]+?)\s?%}(?:(.*?)(\{%\s?end\1\s?%\}))?',
-        re.DOTALL
-    )
+    def __init__(self, match):
+        self.children = match.group()
 
-    def __init__(self, *args, **kwargs):
-        super(FlogBlockLexer, self).__init__(*args, **kwargs)
-        self.install_extensions()
-        self.enable_math()
+    @classmethod
+    def match(cls, source):
+        return source.expect_re(cls.pattern)
 
-    def install_extensions(self):
-        self.rules.image_block = self.IMAGE_RE
-        self.rules.tag_plugin = self.TAG_RE
-        self.default_rules.insert(5, 'image_block')
-        # self.default_rules.insert(1, 'tag_plugin')
-
-    def parse_image_block(self, m):
-        text = m.group()
-        self.tokens.append({
-            'type': 'image_block',
-            'text': text
-        })
-
-    def parse_tag_plugin(self, m):
-        plugin = m.group(1)
-        args = m.group(2).strip().split()
-        body = m.group(3)
-        endtag = m.group(4)
-        self.tokens.append({
-            'type': 'tag_plugin',
-            'plugin': plugin,
-            'args': args,
-            'body': body,
-            'endtag': endtag
-        })
-
-
-class FlogInline(math.MathInlineMixin, InlineLexer):
-    def __init__(self, *args, **kwargs):
-        super(FlogInline, self).__init__(*args, **kwargs)
-        self.enable_math()
-
-
-class FlogRenderer(toc.TocMixin, pangu.PanguRendererMixin,
-                   math.MathRendererMixin, Renderer):
-    IMG_RE = re.compile(r'<figure.*?>.+?</figure>')
-
-    def __init__(self, *args, **kwargs):
-        super(FlogRenderer, self).__init__(*args, **kwargs)
-        self.reset_toc()
-        self.plugins = {}
-
-    def register_tag_plugin(self, name=None):
-        def wrapper(func):
-            oname = name
-            if oname is None:
-                oname = func.__name__
-            self.plugins[oname] = func
-            return func
-        return wrapper
-
-    def header(self, text, level, raw=None):
-        link = slugify(text)
-        rv = '<h%d id="%s">%s</h%d>\n' % (
-            level, link, text, level
-        )
-        self.toc_tree.append((link, text, level, raw))
-        self.toc_count += 1
+    @classmethod
+    def parse(self, source):
+        rv = source.match
+        source.consume()
         return rv
 
-    def image(self, src, title, text):
-        src = escape_link(src)
-        text = escape(text, quote=True)
-        rv = ['<figure>']
-        rv.append('<img data-original="%s" src="%s" alt="%s">'
-                  % (src, src, text))
-        if title:
-            rv.append('<figcaption>%s</figcaption>' % title)
-        rv.append('</figure>')
-        return ''.join(rv)
 
-    def block_image(self, images):
-        rv = ['<div class="photo">']
-        if len(self.IMG_RE.findall(images)) > 1:
-            images = '<div class="photo-set d-lg-flex">%s</div>' % images
-        rv.append(images)
-        rv.append('</div>')
-        return '\n'.join(rv) + '\n'
+class FlogParser(footnote.FootnoteParserMixin, GFMParser):
 
-    def block_code(self, code, lang=None):
+    def __init__(self, *extras):
+        super().__init__(*extras)
+        self.add_element(PhotoSet)
+
+
+class FlogRenderer(
+    toc.TocRendererMixin, footnote.FootnoteRendererMixin, pangu.PanguRendererMixin,
+    GFMRenderer
+):
+    def render_image(self, element):
+        result = super().render_image(element)
+        result = result.replace(
+            '<img', '<img data-original="{}"'.format(self.escape_url(element.dest))
+        )
+        caption = '<figcaption>{}</figcaption>' if element.title else ''
+        return '<figure>{}{}</figure>'.format(result, caption)
+
+    def render_photo_set(self, element):
+        return '<div class="photo-set d-lg-flex">\n{}</div>\n'.format(
+            self.render_children(element)
+        )
+
+    def render_fenced_code(self, element):
         rv = [
             '<div class="block-code">\n'
-            '<div class="code-head clearfix">{}<span class="copy-code" title="Copy code"></span></div>\n'
-            .format((lang or '').title()),
-            super(FlogRenderer, self).block_code(code, lang),
+            '<div class="code-head clearfix">{}<span class="copy-code"'
+            ' title="Copy code"></span></div>\n'
+            .format((element.lang or '').title()),
+            super().render_fenced_code(element),
             '</div>\n'
         ]
         return ''.join(rv)
 
-    def tag_plugin(self, md, plugin, args, body, endtag):
-        plugin_func = self.plugins[plugin]
-        if endtag is None:
-            return plugin_func(md, args)
-        return plugin_func(md, args, body)
+    def _open_heading_group(self):
+        return '<div class="list-group">\n'
 
-    def footnotes(self, text):
-        html = '<div class="footnotes">\n<ol>%s</ol>\n</div>\n'
-        return html % (text,)
+    def _close_heading_group(self):
+        return '</div>\n'
 
-    def _iter_toc(self, level):
-        first_level = None
-        last_level = None
-        if not self.toc_tree:
-            return
+    def _render_toc_item(self, slug, text):
+        return '<a class="list-group-item" href="#{}">{}</a>\n'.format(
+            slug, text
+        )
 
-        yield '<div class="list-group" id="table-of-content">\n'
-
-        for item in self.toc_tree:
-            index, text, l, raw = item
-
-            if l > level:
-                # ignore this level
-                continue
-
-            if first_level is None:
-                # based on first level
-                first_level = l
-                last_level = l
-                yield '<a class="list-group-item" href="#%s">%s</a>\n' \
-                    % (index, text)
-            elif last_level == l:
-                yield '<a class="list-group-item" href="#%s">%s</a>\n' \
-                    % (index, text)
-            elif last_level == l - 1:
-                last_level = l
-                yield '<div class="list-group">\n<a class="list-group-item"'\
-                    ' href="#%s">%s</a>\n' % (index, text)
-            elif last_level > l:
-                # close indention
-                while last_level > l:
-                    yield '</div>\n'
-                    last_level -= 1
-                yield '<a class="list-group-item" href="#%s">%s</a>\n' \
-                    % (index, text)
-
-        # close tags
-        while last_level > first_level:
-            yield '</div>\n'
-            last_level -= 1
-
-        yield '</div>\n'
+    def render_toc(self, maxlevel=3):
+        return super().render_toc(maxlevel).replace(
+            '<div class="list-group">',
+            '<div class="list-group" id="table-of-content">', 1
+        )
