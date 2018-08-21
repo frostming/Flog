@@ -80,7 +80,7 @@ def tag(text):
                                       .order_by(Post.date.desc())
     tag_cloud = get_tag_cloud()
     return render_template(
-        'blog.html', posts=posts, tag_cloud=tag_cloud, tag=tag)
+        'index.html', posts=posts, tag_cloud=tag_cloud, tag=tag)
 
 
 @app.route('/cat/<int:cat_id>')
@@ -89,7 +89,7 @@ def category(cat_id):
     posts = cat.posts
     tag_cloud = get_tag_cloud()
     return render_template(
-        'blog.html', posts=posts, tag_cloud=tag_cloud, cat=cat)
+        'index.html', posts=posts, tag_cloud=tag_cloud, cat=cat)
 
 
 @app.route('/favicon.ico')

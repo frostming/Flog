@@ -18,8 +18,7 @@ psycopg2 = "*"
 python-slugify = "*"
 pyyaml = "*"
 six = "*"
-marko = {ref = "master", git = "https://github.com/frostming/marko.git"}
-
+marko = "*"
 [dev-packages]
 "flake8" = "*"
 

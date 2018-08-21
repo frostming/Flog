@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "72218c049151b60e33a12cc76a0bd62cce741d3d09a9eda03a4058d8856b84f8"
+            "sha256": "050da400da6f84af94c74bbafa0103860b2c65779d4508b3aa30d75132bf0748"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -132,8 +132,12 @@
             "version": "==1.0.7"
         },
         "marko": {
-            "git": "https://github.com/frostming/marko.git",
-            "ref": "b40fe8215a7f474ea3ee1e133556442525a83fde"
+            "hashes": [
+                "sha256:678ddb4cdf8aef1e2792b3e8772816bbc87a2d3bae0a6ce977c21d30294d2513",
+                "sha256:3cd5913008b64573c78b06e74f14df1adb6936f96453dc331e7fc34f991f3510"
+            ],
+            "index": "pypi",
+            "version": "==0.3.5"
         },
         "markupsafe": {
             "hashes": [
