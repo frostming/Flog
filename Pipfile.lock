@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "050da400da6f84af94c74bbafa0103860b2c65779d4508b3aa30d75132bf0748"
+            "sha256": "72218c049151b60e33a12cc76a0bd62cce741d3d09a9eda03a4058d8856b84f8"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -132,12 +132,8 @@
             "version": "==1.0.7"
         },
         "marko": {
-            "hashes": [
-                "sha256:251e71f4c37ec6a5aea76032a89e7b4f6e9901b598c529172df8ba88dcdb95c2",
-                "sha256:9e6dc1a79279b318a980b28fcdf4eff5db027830b364560352be3c0c717aaa0c"
-            ],
-            "index": "pypi",
-            "version": "==0.3.4"
+            "git": "https://github.com/frostming/marko.git",
+            "ref": "b40fe8215a7f474ea3ee1e133556442525a83fde"
         },
         "markupsafe": {
             "hashes": [
@@ -229,9 +225,9 @@
         },
         "sqlalchemy": {
             "hashes": [
-                "sha256:72325e67fb85f6e9ad304c603d83626d1df684fdf0c7ab1f0352e71feeab69d8"
+                "sha256:ef6569ad403520ee13e180e1bfd6ed71a0254192a934ec1dbd3dbf48f4aa9524"
             ],
-            "version": "==1.2.10"
+            "version": "==1.2.11"
         },
         "unidecode": {
             "hashes": [
