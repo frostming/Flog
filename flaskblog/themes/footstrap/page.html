@@ -12,13 +12,14 @@
   {% block pagebody %}
   <section class="main {{ self.extclass() }}" id="main" itemscope itemtype="http://schema.org/Article">
     <meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{request.url}}">
-    <div class="container" id="post-container">
+    <div class="container-fluid px-lg-5">
       <div class="row">
-        <div class="col-12 col-lg-9">
+        <div class="col d-none d-xl-block"></div>
+        <div class="col-12 col-xl-8 px-lg-5">
           {% block content %}
           {% endblock %}
         </div>
-        <div class="col d-none d-lg-block">
+        <div class="col d-none d-xl-block">
           {% block rightside %}
           {% endblock %}
         </div>

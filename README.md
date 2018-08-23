@@ -49,7 +49,7 @@ Go to `$your_domain/admin` and login with the admin user name and password set i
 
 * CSS and JS framework: [Bootstrap4](http://getbootstrap.com/)
 * Article CSS: [yue.css](https://github.com/lepture/yue.css)
-* Mardown renderer: [mistune](https://github.com/lepture/mistune)
+* Mardown renderer: [Marko](https://github.com/frostming/marko)
 * Markdown editor: [Simple MDE](https://github.com/sparksuite/simplemde-markdown-editor)
 * Picture preview: [Photoswipe](http://photoswipe.com/)
 
