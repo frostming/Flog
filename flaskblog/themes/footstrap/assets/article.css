@@ -122,7 +122,7 @@ figure img {
 
 .photo-set figure {
   position: relative;
-  padding: 3px;
+  padding: 3px 0px;
   margin: 0;
 }
 
@@ -135,16 +135,21 @@ figure img {
 }
 
 .photo-set {
-  margin: 50px -3rem;
+  margin: 50px -15px;
 }
 
 .photo-set+.photo-set {
   margin-top: -50px;
 }
 
-@media (max-width: 992px) {
+@media (min-width: 992px) {
   .photo-set figure {
-    padding: 3px 0px;
+    padding: 3px 3px;
+  }
+
+  .photo-set {
+    margin-left: -3rem;
+    margin-right: -3rem;
   }
 }
 
