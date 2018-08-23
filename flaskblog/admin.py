@@ -99,6 +99,7 @@ class PostModelView(ModelView):
     create_template = 'admin/createmodel.html'
     edit_template = 'admin/editmodel.html'
     list_template = 'admin/mylist.html'
+    details_template = 'admin/modeldetails.html'
     model_form_converter = AutoAddModelConverter
     form_overrides = {'lang': SelectField}
     form_widget_args = {
