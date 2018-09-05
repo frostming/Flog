@@ -1,7 +1,6 @@
 import io
-from urllib.parse import urlparse, urlunparse
 
-from flask import abort, render_template, request, send_file, redirect
+from flask import abort, render_template, request, send_file
 from werkzeug.contrib.atom import AtomFeed
 
 from . import app
@@ -13,26 +12,6 @@ try:
     from urllib.parse import urljoin
 except ImportError:
     from urlparse import urljoin
-
-
-@app.before_request
-def redirect_old_domain():
-    """URL normalization and redirect"""
-    if not app.debug:
-        parts = urlparse(request.url)._asdict()
-        parts['netloc'] = 'frostming.com'
-        parts['scheme'] = 'https'
-        new_url = urlunparse([v for v in parts.values()])
-        if new_url != request.url:
-            return redirect(new_url, code=301)
-
-
-@app.after_request
-def set_hsts_header(response):
-    if request.is_secure:
-        response.headers.setdefault('Strict-Transport-Security',
-                                    'max-age={0}'.format(31536000))
-    return response
 
 
 @app.route('/')

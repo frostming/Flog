@@ -13,12 +13,13 @@ flask-moment = "*"
 flask-sqlalchemy = "*"
 flask-sslify = "*"
 flask = "*"
-gunicorn = "*"
-psycopg2 = "*"
 python-slugify = "*"
 pyyaml = "*"
 six = "*"
 marko = "*"
+gunicorn = "*"
+psycopg2 = "*"
+
 [dev-packages]
 "flake8" = "*"
 

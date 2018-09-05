@@ -45,10 +45,10 @@
         },
         "flask-admin": {
             "hashes": [
-                "sha256:e3a8268fdb6c271a44196de7f2a85faff886df18061d337e66b4b3c80e9c4f23"
+                "sha256:752937f4af1f6600e5f4f08586c4790719a71146f163a091deba04706a48523b"
             ],
             "index": "pypi",
-            "version": "==1.5.1"
+            "version": "==1.5.2"
         },
         "flask-babel": {
             "hashes": [
@@ -133,11 +133,11 @@
         },
         "marko": {
             "hashes": [
-                "sha256:3cd5913008b64573c78b06e74f14df1adb6936f96453dc331e7fc34f991f3510",
-                "sha256:678ddb4cdf8aef1e2792b3e8772816bbc87a2d3bae0a6ce977c21d30294d2513"
+                "sha256:2d0a2e0f2c3895bcc9bad4b53bc98e7c0a6894257bbaf2692026f366fc80dbcd",
+                "sha256:3cf13eb65128c451162428a9e0e50810e5c3047cd847b6e38eba9c42d321ea7c"
             ],
             "index": "pypi",
-            "version": "==0.3.5"
+            "version": "==0.4.0"
         },
         "markupsafe": {
             "hashes": [
@@ -196,10 +196,10 @@
         },
         "python-slugify": {
             "hashes": [
-                "sha256:5dbb360b882b2dabe0471a1a92f604504d83c2a73c71f2098d004ab62e695534"
+                "sha256:7723daf30996db26573176bddcdf5fcb98f66dc70df05c9cb29f2c79b8193245"
             ],
             "index": "pypi",
-            "version": "==1.2.5"
+            "version": "==1.2.6"
         },
         "pytz": {
             "hashes": [

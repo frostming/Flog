@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: bash ./start_server.sh
+    env_file: .env
+    volumes:
+      - ./:/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+  db:
+    restart: always
+    image: postgres:10
+    env_file: .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  nginx:
+    restart: always
+    image: nginx
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/log:/var/log/nginx
+      - ./nginx/cert:/cert
+    ports:
+      - "80:80"
+      - "443:443"
+
+volumes:
+  pgdata:
