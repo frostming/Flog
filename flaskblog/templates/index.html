@@ -13,9 +13,9 @@
       <p class="lead site-des">{{ site.description }}</p>
     </div>
     <div class="links lead">
-      {% for item in site.navlinks %}
-        <a href="{%-if item.url == 'internal' %}{{url_for(item['name'].lower())}}{%-else %}{{item.url}}{%endif%}" class="btn btn-outline-light">{{_(item.name)|title}}</a>
-      {% endfor %}
+      <a href="javascript:void(0)" class="btn btn-outline-light" onclick="dismissCover()">{{_('Blog')}}</a>
+      <a href="/about" class="btn btn-outline-light">{{_('About')}}</a>
+      <a href="//resume.frostming.com" class="btn btn-outline-light">{{_('Resume')}}</a>
     </div>
   </div>
 </div>
@@ -78,7 +78,7 @@
 {% block extrajs %}
 <script type="text/javascript">
   if($('#tag-cloud').length !== 0) {
-    async('{{url_for("theme.static", filename="tagcloud.js")}}', function(){
+    async('{{url_for("static", filename="tagcloud.js")}}', function(){
       $.fn.tagcloud.defaults = {
           //size: {start: 1, end: 1, unit: 'em'},
           color: {start: '#4c98ca', end: '#d24848'},
@@ -96,10 +96,5 @@
     });
   };
   $(window).on('scroll', dismissCover);
-  $(window).on('hashchange', function() {
-    if (location.href !== location.origin + '/') {
-      dismissCover();
-    }
-  });
 </script>
 {% endblock %}

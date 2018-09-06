@@ -1,11 +1,12 @@
-# footstrap theme config file
-
+# ----------------------------------------------
+# Site configurations
+# ----------------------------------------------
 
 # Site meta data
 name: Frost's Blog
 user: frostming
 description: 醉后不知天在水，满船清梦压星河。
-avatar: /assets/images/avatar.jpeg
+avatar: /static/images/avatar.jpeg
 # twitter: yourtwittername
 
 cover_url: https://frostming-tencent-1252779928.cos.ap-guangzhou.myqcloud.com/wudian-372.jpg
@@ -23,17 +24,6 @@ cdn:
   mathjax: https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js
 
 
-navlinks:
-
-  - name: blog
-    url: /#
-
-  - name: about
-    url: /about
-
-  - name: resume
-    url: //resume.frostming.com
-
 sociallinks:
   - name: GitHub
     icon: github
@@ -50,6 +40,10 @@ sociallinks:
   - name: 知乎
     icon: iconfont||zhihu
     link: https://www.zhihu.com/people/frostming
+
+  - name: Twitter
+    icon: twitter
+    link: https://twitter.com/frostming90
 
 # Google webmaster site verification token
 google_site_verification: h8jxTRuS6ULFwI6WDoBx0H-7GSBn8vvXSrgX08TrYYc

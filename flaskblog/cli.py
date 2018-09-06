@@ -1,38 +1,25 @@
-import click
-from . import db
-from . import app
-from .models import User
-import re
 import io
-import yaml
 import os
-from .models import Post
+import re
+
+import click
+import yaml
+
+from .models import Post, db
 
 MARKDOWN_RE = re.compile(
     r'(?:-{3}\n(?P<meta>.+?\n)-{3}\n+)?(?P<content>.*)',
     re.DOTALL)
 
 
-@app.cli.command()
+@click.command()
 def init():
     """Application initialization"""
     db.drop_all()
     db.create_all()
 
 
-@app.cli.command()
-@click.option('--username', prompt='Please input a username')
-@click.option('--email', prompt='Please input your email address')
-@click.password_option()
-def createadmin(username, email, password):
-    """Create an admin user"""
-    user = User(username=username, password=password, email=email)
-    db.session.add(user)
-    db.session.commit()
-    click.echo('Admin user {} is created successfully'.format(username))
-
-
-@app.cli.command()
+@click.command()
 @click.argument('folder', type=click.Path(exists=True))
 def imp(folder):
     """Input a folder of markdown files to import as posts"""
@@ -59,7 +46,7 @@ def imp(folder):
             _import_file(full_fp)
 
 
-@app.cli.command()
+@click.command()
 @click.option('-o', '--output', type=click.Path(file_okay=False))
 def exp(output):
     """Export all the posts to markdown files, including post meta"""
@@ -80,3 +67,9 @@ def exp(output):
                      '\n---\n\n' + content)
         click.echo('Writing to file %s' % os.path.join(output, filename))
     os.chdir(cwd)
+
+
+def init_app(app):
+    app.cli.add_command(init)
+    app.cli.add_command(imp)
+    app.cli.add_command(exp)

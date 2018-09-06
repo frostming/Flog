@@ -29,7 +29,6 @@ else:
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + op.join(here, 'db.sqlite3')
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
-
 BLOG_PER_PAGE = 10
 
 ENABLE_COS_UPLOAD = True

@@ -3,12 +3,14 @@ from datetime import datetime
 from random import choice
 
 import sqlalchemy as sa
-from flask import url_for
+from flask import url_for, current_app
 from flask_login import UserMixin
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from slugify import slugify
 from werkzeug.security import generate_password_hash
 
-from . import app, db
+db = SQLAlchemy()
 
 tags = db.Table(
     'tags',
@@ -123,12 +125,18 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(64), unique=True)
     email = db.Column(db.String(100))
     password = db.Column(db.String(200))
+    locale = db.Column(db.String(20), default='en')
 
     def __init__(self, **kwargs):
         password = kwargs.pop('password')
         password = generate_password_hash(password)
         kwargs['password'] = password
         super(User, self).__init__(**kwargs)
+
+    @classmethod
+    def get_one(cls):
+        """Get the admin user. The only one will be returned."""
+        return cls.query.one()
 
 
 class Tag(db.Model):
@@ -137,7 +145,7 @@ class Tag(db.Model):
     url = db.Column(db.String(100))
 
     def __init__(self, **kwargs):
-        with app.test_request_context():
+        with current_app.test_request_context():
             kwargs['url'] = url_for('tag', text=slugify(kwargs['text']))
         super(Tag, self).__init__(**kwargs)
 
@@ -163,3 +171,10 @@ class Category(db.Model):
 
     def __str__(self):
         return self.text
+
+
+def init_app(app):
+    db.init_app(app)
+    Migrate(app, db)
+    auto_delete_orphans(Tag.posts)
+    auto_delete_orphans(Category.posts)

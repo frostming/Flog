@@ -10,9 +10,9 @@
 <meta name="weibo:article:update_at" content="{{post.last_modified|date('%Y-%m-%dT%H:%M:%SZ')}}">
 <meta name="keywords" content="{{post.tags|join(', ', 'text')}}">
 <meta name="author" content="{{post.author}}">
-<link rel="stylesheet" href="{{ url_for('theme.static', filename='yue.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='yue.css') }}">
 {% include '_partials/highlight.html' %}
-<link rel="stylesheet" href="{{ url_for('theme.static', filename='article.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='article.css')}}">
 
 <link rel="stylesheet" href="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.css">
 <link rel="stylesheet" href="https://cdn.bootcss.com/photoswipe/4.1.2/default-skin/default-skin.min.css">
@@ -61,10 +61,10 @@
     <a href="#disqus_thread" class="pull-right">Link</a>
   </div>
 </article>
-{% if post.related_post() %}
 {% set related = post.related_post() %}
+{% if related %}
 <section class="related">
-  <div class="related-title">RELATED POST</div>
+  <div class="related-title">{{_('RELATED POST')}}</div>
   <div class="post-item-content">
     <a href="{{related.url}}">
       <h4 class="post-item-title">{{related.title}}</h4>
@@ -89,6 +89,6 @@
   <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-574571fdae7f0521"></script>
   <script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.js" charset="utf-8"></script>
   <script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe-ui-default.min.js" charset="utf-8"></script>
-  <script src="{{url_for('theme.static', filename='flog.js')}}"></script>
+  <script src="{{url_for('static', filename='flog.js')}}"></script>
   {% include '_partials/math.html' %}
 {% endblock %}

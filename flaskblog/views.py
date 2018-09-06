@@ -1,9 +1,8 @@
 import io
 
-from flask import abort, render_template, request, send_file
+from flask import abort, render_template, request, send_file, current_app
 from werkzeug.contrib.atom import AtomFeed
 
-from . import app
 from .md import markdown
 from .models import Category, Post, Tag
 from .utils import get_tag_cloud, calc_token
@@ -14,13 +13,11 @@ except ImportError:
     from urlparse import urljoin
 
 
-@app.route('/')
-@app.route('/page/<int:page>')
 def home(page=None):
     paginate = Post.query.join(Post.category)\
                          .filter(Category.text != 'About')\
                          .order_by(Post.date.desc())\
-                         .paginate(page, app.config['BLOG_PER_PAGE'])
+                         .paginate(page, current_app.config['BLOG_PER_PAGE'])
     tag_cloud = get_tag_cloud()
     return render_template(
         'index.html',
@@ -29,7 +26,6 @@ def home(page=None):
         paginate=paginate)
 
 
-@app.route('/<int:year>/<date>/<title>')
 def post(year, date, title):
     post = None
     for item in Post.query.all():
@@ -43,7 +39,6 @@ def post(year, date, title):
     return render_template('post.html', post=post, content=content, toc=toc)
 
 
-@app.route('/about')
 def about():
     lang = request.args.get('lang', 'zh')
     post = Post.query.filter_by(lang=lang)\
@@ -52,7 +47,6 @@ def about():
     return render_template('post.html', post=post, content=markdown(post.content))
 
 
-@app.route('/tag/<text>')
 def tag(text):
     tag = Tag.query.filter_by(url=request.path).first_or_404()
     posts = Post.query.join(Post.tags).filter(Tag.text == tag.text)\
@@ -62,7 +56,6 @@ def tag(text):
         'index.html', posts=posts, tag_cloud=tag_cloud, tag=tag)
 
 
-@app.route('/cat/<int:cat_id>')
 def category(cat_id):
     cat = Category.query.get(cat_id)
     posts = cat.posts
@@ -71,12 +64,10 @@ def category(cat_id):
         'index.html', posts=posts, tag_cloud=tag_cloud, cat=cat)
 
 
-@app.route('/favicon.ico')
 def favicon():
-    return app.send_static_file('favicon.ico')
+    return current_app.send_static_file('favicon.ico')
 
 
-@app.route('/feed.xml')
 def feed():
     feed = AtomFeed(
         'Recent Article', feed_url=request.url, url=request.url_root)
@@ -93,7 +84,6 @@ def feed():
     return feed.get_response()
 
 
-@app.route('/sitemap.xml')
 def sitemap():
     posts = Post.query.order_by(Post.date.desc())
     fp = io.BytesIO(
@@ -101,10 +91,21 @@ def sitemap():
     return send_file(fp, attachment_filename='sitemap.xml')
 
 
-@app.errorhandler(404)
 def not_found(error):
     return render_template('404.html')
 
 
-if app.config.get('ENABLE_COS_UPLOAD', False):
-    app.add_url_rule('/upload-token', 'upload_token', calc_token)
+def init_app(app):
+    app.add_url_rule('/', 'home', home)
+    app.add_url_rule('/page/<int:page>', 'home', home)
+    app.add_url_rule('/<int:year>/<date>/<title>', 'post', post)
+    app.add_url_rule('/about', 'about', about)
+    app.add_url_rule('/tag/<text>', 'tag', tag)
+    app.add_url_rule('/cat/<int:cat_id>', 'category', category)
+    app.add_url_rule('/feed.xml', 'feed', feed)
+    app.add_url_rule('/sitemap.xml', 'sitemap', sitemap)
+    app.add_url_rule('/favicon.ico', 'favicon', favicon)
+    app.register_error_handler(404, not_found)
+
+    if app.config.get('ENABLE_COS_UPLOAD', False):
+        app.add_url_rule('/upload-token', 'upload_token', calc_token)

@@ -1,1 +1,1 @@
-from flaskblog import app
+from flaskblog.app import create_app    # noqa
