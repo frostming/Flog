@@ -2,6 +2,8 @@ from flask import Flask
 from flask_moment import Moment
 from flask_babel import Babel
 from flask_login import LoginManager
+from flask_babel import lazy_gettext
+from flask_bootstrap import Bootstrap
 from .md import markdown
 from . import cli, views, templating, models, admin
 
@@ -11,6 +13,7 @@ def create_app():
     app.config.from_pyfile('config.py')
     Moment(app)
     Babel(app)
+    Bootstrap(app)
     models.init_app(app)
     cli.init_app(app)
     views.init_app(app)
@@ -18,6 +21,9 @@ def create_app():
     admin.init_app(app)
 
     login_manager = LoginManager(app)
+    login_manager.login_view = 'admin.login'
+    login_manager.login_message = lazy_gettext('Please login')
+    login_manager.login_message_category = 'warning'
 
     @login_manager.user_loader
     def get_user(uid):

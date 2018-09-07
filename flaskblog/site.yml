@@ -13,8 +13,8 @@ cover_url: https://frostming-tencent-1252779928.cos.ap-guangzhou.myqcloud.com/wu
 
 # CDN links
 cdn:
-  bootstrapcss: https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css
-  bootstrapjs: https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js
+  bootstrapcss: https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css
+  bootstrapjs: https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js
 
   jquery: https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js
   popper: https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js

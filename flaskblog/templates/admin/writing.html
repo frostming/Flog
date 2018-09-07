@@ -1,0 +1,63 @@
+{% extends 'admin/layout.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% import 'admin/libs.html' as libs %}
+
+{% block title %}{{_('New Post')}}{% endblock %}
+{% block main %}
+  <h1 class="title">{{self.title()}}</h1>
+  <hr>
+  <form id="write-post-form" class="form" method="post">
+    {{ form.hidden_tag() }}
+    {{ wtf.form_errors(form, hiddens="only") }}
+    {{ wtf.form_field(form.title, "inline", class="post-title") }}
+    {{ wtf.form_field(form.content, "inline", ) }}
+    {{ wtf.form_field(form.description) }}
+    {{ wtf.form_field(form.image) }}
+    <div class="form-inline form-group">
+      {{ libs.form_field(form.author) }}
+      {{ libs.form_field(form.slug, extra_cls="flex-grow-1") }}
+      {{ libs.form_field(form.lang) }}
+      {{ libs.form_field(form.comment) }}
+    </div>
+    {{ wtf.form_field(form.category) }}
+    {{ wtf.form_field(form.tags) }}
+    <div class="d-flex justify-content-between mb-2">
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a href="{{url_for('.posts')}}" class="btn btn-danger">Cancel</a>
+    </div>
+  </form>
+  {% include '_partials/modal_confirm.html' %}
+{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<style>
+.CodeMirror, .CodeMirror-scroll {
+    min-height: 80vh;
+}
+</style>
+{% endblock %}
+
+{% block extra_script %}
+<script src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="{{url_for('static', filename='js/admin.js')}}"></script>
+<script>
+$('.btn-danger').click(function(){
+  var $btn = $(this)
+  modalConfirm("{{_('Are you sure to discard the draft?')}}", function(confirm){
+    if (confirm) {
+      location.href = $btn.attr('href')
+    }
+  });
+  return false;
+});
+window.cosConfig = {
+  bucket: '{{config.COS_BUCKET}}',
+  region: '{{config.COS_REGION}}'
+}
+</script>
+<script src="{{url_for('static', filename='js/cos-js-sdk-v5.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/cos-upload.js')}}"></script>
+{% endblock %}

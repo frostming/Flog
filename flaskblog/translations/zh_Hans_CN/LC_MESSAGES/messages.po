@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-06 10:59+0800\n"
+"POT-Creation-Date: 2018-09-06 14:34+0800\n"
 "PO-Revision-Date: 2017-09-10 11:03+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -17,6 +17,38 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
+
+#: flaskblog/app.py:23
+msgid "Please login"
+msgstr "请先登录"
+
+#: flaskblog/admin/forms.py:10
+msgid "User Name"
+msgstr "用户名"
+
+#: flaskblog/admin/forms.py:12
+msgid "Password"
+msgstr "密码"
+
+#: flaskblog/admin/forms.py:14
+msgid "Remember Me"
+msgstr "记住我"
+
+#: flaskblog/admin/forms.py:15
+msgid "Login"
+msgstr "登录"
+
+#: flaskblog/admin/forms.py:26
+msgid "Invalid user"
+msgstr "用户名不存在"
+
+#: flaskblog/admin/forms.py:30
+msgid "Incorrect password"
+msgstr "密码错误"
+
+#: flaskblog/admin/views.py:18
+msgid "You are logged in successfully!"
+msgstr "你已经成功登录！"
 
 #: flaskblog/templates/index.html:16
 msgid "Blog"
@@ -54,6 +86,17 @@ msgstr "最后编辑于"
 msgid "RELATED POST"
 msgstr "相关文章"
 
+#: flaskblog/templates/admin/layout.html:7
+msgid "Flog Admin"
+msgstr "Flog管理后台"
+
+#: flaskblog/templates/admin/layout.html:29
+msgid "Posts"
+msgstr "文章"
+
+#: flaskblog/templates/admin/layout.html:30
+msgid "Settings"
+msgstr "设置"
+
 #~ msgid "Copyright"
 #~ msgstr "版权所有"
-

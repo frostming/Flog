@@ -13,13 +13,6 @@ MARKDOWN_RE = re.compile(
 
 
 @click.command()
-def init():
-    """Application initialization"""
-    db.drop_all()
-    db.create_all()
-
-
-@click.command()
 @click.argument('folder', type=click.Path(exists=True))
 def imp(folder):
     """Input a folder of markdown files to import as posts"""
@@ -70,6 +63,5 @@ def exp(output):
 
 
 def init_app(app):
-    app.cli.add_command(init)
     app.cli.add_command(imp)
     app.cli.add_command(exp)

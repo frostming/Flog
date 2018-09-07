@@ -16,6 +16,7 @@ except ImportError:
 def home(page=None):
     paginate = Post.query.join(Post.category)\
                          .filter(Category.text != 'About')\
+                         .union(Post.query.filter(Post.category_id.is_(None)))\
                          .order_by(Post.date.desc())\
                          .paginate(page, current_app.config['BLOG_PER_PAGE'])
     tag_cloud = get_tag_cloud()
