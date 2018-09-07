@@ -12,34 +12,27 @@
 $ pip install pipenv
 ```
 
-2. Install requirements
+2. Preparation
 
 ```bash
 $ pipenv install
+$ pipenv install -d
+$ pipenv run make compile
+$ pipenv run flask db upgrade
 ```
 
-3. Change the configurations in `flaskblog/themes/footstrap/_config.yml`
-
-4. Initialize the app
-
-```bash
-$ export FLASK_APP=application.py
-$ pipenv run flask init
-$ pipenv run flask createadmin
-# Input informations as the console prompts
-```
-
-5. Start the server
+3. Start the server
 
 ```bash
 $ FLASK_APP=application.py pipenv run flask run
 ```
 
-6. Access the admin interface
+4. Access the admin interface
 
-Go to `$your_domain/admin` and login with the admin user name and password set in step 4.
+Go to `$your_domain/admin` and login with the admin user name and password.
+Go to `$your_domain/admin/setting` to change the settings of your site.
 
-7. Start writing a post!
+5. Start writing a post!
 
 ## Deploy the app to web server
 
@@ -55,4 +48,4 @@ Go to `$your_domain/admin` and login with the admin user name and password set i
 
 ## License
 
-This project is developed and owned by Frost Ming, and is allowed for only personal use.
+The project is released under [MIT License](/LICENSE)

@@ -4,7 +4,6 @@ sync:
 
 restart:
 	find . -name "*.pyc" -exec rm {} \;
-	$(MAKE) compile
 	docker-compose restart
 
 deploy:
