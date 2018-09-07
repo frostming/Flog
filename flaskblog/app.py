@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, g, request
 from flask_moment import Moment
 from flask_babel import Babel
 from flask_login import LoginManager
@@ -12,13 +12,19 @@ def create_app():
     app = Flask(__name__)
     app.config.from_pyfile('config.py')
     Moment(app)
-    Babel(app)
     Bootstrap(app)
+    babel = Babel(app)
     models.init_app(app)
     cli.init_app(app)
     views.init_app(app)
     templating.init_app(app)
     admin.init_app(app)
+
+    @babel.localeselector
+    def get_locale():
+        if 'site' in g:
+            return g.site['locale']
+        return request.accept_languages.best_match(['zh', 'en'])
 
     login_manager = LoginManager(app)
     login_manager.login_view = 'admin.login'

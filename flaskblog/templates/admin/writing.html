@@ -22,8 +22,8 @@
     {{ wtf.form_field(form.category) }}
     {{ wtf.form_field(form.tags) }}
     <div class="d-flex justify-content-between mb-2">
-      <button type="submit" class="btn btn-primary">Save</button>
-      <a href="{{url_for('.posts')}}" class="btn btn-danger">Cancel</a>
+      <button type="submit" class="btn btn-primary">{{_('Save')}}</button>
+      <a href="{{url_for('.posts')}}" class="btn btn-danger">{{_('Cancel')}}</a>
     </div>
   </form>
   {% include '_partials/modal_confirm.html' %}
@@ -42,8 +42,21 @@
 {% block extra_script %}
 <script src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js" charset="utf-8"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<script src="{{url_for('static', filename='js/admin.js')}}"></script>
 <script>
+var simplemde = new SimpleMDE({
+  element: $("[data-role='mdeditor']")[0],
+  autosave: {
+    enabled: true,
+    uniqueId: 'new-post',
+    delay: 30000,
+  },
+  spellChecker: false
+});
+
+$('select[data-role=select2]').select2({
+  tags: true
+})
+
 $('.btn-danger').click(function(){
   var $btn = $(this)
   modalConfirm("{{_('Are you sure to discard the draft?')}}", function(confirm){

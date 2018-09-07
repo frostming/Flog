@@ -1,7 +1,5 @@
-import os.path as op
 from datetime import datetime
 
-import yaml
 from flask import request
 from jinja2 import Markup
 from slugify import slugify
@@ -31,12 +29,6 @@ def blog_objects():
     return {'page': rv, 'urljoin': urljoin, 'categories': categories}
 
 
-def site_config():
-    config_yml = op.join(op.dirname(__file__), 'site.yml')
-    with open(config_yml, encoding='utf-8') as fp:
-        return {'site': yaml.load(fp)}
-
-
 def make_slugify(s):
     return slugify(s)
 
@@ -51,4 +43,3 @@ def init_app(app):
     app.add_template_filter(render_markdown, 'render')
     app.context_processor(get_current_time)
     app.context_processor(blog_objects)
-    app.context_processor(site_config)

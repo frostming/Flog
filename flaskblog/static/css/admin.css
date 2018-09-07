@@ -16,7 +16,8 @@
 
 .post-control a {
     cursor: pointer;
-    color: inherit;
+	color: inherit;
+	font-size: 1.1em;
 }
 
 .title {
@@ -45,4 +46,9 @@ main {
 .post-title:focus {
 	border-bottom-color: #5e6266;
 	outline: 0;
+}
+
+.del-link {
+	display: inline-block;
+	font-size: 1.25em;
 }

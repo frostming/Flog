@@ -1,5 +1,5 @@
 <div class="social-links d-flex">
-  {% for item in site.sociallinks %}
+  {% for item in g.site.sociallinks %}
   <a href="{{item.link}}" class="social-item" title="{{item.name}}">
     {% if not item.icon %}
       {% set iconclass="fa fa-fw fa-globe" %}

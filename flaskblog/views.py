@@ -1,16 +1,21 @@
 import io
 
-from flask import abort, render_template, request, send_file, current_app
+from flask import abort, render_template, request, send_file, current_app, g
 from werkzeug.contrib.atom import AtomFeed
 
 from .md import markdown
 from .models import Category, Post, Tag
-from .utils import get_tag_cloud, calc_token
+from .utils import get_tag_cloud, calc_token, read_site_config
 
 try:
     from urllib.parse import urljoin
 except ImportError:
     from urlparse import urljoin
+
+
+def load_site_config():
+    if 'site' not in g:
+        g.site = read_site_config()
 
 
 def home(page=None):
@@ -110,3 +115,5 @@ def init_app(app):
 
     if app.config.get('ENABLE_COS_UPLOAD', False):
         app.add_url_rule('/upload-token', 'upload_token', calc_token)
+
+    app.before_request(load_site_config)

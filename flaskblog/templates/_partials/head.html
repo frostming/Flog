@@ -1,15 +1,15 @@
-<link rel="stylesheet" href="{{ site.cdn.bootstrapcss }}">
-<link rel="stylesheet" href="{{ site.cdn.fontawesome }}">
+<link rel="stylesheet" href="{{ g.site.cdn.bootstrapcss }}">
+<link rel="stylesheet" href="{{ g.site.cdn.fontawesome }}">
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,900" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300" rel="stylesheet">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='iconfont/iconfont.css')}}">
-<meta name="google-site-verification" content="{{ site.google_site_verification }}" />
+<meta name="google-site-verification" content="{{ g.site.google_site_verification }}" />
 <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
 <![endif]-->
-<script src="{{ site.cdn.jquery }}" crossorgin="anonymous"></script>
-{{ moment.include_moment(local_js=site.cdn.moment) }}
-{% if config.MOMENT_LOCALE %}
+<script src="{{ g.site.cdn.jquery }}" crossorgin="anonymous"></script>
+{{ moment.include_moment(local_js=g.site.cdn.moment) }}
+{% if g.site.locale.startswith("zh") %}
   {{ moment.lang('zh-cn') }}
 {% endif %}

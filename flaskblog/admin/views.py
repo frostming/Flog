@@ -1,9 +1,10 @@
 from flask_login import login_user, login_required, logout_user
-from flask import redirect, url_for, render_template, flash, request, current_app
+from flask import redirect, url_for, render_template, flash, request, current_app, g
 from flask_babel import lazy_gettext
 
-from .forms import LoginForm, PostForm
-from ..models import User, db, Post, Category
+from .forms import LoginForm, PostForm, SettingsForm, ChangePasswordForm
+from ..models import User, db, Post, Category, generate_password_hash
+from ..utils import write_site_config
 
 
 def login():
@@ -41,7 +42,17 @@ def posts():
 
 @login_required
 def settings():
-    return render_template('admin/settings.html')
+    if request.method == 'GET':
+        form = SettingsForm.from_local()
+    else:
+        form = SettingsForm()
+    if form.validate_on_submit():
+        write_site_config(form.data)
+        g.site.update(form.data)
+        flash(lazy_gettext('Update settings successfully.'), 'success')
+        return redirect(url_for('.settings'))
+    pform = ChangePasswordForm()
+    return render_template('admin/settings.html', form=form, pform=pform)
 
 
 @login_required
@@ -84,11 +95,23 @@ def new_post():
     return render_template('admin/writing.html', form=form)
 
 
+@login_required
+def change_password():
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        admin = User.get_one()
+        admin.password = generate_password_hash(form.new.data)
+        db.session.commit()
+        flash(lazy_gettext('The password is updated!'), 'success')
+        return redirect(url_for('.settings'))
+
+
 def init_blueprint(bp):
     bp.add_url_rule('/login', 'login', login, methods=('POST', 'GET'))
     bp.add_url_rule('/logout', 'logout', logout)
     bp.add_url_rule('/', 'posts', posts)
-    bp.add_url_rule('/settings', 'settings', settings)
+    bp.add_url_rule('/settings', 'settings', settings, methods=('GET', 'POST'))
     bp.add_url_rule('/edit', 'edit', edit_post, methods=('GET', 'POST'))
     bp.add_url_rule('/delete', 'delete', delete_post, methods=('POST', 'DELETE'))
     bp.add_url_rule('/new', 'new', new_post, methods=('GET', 'POST'))
+    bp.add_url_rule('/password', 'password', change_password, methods=('POST',))

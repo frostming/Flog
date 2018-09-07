@@ -7,11 +7,14 @@
   <title>{{_('Flog Admin')}} | {% block title %}{% endblock %}</title>
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-  <link rel="stylesheet" href="{{ site.cdn.bootstrapcss }}">
-  <link rel="stylesheet" href="{{ site.cdn.fontawesome }}">
+  <link rel="stylesheet" href="{{ g.site.cdn.bootstrapcss }}">
+  <link rel="stylesheet" href="{{ g.site.cdn.fontawesome }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
-  <script src="{{ site.cdn.jquery }}" crossorgin="anonymous"></script>
-  {{ moment.include_moment(local_js=site.cdn.moment) }}
+  <script src="{{ g.site.cdn.jquery }}" crossorgin="anonymous"></script>
+  {{ moment.include_moment(local_js=g.site.cdn.moment) }}
+  {% if g.site.locale.startswith("zh") %}
+    {{ moment.lang('zh-cn') }}
+  {% endif %}
   {% block extra_head %}{% endblock %}
 </head>
 
@@ -47,6 +50,6 @@
   <main class="container">
     {% block main %}{% endblock %}
   </main>
-  <script src="{{ site.cdn.bootstrapjs }}" crossorgin="anonymous"></script>
+  <script src="{{ g.site.cdn.bootstrapjs }}" crossorgin="anonymous"></script>
   {% block extra_script %}{% endblock %}
 </body>

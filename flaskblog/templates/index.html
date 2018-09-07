@@ -5,12 +5,12 @@
 
 {% block pagehead %}
 {% if not cat and not tag %}
-<div class="cover float-section text-light" style="background-image: url('{{site.cover_url}}')">
+<div class="cover float-section text-light" style="background-image: url('{{g.site.cover_url}}')">
   <div class="mx-auto my-auto">
     <div class="bio">
-      <img class="avatar" src="{{ site.avatar }}" alt="{{ site.name }}">
-      <h1 class="display-3 heading">{{ site.name }}</h1>
-      <p class="lead site-des">{{ site.description }}</p>
+      <img class="avatar" src="{{ g.site.avatar }}" alt="{{ g.site.name }}">
+      <h1 class="display-3 heading">{{ g.site.name }}</h1>
+      <p class="lead site-des">{{ g.site.description }}</p>
     </div>
     <div class="links lead">
       <a href="javascript:void(0)" class="btn btn-outline-light" onclick="dismissCover()">{{_('Blog')}}</a>
@@ -24,7 +24,7 @@
 <section class="blog-head">
   {% if not cat and not tag %}
     <a href="/" class="blog-head-logo">
-      <img class="avatar" src="{{ site.avatar }}" alt="{{ site.name }}">
+      <img class="avatar" src="{{ g.site.avatar }}" alt="{{ g.site.name }}">
     </a>
   {% endif %}
   <h1 class="heading">
@@ -33,7 +33,7 @@
   {% elif tag %}
     Tag: {{tag.text}}
   {% else %}
-    {{site.name}}
+    {{g.site.name}}
   {% endif %}
   </h1>
   <div class="divider"></div>

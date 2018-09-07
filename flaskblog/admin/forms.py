@@ -1,10 +1,10 @@
-from flask_wtf import FlaskForm
-from flask import current_app
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms import fields, validators, widgets
+from flask import current_app, g
 from flask_babel import lazy_gettext
+from flask_wtf import FlaskForm
+from wtforms import (BooleanField, Form, PasswordField, StringField,
+                     SubmitField, fields, validators, widgets)
 
-from ..models import User, Category, Tag
+from ..models import Category, Tag, User
 
 
 class AutoAddSelectWidget(widgets.Select):
@@ -93,15 +93,21 @@ class LoginForm(FlaskForm):
     def validate_username(self, field):
         user = self.get_user()
 
+        if user is None and field.data != 'admin':
+            raise validators.ValidationError(lazy_gettext('Invalid user'))
+
+        # we're comparing the plaintext pw with the the hash from the db
+        if not user.check_password(self.password.data):
+            raise validators.ValidationError(lazy_gettext('Incorrect password'))
+
+    def validate_password(self, field):
+        user = self.get_user()
         if user is None:
             if (
                 field.data == 'admin' and
                 self.password.data == current_app.config['DEFAULT_ADMIN_PASSWORD']
             ):
                 return True
-            raise validators.ValidationError(lazy_gettext('Invalid user'))
-
-        # we're comparing the plaintext pw with the the hash from the db
         if not user.check_password(self.password.data):
             raise validators.ValidationError(lazy_gettext('Incorrect password'))
 
@@ -119,7 +125,7 @@ class PostForm(FlaskForm):
         lazy_gettext('Subtitle'),
         render_kw={'placeholder': lazy_gettext('A simple description of the post')}
     )
-    image = StringField(lazy_gettext('Cover Image URL'))
+    image = StringField(lazy_gettext('Header Image URL'))
     author = StringField(
         lazy_gettext('Author'),
         validators=[validators.InputRequired()]
@@ -143,3 +149,61 @@ class PostForm(FlaskForm):
         lazy_gettext('Enable Comment'),
         default=True
     )
+
+
+class SocialLink(Form):
+    name = StringField(
+        lazy_gettext('Name'),
+        validators=[validators.InputRequired()]
+    )
+    icon = StringField(
+        lazy_gettext('Icon'),
+        validators=[validators.InputRequired()],
+        render_kw={
+            'placeholder': lazy_gettext('FontAwesome short name')
+        }
+    )
+    link = StringField(
+        lazy_gettext('Link'),
+        validators=[validators.InputRequired()]
+    )
+
+
+class SettingsForm(FlaskForm):
+    name = StringField(lazy_gettext('Site Name'))
+    description = StringField(lazy_gettext('Site Description'))
+    avatar = StringField(lazy_gettext('Avatar URL'))
+    cover_url = StringField(lazy_gettext('Cover Image URL'))
+    locale = fields.SelectField(
+        lazy_gettext('Language'),
+        choices=[
+            ('en', lazy_gettext('English')),
+            ('zh_Hans_CN', lazy_gettext('Chinese'))
+        ],
+        default='en'
+    )
+    google_site_verification = StringField(
+        lazy_gettext('Google Site Verification Code')
+    )
+    sociallinks = fields.FieldList(
+        fields.FormField(SocialLink),
+        lazy_gettext('Social Links')
+    )
+
+    @classmethod
+    def from_local(cls):
+        return cls(data=g.site)
+
+
+class ChangePasswordForm(FlaskForm):
+    old = PasswordField(lazy_gettext('Old Password'))
+    new = PasswordField(lazy_gettext('New Password'), [validators.InputRequired()])
+    confirm = PasswordField(
+        lazy_gettext('Confirm Password'),
+        [validators.equal_to('new')]
+    )
+
+    def validate_old(self, field):
+        admin = User.get_one()
+        if not admin.check_password(field.data):
+            raise validators.ValidationError(lazy_gettext('Incorrect password'))

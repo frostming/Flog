@@ -1,10 +1,12 @@
 import hashlib
 import hmac
+import os
 import time
 from collections import OrderedDict
 from urllib.parse import urlencode
 
-from flask import request, current_app
+import yaml
+from flask import current_app, request
 from sqlalchemy import func
 
 from .models import Post, Tag
@@ -82,3 +84,17 @@ def calc_token():
 
     return '&'.join('{}={}'.format(k, v)
                     for (k, v) in authorization.items())
+
+
+def read_site_config():
+    config_yml = os.path.join(current_app.root_path, 'site.yml')
+    with open(config_yml, encoding='utf-8') as fp:
+        return yaml.load(fp)
+
+
+def write_site_config(data):
+    old_data = read_site_config()
+    old_data.update(data)
+    config_yml = os.path.join(current_app.root_path, 'site.yml')
+    with open(config_yml, 'w', encoding='utf-8') as fp:
+        yaml.dump(old_data, fp)
