@@ -23,7 +23,7 @@ services:
 
   nginx:
     restart: always
-    image: nginx
+    image: nginx:stable
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/log:/var/log/nginx
