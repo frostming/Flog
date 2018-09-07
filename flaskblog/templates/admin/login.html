@@ -1,27 +1,12 @@
-{% extends 'admin/master.html' %}
-{% import 'admin/lib.html' as lib with context -%}
+{% extends 'admin/layout.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
-{% block page_body %}
-<div class="container d-flex" style="height:100vh;">
-  <div class="col-6 m-auto">
-    <h1>Admin Login</h1>
-    {% call lib.form_tag(action=url_for('admin.login')) %}
-      {% if form.hidden_tag is defined %}
-        {{ form.hidden_tag() }}
-      {% else %}
-        {% if csrf_token %}
-          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        {% endif %}
-        {% for f in form if f.widget.input_type == 'hidden' %}
-          {{ f }}
-        {% endfor %}
-      {% endif %}
-      {% for f in form %}
-        {{ lib.render_field(form, f) }}
-      {% endfor %}
-      <button type="submit" class="btn btn-primary">Login</button>
-    {% endcall %}
-  </div>
+{% block title %}{{_('Admin Login')}}{% endblock %}
+{% block main %}
+<div class="col-6 mx-auto" id="login">
+  <h1>{{ self.title() }}</h1>
+  <p>{{_('Welcome to the administration panel of Flog')}}</p>
+  <hr>
+  {{ wtf.quick_form(form, button_map={'submit': 'primary'}) }}
 </div>
-
 {% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'admin/layout.html' %}
+
+{% block title %}{{_('Manage Posts')}}{% endblock %}
+{% block main %}
+<h1 class="title">
+  {{self.title()}}
+  <a id="new-post-btn" class="btn btn-primary" href="{{url_for('.new')}}">{{_('New Post')}}</a>
+</h1>
+<hr>
+<table id="posts-table" class="table table-borderless table-hover">
+  <thead>
+    <tr>
+      <th style="width: 20%">{{_('Post Date')}}</th>
+      <th style="width: 20%">{{_('Author')}}</th>
+      <th>{{_('Title')}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for post in paginate.items %}
+    <tr>
+      <td><time datetime="{{post.date}}">{{ moment(post.date).format('ll') }}</time></td>
+      <td><span class="post-author">{{post.author}}</td>
+      <td>
+        <a href="{{url_for('.edit', id=post.id)}}">{{post.title}}</a>
+        <div class="float-right post-control">
+          <a href="{{url_for('.edit', id=post.id)}}"><i class="fa fa-fw fa-pencil"></i></a>
+          <form class="delete-post" action="{{url_for('.delete', id=post.id)}}" method="post">
+            <a type="submit" class="text-danger"><i class="fa fa-fw fa-times"></i></a>
+          </form>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if paginate.has_prev or paginate.has_next %}
+<nav aria-label="...">
+  <ul class="pagination justify-content-center">
+    <li class="page-item{%-if not paginate.has_prev %} disabled{% endif %}">
+      <a class="page-link" href="{{url_for('.posts', page=paginate.prev_num)}}">{{_('Previous')}}</a>
+    </li>
+    {%- for page in paginate.iter_pages() %}
+      {% if page %}
+        {% if page != paginate.page %}
+          <li class="page-item">
+            <a class="page-link" href="{{ url_for(endpoint, page=page) }}">{{ page }}</a>
+          </li>
+        {% else %}
+          <li class="page-item active">
+            <span class="page-link">
+              {{page}}
+              <span class="sr-only">(current)</span>
+            </span>
+          </li>
+        {% endif %}
+      {% else %}
+        <span class=ellipsis>…</span>
+      {% endif %}
+    {%- endfor %}
+    <li class="page-item{%-if not paginate.has_next %} disabled{% endif %}">
+      <a class="page-link" href="{{url_for('.posts', page=paginate.next_num)}}">{{_('Next')}}</a>
+    </li>
+  </ul>
+</nav>
+{% endif %}
+{% include '_partials/modal_confirm.html' %}
+{% endblock %}
+
+{% block extra_script %}
+<script>
+$('.delete-post a').on('click', function(){
+  var $form = $(this).parent();
+  modalConfirm("{{_('Are your sure to delete the post?')}}", function(confirm){
+    if(confirm) {
+      console.log($form.serialize());
+      $form.submit();
+    }
+  });
+  return false;
+})
+</script>
+{% endblock %}

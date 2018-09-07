@@ -1,4 +1,4 @@
-{% if post.comment %}
+{% if not config.DEBUG and post.comment %}
 <section id="comments">
   <div id="disqus_thread"></div>
 </section>

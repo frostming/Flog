@@ -1,0 +1,102 @@
+{% extends 'admin/layout.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% import 'admin/libs.html' as libs %}
+
+{% block title %}{{_('Settings')}}{% endblock %}
+{% block main %}
+  <h1 class="title">{{self.title()}}</h1>
+  <hr>
+  <button class="btn btn-primary" data-toggle="modal" data-target="#password-modal">
+    {{_('Change Password')}}
+  </button>
+  <hr>
+  <form class="form" method="post">
+    {{ form.hidden_tag() }}
+    {{ wtf.form_errors(form, hiddens="only") }}
+    {% for field in form %}
+      {% if field.name != 'sociallinks' and not bootstrap_is_hidden_field(field) %}
+        {{ wtf.form_field(field) }}
+      {% endif %}
+    {% endfor %}
+    <hr>
+    <h4 class="clearfix">
+      {{_('Social Links')}}
+      <button class="btn btn-success float-right add-link">
+        <i class="fa fa-fw fa-plus"></i> {{_('Add')}}
+      </button>
+    </h4>
+    <ul class="pl-0 mt-2">
+      {% for item in form.sociallinks %}
+        <li class="row">
+          <div class="col">
+            {{ wtf.form_field(item['name']) }}
+          </div>
+          <div class="col">
+            {{ wtf.form_field(item['icon']) }}
+          </div>
+          <div class="col">
+            {{ wtf.form_field(item['link']) }}
+          </div>
+          <div class="col-0 d-flex justify-content-center">
+            <a class="my-auto text-danger del-link" data-index="{{loop.index0}}"href="#"><i class="fa fa-fw fa-times"></i></a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+    <hr>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">{{_('Save')}}</button>
+    </div>
+  </form>
+
+  <div class="modal fade" id="password-modal" tabindex="-1" role="dialog" aria-labelledby="changePassword" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{_('Change Password')}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form class="form" action="{{url_for('.password')}}", method="post">
+          <div class="modal-body">
+            {{ pform.hidden_tag() }}
+            {{ wtf.form_errors(pform, hiddens="only") }}
+            {{ wtf.form_field(pform.old) }}
+            {{ wtf.form_field(pform.new) }}
+            {{ wtf.form_field(pform.confirm) }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{_('Close')}}</button>
+            <button type="submit" class="btn btn-primary">{{_('Save changes')}}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_script %}
+<script>
+  $('.add-link').click(function(e){
+    e.preventDefault();
+    var $last_item = $('.row:last-child');
+    var $new_item = $last_item.clone(true);
+    $new_item.find('label').each(function(i, e){
+      e = $(e);
+      e.attr('for', e.attr('for').replace(/(\d+)/, function(m, p1){return +p1+1}));
+    });
+    $new_item.find('input').each(function(i, e){
+      e = $(e);
+      e.attr('id', e.attr('id').replace(/(\d+)/, function(m, p1){return +p1+1}));
+      e.attr('name', e.attr('name').replace(/(\d+)/, function(m, p1){return +p1+1}));
+      e.val('');
+    });
+    $new_item.appendTo($('ul'));
+  });
+  $('.del-link').click(function(e){
+    e.preventDefault();
+    $(this).closest('.row').remove();
+  });
+</script>
+{% endblock %}

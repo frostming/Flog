@@ -217,7 +217,7 @@ img.avatar {
 .post-cover {
   padding-bottom: 400px;
   margin-bottom: 30px;
-  background: url(images/postcover.jpg) center center no-repeat;
+  background: url(/static/images/postcover.jpg) center center no-repeat;
   background-size: cover;
 }
 

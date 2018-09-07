@@ -1,13 +1,12 @@
 """Flask blog app config"""
-import os.path as op
 import os
+import os.path as op
 
 here = op.dirname(__file__)
 
-
-BLOG_THEME_NAME = 'footstrap'
-BLOG_THEME_PROCESSOR = 'site'
-SECRET_KEY = 'flask blog'
+SECRET_KEY = os.getenv('SECRET_KEY', 'flask blog')
+DEFAULT_ADMIN_PASSWORD = 'admin'
+WTF_CSRF_ENABLED = True
 
 if 'RDS_HOSTNAME' in os.environ:    # AWS environment
     db_name = os.environ['RDS_DB_NAME']

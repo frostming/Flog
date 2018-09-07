@@ -8,7 +8,7 @@ from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from slugify import slugify
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
@@ -19,12 +19,11 @@ tags = db.Table(
 )
 
 
-def auto_delete_orphans(attr):
-    target_class = attr.parent.class_
+def auto_delete_orphans(cls, attr):
 
     @sa.event.listens_for(sa.orm.Session, 'after_flush')
     def delete_orphan_listener(session, ctx):
-        session.query(target_class).filter(~attr.any())\
+        session.query(cls).filter(~getattr(cls, attr).any())\
                                    .delete(synchronize_session=False)
 
 
@@ -32,7 +31,8 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
-    last_modified = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    last_modified = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     image = db.Column(db.String(400))
     lang = db.Column(db.String(20))
     content = db.Column(db.Text)
@@ -44,23 +44,6 @@ class Post(db.Model):
     slug = db.Column(db.String(100))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
-    def __init__(self, **kwargs):
-        tags = kwargs.pop('tags', [])
-        category = kwargs.pop('category', None)
-        super(Post, self).__init__(**kwargs)
-        tags_column = []
-        for tag in tags:
-            tag_object = Tag.query.filter_by(text=tag).first()
-            if not tag_object:
-                tag_object = Tag(text=tag)
-            tags_column.append(tag_object)
-        self.tags = tags_column
-        if category:
-            category_object = Category.query.filter_by(text=category).first()
-            if not category_object:
-                category_object = Category(text=category)
-            self.category = category_object
-
     @property
     def url(self):
         return '/%d/%02d-%02d/%s' % (self.date.year, self.date.month,
@@ -71,12 +54,12 @@ class Post(db.Model):
             title=self.title,
             date=self.date,
             image=self.image,
-            category=self.category.text,
+            category=self.category,
             lang=self.lang,
             comment=self.comment,
             description=self.description,
             author=self.author,
-            tags=[tag.text for tag in self.tags],
+            tags=self.tags,
             slug=self.slug,
             content=self.content,
             last_modified=self.last_modified,
@@ -107,11 +90,6 @@ class Post(db.Model):
 def init_url(mapper, connection, target):
     if target.slug:
         return
-
-    if not target.date:
-        target.date = datetime.utcnow()
-
-    target.last_modified = datetime.utcnow()
     target.slug = slugify(target.title)
 
 
@@ -125,13 +103,15 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(64), unique=True)
     email = db.Column(db.String(100))
     password = db.Column(db.String(200))
-    locale = db.Column(db.String(20), default='en')
 
     def __init__(self, **kwargs):
         password = kwargs.pop('password')
         password = generate_password_hash(password)
         kwargs['password'] = password
         super(User, self).__init__(**kwargs)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
     @classmethod
     def get_one(cls):
@@ -176,5 +156,5 @@ class Category(db.Model):
 def init_app(app):
     db.init_app(app)
     Migrate(app, db)
-    auto_delete_orphans(Tag.posts)
-    auto_delete_orphans(Category.posts)
+    auto_delete_orphans(Tag, 'posts')
+    auto_delete_orphans(Category, 'posts')

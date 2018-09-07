@@ -1,49 +1,18 @@
-# ----------------------------------------------
-# Site configurations
-# ----------------------------------------------
-
-# Site meta data
-name: Frost's Blog
-user: frostming
-description: 醉后不知天在水，满船清梦压星河。
 avatar: /static/images/avatar.jpeg
-# twitter: yourtwittername
-
+cdn: {bootstrapcss: 'https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css',
+  bootstrapjs: 'https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js', fontawesome: 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css',
+  jquery: 'https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js', mathjax: 'https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js',
+  moment: 'https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js', popper: 'https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js'}
 cover_url: https://frostming-tencent-1252779928.cos.ap-guangzhou.myqcloud.com/wudian-372.jpg
-
-# CDN links
-cdn:
-  bootstrapcss: https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css
-  bootstrapjs: https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js
-
-  jquery: https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js
-  popper: https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js
-  fontawesome: https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css
-
-  moment: https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js
-  mathjax: https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js
-
-
-sociallinks:
-  - name: GitHub
-    icon: github
-    link: https://github.com/frostming
-
-  - name: Email
-    icon: envelope
-    link: mailto:mianghong@gmaill.com
-
-  - name: Instagram
-    icon: instagram
-    link: https://www.instagram.com/frostming90
-
-  - name: 知乎
-    icon: iconfont||zhihu
-    link: https://www.zhihu.com/people/frostming
-
-  - name: Twitter
-    icon: twitter
-    link: https://twitter.com/frostming90
-
-# Google webmaster site verification token
+csrf_token: IjBhMTA2MzQ4YmQ1MGUxZTQxODExOTExYzNiMDdlMjBkZjg4NjA1Nzci.DnPWAA.PglKv4yJB0UpOY3TTKJK12MZVYw
+description: "\u9189\u540E\u4E0D\u77E5\u5929\u5728\u6C34\uFF0C\u6EE1\u8239\u6E05\u68A6\
+  \u538B\u661F\u6CB3\u3002"
 google_site_verification: h8jxTRuS6ULFwI6WDoBx0H-7GSBn8vvXSrgX08TrYYc
+locale: zh_Hans_CN
+name: Frost's Blog
+sociallinks:
+- {icon: github, link: 'https://github.com/frostming', name: GitHub}
+- {icon: envelope, link: 'mailto:mianghong@gmaill.com', name: Email}
+- {icon: instagram, link: 'https://www.instagram.com/frostming90', name: Instagram}
+- {icon: iconfont||zhihu, link: 'https://www.zhihu.com/people/frostming', name: "\u77E5\u4E4E"}
+- {icon: twitter, link: 'https://twitter.com/frostming90', name: Twitter}

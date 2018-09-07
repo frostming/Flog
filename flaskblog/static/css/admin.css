@@ -1,0 +1,54 @@
+#login {
+    margin-top: 100px;
+}
+
+#posts-table {
+    margin-top: 20px;
+}
+
+.delete-post {
+    display: inline-block;
+}
+
+.delete-post [type=submit] {
+    -webkit-appearance: none;
+}
+
+.post-control a {
+    cursor: pointer;
+	color: inherit;
+	font-size: 1.1em;
+}
+
+.title {
+	position: relative;
+}
+
+main {
+    margin-top: 10px;
+}
+
+#new-post-btn {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.post-title {
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid #ccd4da;
+	padding: .375rem .75rem;
+	font-size: 1.35em;
+	font-weight: bold;
+}
+
+.post-title:focus {
+	border-bottom-color: #5e6266;
+	outline: 0;
+}
+
+.del-link {
+	display: inline-block;
+	font-size: 1.25em;
+}

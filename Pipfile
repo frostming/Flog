@@ -10,6 +10,7 @@ flask-login = "*"
 flask-migrate = "*"
 flask-moment = "*"
 flask-sqlalchemy = "*"
+flask-wtf = "*"
 flask = "*"
 python-slugify = "*"
 pyyaml = "*"
@@ -17,9 +18,11 @@ six = "*"
 marko = "*"
 gunicorn = "*"
 psycopg2 = "*"
+flask-bootstrap = "*"
 
 [dev-packages]
 "flake8" = "*"
+flask-shell-ipython = "*"
 
 [pipenv]
 allow_prereleases = true
