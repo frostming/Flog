@@ -27,7 +27,8 @@ services:
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/log:/var/log/nginx
-      - ./nginx/cert:/cert
+      - ./nginx/cert:/opt/cert
+      - ./flaskblog/static:/opt/static
     ports:
       - "80:80"
       - "443:443"

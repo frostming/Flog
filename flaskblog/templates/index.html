@@ -4,7 +4,7 @@
 {% block extclass %}has-bg{% endblock %}
 
 {% block pagehead %}
-{% if not cat and not tag %}
+{% if not cat and not tag and 'page' not in request.args %}
 <div class="cover float-section text-light" style="background-image: url('{{g.site.cover_url}}')">
   <div class="mx-auto my-auto">
     <div class="bio">
@@ -29,9 +29,9 @@
   {% endif %}
   <h1 class="heading">
   {% if cat %}
-    Category: {{cat.text}}
+    {{_('Category')}}: {{cat.text}}
   {% elif tag %}
-    Tag: {{tag.text}}
+    {{_('Tag')}}: {{tag.text}}
   {% else %}
     {{g.site.name}}
   {% endif %}

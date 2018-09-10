@@ -4,7 +4,14 @@
 {% block main %}
 <h1 class="title">
   {{self.title()}}
-  <a id="new-post-btn" class="btn btn-primary" href="{{url_for('.new')}}">{{_('New Post')}}</a>
+  <div class="pull-right">
+  <a class="btn btn-dark" href="{{url_for('.drafts')}}">
+      <i class="fa fa-fw fa-archive"></i> {{_('Drafts')}}
+    {%-if draft_count%} <span class="badge badge-light">{{draft_count}}</span>{%-endif-%}
+  </a>
+  <a class="btn btn-primary" href="{{url_for('.new')}}">
+    <i class="fa fa-fw fa-pencil-square-o"></i> {{_('New Post')}}</a>
+  </div>
 </h1>
 <hr>
 <table id="posts-table" class="table table-borderless table-hover">
@@ -71,7 +78,7 @@
 <script>
 $('.delete-post a').on('click', function(){
   var $form = $(this).parent();
-  modalConfirm("{{_('Are your sure to delete the post?')}}", function(confirm){
+  modalConfirm("{{_('Are you sure to delete the post?')}}", function(confirm){
     if(confirm) {
       console.log($form.serialize());
       $form.submit();

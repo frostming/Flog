@@ -28,7 +28,7 @@ main {
     margin-top: 10px;
 }
 
-#new-post-btn {
+.pull-right {
 	position: absolute;
 	bottom: 0;
 	right: 0;

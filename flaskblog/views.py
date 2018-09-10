@@ -4,8 +4,8 @@ from flask import abort, render_template, request, send_file, current_app, g
 from werkzeug.contrib.atom import AtomFeed
 
 from .md import markdown
-from .models import Category, Post, Tag
-from .utils import get_tag_cloud, calc_token, read_site_config
+from .models import Category, Post, Tag, User
+from .utils import get_tag_cloud, calc_token
 
 try:
     from urllib.parse import urljoin
@@ -15,15 +15,17 @@ except ImportError:
 
 def load_site_config():
     if 'site' not in g:
-        g.site = read_site_config()
+        admin = User.get_one()
+        g.site = admin.read_settings()
 
 
-def home(page=None):
+def home():
     paginate = Post.query.join(Post.category)\
                          .filter(Category.text != 'About')\
                          .union(Post.query.filter(Post.category_id.is_(None)))\
+                         .filter(~Post.is_draft)\
                          .order_by(Post.date.desc())\
-                         .paginate(page, current_app.config['BLOG_PER_PAGE'])
+                         .paginate(per_page=current_app.config['BLOG_PER_PAGE'])
     tag_cloud = get_tag_cloud()
     return render_template(
         'index.html',
@@ -103,7 +105,6 @@ def not_found(error):
 
 def init_app(app):
     app.add_url_rule('/', 'home', home)
-    app.add_url_rule('/page/<int:page>', 'home', home)
     app.add_url_rule('/<int:year>/<date>/<title>', 'post', post)
     app.add_url_rule('/about', 'about', about)
     app.add_url_rule('/tag/<text>', 'tag', tag)

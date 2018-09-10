@@ -21,8 +21,16 @@
     </div>
     {{ wtf.form_field(form.category) }}
     {{ wtf.form_field(form.tags) }}
+    {{ form.is_draft(class='d-none') }}
     <div class="d-flex justify-content-between mb-2">
-      <button type="submit" class="btn btn-primary">{{_('Save')}}</button>
+      <div class="save-btns">
+        {% if request.endpoint.endswith('new') or form.is_draft.data %}
+          <button type="submit" class="btn btn-primary">{{_('Post')}}</button>
+          <button type="draft" class="btn btn-dark">{{_('Save Draft')}}</button>
+        {% else %}
+          <button type="submit" class="btn btn-primary">{{_('Save')}}</button>
+        {% endif %}
+      </div>
       <a href="{{url_for('.posts')}}" class="btn btn-danger">{{_('Cancel')}}</a>
     </div>
   </form>
@@ -45,11 +53,6 @@
 <script>
 var simplemde = new SimpleMDE({
   element: $("[data-role='mdeditor']")[0],
-  autosave: {
-    enabled: true,
-    uniqueId: 'new-post',
-    delay: 30000,
-  },
   spellChecker: false
 });
 
@@ -59,7 +62,7 @@ $('select[data-role=select2]').select2({
 
 $('.btn-danger').click(function(){
   var $btn = $(this)
-  modalConfirm("{{_('Are you sure to discard the draft?')}}", function(confirm){
+  modalConfirm("{{_('Are you sure to quit without saving the draft?')}}", function(confirm){
     if (confirm) {
       location.href = $btn.attr('href')
     }
@@ -69,7 +72,12 @@ $('.btn-danger').click(function(){
 window.cosConfig = {
   bucket: '{{config.COS_BUCKET}}',
   region: '{{config.COS_REGION}}'
-}
+};
+$('.save-btns button').click(function(e){
+  e.preventDefault();
+  this.form.is_draft.checked = (this.getAttribute('type') === 'draft');
+  this.form.submit();
+});
 </script>
 <script src="{{url_for('static', filename='js/cos-js-sdk-v5.min.js')}}"></script>
 <script src="{{url_for('static', filename='js/cos-upload.js')}}"></script>

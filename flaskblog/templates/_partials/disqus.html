@@ -1,10 +1,10 @@
-{% if not config.DEBUG and post.comment %}
+{% if not config.DEBUG and post.comment and g.site.disqus_shortname %}
 <section id="comments">
   <div id="disqus_thread"></div>
 </section>
 
 <script>
-  disqus_shortname = 'flog-1';
+  disqus_shortname = '{{g.site.disqus_shortname}}';
   disqus_page_url = '{{request.url}}'; // optional
   disqus_page_title = '{{post.title}}'; // optional
 </script>

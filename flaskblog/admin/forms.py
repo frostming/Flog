@@ -1,4 +1,4 @@
-from flask import current_app, g
+from flask import g
 from flask_babel import lazy_gettext
 from flask_wtf import FlaskForm
 from wtforms import (BooleanField, Form, PasswordField, StringField,
@@ -50,7 +50,7 @@ class AutoAddSelectField(fields.SelectFieldBase):
 
     def iter_choices(self):
         for pk, obj in self._get_objects():
-            yield pk, self.get_label(obj), obj == self.data
+            yield self.get_label(obj), self.get_label(obj), obj == self.data
 
 
 class AutoAddMultiSelectField(AutoAddSelectField):
@@ -69,12 +69,16 @@ class AutoAddMultiSelectField(AutoAddSelectField):
                 if not obj:
                     obj = self.model(**{self.label_key: label})
                 data.append(obj)
-                self._set_data(data)
+            self._set_data(data)
         return self._data
 
     def _set_data(self, data):
         self._data = data
         self._formdata = None
+
+    def iter_choices(self):
+        for pk, obj in self._get_objects():
+            yield self.get_label(obj), self.get_label(obj), obj in self.data
 
     data = property(_get_data, _set_data)
 
@@ -91,28 +95,15 @@ class LoginForm(FlaskForm):
     submit = SubmitField(lazy_gettext('Login'))
 
     def validate_username(self, field):
-        user = self.get_user()
+        user = User.get_one()
 
-        if user is None and field.data != 'admin':
+        if field.data != user.username:
             raise validators.ValidationError(lazy_gettext('Invalid user'))
 
-        # we're comparing the plaintext pw with the the hash from the db
-        if not user.check_password(self.password.data):
-            raise validators.ValidationError(lazy_gettext('Incorrect password'))
-
     def validate_password(self, field):
-        user = self.get_user()
-        if user is None:
-            if (
-                field.data == 'admin' and
-                self.password.data == current_app.config['DEFAULT_ADMIN_PASSWORD']
-            ):
-                return True
-        if not user.check_password(self.password.data):
+        user = User.get_one()
+        if not user.check_password(field.data):
             raise validators.ValidationError(lazy_gettext('Incorrect password'))
-
-    def get_user(self):
-        return User.query.filter_by(username=self.username.data).first()
 
 
 class PostForm(FlaskForm):
@@ -148,6 +139,10 @@ class PostForm(FlaskForm):
     comment = BooleanField(
         lazy_gettext('Enable Comment'),
         default=True
+    )
+    is_draft = BooleanField(
+        'Is Draft',
+        default=False
     )
 
 
@@ -185,9 +180,13 @@ class SettingsForm(FlaskForm):
     google_site_verification = StringField(
         lazy_gettext('Google Site Verification Code')
     )
+    disqus_shortname = StringField(
+        lazy_gettext('Disqus Shortname')
+    )
     sociallinks = fields.FieldList(
         fields.FormField(SocialLink),
-        lazy_gettext('Social Links')
+        lazy_gettext('Social Links'),
+        min_entries=1
     )
 
     @classmethod

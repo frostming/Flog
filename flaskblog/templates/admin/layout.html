@@ -7,11 +7,11 @@
   <title>{{_('Flog Admin')}} | {% block title %}{% endblock %}</title>
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-  <link rel="stylesheet" href="{{ g.site.cdn.bootstrapcss }}">
-  <link rel="stylesheet" href="{{ g.site.cdn.fontawesome }}">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
-  <script src="{{ g.site.cdn.jquery }}" crossorgin="anonymous"></script>
-  {{ moment.include_moment(local_js=g.site.cdn.moment) }}
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" crossorgin="anonymous"></script>
+  {{ moment.include_moment(local_js='https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js') }}
   {% if g.site.locale.startswith("zh") %}
     {{ moment.lang('zh-cn') }}
   {% endif %}
@@ -37,19 +37,19 @@
       </div>
     </div>
   </nav>
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% for cat, message in messages %}
-      <div class="alert alert-{{cat}} alert-dismissible fade show" role="alert">
-        {{ message|safe }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    {% endfor %}
-  {% endwith %}
   <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for cat, message in messages %}
+        <div class="alert alert-{{cat}} alert-dismissible fade show" role="alert">
+          {{ message|safe }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+    {% endwith %}
     {% block main %}{% endblock %}
   </main>
-  <script src="{{ g.site.cdn.bootstrapjs }}" crossorgin="anonymous"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js" crossorgin="anonymous"></script>
   {% block extra_script %}{% endblock %}
 </body>

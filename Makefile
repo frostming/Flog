@@ -3,7 +3,7 @@ sync:
 	rsync -apPv . fming@frostming.com:/home/fming/frostming.com
 
 restart:
-	find . -name "*.pyc" -exec rm {} \;
+	sudo find . -name "*.pyc" -exec rm {} \;
 	docker-compose restart
 
 deploy:

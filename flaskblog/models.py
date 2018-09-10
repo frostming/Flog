@@ -3,7 +3,7 @@ from datetime import datetime
 from random import choice
 
 import sqlalchemy as sa
-from flask import url_for, current_app
+from flask import url_for, current_app, json
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -17,6 +17,14 @@ tags = db.Table(
     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
     db.Column('post_id', db.Integer, db.ForeignKey('post.id'))
 )
+
+DEFAULT_SETTINGS = {
+    'locale': 'en',
+    'name': 'Flog',
+    'cover_url': '/static/images/cover.jpg',
+    'avatar': '/static/images/avatar.jpeg',
+    'description': 'A simple blog powered by Flask'
+}
 
 
 def auto_delete_orphans(cls, attr):
@@ -42,6 +50,7 @@ class Post(db.Model):
     tags = db.relationship('Tag', secondary=tags,
                            backref='posts')
     slug = db.Column(db.String(100))
+    is_draft = db.Column(db.Boolean, default=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
     @property
@@ -63,6 +72,7 @@ class Post(db.Model):
             slug=self.slug,
             content=self.content,
             last_modified=self.last_modified,
+            is_draft=self.is_draft
         )
 
     def __repr__(self):
@@ -81,7 +91,7 @@ class Post(db.Model):
     def related_post(self):
         posts = Post.query.join(Post.tags).filter(
             Tag.id.in_([tag.id for tag in self.tags]),
-            Post.id != self.id)
+            Post.id != self.id, ~Post.is_draft)
         if posts.count() > 0:
             return choice(posts.all())
 
@@ -103,6 +113,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(64), unique=True)
     email = db.Column(db.String(100))
     password = db.Column(db.String(200))
+    settings = db.Column(db.Text())
 
     def __init__(self, **kwargs):
         password = kwargs.pop('password')
@@ -116,7 +127,22 @@ class User(db.Model, UserMixin):
     @classmethod
     def get_one(cls):
         """Get the admin user. The only one will be returned."""
-        return cls.query.one()
+        rv = cls.query.one_or_none()
+        if not rv:
+            rv = cls(
+                username='admin',
+                password=current_app.config['DEFAULT_ADMIN_PASSWORD']
+            )
+            db.session.add(rv)
+            db.session.commit()
+        return rv
+
+    def read_settings(self):
+        return json.loads(self.settings or json.dumps(DEFAULT_SETTINGS))
+
+    def write_settings(self, data):
+        self.settings = json.dumps(data)
+        db.session.commit()
 
 
 class Tag(db.Model):
