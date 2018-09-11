@@ -1,0 +1,20 @@
+{
+  "name": "Flog",
+  "description": "A simple blog engine powered by Flask",
+  "keywords": [
+    "Blog",
+    "Flask",
+    "Python"
+  ],
+  "repository": "https://github.com/frostming/frostming.com",
+  "logo": "https://frostming.com/static/images/favicon.png",
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "image": "heroku/heroku:16",
+  "addons": [
+    "heroku-postgresql"
+  ]
+}
