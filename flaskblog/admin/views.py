@@ -53,7 +53,7 @@ def settings():
         data = form.data.copy()
         data.pop('csrf_token', None)
         g.site.update(data)
-        User.get_one().write_settings(data)
+        User.get_one().write_settings(g.site)
         flash(lazy_gettext('Update settings successfully.'), 'success')
         return redirect(url_for('.settings'))
     pform = ChangePasswordForm()
