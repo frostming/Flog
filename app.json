@@ -13,12 +13,6 @@
       "url": "heroku/python"
     }
   ],
-  "env": {
-    "PORT": {
-      "description": "The server port to bind",
-      "value": "5000"
-    }
-  },
   "image": "heroku/heroku:16",
   "addons": [
     "heroku-postgresql"
