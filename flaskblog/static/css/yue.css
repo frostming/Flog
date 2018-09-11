@@ -191,6 +191,9 @@ code,
 .yue pre tt {
   padding: 1em;
   border: none;
+  border-radius: 0;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 .yue table {
   width: 100%;

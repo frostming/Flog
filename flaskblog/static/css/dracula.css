@@ -17,6 +17,15 @@
     background: #282a36;
   }
 
+  .hljs a {
+    border: none!important;
+    color: #8be9fd!important;
+  }
+
+  .hljs a:hover {
+    color: #6272a4!important;
+  }
+
   pre ::selection {
       background-color: #44475a!important;
   }

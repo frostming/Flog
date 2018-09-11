@@ -36,7 +36,7 @@ $ FLASK_APP=application.py pipenv run flask run
 
 ### 部署到云服务器
 
-*敬请期待*
+[博文地址](https://frostming.com/2018/09-11/flask-nginx-deployment)
 
 ## 使用管理员后台
 
