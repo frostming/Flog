@@ -139,11 +139,11 @@
         },
         "marko": {
             "hashes": [
-                "sha256:2d0a2e0f2c3895bcc9bad4b53bc98e7c0a6894257bbaf2692026f366fc80dbcd",
-                "sha256:3cf13eb65128c451162428a9e0e50810e5c3047cd847b6e38eba9c42d321ea7c"
+                "sha256:8efa1afdc28ae6a32734b23b3f3b3ec66a654ef8d713f3c15c7b6c6f4f9a6546",
+                "sha256:95a6d449079e859bcfc3954a93091dc5ab4a125e8945234b7757c087f3f53254"
             ],
             "index": "pypi",
-            "version": "==0.4.0"
+            "version": "==0.4.1"
         },
         "markupsafe": {
             "hashes": [
