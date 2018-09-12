@@ -29,8 +29,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.has-bg.navbar-light {
-  background-color: rgba(255, 255, 255, .9)
+.navbar.navbar-light {
+  background-color: rgba(255, 255, 255, .9);
 }
 
 .cover {
@@ -212,13 +212,6 @@ img.avatar {
 .post-item-image img {
     margin-left: 0.8em;
     max-width: 150px;
-}
-
-.post-cover {
-  padding-bottom: 400px;
-  margin-bottom: 30px;
-  background: url(/static/images/postcover.jpg) center center no-repeat;
-  background-size: cover;
 }
 
 #main {

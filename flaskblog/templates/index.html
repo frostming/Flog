@@ -1,8 +1,6 @@
 {% extends 'page.html' %}
 {% import '_partials/helper.html' as helper with context %}
 
-{% block extclass %}has-bg{% endblock %}
-
 {% block pagehead %}
 {% if not cat and not tag and 'page' not in request.args %}
 <div class="cover float-section text-light" style="background-image: url('{{g.site.cover_url}}')">

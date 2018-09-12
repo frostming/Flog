@@ -319,3 +319,21 @@ blockquote.centerquote::after {
   right: 0;
   bottom: -8px;
 }
+
+.post-cover {
+  padding-bottom: 400px;
+  margin-bottom: 30px;
+  background: url(/static/images/postcover.jpg) center center no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.shade {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, .3);
+}

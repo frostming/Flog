@@ -17,14 +17,16 @@ $ pip install pipenv
 ```bash
 $ pipenv install
 $ pipenv install -d
+# 生成翻译文件
 $ pipenv run make compile
+# 升级DB
 $ pipenv run flask db upgrade
 ```
 
 3. 启动服务器
 
 ```bash
-$ FLASK_APP=application.py pipenv run flask run
+$ FLASK_DEBUG=True pipenv run flask run
 ```
 成功后，访问<http://localhost:5000>查看结果
 
@@ -36,7 +38,7 @@ $ FLASK_APP=application.py pipenv run flask run
 
 ### 部署到云服务器
 
-[博文地址](https://frostming.com/2018/09-11/flask-nginx-deployment)
+[Flask+Nginx博客容器化部署](https://frostming.com/2018/09-11/flask-nginx-deployment)
 
 ## 使用管理员后台
 

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>{% block title %}{{page.title|capitalize}}{% endblock %} | {{g.site.name}}</title>
+  <title>{% block title %}{{page.title}}{% endblock %} | {{g.site.name}}</title>
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
   <link rel="alternate" type="application/atom+xml" title="{{g.site.name}} atom feed" href="{{ url_for('feed') }}">

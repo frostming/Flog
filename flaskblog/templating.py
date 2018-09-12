@@ -25,7 +25,7 @@ def blog_objects():
     url = request.url
     title = request.url_rule.endpoint if request.url_rule else ''
     categories = Category.query.filter(Category.text != 'About').all()
-    rv = {'url': url, 'title': title}
+    rv = {'url': url, 'title': title.title()}
     return {'page': rv, 'urljoin': urljoin, 'categories': categories}
 
 

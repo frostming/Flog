@@ -3,14 +3,14 @@
 
 {% block mainbody %}
   {% block nav %}
-  <nav class="navbar fixed-top navbar-expand-lg {% block navstyle %}navbar-light{% endblock %} {% block extclass %}{% endblock %}">
+  <nav class="navbar fixed-top navbar-expand-lg {% block navstyle %}navbar-light{% endblock %}">
     {% include '_partials/nav.html' %}
   </nav>
   {% endblock %}
 
   {% block pagehead %}{% endblock %}
   {% block pagebody %}
-  <section class="main {{ self.extclass() }}" id="main" itemscope itemtype="http://schema.org/Article">
+  <section class="main" id="main" itemscope itemtype="http://schema.org/Article">
     <meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{request.url}}">
     <div class="container-fluid px-lg-5">
       <div class="row">

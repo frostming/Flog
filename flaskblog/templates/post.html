@@ -1,7 +1,7 @@
 {% extends 'page.html' %}
 
 {% block lang %}{{post.lang}}{% endblock %}
-{% block title %}{{post.title|capitalize}}{% endblock %}
+{% block title %}{{post.title}}{% endblock %}
 {% block ogtype %}article{% endblock %}
 {% block description %}{%-if post.description %}{{post.description}}{%-endif %}{% endblock %}
 {% block ogimg %}{%-if post.image %}{{post.image}}{%-endif %}{% endblock %}
@@ -22,6 +22,7 @@
 {% block pagehead %}
   <meta itemscope="" itemprop="pageEntity" itemtype="https://schema.org/WebPage" itemid="{{request.url}}">
   <section class="container-fluid post-cover" {% if post.image %}style="background-image:url({{post.image}});"{% endif %}>
+    <div class="shade"></div>
   </section>
 {% endblock %}
 

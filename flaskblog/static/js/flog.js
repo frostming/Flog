@@ -11,8 +11,7 @@ var isMobile = function () {
 $(document).ready(function () {
   var headerHeight = $('.post-cover').outerHeight();
   $(window).on('scroll', function () {
-    $('nav.navbar').toggleClass('has-bg', window.pageYOffset > headerHeight);
-    $('nav.navbar').toggleClass('navbar-light', window.pageYOffset > headerHeight);
+    $('nav.navbar').toggleClass('navbar-light', window.pageYOffset >= headerHeight);
     $('nav.navbar').toggleClass('navbar-dark', window.pageYOffset < headerHeight);
     $('#totop').toggleClass('invisible', $(window).scrollTop() < $(window).height() * 0.8);
     $('#totop').toggleClass('visible', $(window).scrollTop() > $(window).height() * 0.8);
