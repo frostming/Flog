@@ -2,8 +2,13 @@
 <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,900" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='iconfont/iconfont.css')}}">
+{% compress 'css' %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='iconfont/iconfont.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/yue.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dracula.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/article.css')}}">
+{% endcompress %}
 <meta name="google-site-verification" content="{{ g.site.google_site_verification }}" />
 <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>

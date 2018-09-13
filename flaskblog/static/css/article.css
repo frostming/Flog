@@ -257,13 +257,16 @@ figure img {
 
 }
 
+.related, .cc {
+  border-top: 1px rgba(0, 0, 0, .1) solid;
+}
+
 .related a:hover {
   text-decoration: none;
 }
 
 .related-title {
   font-family: "Roboto Condensed", -apple-system, "Helvetica Nueue", Helvetica, Arial, sans-serif;
-  border-top: 1px rgba(0, 0, 0, .1) solid;
   font-weight: 300;
   color: rgba(0, 0, 0, .3);
 }

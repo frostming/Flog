@@ -4,6 +4,7 @@ from flask_babel import Babel
 from flask_login import LoginManager
 from flask_babel import lazy_gettext
 from flask_bootstrap import Bootstrap
+from flask_static_compress import FlaskStaticCompress
 from .md import markdown
 from . import cli, views, templating, models, admin
 
@@ -13,6 +14,7 @@ def create_app():
     app.config.from_pyfile('config.py')
     Moment(app)
     Bootstrap(app)
+    FlaskStaticCompress(app)
     babel = Babel(app)
     models.init_app(app)
     cli.init_app(app)

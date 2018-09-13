@@ -11,12 +11,11 @@
 <meta name="keywords" content="{{post.tags|join(', ', 'text')}}">
 <meta name="author" content="{{post.author}}">
 <meta itemscope="" itemprop="pageEntity" itemtype="https://schema.org/WebPage" itemid="{{request.url}}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/yue.css') }}">
-{% include '_partials/highlight.html' %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/article.css')}}">
 
 <link rel="stylesheet" href="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.css">
 <link rel="stylesheet" href="https://cdn.bootcss.com/photoswipe/4.1.2/default-skin/default-skin.min.css">
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 {% endblock %}
 
 {% block coverstyle %}
@@ -58,6 +57,9 @@
     {{_('Last edited')}} <time datetime="{{post.last_modified}}">{{moment(post.last_modified).fromNow()}}</time>
   </div>
 </article>
+<section class="cc text-center p-2">
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="{{_('Creative Commons License')}}" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />{{_('This work is licensed under a ')}}<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA{{_(' License')}}</a>.
+</section>
 {% set related = post.related_post() %}
 {% if related %}
 <section class="related">
@@ -86,6 +88,8 @@
   <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-574571fdae7f0521"></script>
   <script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.js" charset="utf-8"></script>
   <script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe-ui-default.min.js" charset="utf-8"></script>
-  <script src="{{url_for('static', filename='js/flog.js')}}"></script>
+  {% compress 'js' %}
+    <script type="text/javascript" src="{{url_for('static', filename='js/flog.js')}}"></script>
+  {% endcompress %}
   {% include '_partials/math.html' %}
 {% endblock %}

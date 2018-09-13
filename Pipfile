@@ -19,10 +19,8 @@ marko = "*"
 gunicorn = "*"
 psycopg2 = "*"
 flask-bootstrap = "*"
+flask-static-compress = "*"
 
 [dev-packages]
 "flake8" = "*"
 flask-shell-ipython = "*"
-
-[pipenv]
-allow_prereleases = true
