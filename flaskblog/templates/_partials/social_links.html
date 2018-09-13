@@ -1,15 +1,17 @@
-<div class="social-links d-flex">
+<ul class="social-links">
   {% for item in g.site.sociallinks %}
-  <a href="{{item.link}}" class="social-item" title="{{item.name}}">
-    {% if not item.icon %}
-      {% set iconclass="fa fa-fw fa-globe" %}
-    {% elif item.icon.startswith('iconfont') %}
-      {% set iconclass="iconfont icon-%s" % item.icon.split('||')[1] %}
-    {% else %}
-      {% set iconclass="fa fa-fw fa-%s" % item.icon %}
-    {% endif %}
-    <i class="{{iconclass}}"></i>
-  </a>
+  <li>
+    <a href="{{item.link}}" title="{{item.name}}">
+      {% if not item.icon %}
+        {% set iconclass="fa fa-fw fa-globe" %}
+      {% elif item.icon.startswith('iconfont') %}
+        {% set iconclass="iconfont icon-%s" % item.icon.split('||')[1] %}
+      {% else %}
+        {% set iconclass="fa fa-fw fa-%s" % item.icon %}
+      {% endif %}
+      <i class="{{iconclass}}"></i>
+    </a>
+  </li>
   {% endfor %}
-  <a href="{{url_for('feed')}}" class="social-item" title="RSS"><i class="fa fa-fw fa-rss"></i></a>
-</div>
+  <li><a href="{{url_for('feed')}}" title="RSS"><i class="fa fa-fw fa-rss"></i></a></li>
+</ul>

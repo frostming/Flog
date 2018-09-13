@@ -1,7 +1,8 @@
 {% extends 'page.html' %}
 {% import '_partials/helper.html' as helper with context %}
 
-{% block pagehead %}
+{% block nav %}
+{{ super() }}
 {% if not cat and not tag and 'page' not in request.args %}
 <div class="cover float-section text-light" style="background-image: url('{{g.site.cover_url}}')">
   <div class="mx-auto my-auto">
@@ -18,74 +19,71 @@
   </div>
 </div>
 {% endif %}
-
-<section class="blog-head">
-  {% if not cat and not tag %}
-    <a href="/" class="blog-head-logo">
-      <img class="avatar" src="{{ g.site.avatar }}" alt="{{ g.site.name }}">
-    </a>
-  {% endif %}
-  <h1 class="heading">
-  {% if cat %}
-    {{_('Category')}}: {{cat.text}}
-  {% elif tag %}
-    {{_('Tag')}}: {{tag.text}}
-  {% else %}
-    {{g.site.name}}
-  {% endif %}
-  </h1>
-  <div class="divider"></div>
-</section>
 {% endblock %}
 
-
-{% block pagebody %}
-<div class="container">
-  <div class="row">
-    <div class="col-12 col-lg-8">
-      {{ helper.render_posts(posts) }}
-
-      {% if paginate %}
-      <div class="paginate d-flex justify-content-between">
-        <a href="{{url_for('home', page=paginate.prev_num)}}"
-        {% if paginate.has_prev %} style="visibility: visible;"{% endif %}>
-        <i class="fa fa-fw fa-angle-left"></i> {{_('Newer Posts')}}
-      </a>
-      <a href="{{url_for('home', page=paginate.next_num)}}"
-      {% if paginate.has_next %} style="visibility: visible;"{% endif %}>
-      {{_('Older Posts')}} <i class="fa fa-fw fa-angle-right"></i>
-      </a>
-      </div>
-      {% endif %}
-    </div>
-    <div class="col-12 col-lg-4 blog-right">
-      <div class="right-section">
-        <h2><i class="fa fa-tags"></i>{{_('Tags')}}</h2>
-        <div class="post-tags" id="tag-cloud">
-          {% for tag, heat in tag_cloud %}
-            <a href="{{tag.url}}" rel="{{heat}}">{{tag.text}}</a>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-
+{% block coverstyle %}
+style="background-image:url({{g.site.cover_url}});"
+{% endblock %}
+{% block pagehead %}
+<div class="blog-info mx-auto">
+{% if not cat and not tag %}
+  <a href="/" class="blog-head-logo">
+    <img class="avatar" src="{{ g.site.avatar }}" alt="{{ g.site.name }}">
+  </a>
+{% endif %}
+<h1 class="heading">
+{% if cat %}
+  {{_('Category')}}: {{cat.text}}
+{% elif tag %}
+  {{_('Tag')}}: {{tag.text}}
+{% else %}
+  {{g.site.name}}
+{% endif %}
+</h1>
 </div>
 {% endblock %}
 
+
+{% block content %}
+  {{ helper.render_posts(posts) }}
+
+  {% if paginate %}
+  <div class="paginate d-flex justify-content-between">
+    <a href="{{url_for('home', page=paginate.prev_num)}}" rel="prev"
+    {% if paginate.has_prev %} style="visibility: visible;"{% endif %}>
+    <i class="fa fa-fw fa-angle-left"></i> {{_('Newer Posts')}}
+    </a>
+    <a href="{{url_for('home', page=paginate.next_num)}}" rel="next"
+    {% if paginate.has_next %} style="visibility: visible;"{% endif %}>
+    {{_('Older Posts')}} <i class="fa fa-fw fa-angle-right"></i>
+    </a>
+  </div>
+  {% endif %}
+{% endblock %}
+{% block rightside %}
+  <div class="right-section">
+    <h2><i class="fa fa-tags"></i>{{_('Tags')}}</h2>
+    <div class="mt-4" id="tag-cloud">
+      {% for tag, heat in tag_cloud %}
+        <a href="{{tag.url}}" rel="{{heat}}">{{tag.text}}</a>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
 {% block extrajs %}
+<script src="{{url_for('static', filename='js/flog.js')}}"></script>
 <script type="text/javascript">
   if($('#tag-cloud').length !== 0) {
-    async('{{url_for("static", filename="js/tagcloud.js")}}', function(){
-      $.fn.tagcloud.defaults = {
-          //size: {start: 1, end: 1, unit: 'em'},
-          color: {start: '#4c98ca', end: '#d24848'},
-      };
-      $('#tag-cloud > a').tagcloud();
+    async('{{url_for("static", filename="color-hash/color-hash.js")}}', function(){
+      var colorHash = new ColorHash({saturation: 0.5});
+      $('#tag-cloud > a').each(function(i, e){
+        e.style["background-color"] = colorHash.hex(e.innerHTML.trim());
+      });
     })
   }
   var dismissCover = function(){
-    var headerHeight = document.getElementsByClassName('blog-head')[0].clientHeight;
+    var headerHeight = document.getElementsByClassName('page-head')[0].clientHeight;
     $('.cover').animate({
       height: headerHeight,
       opacity: 0

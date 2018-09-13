@@ -165,7 +165,8 @@ figure img {
 #table-of-content .list-group-item {
   color: #888888;
   border: none;
-  border-radius: 0
+  border-radius: 0;
+  background-color: transparent;
 }
 
 #table-of-content .list-group-item:hover {
@@ -320,20 +321,27 @@ blockquote.centerquote::after {
   bottom: -8px;
 }
 
-.post-cover {
-  padding-bottom: 400px;
-  margin-bottom: 30px;
-  background: url(/static/images/postcover.jpg) center center no-repeat;
-  background-size: cover;
-  position: relative;
+.post-tags a {
+  font-size: 14px;
+  color: rgba(0, 0, 0, .3);
+  display: inline-block;
+  padding: 2px 5px;
+  transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
 
-.shade {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 99;
-  background-color: rgba(0, 0, 0, .3);
+.post-tags a:hover {
+  text-decoration: none;
+  color: rgba(0, 0, 0, .75);
+  border-color: rgba(0, 0, 0, .75);
+}
+
+.post-tags a::before {
+  content: "#";
+  font-weight: 900;
+  color: rgba(0, 0, 0, .1);
+  margin-right: 1px;
+}
+
+.post-tags a:hover::before {
+  color: rgba(0, 0, 0, .5);
 }

@@ -32,16 +32,12 @@
   {% block mainbody %}{% endblock %}
 
   {% block footer %}
-  <footer class="footer {% block footercls %}{% endblock %}">
-    <div class="container d-lg-flex justify-content-between">
-      <div id="footer-left">
-        <p>{{_('Powered by Flog')}}</p>
-        <p><a href="https://frostming.com">Frost Ming</a>&copy;2016-{{current_time.year}} {{_('All rights reserved')}}</p>
-      </div>
-      <div id="footer-right">
-        {% include '_partials/social_links.html' %}
-      </div>
-    </div>
+  <footer class="footer text-center">
+    {% include '_partials/social_links.html' %}
+    <ul class="copyright">
+      <li>{{_('Powered by Flog')}}</li>
+      <li><a href="https://frostming.com">Frost Ming</a>&copy;2016-{{current_time.year}} {{_('All rights reserved')}}</li>
+    </ul>
   </footer>
   {% endblock %}
 

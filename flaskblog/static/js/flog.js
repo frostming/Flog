@@ -9,7 +9,7 @@ var isMobile = function () {
   return window.screen.width < 767 && this.hasMobileUA();
 };
 $(document).ready(function () {
-  var headerHeight = $('.post-cover').outerHeight();
+  var headerHeight = $('.page-head').outerHeight();
   $(window).on('scroll', function () {
     $('nav.navbar').toggleClass('navbar-light', window.pageYOffset >= headerHeight);
     $('nav.navbar').toggleClass('navbar-dark', window.pageYOffset < headerHeight);

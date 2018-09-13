@@ -10,6 +10,7 @@
 <meta name="weibo:article:update_at" content="{{post.last_modified|date('%Y-%m-%dT%H:%M:%SZ')}}">
 <meta name="keywords" content="{{post.tags|join(', ', 'text')}}">
 <meta name="author" content="{{post.author}}">
+<meta itemscope="" itemprop="pageEntity" itemtype="https://schema.org/WebPage" itemid="{{request.url}}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/yue.css') }}">
 {% include '_partials/highlight.html' %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/article.css')}}">
@@ -18,12 +19,8 @@
 <link rel="stylesheet" href="https://cdn.bootcss.com/photoswipe/4.1.2/default-skin/default-skin.min.css">
 {% endblock %}
 
-{% block navstyle %}navbar-dark{% endblock %}
-{% block pagehead %}
-  <meta itemscope="" itemprop="pageEntity" itemtype="https://schema.org/WebPage" itemid="{{request.url}}">
-  <section class="container-fluid post-cover" {% if post.image %}style="background-image:url({{post.image}});"{% endif %}>
-    <div class="shade"></div>
-  </section>
+{% block coverstyle %}
+{% if post.image %}style="background-image:url({{post.image}});"{% endif %}
 {% endblock %}
 
 {% block rightside %}
