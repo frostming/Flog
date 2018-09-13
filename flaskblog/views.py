@@ -51,8 +51,12 @@ def about():
     lang = request.args.get('lang', 'zh')
     post = Post.query.filter_by(lang=lang)\
                .join(Post.category).filter(Category.text == 'About')\
-               .first_or_404()
-    return render_template('post.html', post=post, content=markdown(post.content))
+               .first()
+    if post:
+        return render_template(
+            'post.html', post=post, content=markdown(post.content))
+    else:
+        return render_template('about.html')
 
 
 def tag(text):

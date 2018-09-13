@@ -62,6 +62,14 @@ def settings():
 
 @login_required
 def edit_post():
+    if request.args.get('cat') == 'About':
+        lang = request.args.get('lang', 'zh')
+        post = Post.query.join(Post.category).filter(
+            Category.text == 'About',
+            Post.lang == lang).first()
+        if post:
+            return redirect(url_for('.edit', id=post.id))
+        return redirect(url_for('.new', cat='About', lang=lang))
     post = Post.query.get_or_404(request.args.get('id'))
     if request.method == 'GET':
         form = PostForm(data=post.to_dict())
@@ -106,6 +114,13 @@ def new_post():
                 "The article '%(title)s' is posted successfully!", title=post.title
             ), 'success')
         return redirect(url_for('.posts'))
+    cat = request.args.get('cat')
+    if cat:
+        category = Category.query.filter_by(text=cat).first()
+        if not category:
+            category = Category(text=cat)
+        form.category.data = category
+        form.lang.data = request.args.get('lang', 'zh')
     return render_template('admin/writing.html', form=form)
 
 

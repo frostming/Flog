@@ -1,5 +1,5 @@
 import re
-from marko import block
+from marko import block, HTMLRenderer
 from marko.ext.gfm import GFMParser, GFMRenderer
 from marko.ext import toc, pangu, footnote
 
@@ -76,3 +76,7 @@ class FlogRenderer(
             '<div class="list-group">',
             '<div class="list-group" id="table-of-content">', 1
         )
+
+    def render_html_block(self, element):
+        # Disable tag filter, use the original render function
+        return HTMLRenderer.render_html_block(self, element)

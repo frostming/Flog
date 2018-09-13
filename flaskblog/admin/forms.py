@@ -49,8 +49,13 @@ class AutoAddSelectField(fields.SelectFieldBase):
         return getattr(obj, self.label_key)
 
     def iter_choices(self):
+        in_query = False
         for pk, obj in self._get_objects():
+            if obj == self.data:
+                in_query = True
             yield self.get_label(obj), self.get_label(obj), obj == self.data
+        if not in_query and self.data:
+            yield self.get_label(self.data), self.get_label(self.data), True
 
 
 class AutoAddMultiSelectField(AutoAddSelectField):

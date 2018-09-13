@@ -9,6 +9,15 @@
   <button class="btn btn-primary" data-toggle="modal" data-target="#password-modal">
     {{_('Change Password')}}
   </button>
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{_('About')}}
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="{{url_for('.edit', cat='About', lang='en')}}">{{_('English')}}</a>
+      <a class="dropdown-item" href="{{url_for('.edit', cat='About', lang='zh')}}">{{_('Chinese')}}</a>
+    </div>
+  </div>
   <hr>
   <form class="form" method="post">
     {{ form.hidden_tag() }}

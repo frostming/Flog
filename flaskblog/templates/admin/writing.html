@@ -2,7 +2,13 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 {% import 'admin/libs.html' as libs %}
 
-{% block title %}{{_('New Post')}}{% endblock %}
+{% block title %}
+{% if request.endpoint.endswith('new') %}
+  {{_('New Post')}}
+{% else %}
+  {{_('Edit Post')}}
+{% endif %}
+{% endblock %}
 {% block main %}
   <h1 class="title">{{self.title()}}</h1>
   <hr>

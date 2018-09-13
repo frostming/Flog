@@ -1,0 +1,10 @@
+{% extends 'page.html' %}
+
+{% block pagebody %}
+<div class="d-flex flex-column justify-content-center", style="width: 100%; height: 80vh;">
+  <h2 class="mx-auto">
+    {{_('About page is not created yet, please click')}}
+    <a href="{{url_for('admin.new', cat='About')}}">{{_('this link')}}</a> {{_('to create')}}
+  </h2>
+</div>
+{% endblock %}
