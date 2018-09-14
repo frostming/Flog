@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-14 09:56+0800\n"
+"POT-Creation-Date: 2018-09-14 13:21+0800\n"
 "PO-Revision-Date: 2017-09-10 11:03+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -42,7 +42,7 @@ msgstr "登录"
 msgid "Invalid user"
 msgstr "用户名不存在"
 
-#: flaskblog/admin/forms.py:112 flaskblog/admin/forms.py:215
+#: flaskblog/admin/forms.py:112 flaskblog/admin/forms.py:225
 msgid "Incorrect password"
 msgstr "密码错误"
 
@@ -82,16 +82,16 @@ msgstr "分类"
 msgid "Tags"
 msgstr "标签"
 
-#: flaskblog/admin/forms.py:138 flaskblog/admin/forms.py:179
+#: flaskblog/admin/forms.py:138 flaskblog/admin/forms.py:184
 msgid "Language"
 msgstr "语言"
 
-#: flaskblog/admin/forms.py:140 flaskblog/admin/forms.py:181
+#: flaskblog/admin/forms.py:140 flaskblog/admin/forms.py:186
 #: flaskblog/templates/admin/settings.html:17
 msgid "English"
 msgstr "英语"
 
-#: flaskblog/admin/forms.py:141 flaskblog/admin/forms.py:182
+#: flaskblog/admin/forms.py:141 flaskblog/admin/forms.py:187
 #: flaskblog/templates/admin/settings.html:18
 msgid "Chinese"
 msgstr "中文"
@@ -117,46 +117,58 @@ msgid "Link"
 msgstr "链接"
 
 #: flaskblog/admin/forms.py:174
+msgid "Link URL"
+msgstr "链接地址"
+
+#: flaskblog/admin/forms.py:175
+msgid "Link Text"
+msgstr "链接文字"
+
+#: flaskblog/admin/forms.py:179
 msgid "Site Name"
 msgstr "站点名称"
 
-#: flaskblog/admin/forms.py:175
+#: flaskblog/admin/forms.py:180
 msgid "Site Description"
 msgstr "站点描述"
 
-#: flaskblog/admin/forms.py:176
+#: flaskblog/admin/forms.py:181
 msgid "Avatar URL"
 msgstr "头像URL"
 
-#: flaskblog/admin/forms.py:177
+#: flaskblog/admin/forms.py:182
 msgid "Cover Image URL"
 msgstr "封面图URL"
 
-#: flaskblog/admin/forms.py:187
+#: flaskblog/admin/forms.py:192
 msgid "Google Site Verification Code"
 msgstr "Google站点验证码"
 
-#: flaskblog/admin/forms.py:190
+#: flaskblog/admin/forms.py:195
 msgid "Disqus Shortname"
 msgstr "Disqus站点名"
 
-#: flaskblog/admin/forms.py:194 flaskblog/templates/admin/settings.html:32
+#: flaskblog/admin/forms.py:199 flaskblog/templates/admin/settings.html:32
 msgid "Social Links"
 msgstr "社交链接"
 
-#: flaskblog/admin/forms.py:197
+#: flaskblog/admin/forms.py:202
 msgid "ICP No."
 msgstr "备案号"
 
-#: flaskblog/admin/forms.py:205
+#: flaskblog/admin/forms.py:205 flaskblog/templates/admin/settings.html:57
+msgid "Friend Links"
+msgstr "友情链接"
+
+#: flaskblog/admin/forms.py:215
 msgid "Old Password"
 msgstr "旧密码"
 
-#: flaskblog/admin/forms.py:206
+#: flaskblog/admin/forms.py:216
 msgid "New Password"
 msgstr "新密码"
 
-#: flaskblog/admin/forms.py:208
+#: flaskblog/admin/forms.py:218
 msgid "Confirm Password"
 msgstr "确认密码"
 
@@ -229,6 +241,10 @@ msgstr "较新文章"
 #: flaskblog/templates/index.html:58
 msgid "Older Posts"
 msgstr "较旧文章"
+
+#: flaskblog/templates/index.html:73
+msgid "Links"
+msgstr "链接"
 
 #: flaskblog/templates/layout.html:43
 msgid "All rights reserved"
@@ -310,24 +326,25 @@ msgid "Are you sure to delete the post?"
 msgstr "确认删除文章？"
 
 #: flaskblog/templates/admin/settings.html:10
-#: flaskblog/templates/admin/settings.html:65
+#: flaskblog/templates/admin/settings.html:87
 msgid "Change Password"
 msgstr "修改密码"
 
 #: flaskblog/templates/admin/settings.html:34
+#: flaskblog/templates/admin/settings.html:59
 msgid "Add"
 msgstr "新增"
 
-#: flaskblog/templates/admin/settings.html:57
+#: flaskblog/templates/admin/settings.html:79
 #: flaskblog/templates/admin/writing.html:37
 msgid "Save"
 msgstr "保存"
 
-#: flaskblog/templates/admin/settings.html:79
+#: flaskblog/templates/admin/settings.html:101
 msgid "Close"
 msgstr "关闭"
 
-#: flaskblog/templates/admin/settings.html:80
+#: flaskblog/templates/admin/settings.html:102
 msgid "Save changes"
 msgstr "保存修改"
 
@@ -353,4 +370,3 @@ msgstr "确认不保存草稿退出？"
 
 #~ msgid "Powered by Flog"
 #~ msgstr "由Flog强力驱动"
-

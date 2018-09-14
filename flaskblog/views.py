@@ -104,7 +104,7 @@ def sitemap():
 
 
 def not_found(error):
-    return render_template('404.html')
+    return render_template('404.html'), 404
 
 
 def init_app(app):

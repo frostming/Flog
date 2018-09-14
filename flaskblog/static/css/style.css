@@ -61,7 +61,7 @@ img.avatar {
   background-color: #e8e8e8;
 }
 
-.footer a {
+a {
   color: #999;
 }
 
@@ -69,7 +69,7 @@ img.avatar {
   margin-bottom: 0;
 }
 
-.footer a:hover {
+a:hover {
   color: #5c5c5c;
   text-decoration: none;
 }

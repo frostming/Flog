@@ -62,12 +62,22 @@ style="background-image:url({{g.site.cover_url}});"
 {% endblock %}
 {% block rightside %}
   <div class="right-section">
-    <h2><i class="fa fa-tags"></i>{{_('Tags')}}</h2>
+    <h2><i class="fa fa-tags"></i> {{_('Tags')}}</h2>
     <div class="mt-4" id="tag-cloud">
       {% for tag, heat in tag_cloud %}
         <a href="{{tag.url}}" rel="{{heat}}">{{tag.text}}</a>
       {% endfor %}
     </div>
+  </div>
+  <div class="right-section">
+    <h2><i class="fa fa-link"></i> {{_('Links')}}</h2>
+    <ul class="mt-4" id="friends">
+    {% if g.site.links %}
+    {% for link in g.site.links %}
+      <li><a href="{{link.url}}">{{link.text}}</a></li>
+    {% endfor %}
+    {% endif %}
+    </ul>
   </div>
 {% endblock %}
 

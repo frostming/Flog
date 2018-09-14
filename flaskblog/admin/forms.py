@@ -153,21 +153,19 @@ class PostForm(FlaskForm):
 
 
 class SocialLink(Form):
-    name = StringField(
-        lazy_gettext('Name'),
-        validators=[InputRequired()]
-    )
+    name = StringField(lazy_gettext('Name'))
     icon = StringField(
         lazy_gettext('Icon'),
-        validators=[InputRequired()],
         render_kw={
             'placeholder': lazy_gettext('FontAwesome short name')
         }
     )
-    link = StringField(
-        lazy_gettext('Link'),
-        validators=[InputRequired()]
-    )
+    link = StringField(lazy_gettext('Link'))
+
+
+class FriendLink(Form):
+    url = StringField(lazy_gettext('Link URL'))
+    text = StringField(lazy_gettext('Link Text'))
 
 
 class SettingsForm(FlaskForm):
@@ -195,6 +193,11 @@ class SettingsForm(FlaskForm):
         min_entries=1
     )
     icp = StringField(lazy_gettext('ICP No.'))
+    links = fields.FieldList(
+        fields.FormField(FriendLink),
+        lazy_gettext('Friend Links'),
+        min_entries=1
+    )
 
     @classmethod
     def from_local(cls):

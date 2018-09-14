@@ -23,18 +23,18 @@
     {{ form.hidden_tag() }}
     {{ wtf.form_errors(form, hiddens="only") }}
     {% for field in form %}
-      {% if field.name != 'sociallinks' and not bootstrap_is_hidden_field(field) %}
+      {% if field.name not in ('sociallinks', 'links') and not bootstrap_is_hidden_field(field) %}
         {{ wtf.form_field(field) }}
       {% endif %}
     {% endfor %}
     <hr>
     <h4 class="clearfix">
       {{_('Social Links')}}
-      <button class="btn btn-success float-right add-link">
+      <button class="btn btn-success float-right add-link" data-add="#social-links">
         <i class="fa fa-fw fa-plus"></i> {{_('Add')}}
       </button>
     </h4>
-    <ul class="pl-0 mt-2">
+    <ul class="pl-0 mt-2" id="social-links">
       {% for item in form.sociallinks %}
         <li class="row">
           <div class="col">
@@ -45,6 +45,28 @@
           </div>
           <div class="col">
             {{ wtf.form_field(item['link']) }}
+          </div>
+          <div class="col-0 d-flex justify-content-center">
+            <a class="my-auto text-danger del-link" data-index="{{loop.index0}}"href="#"><i class="fa fa-fw fa-times"></i></a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+    <hr>
+    <h4 class="clearfix">
+      {{_('Friend Links')}}
+      <button class="btn btn-success float-right add-link" data-add="#links">
+        <i class="fa fa-fw fa-plus"></i> {{_('Add')}}
+      </button>
+    </h4>
+    <ul class="pl-0 mt-2" id="links">
+      {% for item in form.links %}
+        <li class="row">
+          <div class="col">
+            {{ wtf.form_field(item['text']) }}
+          </div>
+          <div class="col">
+            {{ wtf.form_field(item['url']) }}
           </div>
           <div class="col-0 d-flex justify-content-center">
             <a class="my-auto text-danger del-link" data-index="{{loop.index0}}"href="#"><i class="fa fa-fw fa-times"></i></a>
@@ -89,7 +111,7 @@
 <script>
   $('.add-link').click(function(e){
     e.preventDefault();
-    var $last_item = $('.row:last-child');
+    var $last_item = $(`${$(this).data('add')} .row:last-child`);
     var $new_item = $last_item.clone(true);
     $new_item.find('label').each(function(i, e){
       e = $(e);
@@ -101,7 +123,7 @@
       e.attr('name', e.attr('name').replace(/(\d+)/, function(m, p1){return +p1+1}));
       e.val('');
     });
-    $new_item.appendTo($('ul'));
+    $new_item.appendTo($($(this).data('add')));
   });
   $('.del-link').click(function(e){
     e.preventDefault();

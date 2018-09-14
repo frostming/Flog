@@ -1,9 +1,9 @@
 sync:
-	find . -name "__pycache__/" -exec rm -rf {} \;
+	-find . -name "__pycache__/" -exec rm -rf {} \;
 	rsync -apPv . fming@frostming.com:/home/fming/frostming.com
 
 restart:
-	sudo find . -name "__pycache__" -exec rm -rf {} \;
+	-sudo find . -name "__pycache__" -exec rm -rf {} \;
 	docker-compose restart
 
 deploy:

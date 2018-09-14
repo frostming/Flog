@@ -9,14 +9,7 @@ from ..models import User, db, Post, Category, generate_password_hash
 def login():
     login_form = LoginForm()
     if login_form.validate_on_submit():
-        user = login_form.get_user()
-        if not user:
-            user = User(
-                username=login_form.username.data,
-                password=login_form.password.data
-            )
-            db.session.add(user)
-            db.session.commit()
+        user = User.get_one()
         login_user(user, remember=login_form.remember.data)
         flash(lazy_gettext('You are logged in successfully!'), 'success')
         return redirect(url_for('.posts'))
@@ -77,7 +70,7 @@ def edit_post():
         form = PostForm()
     if form.validate_on_submit():
         data = form.data.copy()
-        data.pop('csrf_token')
+        data.pop('csrf_token', None)
         for k, v in data.items():
             setattr(post, k, v)
         db.session.commit()
@@ -101,7 +94,7 @@ def new_post():
     form = PostForm()
     if form.validate_on_submit():
         data = form.data.copy()
-        data.pop('csrf_token')
+        data.pop('csrf_token', None)
         post = Post(**data)
         db.session.add(post)
         db.session.commit()
@@ -132,7 +125,9 @@ def change_password():
         admin.password = generate_password_hash(form.new.data)
         db.session.commit()
         flash(lazy_gettext('The password is updated!'), 'success')
-        return redirect(url_for('.settings'))
+    else:
+        flash(lazy_gettext('Invalid password!'), 'danger')
+    return redirect(url_for('.settings'))
 
 
 def init_blueprint(bp):

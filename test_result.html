@@ -1,0 +1,407 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Flog Admin | Settings</title>
+  <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="/static/images/favicon.ico">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/static/css/admin.css">
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" crossorgin="anonymous"></script>
+  <script src="https://cdn.bootcss.com/moment.js/2.18.1/moment-with-locales.min.js"></script>
+<script>
+moment.locale("en");
+function flask_moment_render(elem) {
+    $(elem).text(eval('moment("' + $(elem).data('timestamp') + '").' + $(elem).data('format') + ';'));
+    $(elem).removeClass('flask-moment').show();
+}
+function flask_moment_render_all() {
+    $('.flask-moment').each(function() {
+        flask_moment_render(this);
+        if ($(this).data('refresh')) {
+            (function(elem, interval) { setInterval(function() { flask_moment_render(elem) }, interval); })(this, $(this).data('refresh'));
+        }
+    })
+}
+$(document).ready(function() {
+    flask_moment_render_all();
+});
+</script>
+  
+  
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/admin/">
+      <img src="/static/images/favicon.png" width="40" height="40" class="d-inline-block" alt="">
+      <span class="heading">Flog Admin</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse align-items-center justify-content-end" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        
+        <a href="/admin/settings" class="nav-item nav-link active">Settings</a>
+        <a href="/admin/logout" class="nav-item nav-link">Logout</a>
+        
+        <a href="/" class="nav-item nav-link">Return Home</a>
+      </div>
+    </div>
+  </nav>
+  <main class="container">
+    
+      
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          Update settings successfully.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      
+    
+    
+  <h1 class="title">Settings</h1>
+  <hr>
+  <button class="btn btn-primary" data-toggle="modal" data-target="#password-modal">
+    Change Password
+  </button>
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      About
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="/admin/edit?cat=About&amp;lang=en">English</a>
+      <a class="dropdown-item" href="/admin/edit?cat=About&amp;lang=zh">Chinese</a>
+    </div>
+  </div>
+  <hr>
+  <form class="form" method="post">
+    
+    
+    
+      
+        
+
+
+
+
+<div class="form-group "><label class="control-label" for="name">Site Name</label>
+        
+          <input class="form-control" id="name" name="name" type="text" value="Test Site Name">
+        
+  </div>
+
+
+      
+    
+      
+        
+
+
+
+
+<div class="form-group "><label class="control-label" for="description">Site Description</label>
+        
+          <input class="form-control" id="description" name="description" type="text" value="A simple blog powered by Flask">
+        
+  </div>
+
+
+      
+    
+      
+        
+
+
+
+
+<div class="form-group "><label class="control-label" for="avatar">Avatar URL</label>
+        
+          <input class="form-control" id="avatar" name="avatar" type="text" value="/static/images/avatar.jpeg">
+        
+  </div>
+
+
+      
+    
+      
+        
+
+
+
+
+<div class="form-group "><label class="control-label" for="cover_url">Cover Image URL</label>
+        
+          <input class="form-control" id="cover_url" name="cover_url" type="text" value="/static/images/cover.jpg">
+        
+  </div>
+
+
+      
+    
+      
+        
+
+
+
+
+<div class="form-group "><label class="control-label" for="locale">Language</label>
+        
+          <select class="form-control" id="locale" name="locale"><option selected value="en">English</option><option value="zh_Hans_CN">Chinese</option></select>
+        
+  </div>
+
+
+      
+    
+      
+        
+
+
+
+
+<div class="form-group "><label class="control-label" for="google_site_verification">Google Site Verification Code</label>
+        
+          <input class="form-control" id="google_site_verification" name="google_site_verification" type="text" value="">
+        
+  </div>
+
+
+      
+    
+      
+        
+
+
+
+
+<div class="form-group "><label class="control-label" for="disqus_shortname">Disqus Shortname</label>
+        
+          <input class="form-control" id="disqus_shortname" name="disqus_shortname" type="text" value="">
+        
+  </div>
+
+
+      
+    
+      
+    
+      
+        
+
+
+
+
+<div class="form-group "><label class="control-label" for="icp">ICP No.</label>
+        
+          <input class="form-control" id="icp" name="icp" type="text" value="">
+        
+  </div>
+
+
+      
+    
+      
+    
+    <hr>
+    <h4 class="clearfix">
+      Social Links
+      <button class="btn btn-success float-right add-link" data-add="#social-links">
+        <i class="fa fa-fw fa-plus"></i> Add
+      </button>
+    </h4>
+    <ul class="pl-0 mt-2" id="social-links">
+      
+        <li class="row">
+          <div class="col">
+            
+
+
+
+
+<div class="form-group "><label class="control-label" for="sociallinks-0-name">Name</label>
+        
+          <input class="form-control" id="sociallinks-0-name" name="sociallinks-0-name" type="text" value="">
+        
+  </div>
+
+
+          </div>
+          <div class="col">
+            
+
+
+
+
+<div class="form-group "><label class="control-label" for="sociallinks-0-icon">Icon</label>
+        
+          <input class="form-control" id="sociallinks-0-icon" name="sociallinks-0-icon" placeholder="FontAwesome short name" type="text" value="">
+        
+  </div>
+
+
+          </div>
+          <div class="col">
+            
+
+
+
+
+<div class="form-group "><label class="control-label" for="sociallinks-0-link">Link</label>
+        
+          <input class="form-control" id="sociallinks-0-link" name="sociallinks-0-link" type="text" value="">
+        
+  </div>
+
+
+          </div>
+          <div class="col-0 d-flex justify-content-center">
+            <a class="my-auto text-danger del-link" data-index="0"href="#"><i class="fa fa-fw fa-times"></i></a>
+          </div>
+        </li>
+      
+    </ul>
+    <hr>
+    <h4 class="clearfix">
+      Friend Links
+      <button class="btn btn-success float-right add-link" data-add="#links">
+        <i class="fa fa-fw fa-plus"></i> Add
+      </button>
+    </h4>
+    <ul class="pl-0 mt-2" id="links">
+      
+        <li class="row">
+          <div class="col">
+            
+
+
+
+
+<div class="form-group "><label class="control-label" for="links-0-text">Link Text</label>
+        
+          <input class="form-control" id="links-0-text" name="links-0-text" type="text" value="">
+        
+  </div>
+
+
+          </div>
+          <div class="col">
+            
+
+
+
+
+<div class="form-group "><label class="control-label" for="links-0-url">Link URL</label>
+        
+          <input class="form-control" id="links-0-url" name="links-0-url" type="text" value="">
+        
+  </div>
+
+
+          </div>
+          <div class="col-0 d-flex justify-content-center">
+            <a class="my-auto text-danger del-link" data-index="0"href="#"><i class="fa fa-fw fa-times"></i></a>
+          </div>
+        </li>
+      
+    </ul>
+    <hr>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+
+  <div class="modal fade" id="password-modal" tabindex="-1" role="dialog" aria-labelledby="changePassword" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Change Password</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form class="form" action="/admin/password", method="post">
+          <div class="modal-body">
+            
+            
+            
+
+
+
+
+<div class="form-group "><label class="control-label" for="old">Old Password</label>
+        
+          <input class="form-control" id="old" name="old" type="password" value="">
+        
+  </div>
+
+
+            
+
+
+
+
+
+
+<div class="form-group  required"><label class="control-label" for="new">New Password</label>
+        
+          <input class="form-control" id="new" name="new" required type="password" value="">
+        
+  </div>
+
+
+            
+
+
+
+
+<div class="form-group "><label class="control-label" for="confirm">Confirm Password</label>
+        
+          <input class="form-control" id="confirm" name="confirm" type="password" value="">
+        
+  </div>
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  </main>
+  <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js" crossorgin="anonymous"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js" crossorgin="anonymous"></script>
+  
+<script>
+  $('.add-link').click(function(e){
+    e.preventDefault();
+    var $last_item = $(`${$(this).data('add')} .row:last-child`);
+    var $new_item = $last_item.clone(true);
+    $new_item.find('label').each(function(i, e){
+      e = $(e);
+      e.attr('for', e.attr('for').replace(/(\d+)/, function(m, p1){return +p1+1}));
+    });
+    $new_item.find('input').each(function(i, e){
+      e = $(e);
+      e.attr('id', e.attr('id').replace(/(\d+)/, function(m, p1){return +p1+1}));
+      e.attr('name', e.attr('name').replace(/(\d+)/, function(m, p1){return +p1+1}));
+      e.val('');
+    });
+    $new_item.appendTo($($(this).data('add')));
+  });
+  $('.del-link').click(function(e){
+    e.preventDefault();
+    $(this).closest('.row').remove();
+  });
+</script>
+
+</body>

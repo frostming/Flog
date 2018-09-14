@@ -1,4 +1,5 @@
 from flask import Flask, g, request
+from flask.helpers import get_env
 from flask_moment import Moment
 from flask_babel import Babel
 from flask_login import LoginManager
@@ -6,12 +7,13 @@ from flask_babel import lazy_gettext
 from flask_bootstrap import Bootstrap
 from flask_assets import Environment
 from .md import markdown
-from . import cli, views, templating, models, admin
+from . import cli, views, templating, models, admin, config
 
 
-def create_app():
+def create_app(env=None):
+    env = env or get_env()
     app = Flask(__name__)
-    app.config.from_pyfile('config.py')
+    app.config.from_object(config.config_dict[env])
     Moment(app)
     Bootstrap(app)
     babel = Babel(app)
