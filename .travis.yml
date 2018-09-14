@@ -1,0 +1,15 @@
+language: python
+
+python:
+  - "3.6"
+  - "nightly"
+
+install:
+  - pip install --upgrade pipenv
+  - pipenv install --deploy
+
+script:
+  - pipenv run python -m unittest
+
+notifications:
+  email: false
