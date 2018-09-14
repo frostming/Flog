@@ -18,7 +18,10 @@ six = "*"
 marko = "*"
 gunicorn = "*"
 psycopg2 = "*"
+flask-assets = "*"
 flask-bootstrap = "*"
+cssmin = "*"
+jsmin = "*"
 
 [dev-packages]
 "flake8" = "*"

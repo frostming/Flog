@@ -4,6 +4,7 @@ from flask_babel import Babel
 from flask_login import LoginManager
 from flask_babel import lazy_gettext
 from flask_bootstrap import Bootstrap
+from flask_assets import Environment
 from .md import markdown
 from . import cli, views, templating, models, admin
 
@@ -19,6 +20,7 @@ def create_app():
     views.init_app(app)
     templating.init_app(app)
     admin.init_app(app)
+    Environment(app)
 
     @babel.localeselector
     def get_locale():

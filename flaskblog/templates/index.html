@@ -72,7 +72,6 @@ style="background-image:url({{g.site.cover_url}});"
 {% endblock %}
 
 {% block extrajs %}
-<script src="{{url_for('static', filename='js/flog.js')}}"></script>
 <script type="text/javascript">
   if($('#tag-cloud').length !== 0) {
     async('{{url_for("static", filename="color-hash/color-hash.js")}}', function(){

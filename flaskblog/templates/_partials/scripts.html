@@ -10,3 +10,6 @@
       s.parentNode.insertBefore(o, s);
     }
 </script>
+{% assets filters='jsmin', output='dist/flog.js', 'js/flog.js' %}
+  <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+{% endassets %}

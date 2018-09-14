@@ -2,7 +2,8 @@ from flask import g
 from flask_babel import lazy_gettext
 from flask_wtf import FlaskForm
 from wtforms import (BooleanField, Form, PasswordField, StringField,
-                     SubmitField, fields, validators, widgets)
+                     SubmitField, fields, widgets)
+from wtforms.validators import InputRequired, Length, ValidationError, EqualTo
 
 from ..models import Category, Tag, User
 
@@ -93,9 +94,9 @@ class AutoAddMultiSelectField(AutoAddSelectField):
 
 class LoginForm(FlaskForm):
     username = StringField(lazy_gettext('User Name'),
-                           validators=[validators.InputRequired()])
+                           validators=[InputRequired()])
     password = PasswordField(lazy_gettext('Password'),
-                             validators=[validators.InputRequired()])
+                             validators=[InputRequired()])
     remember = BooleanField(lazy_gettext('Remember Me'))
     submit = SubmitField(lazy_gettext('Login'))
 
@@ -103,18 +104,18 @@ class LoginForm(FlaskForm):
         user = User.get_one()
 
         if field.data != user.username:
-            raise validators.ValidationError(lazy_gettext('Invalid user'))
+            raise ValidationError(lazy_gettext('Invalid user'))
 
     def validate_password(self, field):
         user = User.get_one()
         if not user.check_password(field.data):
-            raise validators.ValidationError(lazy_gettext('Incorrect password'))
+            raise ValidationError(lazy_gettext('Incorrect password'))
 
 
 class PostForm(FlaskForm):
     title = StringField(
         lazy_gettext('Title'),
-        validators=[validators.InputRequired()],
+        validators=[InputRequired()],
         render_kw={'placeholder': lazy_gettext('Title goes here')}
     )
     description = StringField(
@@ -124,11 +125,11 @@ class PostForm(FlaskForm):
     image = StringField(lazy_gettext('Header Image URL'))
     author = StringField(
         lazy_gettext('Author'),
-        validators=[validators.InputRequired()]
+        validators=[InputRequired()]
     )
     slug = StringField(
         lazy_gettext('URL Name'),
-        validators=[validators.InputRequired()]
+        validators=[InputRequired()]
     )
     category = AutoAddSelectField(Category, 'text', lazy_gettext('Category'))
     tags = AutoAddMultiSelectField(Tag, 'text', lazy_gettext('Tags'))
@@ -154,18 +155,18 @@ class PostForm(FlaskForm):
 class SocialLink(Form):
     name = StringField(
         lazy_gettext('Name'),
-        validators=[validators.InputRequired()]
+        validators=[InputRequired()]
     )
     icon = StringField(
         lazy_gettext('Icon'),
-        validators=[validators.InputRequired()],
+        validators=[InputRequired()],
         render_kw={
             'placeholder': lazy_gettext('FontAwesome short name')
         }
     )
     link = StringField(
         lazy_gettext('Link'),
-        validators=[validators.InputRequired()]
+        validators=[InputRequired()]
     )
 
 
@@ -193,6 +194,7 @@ class SettingsForm(FlaskForm):
         lazy_gettext('Social Links'),
         min_entries=1
     )
+    icp = StringField(lazy_gettext('ICP No.'))
 
     @classmethod
     def from_local(cls):
@@ -201,13 +203,13 @@ class SettingsForm(FlaskForm):
 
 class ChangePasswordForm(FlaskForm):
     old = PasswordField(lazy_gettext('Old Password'))
-    new = PasswordField(lazy_gettext('New Password'), [validators.InputRequired()])
+    new = PasswordField(lazy_gettext('New Password'), [InputRequired(), Length(8, 16)])
     confirm = PasswordField(
         lazy_gettext('Confirm Password'),
-        [validators.equal_to('new')]
+        [EqualTo('new')]
     )
 
     def validate_old(self, field):
         admin = User.get_one()
         if not admin.check_password(field.data):
-            raise validators.ValidationError(lazy_gettext('Incorrect password'))
+            raise ValidationError(lazy_gettext('Incorrect password'))
