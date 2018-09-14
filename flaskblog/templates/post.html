@@ -88,8 +88,6 @@
   <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-574571fdae7f0521"></script>
   <script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.js" charset="utf-8"></script>
   <script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe-ui-default.min.js" charset="utf-8"></script>
-  {% compress 'js' %}
-    <script type="text/javascript" src="{{url_for('static', filename='js/flog.js')}}"></script>
-  {% endcompress %}
+  <script type="text/javascript" src="{{url_for('static', filename='js/flog.js')}}"></script>
   {% include '_partials/math.html' %}
 {% endblock %}

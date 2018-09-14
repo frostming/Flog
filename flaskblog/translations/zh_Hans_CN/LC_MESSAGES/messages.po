@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-13 09:51+0800\n"
+"POT-Creation-Date: 2018-09-14 08:04+0800\n"
 "PO-Revision-Date: 2017-09-10 11:03+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -74,11 +74,11 @@ msgstr "作者"
 msgid "URL Name"
 msgstr "URL短名"
 
-#: flaskblog/admin/forms.py:133 flaskblog/templates/index.html:30
+#: flaskblog/admin/forms.py:133 flaskblog/templates/index.html:36
 msgid "Category"
 msgstr "分类"
 
-#: flaskblog/admin/forms.py:134 flaskblog/templates/index.html:63
+#: flaskblog/admin/forms.py:134 flaskblog/templates/index.html:65
 msgid "Tags"
 msgstr "标签"
 
@@ -202,47 +202,55 @@ msgstr "此处"
 msgid "to create"
 msgstr "来创建"
 
-#: flaskblog/templates/index.html:14
+#: flaskblog/templates/index.html:15
 msgid "Blog"
 msgstr "博客"
 
-#: flaskblog/templates/admin/settings.html:14 flaskblog/templates/index.html:15
+#: flaskblog/templates/admin/settings.html:14 flaskblog/templates/index.html:16
 msgid "About"
 msgstr "关于"
 
-#: flaskblog/templates/index.html:16
+#: flaskblog/templates/index.html:17
 msgid "Resume"
 msgstr "简历"
 
-#: flaskblog/templates/index.html:32
+#: flaskblog/templates/index.html:38
 msgid "Tag"
 msgstr "标签"
 
-#: flaskblog/templates/index.html:52
+#: flaskblog/templates/index.html:54
 msgid "Newer Posts"
 msgstr "较新文章"
 
-#: flaskblog/templates/index.html:56
+#: flaskblog/templates/index.html:58
 msgid "Older Posts"
 msgstr "较旧文章"
 
-#: flaskblog/templates/layout.html:38
-msgid "Powered by Flog"
-msgstr "由Flog强力驱动"
-
-#: flaskblog/templates/layout.html:39
+#: flaskblog/templates/layout.html:43
 msgid "All rights reserved"
 msgstr "保留最终权利"
 
-#: flaskblog/templates/post.html:33
+#: flaskblog/templates/post.html:29
 msgid "TABLE OF CONTENTS"
 msgstr "目录"
 
-#: flaskblog/templates/post.html:61
+#: flaskblog/templates/post.html:57
 msgid "Last edited"
 msgstr "最后编辑于"
 
-#: flaskblog/templates/post.html:67
+#: flaskblog/templates/post.html:61
+msgid "Creative Commons License"
+msgstr "知识共享协议"
+
+#: flaskblog/templates/post.html:61
+msgid "This work is licensed under a "
+msgstr "本作品采用"
+
+#: flaskblog/templates/post.html:61
+msgid " License"
+msgstr "许可"
+
+#: flaskblog/templates/post.html:66
 msgid "RELATED POST"
 msgstr "相关文章"
 
@@ -338,3 +346,7 @@ msgstr "取消"
 #: flaskblog/templates/admin/writing.html:71
 msgid "Are you sure to quit without saving the draft?"
 msgstr "确认不保存草稿退出？"
+
+#~ msgid "Powered by Flog"
+#~ msgstr "由Flog强力驱动"
+
