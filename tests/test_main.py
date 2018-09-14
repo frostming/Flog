@@ -52,3 +52,7 @@ class MainViewTestCase(BaseTestCase):
         response = self.client.get(url_for('admin.posts'))
         self.assertEqual(response.status_code, 302)
         self.assertIn(url_for('admin.login'), response.location)
+
+    def test_about_page(self):
+        data = self.client.get(url_for('about')).get_data(True)
+        self.assertIn('About page is not created yet, please click', data)

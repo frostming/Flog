@@ -107,14 +107,20 @@ class AdminTestCase(BaseTestCase):
 
     def test_change_settings(self):
         payload = DEFAULT_SETTINGS.copy()
-        payload.update(
-            name='Test Site Name',
-        )
+        payload.update({
+            'name': 'Test Site Name',
+            'sociallinks-0-name': 'Twitter',
+            'sociallinks-0-icon': 'twitter',
+            'sociallinks-0-link': '//twitter.com'
+        })
         self.client.post(
             url_for('admin.settings'),
             data=payload,
             follow_redirects=True
         )
-        self.assertEqual(User.get_one().read_settings()['name'], 'Test Site Name')
+        site = User.get_one().read_settings()
+        self.assertEqual(site['name'], 'Test Site Name')
+        self.assertEqual(site['sociallinks'][0]['name'], 'Twitter')
         data = self.client.get('/').get_data(True)
         self.assertIn('heading">Test Site Name</h1>', data)
+        self.assertIn('fa-twitter"></i>', data)
