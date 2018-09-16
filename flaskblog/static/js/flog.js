@@ -10,11 +10,24 @@ var isMobile = function () {
 };
 $(document).ready(function () {
   var headerHeight = $('.page-head').outerHeight();
+  var lastTop = 0;
   $(window).on('scroll', function () {
-    $('nav.navbar').toggleClass('navbar-light', window.pageYOffset >= headerHeight);
-    $('nav.navbar').toggleClass('navbar-dark', window.pageYOffset < headerHeight);
+    var $navbar = $('nav.navbar')
+    $navbar.toggleClass('navbar-light', window.pageYOffset >= headerHeight);
+    $navbar.toggleClass('navbar-dark', window.pageYOffset < headerHeight);
     $('#totop').toggleClass('invisible', $(window).scrollTop() < $(window).height() * 0.8);
     $('#totop').toggleClass('visible', $(window).scrollTop() > $(window).height() * 0.8);
+    var st = $(this).scrollTop();
+    if(st > lastTop) {
+      $navbar.animate({
+        'top': `-${$navbar.outerHeight()}`
+      }, 100)
+    } else {
+      $navbar.animate({
+        'top': '0'
+      }, 100)
+    }
+    lastTop = st;
   });
 
   $('body').scrollspy({
