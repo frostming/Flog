@@ -1,5 +1,5 @@
 # Flog
-[![Build Status](https://travis-ci.org/frostming/frostming.com.svg?branch=master)](https://travis-ci.org/frostming/frostming.com)
+[![Build Status](https://travis-ci.org/frostming/Flog.svg?branch=master)](https://travis-ci.org/frostming/Flog)
 
 *一个简单的博客系统，由Flask驱动*
 

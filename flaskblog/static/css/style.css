@@ -302,3 +302,11 @@ a:hover {
   color: white;
   text-align: center;
 }
+
+nav.navbar {
+  transition: transform .3s;
+}
+
+nav.navbar.hide {
+  transform: translate(0, -100%);
+}
