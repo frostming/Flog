@@ -44,8 +44,8 @@
 {% endblock %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/dist/simplemde.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.6-rc.1/dist/css/select2.min.css" rel="stylesheet" />
 <style>
 .CodeMirror, .CodeMirror-scroll {
     min-height: 80vh;
@@ -54,8 +54,8 @@
 {% endblock %}
 
 {% block extra_script %}
-<script src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simplemde@1.11.2/src/js/simplemde.min.js" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.6-rc.1/dist/js/select2.min.js"></script>
 <script>
 var simplemde = new SimpleMDE({
   element: $("[data-role='mdeditor']")[0],

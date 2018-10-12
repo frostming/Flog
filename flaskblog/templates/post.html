@@ -12,9 +12,9 @@
 <meta name="author" content="{{post.author}}">
 <meta itemscope="" itemprop="pageEntity" itemtype="https://schema.org/WebPage" itemid="{{request.url}}">
 
-<link rel="stylesheet" href="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.css">
-<link rel="stylesheet" href="https://cdn.bootcss.com/photoswipe/4.1.2/default-skin/default-skin.min.css">
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.2/dist/photoswipe.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.2/dist/default-skin/default-skin.css">
+<script src="https://cdn.staticfile.org/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 {% endblock %}
 
@@ -86,7 +86,7 @@
 
 {% block extrajs %}
   <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-574571fdae7f0521"></script>
-  <script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe.min.js" charset="utf-8"></script>
-  <script src="https://cdn.bootcss.com/photoswipe/4.1.2/photoswipe-ui-default.min.js" charset="utf-8"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.2/dist/photoswipe.min.js" charset="utf-8"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.2/dist/photoswipe-ui-default.min.js" charset="utf-8"></script>
   {% include '_partials/math.html' %}
 {% endblock %}
