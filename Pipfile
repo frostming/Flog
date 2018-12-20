@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask-admin = "*"
 flask-babel = "*"
 flask-login = "*"
 flask-migrate = "*"
