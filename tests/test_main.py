@@ -56,3 +56,8 @@ class MainViewTestCase(BaseTestCase):
     def test_about_page(self):
         data = self.client.get(url_for('about')).get_data(True)
         self.assertIn('About page is not created yet, please click', data)
+
+    def test_search(self):
+        response = self.client.get('/search?search=hello')
+        data = response.get_data(True)
+        self.assertIn('class="post-item-title">Test Post</h3>', data)
