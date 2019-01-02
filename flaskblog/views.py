@@ -77,7 +77,7 @@ def category(cat_id):
 
 
 def favicon():
-    return current_app.send_static_file('favicon.ico')
+    return current_app.send_static_file('images/favicon.ico')
 
 
 def feed():
@@ -107,6 +107,14 @@ def not_found(error):
     return render_template('404.html'), 404
 
 
+def search():
+    search_str = request.args.get('search')
+    paginate = Post.query.filter(~Post.is_draft) \
+                   .whooshee_search(search_str).order_by(Post.date.desc()) \
+                   .paginate(per_page=20)
+    return render_template('search.html', paginate=paginate, highlight=search_str)
+
+
 def init_app(app):
     app.add_url_rule('/', 'home', home)
     app.add_url_rule('/<int:year>/<date>/<title>', 'post', post)
@@ -116,6 +124,7 @@ def init_app(app):
     app.add_url_rule('/feed.xml', 'feed', feed)
     app.add_url_rule('/sitemap.xml', 'sitemap', sitemap)
     app.add_url_rule('/favicon.ico', 'favicon', favicon)
+    app.add_url_rule('/search', 'search', search)
     app.register_error_handler(404, not_found)
 
     if app.config.get('ENABLE_COS_UPLOAD', False):

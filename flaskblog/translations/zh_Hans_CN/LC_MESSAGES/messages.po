@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-09-14 19:17+0800\n"
+"POT-Creation-Date: 2019-01-02 19:46+0800\n"
 "PO-Revision-Date: 2017-09-10 11:03+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -250,10 +250,6 @@ msgstr "较旧文章"
 msgid "Links"
 msgstr "链接"
 
-#: flaskblog/templates/layout.html:43
-msgid "All rights reserved"
-msgstr "保留最终权利"
-
 #: flaskblog/templates/post.html:29
 msgid "TABLE OF CONTENTS"
 msgstr "目录"
@@ -277,6 +273,11 @@ msgstr "许可"
 #: flaskblog/templates/post.html:66
 msgid "RELATED POST"
 msgstr "相关文章"
+
+#: flaskblog/templates/search.html:3 flaskblog/templates/search.html:6
+#, python-format
+msgid "Search Result for '%(word)s'"
+msgstr "'%(word)s'的搜索结果"
 
 #: flaskblog/templates/admin/layout.html:7
 #: flaskblog/templates/admin/layout.html:25

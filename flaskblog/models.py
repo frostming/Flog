@@ -7,10 +7,12 @@ from flask import url_for, current_app, json
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_whooshee import Whooshee
 from slugify import slugify
 from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
+whooshee = Whooshee()
 
 tags = db.Table(
     'tags',
@@ -32,9 +34,10 @@ def auto_delete_orphans(cls, attr):
     @sa.event.listens_for(sa.orm.Session, 'after_flush')
     def delete_orphan_listener(session, ctx):
         session.query(cls).filter(~getattr(cls, attr).any())\
-                                   .delete(synchronize_session=False)
+                          .delete(synchronize_session=False)
 
 
+@whooshee.register_model('title', 'description', 'content')
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
@@ -182,5 +185,6 @@ class Category(db.Model):
 def init_app(app):
     db.init_app(app)
     Migrate(app, db)
+    whooshee.init_app(app)
     auto_delete_orphans(Tag, 'posts')
     auto_delete_orphans(Category, 'posts')

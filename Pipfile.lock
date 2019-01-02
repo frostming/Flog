@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1a9f2a53c71094bdf4a442b995913ed48fdf6d586ef5a7115426ecedddf0c7ee"
+            "sha256": "5ed66f174d090ce312ddc86407729a5d4caf809eee9e8c770588dbd87e3ec7b0"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -26,6 +26,12 @@
                 "sha256:8cba50f48c529ca3fa18cf81fa9403be176d374ac4d60738b839122dfaaa3d23"
             ],
             "version": "==2.6.0"
+        },
+        "blinker": {
+            "hashes": [
+                "sha256:471aee25f3992bd325afa3772f1063dbdbbca947a041b8b89466dc00d606f8b6"
+            ],
+            "version": "==1.4"
         },
         "click": {
             "hashes": [
@@ -107,6 +113,13 @@
             ],
             "index": "pypi",
             "version": "==2.3.2"
+        },
+        "flask-whooshee": {
+            "hashes": [
+                "sha256:66d8e9213df3ab1c64602ad653725fadd3204500d021fc85cec6ee3b05a10d4f"
+            ],
+            "index": "pypi",
+            "version": "==0.6.0"
         },
         "flask-wtf": {
             "hashes": [
@@ -243,10 +256,10 @@
         },
         "python-slugify": {
             "hashes": [
-                "sha256:7723daf30996db26573176bddcdf5fcb98f66dc70df05c9cb29f2c79b8193245"
+                "sha256:4e867cb16712f4d660b74fd55ba2ef4b7431ccd6aafec0a6d41a398f4cbc2de4"
             ],
             "index": "pypi",
-            "version": "==1.2.6"
+            "version": "==2.0.0"
         },
         "pytz": {
             "hashes": [
@@ -311,6 +324,14 @@
                 "sha256:d5da73735293558eb1651ee2fddc4d0dedcfa06538b8813a2e20011583c9e49b"
             ],
             "version": "==0.14.1"
+        },
+        "whoosh": {
+            "hashes": [
+                "sha256:7ca5633dbfa9e0e0fa400d3151a8a0c4bec53bd2ecedc0a67705b17565c31a83",
+                "sha256:aa39c3c3426e3fd107dcb4bde64ca1e276a65a889d9085a6e4b54ba82420a852",
+                "sha256:e0857375f63e9041e03fedd5b7541f97cf78917ac1b6b06c1fcc9b45375dda69"
+            ],
+            "version": "==2.7.4"
         },
         "wtforms": {
             "hashes": [

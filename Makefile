@@ -1,6 +1,7 @@
 sync:
 	-find . -name "__pycache__" -exec rm -rf {} \;
-	rsync -apPv . fming@frostming.com:/home/fming/frostming.com
+	rsync -apPv --filter="- whooshee" \
+		--filter="- .git" . fming@frostming.com:/home/fming/frostming.com
 
 restart:
 	-sudo find . -name "__pycache__" -exec rm -rf {} \;

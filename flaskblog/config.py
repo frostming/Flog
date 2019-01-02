@@ -11,6 +11,7 @@ class BaseConfig(object):
     BLOG_PER_PAGE = 10
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = True
+    WHOOSHEE_MIN_STRING_LEN = 2
 
 
 class ProductionConfig(BaseConfig):

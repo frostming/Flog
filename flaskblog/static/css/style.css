@@ -310,3 +310,35 @@ nav.navbar {
 nav.navbar.hide {
   transform: translate(0, -100%);
 }
+
+input[name=search] {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  transition: all .3s;
+}
+
+input[name=search]:focus {
+  background-color: inherit;
+  border: inherit;
+  outline: none;
+  box-shadow: none;
+}
+
+.navbar-light input[name=search]:hover {
+  border-bottom: 2px solid rgba(0, 0, 0, .7);
+}
+
+.navbar-light input[name=search]:focus {
+  color: black;
+  border-bottom: 2px solid rgba(0, 0, 0, .7);
+}
+
+.navbar-dark input[name=search]:focus {
+  color: white;
+  border-bottom: 2px solid rgba(255, 255, 255, .7);
+}
+
+.navbar-dark input[name=search]:hover {
+  border-bottom: 2px solid rgba(255, 255, 255, .7);
+}
