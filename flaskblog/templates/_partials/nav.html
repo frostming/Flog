@@ -11,4 +11,8 @@
       <a href="{{url_for('category', cat_id=item.id)}}" class="nav-item nav-link">{{_(item.text)|title}}</a>
     {% endfor %}
   </div>
+  <form class="form-inline my-2 my-lg-0" action="{{url_for('search')}}">
+    <input class="form-control mr-sm-2" type="search" name="search" aria-label="Search" required>
+    <button class="btn btn-dark my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+  </form>
 </div>

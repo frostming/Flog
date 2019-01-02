@@ -11,9 +11,8 @@ ENV LANG C.UTF-8
 
 # Application
 RUN mkdir /app
-COPY . /app
 WORKDIR /app
+COPY Pipfile Pipfile
+COPY Pipfile.lock Pipfile.lock
 
 RUN set -ex && pipenv install --deploy --system
-
-RUN chmod a+x start_server.sh

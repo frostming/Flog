@@ -4,6 +4,7 @@ import re
 
 import click
 import yaml
+from flask.cli import with_appcontext
 
 from .models import Post, db
 
@@ -62,6 +63,16 @@ def exp(output):
     os.chdir(cwd)
 
 
+@click.command()
+@with_appcontext
+def reindex():
+    """Reindex the searchable models."""
+    from .models import whooshee
+    whooshee.reindex()
+    click.echo("Index created for models.")
+
+
 def init_app(app):
     app.cli.add_command(imp)
     app.cli.add_command(exp)
+    app.cli.add_command(reindex)

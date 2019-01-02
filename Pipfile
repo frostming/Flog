@@ -21,6 +21,7 @@ flask-assets = "*"
 flask-bootstrap = "*"
 cssmin = "*"
 jsmin = "*"
+flask-whooshee = "*"
 
 [dev-packages]
 "flake8" = "*"
