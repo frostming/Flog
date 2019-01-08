@@ -166,11 +166,11 @@
         },
         "marko": {
             "hashes": [
-                "sha256:61f02247497b60bd5aa2d004eae5b2d1c3f0270c416e401d401fe95acc28b6cf",
-                "sha256:a9afe1646845d332d5ebd0e561622824c436aa5ae9a6b169177c1b28a8526a49"
+                "sha256:48484404f515966a60f38156d1a6f6a8455b593370c9204ccea80b847569b4f2",
+                "sha256:bd302b831f706e6a290e0c659f4156e771b174227d7bd57f10f2b4f47f85a633"
             ],
             "index": "pypi",
-            "version": "==0.4.2"
+            "version": "==0.4.3"
         },
         "markupsafe": {
             "hashes": [
@@ -256,17 +256,17 @@
         },
         "python-slugify": {
             "hashes": [
-                "sha256:4e867cb16712f4d660b74fd55ba2ef4b7431ccd6aafec0a6d41a398f4cbc2de4"
+                "sha256:d3e034397236020498e677a35e5c05dcc6ba1624b608b9ef7e5fe3090ccbd5a8"
             ],
             "index": "pypi",
-            "version": "==2.0.0"
+            "version": "==2.0.1"
         },
         "pytz": {
             "hashes": [
-                "sha256:31cb35c89bd7d333cd32c5f278fca91b523b0834369e757f4c5641ea252236ca",
-                "sha256:8e0f8568c118d3077b46be7d654cc8167fa916092e28320cde048e54bfc9f1e6"
+                "sha256:32b0891edff07e28efe91284ed9c31e123d84bea3fd98e1f72be2508f43ef8d9",
+                "sha256:d5f05e487007e29e03409f9398d074e158d920d36eb82eaf66fb1136b0c5374c"
             ],
-            "version": "==2018.7"
+            "version": "==2018.9"
         },
         "pyyaml": {
             "hashes": [
