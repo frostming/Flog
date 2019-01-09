@@ -1,6 +1,7 @@
 sync:
 	-find . -name "__pycache__" -exec rm -rf {} \;
 	rsync -apPv --filter="- whooshee" \
+		--filter="- flaskblog/static/.webassets-cache" \
 		--filter="- .git" . fming@frostming.com:/home/fming/frostming.com
 
 restart:

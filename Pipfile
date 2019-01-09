@@ -1,7 +1,7 @@
 [[source]]
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 verify_ssl = true
-name = "tsinghua"
+name = "pypi"
 
 [packages]
 flask-babel = "*"
