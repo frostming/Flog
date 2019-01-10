@@ -25,7 +25,7 @@ class AutoAddSelectWidget(widgets.Select):
 
 class AutoAddSelectField(fields.SelectFieldBase):
 
-    widget: widgets.Widget = AutoAddSelectWidget()
+    widget: AutoAddSelectWidget = AutoAddSelectWidget()
 
     def __init__(self, model, label_key: str, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -70,7 +70,7 @@ class AutoAddSelectField(fields.SelectFieldBase):
 
 class AutoAddMultiSelectField(AutoAddSelectField):
 
-    widget: widgets.Widget = AutoAddSelectWidget(multiple=True)
+    widget: AutoAddSelectWidget = AutoAddSelectWidget(multiple=True)
 
     def __init__(self, model, label_key: str, *args, **kwargs):
         kwargs.setdefault('default', [])
