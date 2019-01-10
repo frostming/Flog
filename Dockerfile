@@ -5,15 +5,14 @@ FROM python:3.7
 
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
-ENV PIPENV_PYPI_MIRROR https://pypi.tuna.tsinghua.edu.cn/simple
+ENV PYPI_MIRROR https://pypi.tuna.tsinghua.edu.cn/simple
 
-# -- Install dependencies
-RUN pip install --upgrade pip && pip install -U -i ${PIPENV_PYPI_MIRROR} pipenv
+RUN pip install pipfile-requirements
 
 # Application
 RUN mkdir /app
 WORKDIR /app
-COPY Pipfile Pipfile
+# -- Install dependencies
 COPY Pipfile.lock Pipfile.lock
-
-RUN pipenv install --pypi-mirror=${PIPENV_PYPI_MIRROR} --deploy --system
+RUN pipfile2req > requirements.txt
+RUN pip install -i ${PYPI_MIRROR} -r requirements.txt
