@@ -32,7 +32,7 @@ class AutoAddSelectField(fields.SelectFieldBase):
         self.model = model
         self.label_key = label_key
 
-    def _get_data(self) -> sa.ext.declarative.api.Model:
+    def _get_data(self) -> sa.orm.Mapper:
         if self._formdata is not None:
             obj = self.model.query.filter_by(**{self.label_key: self._formdata}).first()
             if not obj:
@@ -40,7 +40,7 @@ class AutoAddSelectField(fields.SelectFieldBase):
             self._set_data(obj)
         return self._data
 
-    def _set_data(self, data: sa.ext.declarative.api.Model) -> None:
+    def _set_data(self, data: sa.orm.Mapper) -> None:
         self._data = data
         self._formdata: Optional[str] = None
 
@@ -51,11 +51,11 @@ class AutoAddSelectField(fields.SelectFieldBase):
             self._data = None
             self._formdata = valuelist[0]
 
-    def _get_objects(self) -> Iterator[Tuple[int, sa.ext.declarative.api.Model]]:
+    def _get_objects(self) -> Iterator[Tuple[int, sa.orm.Mapper]]:
         for obj in self.model.query.all():
             yield obj.id, obj
 
-    def get_label(self, obj: sa.ext.declarative.api.Model) -> str:
+    def get_label(self, obj: sa.orm.Mapper) -> str:
         return getattr(obj, self.label_key)
 
     def iter_choices(self) -> Iterator[Tuple[str, str, bool]]:
@@ -76,7 +76,7 @@ class AutoAddMultiSelectField(AutoAddSelectField):
         kwargs.setdefault('default', [])
         super().__init__(model, label_key, *args, **kwargs)
 
-    def _get_data(self) -> Iterable[sa.ext.declarative.api.Model]:
+    def _get_data(self) -> Iterable[sa.orm.Mapper]:
         if self._formdata is not None:
             data = []
             for label in self._formdata:
@@ -87,7 +87,7 @@ class AutoAddMultiSelectField(AutoAddSelectField):
             self._set_data(data)
         return self._data
 
-    def _set_data(self, data: Iterable[sa.ext.declarative.api.Model]) -> None:
+    def _set_data(self, data: Iterable[sa.orm.Mapper]) -> None:
         self._data = data
         self._formdata = None       # type: ignore
 
