@@ -1,25 +1,24 @@
 import io
+from typing import Tuple
+from urllib.parse import urljoin
 
-from flask import abort, render_template, request, send_file, current_app, g
+from flask import (Flask, abort, current_app, g, render_template, request,
+                   send_file)
 from werkzeug.contrib.atom import AtomFeed
+from werkzeug.wrappers import Response
 
 from .md import markdown
 from .models import Category, Post, Tag, User
-from .utils import get_tag_cloud, calc_token
-
-try:
-    from urllib.parse import urljoin
-except ImportError:
-    from urlparse import urljoin
+from .utils import calc_token, get_tag_cloud
 
 
-def load_site_config():
+def load_site_config() -> None:
     if 'site' not in g:
         admin = User.get_one()
         g.site = admin.read_settings()
 
 
-def home():
+def home() -> str:
     paginate = Post.query.join(Post.category)\
                          .filter(Category.text != 'About')\
                          .union(Post.query.filter(Post.category_id.is_(None)))\
@@ -34,7 +33,7 @@ def home():
         paginate=paginate)
 
 
-def post(year, date, title):
+def post(year: str, date: str, title: str) -> str:
     post = None
     for item in Post.query.all():
         if item.url == request.path:
@@ -42,12 +41,12 @@ def post(year, date, title):
             break
     if not post:
         abort(404)
-    content = markdown(post.content)
+    content = markdown(post.content)    # type: ignore
     toc = markdown.renderer.render_toc()
     return render_template('post.html', post=post, content=content, toc=toc)
 
 
-def about():
+def about() -> str:
     lang = request.args.get('lang', 'zh')
     post = Post.query.filter_by(lang=lang)\
                .join(Post.category).filter(Category.text == 'About')\
@@ -59,7 +58,7 @@ def about():
         return render_template('about.html')
 
 
-def tag(text):
+def tag(text: str) -> str:
     tag = Tag.query.filter_by(url=request.path).first_or_404()
     posts = Post.query.join(Post.tags).filter(Tag.text == tag.text)\
                                       .order_by(Post.date.desc())
@@ -68,7 +67,7 @@ def tag(text):
         'index.html', posts=posts, tag_cloud=tag_cloud, tag=tag)
 
 
-def category(cat_id):
+def category(cat_id: int) -> str:
     cat = Category.query.get(cat_id)
     posts = cat.posts
     tag_cloud = get_tag_cloud()
@@ -76,11 +75,11 @@ def category(cat_id):
         'index.html', posts=posts, tag_cloud=tag_cloud, cat=cat)
 
 
-def favicon():
+def favicon() -> Response:
     return current_app.send_static_file('images/favicon.ico')
 
 
-def feed():
+def feed() -> Response:
     feed = AtomFeed(
         'Recent Article', feed_url=request.url, url=request.url_root)
     posts = Post.query.order_by(Post.date.desc()).limit(15)
@@ -96,18 +95,18 @@ def feed():
     return feed.get_response()
 
 
-def sitemap():
+def sitemap() -> Response:
     posts = Post.query.order_by(Post.date.desc())
     fp = io.BytesIO(
         render_template('sitemap.xml', posts=posts).encode('utf-8'))
     return send_file(fp, attachment_filename='sitemap.xml')
 
 
-def not_found(error):
+def not_found(error: Exception) -> Tuple[str, int]:
     return render_template('404.html'), 404
 
 
-def search():
+def search() -> str:
     search_str = request.args.get('search')
     paginate = Post.query.filter(~Post.is_draft) \
                    .whooshee_search(search_str).order_by(Post.date.desc()) \
@@ -115,7 +114,7 @@ def search():
     return render_template('search.html', paginate=paginate, highlight=search_str)
 
 
-def init_app(app):
+def init_app(app: Flask) -> None:
     app.add_url_rule('/', 'home', home)
     app.add_url_rule('/<int:year>/<date>/<title>', 'post', post)
     app.add_url_rule('/about', 'about', about)

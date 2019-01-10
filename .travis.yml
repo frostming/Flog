@@ -1,15 +1,23 @@
 language: python
-
-python:
-  - "3.6"
-  - "nightly"
+stages:
+  - mypy
+  - test
 
 install:
   - pip install --upgrade pipenv
-  - pipenv install --deploy
+  - pipenv install --deploy --dev
 
 script:
   - pipenv run python -m unittest
+
+jobs:
+  include:
+    - python: "3.6"
+    - python: "3.7"
+      dist: xenial
+    - stage: mypy
+      python: "3.6"
+      script: mypy .
 
 notifications:
   email: false

@@ -6,11 +6,12 @@ from urllib.parse import urlencode
 
 from flask import current_app, request
 from sqlalchemy import func
+from typing import Iterable
 
 from .models import Post, Tag
 
 
-def get_tag_cloud():
+def get_tag_cloud() -> Iterable[Tag]:
     """Get tags order by its heat to generate a tag cloud"""
     tags = Tag.query.join(Tag.posts).with_entities(Tag, func.count(Post.id))\
                                     .group_by(Tag.id)\
@@ -18,16 +19,16 @@ def get_tag_cloud():
     return tags.all()
 
 
-def calc_token():
+def calc_token() -> str:
     """Get the upload authorization head with additional params for Tencent qcloud
     See https://cloud.tencent.com/document/product/436/7778
     """
-    def sorted_keys(dict_):
+    def sorted_keys(dict_) -> str:
         """Sorted lowercase keys joined with ';'"""
         keys = [key.lower() for key in dict_]
         return ';'.join(sorted(keys))
 
-    def dict_to_string(dict_):
+    def dict_to_string(dict_) -> str:
         """Return encoded key-value pairs joined with '&'"""
         sorted_dict = OrderedDict((key.lower(), dict_.get(key, ''))
                                   for key in sorted(dict_.keys()))
@@ -35,23 +36,23 @@ def calc_token():
 
     method = request.args.get('method', 'get').lower()
     path = request.args.get('path', '/')
-    query_params = dict()
-    headers = dict()
+    query_params = dict()   # type: dict
+    headers = dict()    # type: dict
     if path[0] != '/':
         path = '/' + path
-    secret_id = current_app.config['COS_SECRET_ID']
-    secret_key = current_app.config['COS_SECRET_KEY']
-    now = int(time.time())
+    secret_id = current_app.config['COS_SECRET_ID']     # type: str
+    secret_key = current_app.config['COS_SECRET_KEY']   # type: str
+    now = int(time.time())  # type: int
     expired = now + 600
 
     q_algorithm = 'sha1'
     q_ak = secret_id
     q_key_time = q_sign_time = '{};{}'.format(now, expired)
-    q_headerlist = sorted_keys(headers)
-    q_paramslist = sorted_keys(query_params)
+    q_headerlist = sorted_keys(headers)     # type: str
+    q_paramslist = sorted_keys(query_params)    # type: str
 
     sign_key = hmac.new(secret_key.encode('utf-8'), q_key_time.encode('utf-8'),
-                        digestmod=hashlib.sha1).hexdigest()
+                        digestmod=hashlib.sha1).hexdigest()     # type: str
     http_string = '\n'.join([
         (method or 'get').lower(),
         path,

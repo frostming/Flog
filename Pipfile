@@ -24,5 +24,6 @@ jsmin = "*"
 flask-whooshee = "*"
 
 [dev-packages]
-"flake8" = "*"
+flake8 = "*"
 flask-shell-ipython = "*"
+mypy = "*"

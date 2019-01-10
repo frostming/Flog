@@ -1,6 +1,7 @@
 import io
 import os
 import re
+from typing import Union
 
 import click
 import yaml
@@ -8,15 +9,14 @@ from flask.cli import with_appcontext
 
 from .models import Post, db
 
-MARKDOWN_RE = re.compile(
-    r'(?:-{3}\n(?P<meta>.+?\n)-{3}\n+)?(?P<content>.*)',
-    re.DOTALL)
+MARKDOWN_RE = re.compile(r'(?:-{3}\n(?P<meta>.+?\n)-{3}\n+)?(?P<content>.*)', re.DOTALL)
 
 
 @click.command()
 @click.argument('folder', type=click.Path(exists=True))
-def imp(folder):
+def imp(folder: str) -> None:
     """Input a folder of markdown files to import as posts"""
+
     def _import_file(filepath):
         if not filepath.endswith('.md') and not filepath.endswith('.markdown'):
             return
@@ -42,7 +42,7 @@ def imp(folder):
 
 @click.command()
 @click.option('-o', '--output', type=click.Path(file_okay=False))
-def exp(output):
+def exp(output: Union[None, str]) -> None:
     """Export all the posts to markdown files, including post meta"""
     if not output:
         output = '.'
@@ -57,8 +57,7 @@ def exp(output):
         container = io.StringIO()
         yaml.dump(meta, container, allow_unicode=True)
         with open(filename, 'w', encoding='utf-8') as fp:
-            fp.write('---\n' + container.getvalue().rstrip() +
-                     '\n---\n\n' + content)
+            fp.write('---\n' + container.getvalue().rstrip() + '\n---\n\n' + content)
         click.echo('Writing to file %s' % os.path.join(output, filename))
     os.chdir(cwd)
 
@@ -68,6 +67,7 @@ def exp(output):
 def reindex():
     """Reindex the searchable models."""
     from .models import whooshee
+
     whooshee.reindex()
     click.echo("Index created for models.")
 

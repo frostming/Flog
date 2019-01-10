@@ -31,7 +31,7 @@ class ProductionConfig(BaseConfig):
                 'mysql+pymysql://{}:{}@{}/{}?charset=utf8'
                 .format(db_user, db_password, db_host, db_name))
     elif 'DATABASE_URL' in os.environ:     # Heroku environment
-        SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+        SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', '')
     else:
         SQLALCHEMY_DATABASE_URI = 'sqlite:///' + op.join(here, 'db.sqlite3')
 

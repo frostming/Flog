@@ -1,18 +1,20 @@
+from typing import Union
+
 from flask import Flask, g, request
 from flask.helpers import get_env
-from flask_moment import Moment
-from flask_babel import Babel
-from flask_login import LoginManager
-from flask_babel import lazy_gettext
-from flask_bootstrap import Bootstrap
 from flask_assets import Environment
+from flask_babel import Babel, lazy_gettext
+from flask_bootstrap import Bootstrap
+from flask_login import LoginManager
+from flask_moment import Moment
+
+from . import admin, cli, config, models, templating, views
 from .md import markdown
-from . import cli, views, templating, models, admin, config
 
 
-def create_app(env=None):
+def create_app(env: Union[str, None] = None) -> Flask:
     env = env or get_env()
-    app = Flask(__name__)
+    app = Flask(__name__)  # type: Flask
     app.config.from_object(config.config_dict[env])
     Moment(app)
     Bootstrap(app)
