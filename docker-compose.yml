@@ -23,11 +23,11 @@ services:
 
   nginx:
     restart: always
-    image: nginx:stable
+    image: really/nginx-certbot
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/conf.d:/etc/nginx/conf.d:rw
+      - ./nginx/letsencrypt:/etc/letsencrypt:rw
       - ./nginx/log:/var/log/nginx
-      - ./nginx/cert:/opt/cert
       - ./flaskblog/static:/opt/static
     ports:
       - "80:80"
