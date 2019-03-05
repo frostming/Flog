@@ -41,7 +41,7 @@ class FlogRenderer(
         result = result.replace(
             '<img', '<img data-original="{}"'.format(self.escape_url(element.dest))
         )
-        caption = '<figcaption>{}</figcaption>' if element.title else ''
+        caption = '<figcaption>{}</figcaption>'.format(element.title) if element.title else ''
         return '<figure>{}{}</figure>'.format(result, caption)
 
     def render_photo_set(self, element):
