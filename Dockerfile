@@ -15,5 +15,5 @@ WORKDIR /app
 COPY . /app
 
 RUN pipenv install --deploy --system
-RUN chmod a+x start_server.sh
-ENTRYPOINT [ "start_server.sh" ]
+RUN chmod a+x /app/start_server.sh
+ENTRYPOINT [ "/app/start_server.sh" ]
