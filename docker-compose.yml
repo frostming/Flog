@@ -2,11 +2,11 @@ version: '3'
 
 services:
   web:
-    build: .
-    command: bash ./start_server.sh
+    restart: always
+    image: frostming/flog
     env_file: .env
     volumes:
-      - ./:/app
+      - ./whooshee:/app/whooshee
     ports:
       - "5000:5000"
     depends_on:

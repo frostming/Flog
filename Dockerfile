@@ -7,12 +7,13 @@ ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 ENV PYPI_MIRROR https://pypi.tuna.tsinghua.edu.cn/simple
 
-RUN pip install pipfile-requirements
+RUN pip install --upgrade pipenv
 
 # Application
 RUN mkdir /app
 WORKDIR /app
-# -- Install dependencies
-COPY Pipfile.lock Pipfile.lock
-RUN pipfile2req > requirements.txt
-RUN pip install -i ${PYPI_MIRROR} -r requirements.txt
+COPY . /app
+
+RUN pipenv install --deploy --system
+RUN chmod a+x start_server.sh
+ENTRYPOINT [ "start_server.sh" ]
