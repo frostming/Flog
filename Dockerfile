@@ -19,4 +19,4 @@ COPY start_server.sh start_server.sh
 
 RUN pipenv install --deploy --system
 RUN chmod a+x start_server.sh
-ENTRYPOINT [ "start_server.sh" ]
+ENTRYPOINT [ "./start_server.sh" ]

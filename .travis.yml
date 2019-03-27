@@ -24,7 +24,7 @@ deploy:
     - provider: script
       skip_cleanup: true
       script: |
-        ssh fming@frostming.com << EOF
+        ssh fming@frostming.com 'bash -s' << EOF
         cd $DEPLOY_DIR
         ./deploy.sh
         EOF
