@@ -23,7 +23,11 @@ before_deploy:
 deploy:
     - provider: script
       skip_cleanup: true
-      script: ssh fming@frostming.com sh -c "cd ~/frostming.com && ./deploy.sh"
+      script: |
+        ssh fming@frostming.com << EOF
+        cd $DEPLOY_DIR
+        ./deploy.sh
+        EOF
       on:
           branch: master
 notifications:

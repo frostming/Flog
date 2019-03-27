@@ -11,8 +11,12 @@ RUN pip install --upgrade pipenv
 
 # Application
 WORKDIR /app
-COPY . /app
+COPY Pipfile Pipfile
+COPY Pipfile.lock Pipfile.lock
+COPY flaskblog flaskblog
+COPY migrations migrations
+COPY start_server.sh start_server.sh
 
 RUN pipenv install --deploy --system
-RUN chmod a+x /app/start_server.sh
-ENTRYPOINT [ "/app/start_server.sh" ]
+RUN chmod a+x start_server.sh
+ENTRYPOINT [ "start_server.sh" ]
