@@ -1,16 +1,15 @@
 # --------------------------
 # Docker file
 # --------------------------
-FROM python:3.7
+FROM python:3.7-alpine
 
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
-ENV PYPI_MIRROR https://pypi.tuna.tsinghua.edu.cn/simple
 
+RUN apk add build-base postgresql-dev
 RUN pip install --upgrade pipenv
 
 # Application
-RUN mkdir /app
 WORKDIR /app
 COPY . /app
 
