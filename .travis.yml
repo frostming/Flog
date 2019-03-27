@@ -1,23 +1,43 @@
 language: python
+services:
+    - docker
 stages:
-  - mypy
-  - test
-
+    - mypy
+    - test
+    - build
 install:
-  - pip install --upgrade pipenv
-  - pipenv install --deploy --dev
-
+    - pip install --upgrade pipenv
+    - pipenv install --deploy --dev
 script:
-  - pipenv run python -m unittest
-
+    - pipenv run python -m unittest
 jobs:
-  include:
-    - python: "3.6"
-    - python: "3.7"
-      dist: xenial
-    - stage: mypy
-      python: "3.6"
-      script: mypy .
-
+    include:
+        - python: "3.6"
+        - python: "3.7"
+          dist: xenial
+        - stage: mypy
+          python: "3.6"
+          script: mypy .
+        - stage: build
+          script:
+            - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            - docker build -t frostming/flog:latest
+          after_success:
+            - docker push frostming/flog
 notifications:
-  email: false
+    email: false
+before_deploy:
+    - openssl aes-256-cbc -K $encrypted_c7c8aa0cde62_key -iv $encrypted_c7c8aa0cde62_iv
+      -in mysecret.enc -out /tmp/deploy_rsa -d
+    - eval "$(ssh-agent -s)"
+    - chmod 600 /tmp/deploy_rsa
+    - ssh-add /tmp/deploy_rsa
+deploy:
+    - provider: script
+      skip_cleanup: true
+      script: ssh fming@frostming.com cd frostming && ./deploy.sh
+      on:
+          branch: master
+env:
+    global:
+        secure: K+WDXek/x0v2q8A67KEBNtTT5FHwo7OGZ2oD1pn4gJ9zHCUiPUE1Dv8RCm/TktNbDIpU3BckP9sOHu7Mq1RKjooEJVdwnS54+HuJNfFS9ii3Spude4hvuSzAM12o/gRQqVOldrqVvtW8Evx/BPGQBiGXqKpAdyhsQgNuTozRuBxyBfxrmrprFIcvGBk6v2b406wSSHC8W6hc6WomF/5Mba81JcPh25QfR8cglso8IW6Xaz+jNQxk88sr+M/sZWpeaHnen1kjEn+h8MN+gzHNs3wGh3ao2hbkp+XT3G3eh19KWv6YUa5JJXn4NyMrRbulhPcNv0/ZEdwsDXAQ7C7LDXbEPFqja+27SUq+CeXKVipVKyNFhgi8bBDlhMR1t4dwW28Uls2DRugfw8XG/uLQoxNC5YEHNtZYK7gSld1lofTK/tQmshFNfQ84ol328P9gx6Rgm3v0A+yt9adAX2Nh08YLptq4Ib21lcD3CIklG7pBCRdkXI6dAUZueAoZPxn2IqSj6P1wbcrYCu5ZMjlGFlorAJ1gaZof9HyqZSWSpOvUFA3TVBVM146C4gLdtd8WiA5LwWFlL2t4ESDlD1froPkBb8lQiXjUXT/ic4CXRKAobR6lEvD16KcnauhYy1NgtkcFgRRM5XFdhEcWIN0S5rKVGbmoq2Llct4NgCLY+GY=
