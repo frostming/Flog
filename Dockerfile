@@ -16,6 +16,7 @@ COPY Pipfile.lock Pipfile.lock
 COPY flaskblog flaskblog
 COPY migrations migrations
 COPY start_server.sh start_server.sh
+COPY wsgi.py wsgi.py
 
 RUN pipenv install --deploy --system
 RUN chmod a+x start_server.sh
