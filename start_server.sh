@@ -1,5 +1,5 @@
 #!/bin/sh
-
+set -e
 flask db upgrade
 make compile
 PORT=${PORT:-5000}

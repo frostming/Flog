@@ -1,16 +1,8 @@
-sync:
-	-find . -name "__pycache__" -exec rm -rf {} \;
-	rsync -apPv --filter="- whooshee" \
-		--filter="- flaskblog/static/.webassets-cache" \
-		--filter="- .git" . fming@frostming.com:/home/fming/frostming.com
-
-restart:
-	-sudo find . -name "__pycache__" -exec rm -rf {} \;
-	docker-compose restart
-
 deploy:
-	$(MAKE) sync
-	ssh fming@frostming.com make -C /home/fming/frostming.com restart
+	git pull
+	docker-compose down
+	docker-compose pull web
+	docker-compose up -d
 
 translate:
 	pybabel extract -F flaskblog/babel.cfg -k lazy_gettext -o messages.pot flaskblog/
@@ -20,4 +12,4 @@ translate:
 compile:
 	pybabel compile -d flaskblog/translations
 
-.PHONY: sync restart deploy translate compile
+.PHONY: deploy translate compile

@@ -1,7 +1,5 @@
 set -ex
 
-cd /home/fming/frostming.com
-git pull
-docker-compose down
-docker-compose pull web
-docker-compose up -d
+docker tag flog $DOCKER_USERNAME/flog:latest
+docker push $DOCKER_USERNAME/flog:latest
+ssh fming@frostming.com make -C /home/fming/frostming.com

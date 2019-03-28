@@ -17,7 +17,10 @@ COPY flaskblog flaskblog
 COPY migrations migrations
 COPY start_server.sh start_server.sh
 COPY wsgi.py wsgi.py
+COPY Makefile Makefile
 
 RUN pipenv install --deploy --system
 RUN chmod a+x start_server.sh
+
+EXPOSE 5000
 ENTRYPOINT [ "./start_server.sh" ]
