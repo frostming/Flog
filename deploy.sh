@@ -1,6 +1,6 @@
 set -ex
 
-cd $DEPLOY_DIR
+cd /home/fming/frostming.com
 git pull
 docker-compose down
 docker-compose pull web
