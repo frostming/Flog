@@ -58,7 +58,8 @@
   </div>
 </article>
 <section class="cc text-center p-2">
-  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="{{_('Creative Commons License')}}" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />{{_('This work is licensed under a ')}}<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA{{_(' License')}}</a>.
+  {{_('Post Link')}}: <a href="{{request.url}}">{{request.url}}</a><br/>
+  <i class="fa fa-cc"></i> {{_('This work is licensed under a ')}}<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA{{_(' License. ')}}</a><br/>
 </section>
 {% set related = post.related_post() %}
 {% if related %}
