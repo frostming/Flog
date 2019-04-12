@@ -186,6 +186,9 @@ class SettingsForm(FlaskForm):
     google_site_verification: fields.Field = StringField(
         lazy_gettext('Google Site Verification Code')
     )
+    google_analytics_id = StringField(
+        lazy_gettext('Google Analytics ID')
+    )
     disqus_shortname: fields.Field = StringField(lazy_gettext('Disqus Shortname'))
     sociallinks: fields.Field = fields.FieldList(
         fields.FormField(SocialLink), lazy_gettext('Social Links'), min_entries=1

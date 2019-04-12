@@ -15,3 +15,14 @@
 {% if g.site.locale.startswith("zh") %}
   {{ moment.lang('zh-cn') }}
 {% endif %}
+{% if g.site.google_analytics_id %}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ g.site.google_analytics_id }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '{{ g.site.google_analytics_id }}');
+</script>
+{% endif %}
