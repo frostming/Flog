@@ -174,10 +174,8 @@
 code,
 .yue tt {
   color: #808080;
-  font-size: 90%;
+  font-size: 95%;
   padding: 1px 2px;
-  border: 1px solid #eee;
-  border-radius: 3px;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
   word-wrap: break-word;
 }
