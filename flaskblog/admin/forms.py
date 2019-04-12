@@ -194,6 +194,7 @@ class SettingsForm(FlaskForm):
     links: fields.Field = fields.FieldList(
         fields.FormField(FriendLink), lazy_gettext('Friend Links'), min_entries=1
     )
+    primary_color = fields.StringField(lazy_gettext('Primary Color'))
 
     @classmethod
     def from_local(cls) -> "SettingsForm":

@@ -25,6 +25,7 @@
   {% include '_partials/head.html' %}
   {% block extracss %}
   {% endblock %}
+  <style>:root {--primary-color: {{ g.site.primary_color|default('black') }};}</style>
 </head>
 
 <body>
@@ -40,7 +41,7 @@
         border="0"
         alt="made with Flask"
         title="made with Flask"></a></li>
-      <li>&copy;2016-{{current_time.year}}<i class="fa fa-heart mx-2"></i><a href="https://frostming.com">Frost Ming</a></li>
+      <li>&copy;2016-{{current_time.year}}<i class="fa fa-heart mx-2" style="color: var(--primary-color)"></i><a href="https://frostming.com">Frost Ming</a></li>
       {% if g.site.icp %}
       <li><a href="http://www.miitbeian.gov.cn" target="_blank">{{g.site.icp}}</a></li>
       {% endif %}

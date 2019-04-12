@@ -61,17 +61,23 @@ img.avatar {
   background-color: #e8e8e8;
 }
 
-a {
-  color: #999;
+.footer a, #main a {
+  color: inherit;
+  transition: color .2s;
+}
+
+#main a {
+  border-bottom: 1px solid #ccc;
+}
+
+.footer a:hover, #main a:hover {
+  text-decoration: none;
+  border-bottom: none;
+  color: var(--primary-color);
 }
 
 .footer p {
   margin-bottom: 0;
-}
-
-a:hover {
-  color: #5c5c5c;
-  text-decoration: none;
 }
 
 .social-links>li, .copyright>li {
@@ -147,6 +153,7 @@ a:hover {
 .post-cat {
   color: inherit;
   margin-left: 1em;
+  border: none!important;
 }
 
 .post-cat:hover {
@@ -171,10 +178,6 @@ a:hover {
   margin-right: 3px;
 }
 
-.post-meta:hover {
-  color: rgba(0, 0, 0, .9);
-}
-
 .post-info {
   margin-bottom: 50px;
 }
@@ -184,7 +187,6 @@ a:hover {
 }
 
 .post-item-content .post-item-title {
-  color: rgba(0, 0, 0, .98);
   font-weight: 600;
 }
 
@@ -234,6 +236,7 @@ a:hover {
   transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
   margin-bottom: 5px;
   color: white;
+  border: none;
 }
 
 #tag-cloud a:hover {

@@ -3,6 +3,9 @@
 {% import 'admin/libs.html' as libs %}
 
 {% block title %}{{_('Settings')}}{% endblock %}
+{% block extra_head %}
+<link href="{{ url_for('static', filename='css/bootstrap-colorpicker.min.css') }}" rel="stylesheet">
+{% endblock %}
 {% block main %}
   <h1 class="title">{{self.title()}}</h1>
   <hr>
@@ -108,7 +111,9 @@
 {% endblock %}
 
 {% block extra_script %}
+<script src="{{ url_for('static', filename='js/bootstrap-colorpicker.min.js') }}"></script>
 <script>
+  $('#primary_color').colorpicker();
   $('.add-link').click(function(e){
     e.preventDefault();
     var $last_item = $(`${$(this).data('add')} .row:last-child`);
