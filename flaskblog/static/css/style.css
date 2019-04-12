@@ -199,7 +199,7 @@ img.avatar {
   text-decoration: none;
 }
 
-.post-item-image img a {
+.post-item-image>a {
   border-bottom: none!important;
 }
 
@@ -229,8 +229,8 @@ img.avatar {
 
 .paginate a:hover {
   text-decoration: none;
-  color: var(--primary-color);
-  border: 1px var(--primary-color) solid;
+  border-color: var(--primary-color);
+  border-bottom: solid 1px!important;
 }
 
 #tag-cloud a {
