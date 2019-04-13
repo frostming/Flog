@@ -26,4 +26,5 @@ flask-whooshee = "*"
 [dev-packages]
 flake8 = "*"
 flask-shell-ipython = "*"
+appnope = {version="*", sys_platform="=='darwin'"}
 mypy = "*"

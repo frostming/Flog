@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /static/
 
-Sitemap: https://frostming.com/sitemap.xml
+Sitemap: /sitemap.xml

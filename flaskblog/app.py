@@ -1,3 +1,4 @@
+import os
 from typing import Union
 
 from flask import Flask, g, request
@@ -11,10 +12,12 @@ from flask_moment import Moment
 from . import admin, cli, config, models, templating, views
 from .md import markdown
 
+STATIC_PATH = os.path.join(os.path.dirname(__file__), os.pardir, "static")
+
 
 def create_app(env: Union[str, None] = None) -> Flask:
     env = env or get_env()
-    app = Flask(__name__)  # type: Flask
+    app = Flask(__name__, static_folder=STATIC_PATH)  # type: Flask
     app.config.from_object(config.config_dict[env])
     Moment(app)
     Bootstrap(app)
