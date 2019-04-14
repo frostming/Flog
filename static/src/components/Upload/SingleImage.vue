@@ -1,25 +1,39 @@
 <template>
   <div class="upload-container">
-    <el-upload
-      :data="dataObj"
-      :multiple="false"
-      :show-file-list="false"
-      :on-success="handleImageSuccess"
-      class="image-uploader"
-      drag
-      action="https://httpbin.org/post"
-    >
-      <i class="el-icon-upload" />
-      <div class="el-upload__text">
-        将文件拖到此处，或<em>点击上传</em>
+    <div v-if="imageUrl" class="image-cover" :style="{backgroundImage: `url(${imageUrl})`}">
+      <i class="el-icon-delete" @click="rmImage" />
+    </div>
+    <template v-else>
+      <el-upload
+        v-if="mode==='Upload'"
+        :multiple="false"
+        :show-file-list="false"
+        :http-request="handleUpload"
+        class="image-uploader"
+        drag
+        action="https://httpbin.org/post"
+      >
+        <i class="el-icon-upload" />
+        <div class="el-upload__text">
+          将文件拖到此处，或<em>点击上传</em>
+        </div>
+        <div class="switch-mode">
+          <a href="#" @click="changeMode('URL')"><i class="el-icon-arrow-right" />Input URL</a>
+        </div>
+      </el-upload>
+      <div v-else class="image-input">
+        <el-input placeholder="Image URL" :value="value" @input="emitInput" />
+        <div class="switch-mode">
+          <a href="#" @click="changeMode('Upload')"><i class="el-icon-arrow-right" />Drag/Upload</a>
+        </div>
       </div>
-    </el-upload>
+    </template>
   </div>
 </template>
 
 <script>
 // 预览效果见付费文章
-import { getToken } from '@/api/qiniu'
+import uploadImage from '@/api/cos'
 
 export default {
   name: 'SingleImageUpload',
@@ -31,8 +45,7 @@ export default {
   },
   data() {
     return {
-      tempUrl: '',
-      dataObj: { token: '', key: '' }
+      mode: 'Upload'
     }
   },
   computed: {
@@ -47,77 +60,44 @@ export default {
     emitInput(val) {
       this.$emit('input', val)
     },
-    handleImageSuccess() {
-      this.emitInput(this.tempUrl)
-    },
-    beforeUpload() {
-      const _self = this
-      return new Promise((resolve, reject) => {
-        getToken().then(response => {
-          const key = response.data.qiniu_key
-          const token = response.data.qiniu_token
-          _self._data.dataObj.token = token
-          _self._data.dataObj.key = key
-          this.tempUrl = response.data.qiniu_url
-          resolve(true)
-        }).catch(err => {
-          console.log(err)
-          reject(false)
-        })
+    handleUpload(request) {
+      uploadImage(request).then(url => {
+        this.emitInput(url)
       })
+    },
+    changeMode(mode) {
+      this.mode = mode
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-    @import "~@/styles/mixin.scss";
-    .upload-container {
-        width: 100%;
-        position: relative;
-        @include clearfix;
-        .image-preview {
-            width: 200px;
-            height: 200px;
-            position: relative;
-            border: 1px dashed #d9d9d9;
-            float: left;
-            margin-left: 50px;
-            .image-preview-wrapper {
-                position: relative;
-                width: 100%;
-                height: 100%;
-                img {
-                    width: 100%;
-                    height: 100%;
-                }
-            }
-            .image-preview-action {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                left: 0;
-                top: 0;
-                cursor: default;
-                text-align: center;
-                color: #fff;
-                opacity: 0;
-                font-size: 20px;
-                background-color: rgba(0, 0, 0, .5);
-                transition: opacity .3s;
-                cursor: pointer;
-                text-align: center;
-                line-height: 200px;
-                .el-icon-delete {
-                    font-size: 36px;
-                }
-            }
-            &:hover {
-                .image-preview-action {
-                    opacity: 1;
-                }
-            }
-        }
-    }
+  @import "~@/styles/mixin.scss";
+  .upload-container {
+    width: 100%;
+    position: relative;
+    clear: both;
+    @include clearfix;
+  }
+  .image-cover {
+    width: 100%;
+    height: 200px;
+    background: center center no-repeat;
+    background-size: cover;
+    text-align: right;
+    padding: 0 5px;
 
+    .el-icon-delete {
+      font-size: 36px;
+      cursor: pointer;
+    }
+  }
+
+  .image-input {
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    padding: 60px 5px 0px;
+  }
 </style>

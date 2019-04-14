@@ -67,8 +67,8 @@ export const constantRoutes = [
   {
     path: '',
     component: Layout,
-    redirect: '/post/list',
-    hidden: true
+    redirect: '/post/index',
+    hidden: false
   }
 ]
 
@@ -80,9 +80,14 @@ export const asyncRoutes = [
   {
     path: '/post',
     component: Layout,
-    redirect: '/post/list',
-    name: 'Post',
+    redirect: '/post/index',
     children: [
+      {
+        path: 'index',
+        component: () => import('@/views/post/list'),
+        name: 'Posts',
+        meta: { title: 'Posts', icon: 'list' }
+      },
       {
         path: 'create',
         component: () => import('@/views/post/create'),
@@ -96,12 +101,6 @@ export const asyncRoutes = [
         name: 'EditPost',
         meta: { title: 'editPost', noCache: true, activeMenu: '/post/list' },
         hidden: true
-      },
-      {
-        path: 'list',
-        component: () => import('@/views/post/list'),
-        name: 'PostList',
-        meta: { title: 'Posts', icon: 'list' }
       }
     ]
   },
