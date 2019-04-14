@@ -158,9 +158,14 @@ export default {
   height: 26px !important;
   width: 26px !important;
   padding: 2px;
+  vertical-align: middle;
 }
 
 .theme-picker-dropdown .el-color-dropdown__link-btn {
   display: none;
+}
+
+.theme-picker {
+  line-height: inherit!important;
 }
 </style>

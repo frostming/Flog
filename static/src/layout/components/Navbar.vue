@@ -17,6 +17,7 @@
         </el-tooltip>
 
         <lang-select class="right-menu-item hover-effect" />
+        <theme-picker class="right-menu-item hover-effect" @change="themeChange" />
 
       </template>
 
@@ -54,6 +55,7 @@ import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import LangSelect from '@/components/LangSelect'
 import Search from '@/components/HeaderSearch'
+import ThemePicker from '@/components/ThemePicker'
 
 export default {
   components: {
@@ -63,7 +65,8 @@ export default {
     Screenfull,
     SizeSelect,
     LangSelect,
-    Search
+    Search,
+    ThemePicker
   },
   computed: {
     ...mapGetters([
@@ -76,6 +79,12 @@ export default {
   methods: {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
+    },
+    themeChange(val) {
+      this.$store.dispatch('settings/changeSetting', {
+        key: 'theme',
+        value: val
+      })
     },
     async logout() {
       await this.$store.dispatch('user/logout')

@@ -1,8 +1,15 @@
 import request from '@/utils/request'
 
-export function searchUser(name) {
+export function categoryList() {
   return request({
-    url: '/search/user',
+    url: '/categories',
+    method: 'get'
+  })
+}
+
+export function tagList(name) {
+  return request({
+    url: '/tags',
     method: 'get',
     params: { name }
   })

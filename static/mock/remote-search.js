@@ -9,21 +9,43 @@ for (let i = 0; i < count; i++) {
   }))
 }
 NameList.push({ name: 'mock-Pan' })
+const TagList = ['test', 'python', 'algorithm', 'reading']
 
 export default [
   // username search
   {
-    url: '/search/user',
+    url: '/categories',
+    type: 'get',
+    response: config => {
+      return {
+        code: 20000,
+        data: {
+          total: 2,
+          items: [
+            { id: 0, name: 'programming' },
+            { id: 1, name: 'essay' }
+          ]
+        }
+      }
+    }
+  },
+
+  {
+    url: '/tags',
     type: 'get',
     response: config => {
       const { name } = config.query
-      const mockNameList = NameList.filter(item => {
-        const lowerCaseName = item.name.toLowerCase()
-        return !(name && lowerCaseName.indexOf(name.toLowerCase()) < 0)
+      const filteredList = TagList.filter(item => {
+        return (item.toLowerCase().indexOf(name.toLowerCase()) > -1)
       })
       return {
         code: 20000,
-        data: { items: mockNameList }
+        data: {
+          total: filteredList.length,
+          items: filteredList.map(v => {
+            return { name: v }
+          })
+        }
       }
     }
   },
