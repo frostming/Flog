@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 import { getLanguage } from '@/lang/index'
+import { changeLanguage, getLanguage as apiLanguage } from '@/api/user'
 
 const state = {
   sidebar: {
@@ -50,10 +51,16 @@ const actions = {
     commit('TOGGLE_DEVICE', device)
   },
   setLanguage({ commit }, language) {
+    changeLanguage(language)
     commit('SET_LANGUAGE', language)
   },
   setSize({ commit }, size) {
     commit('SET_SIZE', size)
+  },
+  getLanguage({ commit }) {
+    apiLanguage().then(value => {
+      commit('SET_LANGUAGE', value)
+    })
   }
 }
 

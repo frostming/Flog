@@ -1,9 +1,10 @@
 <template>
   <el-color-picker
-    v-model="theme"
+    :value="theme"
     :predefine="['#409EFF', '#1890ff', '#304156','#212121','#11a983', '#13c2c2', '#6959CD', '#f5222d', ]"
     class="theme-picker"
     popper-class="theme-picker-dropdown"
+    @input="onChangeTheme"
   />
 </template>
 
@@ -11,14 +12,18 @@
 
 const version = require('element-ui/package.json').version // element-ui version from node_modules
 const ORIGINAL_THEME = '#409EFF' // default color
-import defaultSettings from '@/settings'
+import { mapState } from 'vuex'
 
 export default {
   data() {
     return {
-      chalk: '', // content of theme-chalk css
-      theme: defaultSettings.theme
+      chalk: '' // content of theme-chalk css
     }
+  },
+  computed: {
+    ...mapState({
+      theme: state => state.settings.theme
+    })
   },
   watch: {
     async theme(val) {
@@ -84,6 +89,9 @@ export default {
         newStyle = newStyle.replace(new RegExp(color, 'ig'), newCluster[index])
       })
       return newStyle
+    },
+    onChangeTheme(val) {
+      this.$store.dispatch('settings/changeSetting', { key: 'theme', value: val })
     },
 
     getCSSString(url, variable) {

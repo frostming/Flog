@@ -1,4 +1,5 @@
 import defaultSettings from '@/settings'
+import { changeTheme, getTheme } from '@/api/user'
 const { showSettings, tagsView, fixedHeader, sidebarLogo, theme } = defaultSettings
 
 const state = {
@@ -19,7 +20,16 @@ const mutations = {
 
 const actions = {
   changeSetting({ commit }, data) {
+    const { key, value } = data
+    if (key === 'theme') {
+      changeTheme(value)
+    }
     commit('CHANGE_SETTING', data)
+  },
+  getTheme({ commit }) {
+    getTheme().then(value => {
+      commit('CHANGE_SETTING', { key: 'theme', value })
+    })
   }
 }
 
@@ -29,4 +39,3 @@ export default {
   mutations,
   actions
 }
-

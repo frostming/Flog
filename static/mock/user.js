@@ -103,12 +103,42 @@ export default [
   },
 
   {
-    url: '/user/settings',
+    url: '/settings/theme',
+    type: 'get',
+    response: _ => {
+      return {
+        code: 20000,
+        data: { value: '#4D619A' }
+      }
+    }
+  },
+  {
+    url: '/settings/language',
+    type: 'get',
+    response: _ => {
+      return {
+        code: 20000,
+        data: { value: 'zh' }
+      }
+    }
+  },
+  {
+    url: '/settings',
     type: 'get',
     response: _ => {
       return {
         code: 20000,
         data: settings
+      }
+    }
+  },
+  {
+    url: '/settings/\.*',
+    type: 'post',
+    response: _ => {
+      return {
+        code: 20000,
+        data: 'success'
       }
     }
   }

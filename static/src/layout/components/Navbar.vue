@@ -17,7 +17,7 @@
         </el-tooltip>
 
         <lang-select class="right-menu-item hover-effect" />
-        <theme-picker class="right-menu-item hover-effect" @change="themeChange" />
+        <theme-picker class="right-menu-item hover-effect" />
 
       </template>
 
@@ -76,15 +76,14 @@ export default {
       'device'
     ])
   },
+  created() {
+    this.$store.dispatch('settings/getTheme')
+    this.$store.dispatch('app/getLanguage')
+  },
+
   methods: {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
-    },
-    themeChange(val) {
-      this.$store.dispatch('settings/changeSetting', {
-        key: 'theme',
-        value: val
-      })
     },
     async logout() {
       await this.$store.dispatch('user/logout')

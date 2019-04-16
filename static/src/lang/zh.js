@@ -75,6 +75,7 @@ export default {
     url: '链接URL',
     avatar: '头像',
     icp: 'ICP备案号',
+    icon: '图标',
     disqusShortname: 'Disqus短站点名'
   }
 }

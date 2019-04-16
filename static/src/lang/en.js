@@ -75,6 +75,7 @@ export default {
     url: 'Link URL',
     avatar: 'Avatar',
     icp: 'ICP Number',
+    icon: 'Icon',
     disqusShortname: 'Disqus Shortname'
   }
 }
