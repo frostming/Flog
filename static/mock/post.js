@@ -15,7 +15,7 @@ for (let i = 0; i < count; i++) {
     description: '@sentence',
     content: baseContent,
     'lang|1': ['zh', 'en'],
-    'is_draft|1': false,
+    type: Mock.Random.pick(['published', 'draft']),
     last_modified: '@datetime',
     'comment|1': true,
     image: image_uri,
@@ -27,14 +27,25 @@ for (let i = 0; i < count; i++) {
 
 export default [
   {
-    url: '/article/list',
+    url: '/post',
     type: 'get',
     response: config => {
-      const { importance, type, title, page = 1, limit = 20, sort } = config.query
+      if (config.query.hasOwnProperty('id')) {
+        for (const article of List) {
+          if (article.id === +config.query.id) {
+            return {
+              code: 20000,
+              data: article
+            }
+          }
+        }
+        return
+      }
+
+      const { type, title, page = 1, limit = 20, sort } = config.query
 
       let mockList = List.filter(item => {
-        if (importance && item.importance !== +importance) return false
-        if (type && item.type !== type) return false
+        if (type && type !== item.type) return false
         if (title && item.title.indexOf(title) < 0) return false
         return true
       })
@@ -56,41 +67,7 @@ export default [
   },
 
   {
-    url: '/article/detail',
-    type: 'get',
-    response: config => {
-      const { id } = config.query
-      for (const article of List) {
-        if (article.id === +id) {
-          return {
-            code: 20000,
-            data: article
-          }
-        }
-      }
-    }
-  },
-
-  {
-    url: '/article/pv',
-    type: 'get',
-    response: _ => {
-      return {
-        code: 20000,
-        data: {
-          pvData: [
-            { key: 'PC', pv: 1024 },
-            { key: 'mobile', pv: 1024 },
-            { key: 'ios', pv: 1024 },
-            { key: 'android', pv: 1024 }
-          ]
-        }
-      }
-    }
-  },
-
-  {
-    url: '/article/create',
+    url: '/post',
     type: 'post',
     response: _ => {
       return {
@@ -101,8 +78,8 @@ export default [
   },
 
   {
-    url: '/article/update',
-    type: 'post',
+    url: '/post',
+    type: 'put',
     response: _ => {
       return {
         code: 20000,
@@ -111,4 +88,3 @@ export default [
     }
   }
 ]
-

@@ -44,6 +44,11 @@ export default {
       type: String,
       required: false,
       default: 'en_US' // https://github.com/nhnent/tui.editor/tree/master/src/js/langs
+    },
+    uploadImage: {
+      type: Function,
+      required: false,
+      default: null
     }
   },
   data() {
@@ -57,6 +62,9 @@ export default {
       options.initialEditType = this.mode
       options.height = this.height
       options.language = this.language
+      if (this.uploadImage) {
+        options.hooks = { addImageBlobHook: this.handleImageUpload }
+      }
       return options
     }
   },
@@ -112,6 +120,11 @@ export default {
     },
     getHtml() {
       return this.editor.getHtml()
+    },
+    handleImageUpload(fileObj, callback) {
+      this.uploadImage(fileObj, {
+        success: callback
+      })
     }
   }
 }

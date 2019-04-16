@@ -18,8 +18,16 @@ const cos = new COS({
 })
 console.log(cos)
 
-export default (request) => {
-  return new Promise((resolve) => {
-    resolve('https://frostming.com/images/2019-03-john-westrock-638048-unsplash.jpg')
-  })
+export default (request, { success, error, progress }) => {
+  let p = 0
+  const timer = setInterval(() => {
+    p += 0.25
+    if (progress) {
+      progress(p)
+    }
+    if (p === 1) {
+      clearInterval(timer)
+      success('https://frostming.com/images/2018-09-pipenv.jpg')
+    }
+  }, 1000)
 }

@@ -23,3 +23,9 @@ export function logout() {
   })
 }
 
+export function getSettings() {
+  return request({
+    url: '/user/settings',
+    method: 'get'
+  })
+}

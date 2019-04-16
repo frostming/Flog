@@ -104,6 +104,20 @@ export const asyncRoutes = [
       }
     ]
   },
+
+  {
+    path: '/settings',
+    component: Layout,
+    redirect: '/post/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/settings'),
+        name: 'Settings',
+        meta: { title: 'Settings', icon: 'example' }
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 

@@ -1,7 +1,13 @@
 <template>
   <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
     <el-form-item prop="content">
-      <markdown-editor ref="editor" v-model="postForm.content" :options="{previewStyle: 'tab', hideModeSwitch: true}" />
+      <markdown-editor
+        ref="editor"
+        v-model="postForm.content"
+        height="90vh"
+        :upload-image="uploadImage"
+        :options="{previewStyle: 'tab', hideModeSwitch: true}"
+      />
     </el-form-item>
 
     <right-panel click-not-close>
@@ -11,7 +17,7 @@
         </MDinput>
       </el-form-item>
       <el-form-item prop="image" label="Cover Image">
-        <Upload v-model="postForm.image" />
+        <upload v-model="postForm.image" :upload-image="uploadImage" />
       </el-form-item>
 
       <el-form-item label="Author" class="postInfo-container-item">
@@ -54,10 +60,11 @@
 import MarkdownEditor from '@/components/MarkdownEditor'
 import Upload from '@/components/Upload/SingleImage'
 import MDinput from '@/components/MDinput'
-import { fetchArticle } from '@/api/article'
+import { fetchPost, createPost, updatePost } from '@/api/post'
 import { CommentDropdown } from './Dropdown'
 import { categoryList, tagList } from '@/api/remote-search'
 import RightPanel from '@/components/RightPanel'
+import uploadData from '@/api/cos'
 
 const defaultForm = {
   is_draft: true,
@@ -96,7 +103,6 @@ export default {
       postForm: Object.assign({}, defaultForm),
       loading: false,
       rules: {
-        image: [{ validator: validateRequire }],
         title: [{ validator: validateRequire }],
         content: [{ validator: validateRequire }],
         author: [{ validator: validateRequire }],
@@ -132,12 +138,11 @@ export default {
   },
   methods: {
     fetchData(id) {
-      fetchArticle(id).then(response => {
+      fetchPost(id).then(response => {
         this.postForm = response.data
         // Just for test
         this.postForm.title += `   Article Id:${this.postForm.id}`
         this.postForm.description += `   Article Id:${this.postForm.id}`
-
         // Set tagsview title
         this.setTagsViewTitle()
       }).catch(err => {
@@ -162,9 +167,16 @@ export default {
         this.tagOptions = resp.data.items.map(v => v.name)
       })
     },
+    uploadImage(fileObj, callbacks) {
+      uploadData(fileObj, callbacks)
+    },
+    sendPost(data) {
+      return (this.isEdit ? updatePost(data) : createPost(data))
+    },
     submitForm() {
       this.$refs.postForm.validate(valid => {
-        if (valid) {
+        if (!valid) return
+        this.sendPost({ type: 'published', ...this.postForm }).then(resp => {
           this.loading = true
           this.$notify({
             title: '成功',
@@ -174,10 +186,7 @@ export default {
           })
           this.postForm.status = 'published'
           this.loading = false
-        } else {
-          console.log('error submit!!')
-          return false
-        }
+        })
       })
     },
     draftForm() {
@@ -188,13 +197,15 @@ export default {
         })
         return
       }
-      this.$message({
-        message: '保存成功',
-        type: 'success',
-        showClose: true,
-        duration: 1000
+      this.sendPost({ type: 'draft', ...this.postForm }).then(resp => {
+        this.$message({
+          message: '保存成功',
+          type: 'success',
+          showClose: true,
+          duration: 1000
+        })
+        this.postForm.status = 'draft'
       })
-      this.postForm.status = 'draft'
     }
   }
 }

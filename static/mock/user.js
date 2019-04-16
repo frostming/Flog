@@ -1,3 +1,4 @@
+import Mock from 'mockjs'
 
 const tokens = {
   admin: {
@@ -21,6 +22,25 @@ const users = {
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Normal Editor'
   }
+}
+
+const settings = {
+  name: Mock.Random.word(),
+  avatar: 'https://frostming.com/static/images/favicon.png',
+  cover_url: 'https://frostming.com/images/2019-03-john-westrock-638048-unsplash.jpg',
+  sociallinks: Array(Mock.Random.integer(3, 5)).fill().map(_ => {
+    return {
+      name: Mock.Random.word(),
+      icon: Mock.Random.word(),
+      link: Mock.Random.url()
+    }
+  }),
+  links: Array(Mock.Random.integer(3, 5)).fill().map(_ => {
+    return {
+      text: Mock.Random.word(),
+      link: Mock.Random.url()
+    }
+  })
 }
 
 export default [
@@ -78,6 +98,17 @@ export default [
       return {
         code: 20000,
         data: 'success'
+      }
+    }
+  },
+
+  {
+    url: '/user/settings',
+    type: 'get',
+    response: _ => {
+      return {
+        code: 20000,
+        data: settings
       }
     }
   }

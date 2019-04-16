@@ -1,7 +1,7 @@
 <template>
   <div class="upload-container">
-    <div v-if="imageUrl" class="image-cover" :style="{backgroundImage: `url(${imageUrl})`}">
-      <i class="el-icon-delete" @click="rmImage" />
+    <div v-if="show" class="image-cover" :style="{backgroundImage: `url(${value})`}">
+      <i class="el-icon-close" @click="rmImage" />
     </div>
     <template v-else>
       <el-upload
@@ -13,13 +13,22 @@
         drag
         action="https://httpbin.org/post"
       >
-        <i class="el-icon-upload" />
-        <div class="el-upload__text">
-          将文件拖到此处，或<em>点击上传</em>
-        </div>
-        <div class="switch-mode">
-          <a href="#" @click="changeMode('URL')"><i class="el-icon-arrow-right" />Input URL</a>
-        </div>
+        <el-progress
+          v-if="loading"
+          type="circle"
+          :percentage="progress"
+          :color="theme"
+          style="margin-top: 37px"
+        />
+        <template v-else>
+          <i class="el-icon-upload" />
+          <div class="el-upload__text">
+            将文件拖到此处，或<em>点击上传</em>
+          </div>
+          <div class="switch-mode">
+            <a href="#" @click="changeMode('URL')"><i class="el-icon-arrow-right" />Input URL</a>
+          </div>
+        </template>
       </el-upload>
       <div v-else class="image-input">
         <el-input placeholder="Image URL" :value="value" @input="emitInput" />
@@ -33,24 +42,32 @@
 
 <script>
 // 预览效果见付费文章
-import uploadImage from '@/api/cos'
-
 export default {
   name: 'SingleImageUpload',
   props: {
     value: {
       type: String,
       default: ''
+    },
+    uploadImage: {
+      type: Function,
+      required: false,
+      default: null
     }
   },
   data() {
     return {
-      mode: 'Upload'
+      mode: 'Upload',
+      loading: false,
+      progress: 0
     }
   },
   computed: {
-    imageUrl() {
-      return this.value
+    theme() {
+      return this.$store.state.settings.theme
+    },
+    show() {
+      return (this.value && this.mode === 'Upload')
     }
   },
   methods: {
@@ -61,8 +78,24 @@ export default {
       this.$emit('input', val)
     },
     handleUpload(request) {
-      uploadImage(request).then(url => {
-        this.emitInput(url)
+      if (!this.uploadImage) return
+      const _self = this
+      this.loading = true
+      this.progress = 0
+      this.uploadImage(request.file, {
+        success(val) {
+          _self.emitInput(val)
+          _self.loading = false
+        },
+        progress(val) {
+          _self.progress = parseFloat(val) * 100
+        },
+        error(val) {
+          _self.$message({
+            message: 'Upload failed: ' + val,
+            type: 'danger'
+          })
+        }
       })
     },
     changeMode(mode) {
@@ -88,9 +121,17 @@ export default {
     text-align: right;
     padding: 0 5px;
 
-    .el-icon-delete {
-      font-size: 36px;
+    .el-icon-close {
+      font-size: 24px;
       cursor: pointer;
+      display: none;
+      border-radius: 50%;
+      color: white;
+      background-color: black;
+    }
+
+    &:hover .el-icon-close {
+      display: inline;
     }
   }
 

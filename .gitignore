@@ -12,3 +12,4 @@ flaskblog/.cos_secret.json
 whooshee/
 *.sqlite3
 *.mo
+.mypy_cache/
