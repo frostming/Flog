@@ -13,31 +13,31 @@
     <right-panel click-not-close>
       <el-form-item prop="title">
         <MDinput v-model="postForm.title" :maxlength="100" name="name" required>
-          Title
+          {{ $t('post.title') }}
         </MDinput>
       </el-form-item>
-      <el-form-item prop="image" label="Cover Image">
+      <el-form-item prop="image" :label="$t('post.coverImage')">
         <upload v-model="postForm.image" :upload-image="uploadImage" />
       </el-form-item>
 
-      <el-form-item label="Author" class="postInfo-container-item">
-        <el-input v-model="postForm.author" placeholder="Author" />
+      <el-form-item :label="$t('post.author')" class="postInfo-container-item">
+        <el-input v-model="postForm.author" :placeholder="$t('post.author')" />
       </el-form-item>
-      <el-form-item label="Description">
-        <el-input v-model="postForm.description" :rows="1" type="textarea" class="article-textarea" autosize placeholder="Please enter" />
+      <el-form-item :label="$t('post.description')">
+        <el-input v-model="postForm.description" :rows="1" type="textarea" class="article-textarea" autosize :placeholder="$t('post.description')" />
       </el-form-item>
-      <el-form-item label="Language">
+      <el-form-item :label="$t('post.language')">
         <el-radio v-model="postForm.lang" label="zh">中文</el-radio>
         <el-radio v-model="postForm.lang" label="en">English</el-radio>
       </el-form-item>
 
-      <el-form-item label="Category">
+      <el-form-item :label="$t('post.category')">
         <el-select v-model="postForm.category" style="width:100%" filterable allow-create>
           <el-option v-for="(item,id) in categoryOptions" :key="item+id" :label="item" :value="item" />
         </el-select>
       </el-form-item>
 
-      <el-form-item label="Tags">
+      <el-form-item :label="$t('post.tags')">
         <el-select v-model="postForm.tags" style="width:100%" multiple remote :remote-method="searchRemoteTags" filterable allow-create>
           <el-option v-for="(item,id) in tagOptions" :key="item+id" :label="item" :value="item" />
         </el-select>
@@ -46,10 +46,10 @@
       <div style="margin-bottom:30px;">
         <CommentDropdown v-model="postForm.comment" />
         <el-button v-loading="loading" style="margin-left: 10px;" type="success" @click="submitForm">
-          发布
+          {{ $t('post.publish' ) }}
         </el-button>
         <el-button v-loading="loading" type="warning" @click="draftForm">
-          草稿
+          {{ $t('post.draft' ) }}
         </el-button>
       </div>
     </right-panel>
@@ -91,10 +91,10 @@ export default {
     const validateRequire = (rule, value, callback) => {
       if (value === '') {
         this.$message({
-          message: rule.field + '为必传项',
+          message: rule.field + this.$t('post.missing'),
           type: 'error'
         })
-        callback(new Error(rule.field + '为必传项'))
+        callback(new Error(rule.field + this.$t('post.missing')))
       } else {
         callback()
       }
@@ -179,8 +179,8 @@ export default {
         this.sendPost({ type: 'published', ...this.postForm }).then(resp => {
           this.loading = true
           this.$notify({
-            title: '成功',
-            message: '发布文章成功',
+            title: this.$t('post.success'),
+            message: this.$t('post.successMessage'),
             type: 'success',
             duration: 2000
           })
@@ -192,14 +192,14 @@ export default {
     draftForm() {
       if (this.postForm.content.length === 0 || this.postForm.title.length === 0) {
         this.$message({
-          message: '请填写必要的标题和内容',
+          message: this.$t('post.missingField'),
           type: 'warning'
         })
         return
       }
       this.sendPost({ type: 'draft', ...this.postForm }).then(resp => {
         this.$message({
-          message: '保存成功',
+          message: this.$t('post.saveSuccess'),
           type: 'success',
           showClose: true,
           duration: 1000

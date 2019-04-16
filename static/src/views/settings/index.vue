@@ -4,41 +4,41 @@
       <el-col :sm="24" :md="12">
         <el-form-item prop="title">
           <MDinput v-model="settingsForm.name" :maxlength="100" name="name" required>
-            Site Name
+            {{ $t('settings.siteName') }}
           </MDinput>
         </el-form-item>
         <el-form-item prop="description">
           <MDinput v-model="settingsForm.description" :maxlength="100" name="description" required>
-            Site Description
+            {{ $t('settings.description') }}
           </MDinput>
         </el-form-item>
-        <el-form-item label="Cover Image">
+        <el-form-item :label="$t('post.coverImage')">
           <upload v-model="settingsForm.cover_url" :upload-image="uploadImage" />
         </el-form-item>
-        <el-form-item label="Avatar">
+        <el-form-item :label="$t('settings.avatar')">
           <avatar-upload v-model="settingsForm.avatar" :upload-image="uploadImage" />
         </el-form-item>
-        <el-form-item label="Google Site Verification">
+        <el-form-item :label="$t('settings.googleSiteVerification')">
           <el-input v-model="settingsForm.google_site_verification" />
         </el-form-item>
-        <el-form-item label="Google Analytics ID">
+        <el-form-item :label="$t('settings.googleAnalyticsID')">
           <el-input v-model="settingsForm.google_analytics_id" />
         </el-form-item>
-        <el-form-item label="Disqus Shortname">
+        <el-form-item :label="$t('settings.disqusShortname')">
           <el-input v-model="settingsForm.disqus_shortname" />
         </el-form-item>
-        <el-form-item label="ICP Number">
+        <el-form-item :label="$t('settings.icp')">
           <el-input v-model="settingsForm.icp" />
         </el-form-item>
       </el-col>
       <el-col :sm="24" :md="12">
-        <el-form-item label="Social Links">
+        <el-form-item :label="$t('settings.socialLinks')">
           <el-row v-for="(item,n) in settingsForm.sociallinks" :key="n" :gutter="5" class="link-row">
             <el-col :span="6">
-              <el-input v-model="item.name" placeholder="Name" />
+              <el-input v-model="item.name" :placeholder="$t('settings.name')" />
             </el-col>
             <el-col :span="5">
-              <el-input v-model="item.icon" placeholder="Icon" />
+              <el-input v-model="item.icon" :placeholder="$t('settings.icon')" />
             </el-col>
             <el-col :span="10">
               <el-input v-model="item.link" placeholder="URL" />
@@ -50,13 +50,13 @@
           <el-button type="primary" class="add-btn" icon="el-icon-plus" circle @click="addSocialLink" />
         </el-form-item>
 
-        <el-form-item label="Friend Links">
+        <el-form-item :label="$t('settings.friendLinks')">
           <el-row v-for="(item,n) in settingsForm.links" :key="n" :gutter="5" class="link-row">
             <el-col :span="9">
-              <el-input v-model="item.text" placeholder="Link Text" />
+              <el-input v-model="item.text" :placeholder="$t('settings.text')" />
             </el-col>
             <el-col :span="12">
-              <el-input v-model="item.link" placeholder="Link URL" />
+              <el-input v-model="item.link" :placeholder="$t('settings.url')" />
             </el-col>
             <el-col :span="3">
               <el-button type="danger" icon="el-icon-delete" circle @click="deleteFriendLink(item)" />
@@ -79,10 +79,10 @@ import { getSettings } from '@/api/user'
 const validateRequire = (rule, value, callback) => {
   if (value === '') {
     this.$message({
-      message: rule.field + '为必填项',
+      message: rule.field + this.$t('post.missing'),
       type: 'error'
     })
-    callback(new Error(rule.field + '为必填项'))
+    callback(new Error(rule.field + this.$t('post.missing')))
   } else {
     callback()
   }

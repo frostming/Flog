@@ -1,17 +1,17 @@
 <template>
   <el-dropdown :show-timeout="100" trigger="click">
     <el-button plain>
-      {{ enabled?'评论已打开':'评论已关闭' }}
+      {{ enabled?$t('post.commentOn'):$t('post.commentOff') }}
       <i class="el-icon-caret-bottom el-icon--right" />
     </el-button>
     <el-dropdown-menu slot="dropdown" class="no-padding">
       <el-dropdown-item>
         <el-radio-group v-model="enabled" style="padding: 10px;">
           <el-radio :label="false">
-            关闭评论
+            {{ $t('post.turnOff') }}
           </el-radio>
           <el-radio :label="true">
-            打开评论
+            {{ $t('post.turnOn') }}
           </el-radio>
         </el-radio-group>
       </el-dropdown-item>

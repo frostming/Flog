@@ -23,17 +23,17 @@
         <template v-else>
           <i class="el-icon-upload" />
           <div class="el-upload__text">
-            将文件拖到此处，或<em>点击上传</em>
+            {{ $t('post.dragImage') }}<em>{{ $t('post.clickToUpload') }}</em>
           </div>
           <div class="switch-mode">
-            <a href="#" @click="changeMode('URL')"><i class="el-icon-arrow-right" />Input URL</a>
+            <a href="#" @click="changeMode('URL')"><i class="el-icon-arrow-right" />{{ $t('post.inputURL') }}</a>
           </div>
         </template>
       </el-upload>
       <div v-else class="image-input">
-        <el-input placeholder="Image URL" :value="value" @input="emitInput" />
+        <el-input :placeholder="$t('post.imageURL')" :value="value" @input="emitInput" />
         <div class="switch-mode">
-          <a href="#" @click="changeMode('Upload')"><i class="el-icon-arrow-right" />Drag/Upload</a>
+          <a href="#" @click="changeMode('Upload')"><i class="el-icon-arrow-right" />{{ $t('post.dragUpload') }}</a>
         </div>
       </div>
     </template>

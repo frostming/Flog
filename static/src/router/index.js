@@ -86,7 +86,7 @@ export const asyncRoutes = [
         path: 'index',
         component: () => import('@/views/post/list'),
         name: 'Posts',
-        meta: { title: 'Posts', icon: 'list' }
+        meta: { title: 'posts', icon: 'list' }
       },
       {
         path: 'create',
@@ -114,7 +114,7 @@ export const asyncRoutes = [
         path: 'index',
         component: () => import('@/views/settings'),
         name: 'Settings',
-        meta: { title: 'Settings', icon: 'example' }
+        meta: { title: 'settings', icon: 'example' }
       }
     ]
   },

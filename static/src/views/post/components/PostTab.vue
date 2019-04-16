@@ -7,24 +7,24 @@
         </template>
       </el-table-column>
 
-      <el-table-column width="180px" align="center" label="Date">
+      <el-table-column width="180px" align="center" :label="$t('post.date')">
         <template slot-scope="scope">
           <span>{{ scope.row.date | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="120px" align="center" label="Author">
+      <el-table-column width="120px" align="center" :label="$t('post.author')">
         <template slot-scope="scope">
           <span>{{ scope.row.author }}</span>
         </template>
       </el-table-column>
-      <el-table-column width="120px" align="center" label="Category">
+      <el-table-column width="120px" align="center" :label="$t('post.category')">
         <template slot-scope="scope">
           <span>{{ scope.row.category }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column min-width="300px" label="Title">
+      <el-table-column min-width="300px" :label="$t('post.title')">
         <template slot-scope="{row}">
           <router-link :to="'/post/edit/'+row.id" class="link-type">
             <span>{{ row.title }}</span>
@@ -32,15 +32,15 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="Actions" width="220">
+      <el-table-column align="center" :label="$t('post.actions')" width="220">
         <template slot-scope="scope">
           <router-link :to="'/post/edit/'+scope.row.id">
             <el-button type="primary" size="small" icon="el-icon-edit">
-              Edit
+              {{ $t('post.edit') }}
             </el-button>
           </router-link>
           <el-button type="danger" size="small" icon="el-icon-delete" @click="handleDelete(scope.row)">
-            Delete
+            {{ $t('post.delete') }}
           </el-button>
         </template>
       </el-table-column>

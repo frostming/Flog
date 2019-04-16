@@ -9,7 +9,7 @@
       <el-tab-pane>
         <router-link slot="label" to="/post/create/">
           <el-button type="primary" size="small" class="create-post-btn" icon="el-icon-edit">
-            New Post
+            {{ $t('post.newPost') }}
           </el-button>
         </router-link>
       </el-tab-pane>
@@ -26,8 +26,8 @@ export default {
   data() {
     return {
       tabMapOptions: {
-        published: 'Published',
-        draft: 'Draft'
+        published: this.$t('post.published'),
+        draft: this.$t('post.draft')
       },
       activeName: 'published'
     }
