@@ -49,9 +49,15 @@ export default {
       }
     }
   },
+  mounted() {
+    this.fetchIntegrations()
+  },
   methods: {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
+    },
+    fetchIntegrations() {
+      this.$store.dispatch('integration/fetchData')
     }
   }
 }

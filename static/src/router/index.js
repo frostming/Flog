@@ -67,7 +67,7 @@ export const constantRoutes = [
   {
     path: '',
     component: Layout,
-    redirect: '/post/index',
+    redirect: '/post',
     hidden: false
   }
 ]
@@ -80,10 +80,9 @@ export const asyncRoutes = [
   {
     path: '/post',
     component: Layout,
-    redirect: '/post/index',
     children: [
       {
-        path: 'index',
+        path: '',
         component: () => import('@/views/post/list'),
         name: 'Posts',
         meta: { title: 'posts', icon: 'list' }
@@ -108,13 +107,25 @@ export const asyncRoutes = [
   {
     path: '/settings',
     component: Layout,
-    redirect: '/post/index',
     children: [
       {
-        path: 'index',
+        path: '',
         component: () => import('@/views/settings'),
         name: 'Settings',
-        meta: { title: 'settings', icon: 'example' }
+        meta: { title: 'settings', icon: 'settings' }
+      }
+    ]
+  },
+
+  {
+    path: '/integration',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/integration'),
+        name: 'Integration',
+        meta: { title: 'integration', icon: 'example' }
       }
     ]
   },

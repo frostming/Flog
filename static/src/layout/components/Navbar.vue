@@ -32,16 +32,41 @@
               {{ $t('navbar.dashboard') }}
             </el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">
+          <a target="_blank" href="https://github.com/frostming/Flog">
             <el-dropdown-item>
               {{ $t('navbar.github') }}
             </el-dropdown-item>
           </a>
           <el-dropdown-item divided>
+            <span style="display:block;" @click="passwordDialog = true">{{ $t('navbar.changePassword') }}</span>
+          </el-dropdown-item>
+          <el-dropdown-item>
             <span style="display:block;" @click="logout">{{ $t('navbar.logOut') }}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+      <el-dialog
+        :title="$t('navbar.changePassword')"
+        :visible.sync="passwordDialog"
+        width="480px"
+        :modal-append-to-body="false"
+      >
+        <el-form ref="passwordForm" :model="passwordForm" :rules="rules">
+          <el-form-item>
+            <el-input v-model="passwordForm.old" type="password" :placeholder="$t('navbar.oldPassword')" required />
+          </el-form-item>
+          <el-form-item>
+            <el-input v-model="passwordForm.new" type="password" :placeholder="$t('navbar.newPassword')" required />
+          </el-form-item>
+          <el-form-item>
+            <el-input v-model="passwordForm.confirm" type="password" :placeholder="$t('navbar.confirmPassword')" required />
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="passwordDialog = false">{{ $t('el.messagebox.cancel') }}</el-button>
+          <el-button type="primary" @click="submitForm">{{ $t('el.messagebox.confirm') }}</el-button>
+        </span>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -56,6 +81,7 @@ import SizeSelect from '@/components/SizeSelect'
 import LangSelect from '@/components/LangSelect'
 import Search from '@/components/HeaderSearch'
 import ThemePicker from '@/components/ThemePicker'
+import { changePassword } from '@/api/user'
 
 export default {
   components: {
@@ -67,6 +93,44 @@ export default {
     LangSelect,
     Search,
     ThemePicker
+  },
+  data() {
+    const validateRequire = (rule, value, callback) => {
+      console('im here')
+      if (value === '') {
+        this.$message({
+          message: rule.field + this.$t('post.missing'),
+          type: 'error'
+        })
+        callback(new Error(rule.field + this.$t('post.missing')))
+      } else {
+        callback()
+      }
+    }
+    const validateSamePassword = (rule, value, callback) => {
+      if (value !== this.confirm) {
+        this.$message({
+          message: this.$t('navbar.passwordSame'),
+          type: 'error'
+        })
+        callback(new Error(this.$t('navbar.passwordSame')))
+      } else {
+        callback()
+      }
+    }
+    return {
+      passwordDialog: false,
+      passwordForm: {
+        old: '',
+        new: '',
+        confirm: ''
+      },
+      rules: {
+        old: [{ validator: validateRequire }],
+        new: [{ validator: validateRequire }],
+        confirm: [{ validator: validateRequire }, { validator: validateSamePassword }]
+      }
+    }
   },
   computed: {
     ...mapGetters([
@@ -88,6 +152,24 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    submitForm() {
+      this.$refs.passwordForm.validate(valid => {
+        console.log(valid)
+        if (!valid) return
+        changePassword(this.passwordForm).then(resp => {
+          this.passwordDialog = false
+          this.$message({
+            message: this.$t('post.success'),
+            type: 'success'
+          })
+        }).catch(e => {
+          this.$message({
+            message: e,
+            type: 'error'
+          })
+        })
+      })
     }
   }
 }

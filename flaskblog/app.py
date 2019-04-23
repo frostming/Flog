@@ -1,4 +1,3 @@
-import os
 from typing import Union
 
 from flask import Flask, g, request
@@ -9,10 +8,8 @@ from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_moment import Moment
 
-from . import admin, cli, config, models, templating, views
+from . import cli, config, models, templating, views, api, STATIC_PATH
 from .md import markdown
-
-STATIC_PATH = os.path.join(os.path.dirname(__file__), os.pardir, "static")
 
 
 def create_app(env: Union[str, None] = None) -> Flask:
@@ -26,7 +23,7 @@ def create_app(env: Union[str, None] = None) -> Flask:
     cli.init_app(app)
     views.init_app(app)
     templating.init_app(app)
-    admin.init_app(app)
+    api.init_app(app)
     Environment(app)
 
     @babel.localeselector

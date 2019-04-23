@@ -20,10 +20,8 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 
-import { mockXHR } from '../mock' // simulation data
-
 // mock api in github pages site build
-if (process.env.NODE_ENV === 'development') { mockXHR() }
+if (process.env.NODE_ENV === 'development') { require('../mock') }
 
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size

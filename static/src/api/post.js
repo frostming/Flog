@@ -10,9 +10,8 @@ export function fetchList(query) {
 
 export function fetchPost(id) {
   return request({
-    url: '/post',
-    method: 'get',
-    params: { id }
+    url: `/post/${id}`,
+    method: 'get'
   })
 }
 
@@ -26,8 +25,15 @@ export function createPost(data) {
 
 export function updatePost(data) {
   return request({
-    url: '/post',
+    url: `/post/${data.id}`,
     method: 'put',
     data
+  })
+}
+
+export function deletePost(id) {
+  return request({
+    url: `/post/${id}`,
+    method: 'delete'
   })
 }

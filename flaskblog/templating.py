@@ -1,12 +1,12 @@
 from datetime import datetime
 from urllib.parse import urljoin
 
-from flask import Flask, request
+from flask import Flask, request, json
 from jinja2 import Markup
 from slugify import slugify
 
 from .md import markdown
-from .models import Category
+from .models import Category, Integration
 
 
 def date(s: datetime, format: str = '%Y-%m-%d') -> str:
@@ -43,6 +43,14 @@ def render_markdown(s) -> str:
     return Markup(markdown(s))
 
 
+def get_integrations() -> dict:
+    return {
+        'integration': {
+            item.name: {**{'enabled': item.enabled}, **json.loads(item.settings)}
+            for item in Integration.query}
+    }
+
+
 def init_app(app: Flask) -> None:
     app.add_template_filter(date)
     app.add_template_filter(make_slugify, 'slugify')
@@ -50,3 +58,4 @@ def init_app(app: Flask) -> None:
     app.add_template_filter(text_part, 'textpart')
     app.context_processor(get_current_time)
     app.context_processor(blog_objects)
+    app.context_processor(get_integrations)

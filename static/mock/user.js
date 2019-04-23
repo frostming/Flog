@@ -103,6 +103,20 @@ export default [
   },
 
   {
+    url: '/user/password',
+    type: 'post',
+    response: req => {
+      if (req.body.new !== req.body.confirm) {
+        throw new Error('Passwords are not the same!')
+      }
+      return {
+        code: 20000,
+        data: 'success'
+      }
+    }
+  },
+
+  {
     url: '/settings/theme',
     type: 'get',
     response: _ => {
@@ -133,7 +147,44 @@ export default [
     }
   },
   {
-    url: '/settings/\.*',
+    url: '/settings\.*',
+    type: 'post',
+    response: _ => {
+      return {
+        code: 20000,
+        data: 'success'
+      }
+    }
+  },
+
+  {
+    url: '/integration',
+    type: 'get',
+    response: _ => {
+      return {
+        code: 20000,
+        data: {
+          disqus: {
+            enabled: true,
+            shortname: 'flogabc'
+          },
+          google_analytics: {
+            enabled: false,
+            id: 1213431
+          },
+          cos: {
+            enabled: false,
+            secret_id: 'dsfsdafd',
+            secret_key: 'sfsdfasdf',
+            bucket: 'fsdfasdfdsf',
+            region: 'dfasdfasdf'
+          }
+        }
+      }
+    }
+  },
+  {
+    url: '/integration',
     type: 'post',
     response: _ => {
       return {

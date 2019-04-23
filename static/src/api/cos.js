@@ -1,12 +1,15 @@
 import request from '@/utils/request'
 import COS from 'cos-js-sdk-v5'
+import store from '@/store'
 
 const cos = new COS({
   getAuthorization: (options, callback) => {
     request({
       url: '/token/cos',
       method: 'get'
-    }).then(data => {
+    }).then(resp => {
+      const { data } = resp
+      console.log(data)
       callback({
         TmpSecretId: data.credentials.tmpSecretId,
         TmpSecretKey: data.credentials.tmpSecretKey,
@@ -16,18 +19,25 @@ const cos = new COS({
     })
   }
 })
-console.log(cos)
 
-export default (request, { success, error, progress }) => {
-  let p = 0
-  const timer = setInterval(() => {
-    p += 0.25
-    if (progress) {
-      progress(p)
+export default (file, { success, error, progress }) => {
+  if (!store.state.integration.cos.enabled) {
+    error(new Error('COS is not configured yet'))
+    return
+  }
+  cos.sliceUploadFile({
+    Bucket: store.state.integration.cos.bucket,
+    Region: store.state.integration.cos.region,
+    Key: (new Date()).toISOString().slice(0, 7) + '-' + file.name,
+    Body: file,
+    onProgress: function(progressData) {
+      progress(progressData.percent)
     }
-    if (p === 1) {
-      clearInterval(timer)
-      success('https://frostming.com/images/2018-09-pipenv.jpg')
+  }, function(err, data) {
+    if (err) {
+      error(err)
+    } else {
+      success('/images/' + data.Key)
     }
-  }, 1000)
+  })
 }

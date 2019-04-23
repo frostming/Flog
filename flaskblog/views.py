@@ -4,6 +4,7 @@ from urllib.parse import urljoin
 
 from flask import (Flask, abort, current_app, g, render_template, request,
                    send_file)
+from flask.helpers import get_env
 from werkzeug.contrib.atom import AtomFeed
 from werkzeug.wrappers import Response
 
@@ -14,8 +15,8 @@ from .utils import calc_token, get_tag_cloud
 
 def load_site_config() -> None:
     if 'site' not in g:
-        admin = User.get_one()
-        g.site = admin.read_settings()
+        user = User.get_one()
+        g.site = user.read_settings()
 
 
 def home() -> str:
@@ -114,6 +115,12 @@ def search() -> str:
     return render_template('search.html', paginate=paginate, highlight=search_str)
 
 
+def admin(path=None):
+    path = path or 'index.html'
+    print(f'dist/{path}')
+    return current_app.send_static_file(f'dist/{path}')
+
+
 def init_app(app: Flask) -> None:
     app.add_url_rule('/', 'home', home)
     app.add_url_rule('/<int:year>/<date>/<title>', 'post', post)
@@ -124,6 +131,10 @@ def init_app(app: Flask) -> None:
     app.add_url_rule('/sitemap.xml', 'sitemap', sitemap)
     app.add_url_rule('/favicon.ico', 'favicon', favicon)
     app.add_url_rule('/search', 'search', search)
+    if get_env() == 'development':
+        app.add_url_rule('/admin', view_func=admin, defaults={'path': 'index.html'})
+        app.add_url_rule('/admin/<path:path>', view_func=admin)
+
     app.register_error_handler(404, not_found)
 
     if app.config.get('ENABLE_COS_UPLOAD', False):

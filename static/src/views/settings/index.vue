@@ -18,15 +18,6 @@
         <el-form-item :label="$t('settings.avatar')">
           <avatar-upload v-model="settingsForm.avatar" :upload-image="uploadImage" />
         </el-form-item>
-        <el-form-item :label="$t('settings.googleSiteVerification')">
-          <el-input v-model="settingsForm.google_site_verification" />
-        </el-form-item>
-        <el-form-item :label="$t('settings.googleAnalyticsID')">
-          <el-input v-model="settingsForm.google_analytics_id" />
-        </el-form-item>
-        <el-form-item :label="$t('settings.disqusShortname')">
-          <el-input v-model="settingsForm.disqus_shortname" />
-        </el-form-item>
         <el-form-item :label="$t('settings.icp')">
           <el-input v-model="settingsForm.icp" />
         </el-form-item>
@@ -74,19 +65,7 @@ import MDinput from '@/components/MDinput'
 import Upload from '@/components/Upload/SingleImage'
 import uploadData from '@/api/cos'
 import AvatarUpload from './components/AvatarUpload'
-import { getSettings } from '@/api/user'
-
-const validateRequire = (rule, value, callback) => {
-  if (value === '') {
-    this.$message({
-      message: rule.field + this.$t('post.missing'),
-      type: 'error'
-    })
-    callback(new Error(rule.field + this.$t('post.missing')))
-  } else {
-    callback()
-  }
-}
+import { getSettings, updateSettings } from '@/api/user'
 
 const defaultSettings = {
   avatar: 'https://frostming.com/static/images/favicon.png',
@@ -99,6 +78,17 @@ export default {
   name: 'Settings',
   components: { MDinput, Upload, AvatarUpload },
   data() {
+    const validateRequire = (rule, value, callback) => {
+      if (value === '') {
+        this.$message({
+          message: rule.field + this.$t('post.missing'),
+          type: 'error'
+        })
+        callback(new Error(rule.field + this.$t('post.missing')))
+      } else {
+        callback()
+      }
+    }
     return {
       settingsForm: { ...defaultSettings },
       rules: {
@@ -108,7 +98,7 @@ export default {
     }
   },
   beforeDestroy() {
-    console.log(this.settingsForm)
+    this.submitForm()
   },
   mounted() {
     this.fetchSettings()
@@ -139,6 +129,12 @@ export default {
     fetchSettings() {
       getSettings().then(resp => {
         this.settingsForm = resp.data
+      })
+    },
+    submitForm() {
+      this.$refs.settingsForm.validate(valid => {
+        if (!valid) return
+        updateSettings(this.settingsForm)
       })
     }
   }

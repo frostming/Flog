@@ -26,6 +26,9 @@
       <el-form-item :label="$t('post.description')">
         <el-input v-model="postForm.description" :rows="1" type="textarea" class="article-textarea" autosize :placeholder="$t('post.description')" />
       </el-form-item>
+      <el-form-item :label="$t('post.slug')">
+        <el-input v-model="postForm.slug" />
+      </el-form-item>
       <el-form-item :label="$t('post.language')">
         <el-radio v-model="postForm.lang" label="zh">中文</el-radio>
         <el-radio v-model="postForm.lang" label="en">English</el-radio>

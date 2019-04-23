@@ -4,7 +4,8 @@ export default {
     posts: '文章',
     settings: '设置',
     editPost: '编辑文章',
-    createPost: '创建文章'
+    createPost: '创建文章',
+    integration: '集成'
   },
   post: {
     draft: '草稿',
@@ -35,14 +36,20 @@ export default {
     success: '成功',
     successMessage: '发布成功',
     saveSuccess: '保存成功',
-    missingField: '请填写标题和内容'
+    missingField: '请填写标题和内容',
+    delSuccess: '删除成功',
+    confirmDelete: '确认删除？'
   },
   navbar: {
     logOut: '退出登录',
     dashboard: '首页',
     github: '项目地址',
     theme: '换肤',
-    size: '布局大小'
+    size: '布局大小',
+    changePassword: '修改密码',
+    oldPassword: '请输入旧密码',
+    newPassword: '请输入新密码',
+    confirmPassword: '请再次输入密码确认'
   },
   login: {
     title: '系统登录',

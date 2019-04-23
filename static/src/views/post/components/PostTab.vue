@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/post'
+import { fetchList, deletePost } from '@/api/post'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 export default {
@@ -87,12 +87,14 @@ export default {
       })
     },
     handleDelete(row) {
-      this.$confirm('Are you sure to delete?', 'Confirmation', {
+      this.$confirm(this.$t('post.confirmDelete'), this.$t('el.messagebox.title'), {
         type: 'warining'
       }).then(val => {
         if (val) {
-          this.list.splice(this.list.indexOf(row), 1)
-          this.$message('Delete successfully.')
+          deletePost(row.id).then(_ => {
+            this.list.splice(this.list.indexOf(row), 1)
+            this.$message(this.$t('post.delSuccess'))
+          })
         }
       })
     }

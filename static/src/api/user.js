@@ -30,6 +30,14 @@ export function getSettings() {
   })
 }
 
+export function updateSettings(data) {
+  return request({
+    url: '/settings',
+    method: 'post',
+    data
+  })
+}
+
 export function changeTheme(value) {
   return request({
     url: '/settings/theme',
@@ -58,4 +66,27 @@ export function getLanguage() {
     url: '/settings/language',
     method: 'get'
   }).then(resp => resp.data.value)
+}
+
+export function changePassword(data) {
+  return request({
+    url: '/user/password',
+    method: 'post',
+    data
+  })
+}
+
+export function updateIntegration(data) {
+  return request({
+    url: '/integration',
+    method: 'post',
+    data
+  })
+}
+
+export function fetchIntegration() {
+  return request({
+    url: '/integration',
+    method: 'get'
+  })
 }

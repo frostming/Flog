@@ -1,65 +1,26 @@
-import io
-import os
-import re
-from typing import Union
-
 import click
-import yaml
 from flask.cli import with_appcontext
-
+import faker
 from .models import Post, db
+import random
 
-MARKDOWN_RE = re.compile(r'(?:-{3}\n(?P<meta>.+?\n)-{3}\n+)?(?P<content>.*)', re.DOTALL)
-
-
-@click.command()
-@click.argument('folder', type=click.Path(exists=True))
-def imp(folder: str) -> None:
-    """Input a folder of markdown files to import as posts"""
-
-    def _import_file(filepath):
-        if not filepath.endswith('.md') and not filepath.endswith('.markdown'):
-            return
-        content = io.open(filepath, encoding='utf-8').read()
-        meta, body = MARKDOWN_RE.match(content).groups()
-        meta = yaml.load(io.StringIO(meta))
-        meta['content'] = body
-        if 'photos' in meta:
-            meta['image'] = meta.pop('photos')
-        if 'categories' in meta:
-            meta['category'] = meta.pop('categories')
-        db.session.add(Post(**meta))
-        db.session.commit()
-        click.echo('Imported file: %s' % filepath)
-
-    if os.path.isfile(folder):
-        _import_file(folder)
-    else:
-        for filename in os.listdir(folder):
-            full_fp = os.path.join(folder, filename)
-            _import_file(full_fp)
+fake = faker.Faker()
 
 
-@click.command()
-@click.option('-o', '--output', type=click.Path(file_okay=False))
-def exp(output: Union[None, str]) -> None:
-    """Export all the posts to markdown files, including post meta"""
-    if not output:
-        output = '.'
-    if not os.path.exists(output):
-        os.mkdir(output)
-    cwd = os.getcwd()
-    os.chdir(output)
-    for post in Post.query:
-        meta = post.to_dict()
-        filename = meta.pop('url').rsplit('/', 1)[-1] + '.md'
-        content = meta.pop('content')
-        container = io.StringIO()
-        yaml.dump(meta, container, allow_unicode=True)
-        with open(filename, 'w', encoding='utf-8') as fp:
-            fp.write('---\n' + container.getvalue().rstrip() + '\n---\n\n' + content)
-        click.echo('Writing to file %s' % os.path.join(output, filename))
-    os.chdir(cwd)
+def generate_on_fake_post():
+    return {
+        'title': fake.sentence(nb_words=6, variable_nb_words=True),
+        'description': fake.sentence(nb_words=6, variable_nb_words=True),
+        'image': fake.image_url(width=800, height=400),
+        'slug': fake.slug(),
+        'content': '## Hello World\n我是测试数据我是测试数据\n\n![](https://wpimg.wallstcn.com/4c69009c-0fd4-4153-b112-6cb53d1cf943)\n',
+        'author': fake.name(),
+        'date': fake.date_time(),
+        'is_draft': random.choice([False, True]),
+        'lang': random.choice(['en', 'zh_Hans_CN']),
+        'category': random.choice(['programming', 'essay']),
+        'tags': random.sample(['test', 'python', 'algorithm', 'reading'], random.randint(1, 3))
+    }
 
 
 @click.command()
@@ -72,7 +33,17 @@ def reindex():
     click.echo("Index created for models.")
 
 
+@click.command()
+@with_appcontext
+def fake_db():
+    """Insert fake data into database."""
+    for _ in range(100):
+        post = Post(**generate_on_fake_post())
+        db.session.add(post)
+    db.session.commit()
+    click.echo("Add 100 posts")
+
+
 def init_app(app):
-    app.cli.add_command(imp)
-    app.cli.add_command(exp)
     app.cli.add_command(reindex)
+    app.cli.add_command(fake_db)

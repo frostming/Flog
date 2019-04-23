@@ -27,21 +27,20 @@ for (let i = 0; i < count; i++) {
 
 export default [
   {
+    url: '/post/\\d+',
+    type: 'get',
+    response: config => {
+      return {
+        code: 20000,
+        data: List[0]
+      }
+    }
+  },
+
+  {
     url: '/post',
     type: 'get',
     response: config => {
-      if (config.query.hasOwnProperty('id')) {
-        for (const article of List) {
-          if (article.id === +config.query.id) {
-            return {
-              code: 20000,
-              data: article
-            }
-          }
-        }
-        return
-      }
-
       const { type, title, page = 1, limit = 20, sort } = config.query
 
       let mockList = List.filter(item => {
@@ -80,6 +79,17 @@ export default [
   {
     url: '/post',
     type: 'put',
+    response: _ => {
+      return {
+        code: 20000,
+        data: 'success'
+      }
+    }
+  },
+
+  {
+    url: '/post',
+    type: 'delete',
     response: _ => {
       return {
         code: 20000,

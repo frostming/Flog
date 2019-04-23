@@ -2,9 +2,10 @@ export default {
   route: {
     index: 'Index',
     posts: 'Posts',
-    settigns: 'Settings',
+    settings: 'Settings',
     editPost: 'Edit Post',
-    createPost: 'Create Post'
+    createPost: 'Create Post',
+    integration: 'Integration'
   },
   post: {
     draft: 'Draft',
@@ -35,14 +36,20 @@ export default {
     success: 'Success',
     successMessage: 'Publish success',
     saveSuccess: 'Save success',
-    missingField: 'Title and content must be provided'
+    missingField: 'Title and content must be provided',
+    delSuccess: 'Delete success',
+    confirmDelete: 'Are you sure to delete?'
   },
   navbar: {
     logOut: 'Log Out',
     dashboard: 'Dashboard',
     github: 'Github',
     theme: 'Theme',
-    size: 'Global Size'
+    size: 'Global Size',
+    changePassword: 'Change Password',
+    oldPassword: 'Old Password',
+    newPassword: 'New Password',
+    confirmPassword: 'Confirm Password'
   },
   login: {
     title: 'Login Form',
