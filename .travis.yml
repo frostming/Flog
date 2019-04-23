@@ -1,11 +1,14 @@
 language: node
 addons:
   ssh_known_hosts: frostming.com
+cache:
+  yarn: true
+  directories:
+    - static/node_modules
 services:
   - docker
-install:
-  - yarn install
-  - yarn run build:prod
+before_install: npm i -g yarn && yarn
+install: cd static && yarn install && yarn run build:prod
 before_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t flog .
