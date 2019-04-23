@@ -9,7 +9,8 @@ rsync -avz nginx/ fming@frostming.com:/home/fming/frostming.com/nginx
 rsync -avz ./docker-compose.yml fming@frostming.com:/home/fming/frostming.com/
 ssh fming@frostming.com bash -s << EOF
 cd /home/fming/frostming.com
+docker pull $DOCKER_USERNAME/flog:latest
 docker-compose down
-docker-compose pull web
 docker-compose up -d
+docker images|grep "<none>"|awk {print $3}|xargs -ti docker rmi {}
 EOF
