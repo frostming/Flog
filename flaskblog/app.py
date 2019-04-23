@@ -8,7 +8,7 @@ from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_moment import Moment
 
-from . import cli, config, models, templating, views, api, STATIC_PATH
+from . import cli, config, models, templating, views, api, admin, STATIC_PATH
 from .md import markdown
 
 
@@ -22,6 +22,8 @@ def create_app(env: Union[str, None] = None) -> Flask:
     models.init_app(app)
     cli.init_app(app)
     views.init_app(app)
+    if get_env() == "development":
+        admin.init_app(app)
     templating.init_app(app)
     api.init_app(app)
     Environment(app)

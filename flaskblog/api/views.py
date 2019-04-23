@@ -244,5 +244,5 @@ class IntegrationView(MethodView):
 
 
 api.add_url_rule('/post', view_func=PostView.as_view('post'))
-api.add_url_rule('/post/<int:id>', view_func=PostView.as_view('post_item'))
+api.add_url_rule('/post/<int:id>', view_func=PostItemView.as_view('post_item'))
 api.add_url_rule('/integration', view_func=IntegrationView.as_view('integration'))
