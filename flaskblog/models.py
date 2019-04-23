@@ -11,6 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_whooshee import Whooshee
 from slugify import slugify
 from werkzeug.security import check_password_hash, generate_password_hash
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired
 
 db: SQLAlchemy = SQLAlchemy()
 whooshee: Whooshee = Whooshee()
@@ -57,6 +58,19 @@ class Post(db.Model):
     is_draft = db.Column(db.Boolean, default=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
+    def __init__(self, **kwargs):
+        if isinstance(kwargs.get('category'), str):
+            kwargs['category'] = Category.get_one_or_new(kwargs['category'])
+        tags = kwargs.get('tags')
+        if tags and isinstance(tags[0], str):
+            kwargs['tags'] = [Tag.get_one_or_new(tag) for tag in tags]
+        if kwargs.get('lang', 'en').startswith('zh'):
+            kwargs['lang'] = 'zh_Hans_CN'
+        kwargs['is_draft'] = kwargs.pop('type', None) == 'draft'
+        kwargs.pop('date', None)
+        kwargs.pop('last_modified', None)
+        super().__init__(**kwargs)
+
     @property
     def url(self) -> str:
         return '/%d/%02d-%02d/%s' % (
@@ -66,17 +80,18 @@ class Post(db.Model):
             self.slug,
         )
 
-    def to_dict(self) -> dict:
+    def to_dict(self, ensure_text=False) -> dict:
         return dict(
+            id=self.id,
             title=self.title,
             date=self.date,
             image=self.image,
-            category=self.category,
-            lang=self.lang,
+            category=self.category if not ensure_text else str(self.category),
+            lang='zh' if self.lang.startswith('zh') else self.lang,
             comment=self.comment,
             description=self.description,
             author=self.author,
-            tags=self.tags,
+            tags=self.tags if not ensure_text else [str(tag) for tag in self.tags],
             slug=self.slug,
             content=self.content,
             last_modified=self.last_modified,
@@ -147,6 +162,20 @@ class User(db.Model, UserMixin):
             db.session.commit()
         return rv
 
+    @classmethod
+    def verify_auth_token(cls, token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except (BadSignature, SignatureExpired):
+            return None
+        user = cls.query.get(data['id'])
+        return user
+
+    def generate_token(self, expiration=24 * 60 * 60):
+        s = Serializer(current_app.config['SECRET_KEY'], expires_in=expiration)
+        return s.dumps({'id': self.id})
+
     def read_settings(self) -> dict:
         return json.loads(self.settings or json.dumps(DEFAULT_SETTINGS))
 
@@ -155,9 +184,18 @@ class User(db.Model, UserMixin):
         db.session.commit()
 
 
-class Tag(db.Model):
+class GetOrNewMixin:
+    @classmethod
+    def get_one_or_new(cls, text):
+        record = cls.query.filter_by(text=text).first()
+        if not record:
+            record = cls(text=text)
+        return record
+
+
+class Tag(db.Model, GetOrNewMixin):
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(50))
+    text = db.Column(db.String(50), unique=True)
     url = db.Column(db.String(100))
 
     def __init__(self, **kwargs) -> None:
@@ -176,9 +214,9 @@ class Tag(db.Model):
         return self.text
 
 
-class Category(db.Model):
+class Category(db.Model, GetOrNewMixin):
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(50))
+    text = db.Column(db.String(50), unique=True)
     posts = db.relationship('Post', backref='category')
 
     def __repr__(self) -> str:
@@ -186,6 +224,13 @@ class Category(db.Model):
 
     def __str__(self) -> str:
         return self.text
+
+
+class Integration(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True)
+    settings = db.Column(db.Text())
+    enabled = db.Column(db.Boolean())
 
 
 def init_app(app: Flask) -> None:

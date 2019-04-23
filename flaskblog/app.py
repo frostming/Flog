@@ -8,13 +8,13 @@ from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_moment import Moment
 
-from . import admin, cli, config, models, templating, views
+from . import cli, config, models, templating, views, api, admin, STATIC_PATH
 from .md import markdown
 
 
 def create_app(env: Union[str, None] = None) -> Flask:
     env = env or get_env()
-    app = Flask(__name__)  # type: Flask
+    app = Flask(__name__, static_folder=STATIC_PATH)  # type: Flask
     app.config.from_object(config.config_dict[env])
     Moment(app)
     Bootstrap(app)
@@ -22,8 +22,10 @@ def create_app(env: Union[str, None] = None) -> Flask:
     models.init_app(app)
     cli.init_app(app)
     views.init_app(app)
+    if get_env() == "development":
+        admin.init_app(app)
     templating.init_app(app)
-    admin.init_app(app)
+    api.init_app(app)
     Environment(app)
 
     @babel.localeselector

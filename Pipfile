@@ -22,8 +22,12 @@ flask-bootstrap = "*"
 cssmin = "*"
 jsmin = "*"
 flask-whooshee = "*"
+flask-cors = "*"
+qcloud-python-sts = "*"
 
 [dev-packages]
 flake8 = "*"
 flask-shell-ipython = "*"
+appnope = {version="*", sys_platform="=='darwin'"}
 mypy = "*"
+faker = "*"
