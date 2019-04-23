@@ -1,8 +1,11 @@
-language: python
+language: node
 addons:
   ssh_known_hosts: frostming.com
 services:
   - docker
+install:
+  - yarn install
+  - yarn run build:prod
 before_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t flog .
