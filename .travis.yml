@@ -9,7 +9,7 @@ cache:
 services:
   - docker
 before_install: npm i -g yarn && yarn
-install: cd static && yarn install && yarn run build:prod
+install: cd static && yarn install && yarn run build:prod && cd -
 before_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t flog .
