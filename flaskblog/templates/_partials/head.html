@@ -4,7 +4,7 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300" rel="stylesheet">
 {% assets filters='cssmin', output='dist/flog.css',
    'iconfont/iconfont.css', 'css/dracula.css', 'css/yue.css', 'css/style.css', 'css/article.css' %}
-  <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+<link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
 {% endassets %}
 <meta name="google-site-verification" content="{{ g.site.google_site_verification }}" />
 <!--[if lt IE 9]>
@@ -13,16 +13,20 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" crossorgin="anonymous"></script>
 {{ moment.include_moment(local_js='https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js') }}
 {% if g.site.locale.startswith("zh") %}
-  {{ moment.lang('zh-cn') }}
+{{ moment.lang('zh-cn') }}
 {% endif %}
-{% if g.site.google_analytics_id %}
+{% if integration.google_analytics and integration.google_analytics.enabled %}
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ g.site.google_analytics_id }}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
   gtag('js', new Date());
 
-  gtag('config', '{{ g.site.google_analytics_id }}');
+  gtag('config', '{{ integration.google_analytics.id }}');
+
 </script>
 {% endif %}
