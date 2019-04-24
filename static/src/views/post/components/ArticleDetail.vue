@@ -176,7 +176,7 @@ export default {
     submitForm() {
       this.$refs.postForm.validate(valid => {
         if (!valid) return
-        this.sendPost({ type: 'published', ...this.postForm }).then(resp => {
+        this.sendPost({ is_draft: false, ...this.postForm }).then(resp => {
           this.loading = true
           this.$notify({
             title: this.$t('post.success'),
@@ -197,7 +197,7 @@ export default {
         })
         return
       }
-      this.sendPost({ type: 'draft', ...this.postForm }).then(resp => {
+      this.sendPost({ is_draft: true, ...this.postForm }).then(resp => {
         this.$message({
           message: this.$t('post.saveSuccess'),
           type: 'success',
