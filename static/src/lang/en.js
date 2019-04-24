@@ -30,6 +30,7 @@ export default {
     commentOn: 'Comment On',
     commentOff: 'Comment Off',
     turnOn: 'Turn On',
+    slug: 'URL Slug',
     turnOff: 'Turn Off',
     imageURL: 'Image URL',
     missing: 'is missing',

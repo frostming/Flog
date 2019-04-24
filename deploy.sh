@@ -12,5 +12,4 @@ cd /home/fming/frostming.com
 docker pull $DOCKER_USERNAME/flog:latest
 docker-compose down
 docker-compose up -d
-docker images|grep "<none>"|awk '{print $3}'|xargs -ti docker rmi {}
 EOF

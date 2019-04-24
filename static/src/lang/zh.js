@@ -23,6 +23,7 @@ export default {
     coverImage: '封面图片',
     language: '语言',
     tags: '标签',
+    slug: 'URL短名',
     dragImage: '将文件拖至此处，或',
     clickToUpload: '点击上传',
     inputURL: '输入URL',

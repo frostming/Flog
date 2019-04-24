@@ -47,7 +47,7 @@
               <el-input v-model="item.text" :placeholder="$t('settings.text')" />
             </el-col>
             <el-col :span="12">
-              <el-input v-model="item.link" :placeholder="$t('settings.url')" />
+              <el-input v-model="item.url" :placeholder="$t('settings.url')" />
             </el-col>
             <el-col :span="3">
               <el-button type="danger" icon="el-icon-delete" circle @click="deleteFriendLink(item)" />
