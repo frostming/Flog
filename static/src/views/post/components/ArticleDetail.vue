@@ -143,9 +143,6 @@ export default {
     fetchData(id) {
       fetchPost(id).then(response => {
         this.postForm = response.data
-        // Just for test
-        this.postForm.title += `   Article Id:${this.postForm.id}`
-        this.postForm.description += `   Article Id:${this.postForm.id}`
         // Set tagsview title
         this.setTagsViewTitle()
       }).catch(err => {
