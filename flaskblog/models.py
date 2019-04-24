@@ -87,7 +87,7 @@ class Post(db.Model):
             date=self.date,
             image=self.image,
             category=self.category if not ensure_text else str(self.category),
-            lang='zh' if self.lang.startswith('zh') else self.lang,
+            lang='zh' if self.lang and self.lang.startswith('zh') else self.lang,
             comment=self.comment,
             description=self.description,
             author=self.author,
