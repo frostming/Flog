@@ -83,6 +83,7 @@ export default {
     avatar: 'Avatar',
     icp: 'ICP Number',
     icon: 'Icon',
-    disqusShortname: 'Disqus Shortname'
+    disqusShortname: 'Disqus Shortname',
+    fieldMissing: 'You must fill in all blanks to enable'
   }
 }

@@ -1,12 +1,11 @@
 'use strict'
 const path = require('path')
-const pkg = require('./package.json')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = pkg.name || 'Flog Admin' // page title
+const name = 'Flog Admin' // page title
 const port = 9527 // dev port
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/

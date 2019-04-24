@@ -21,6 +21,13 @@
       :fields="['secret_id', 'secret_key', 'bucket', 'region']"
       image="https://avatars3.githubusercontent.com/u/12334581?s=200&v=4"
     />
+    <card
+      label="Addthis"
+      name="addthis"
+      :initial="integration.addthis"
+      :fields="['pubid']"
+      image="https://frostming.com/images/word-image-456.png"
+    />
   </div>
 </template>
 

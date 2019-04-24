@@ -23,7 +23,7 @@
       <div style="padding: 0 14px 14px;">
         <p>{{ label }}</p>
         <div class="bottom clearfix">
-          <el-switch v-model="settings.enabled" @input="updateSettings" />
+          <el-switch v-model="settings.enabled" @input="enableIntegration" />
         </div>
       </div>
     </el-card>
@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       dialogVisible: false,
-      settings: this.initial
+      settings: this.initial || {}
     }
   },
   watch: {
@@ -50,6 +50,17 @@ export default {
       this.$store.dispatch('integration/updateData', { name: this.name, ...this.settings }).then(_ => {
         this.dialogVisible = false
       })
+    },
+    enableIntegration() {
+      if (Object.entries(this.settings).some(e => !e[1])) {
+        this.$message({
+          type: 'warning',
+          message: this.$t('settings.fieldMissing')
+        })
+        this.settings.enabled = false
+      } else {
+        this.$store.dispatch('integration/updateData', { name: this.name, ...this.settings })
+      }
     }
   }
 }
