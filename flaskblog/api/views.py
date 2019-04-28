@@ -211,8 +211,6 @@ class PostItemView(MethodView):
                 v = [Tag.get_one_or_new(o) for o in v]
             elif k == 'category' and v:
                 v = Category.get_one_or_new(v)
-            elif k == 'lang' and v.startswith('zh'):
-                v = 'zh_Hans_CN'
             setattr(post, k, v)
         db.session.commit()
         return jsonify(SUCCESS_RESPONSE)

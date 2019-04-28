@@ -64,8 +64,6 @@ class Post(db.Model):
         tags = kwargs.get('tags')
         if tags and isinstance(tags[0], str):
             kwargs['tags'] = [Tag.get_one_or_new(tag) for tag in tags]
-        if kwargs.get('lang', 'en').startswith('zh'):
-            kwargs['lang'] = 'zh_Hans_CN'
         kwargs['is_draft'] = kwargs.pop('type', None) == 'draft'
         kwargs.pop('date', None)
         kwargs.pop('last_modified', None)
@@ -87,7 +85,7 @@ class Post(db.Model):
             date=self.date,
             image=self.image,
             category=self.category if not ensure_text else str(self.category),
-            lang='zh' if self.lang and self.lang.startswith('zh') else self.lang,
+            lang=self.lang,
             comment=self.comment,
             description=self.description,
             author=self.author,
