@@ -1,12 +1,17 @@
-.post-text.yue, .yue h1, .yue h2, .yue h3, .yue h4,
-.yue h5, .yue h6 {
+.post-text.yue,
+.yue h1,
+.yue h2,
+.yue h3,
+.yue h4,
+.yue h5,
+.yue h6 {
   font-family: inherit;
 }
 
 .yue blockquote {
-    position: relative;
-    padding: .4em 0 0 2em;
-    font-size: .96em;
+  position: relative;
+  padding: .4em 0 0 2em;
+  font-size: .96em;
 }
 
 .pangu {
@@ -20,18 +25,18 @@ figure img {
 }
 
 .photo-set figure figcaption {
-    position: absolute;
-    left: 3px;
-    right: 3px;
-    bottom: 3px;
-    width: auto;
-    margin: 0;
-    padding: 60px 0 10px;
-    color: #fff;
-    background-image: linear-gradient(180deg,hsla(0,0%,100%,0) 0,rgba(0,0,0,.03) 26%,rgba(0,0,0,.4) 71%,rgba(0,0,0,.5));
-    opacity: .6;
-    -webkit-transition: opacity .2s ease;
-    transition: opacity .2s ease;
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  width: auto;
+  margin: 0;
+  padding: 60px 0 10px;
+  color: #fff;
+  background-image: linear-gradient(180deg, hsla(0, 0%, 100%, 0) 0, rgba(0, 0, 0, .03) 26%, rgba(0, 0, 0, .4) 71%, rgba(0, 0, 0, .5));
+  opacity: .6;
+  -webkit-transition: opacity .2s ease;
+  transition: opacity .2s ease;
 }
 
 .photo-set figure:hover figcaption {
@@ -39,68 +44,68 @@ figure img {
 }
 
 .yue a:hover {
-    color: rgba(0,0,0,.6);
-    border-color: rgba(0,0,0,.6);
+  color: rgba(0, 0, 0, .6);
+  border-color: rgba(0, 0, 0, .6);
 }
 
 .yue .footnotes {
-    font-size: 80%;
-    line-height: 1.32;
-    opacity: .96;
+  font-size: 80%;
+  line-height: 1.32;
+  opacity: .96;
 }
 
 .post-text hr {
-    display: block;
-    border: 0;
-    margin: 2.24em auto 2.86em;
+  display: block;
+  border: 0;
+  margin: 2.24em auto 2.86em;
 }
 
 .post-text hr::after {
-    color: rgba(0,0,0,.2);
-    font-size: 1.1em;
-    display: block;
-    content: "* * * * *";
-    text-align: center;
+  color: rgba(0, 0, 0, .2);
+  font-size: 1.1em;
+  display: block;
+  content: "* * * * *";
+  text-align: center;
 }
 
 .yue .footnotes::before {
-    content: "";
-    display: block;
-    border-top: 4px solid rgba(0,0,0,.1);
-    width: 50%;
-    max-width: 100px;
-    margin: 40px 0 20px;
+  content: "";
+  display: block;
+  border-top: 4px solid rgba(0, 0, 0, .1);
+  width: 50%;
+  max-width: 100px;
+  margin: 40px 0 20px;
 }
 
 .post-text .footnote-ref>a {
-    display: inline-block;
-    text-indent: 0;
-    width: 14px;
-    text-align: center;
-    font: 700 8px/14px -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Droid Sans Fallback,Microsoft YaHei,sans-serif;
-    border-bottom: 0;
-    background-color: rgba(0,0,0,.18);
-    color: #fff;
-    border-radius: 14px;
-    vertical-align: middle;
-    -webkit-transition: all .1s ease;
-    transition: all .1s ease;
+  display: inline-block;
+  text-indent: 0;
+  width: 14px;
+  text-align: center;
+  font: 700 8px/14px -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB, Droid Sans Fallback, Microsoft YaHei, sans-serif;
+  border-bottom: 0;
+  background-color: rgba(0, 0, 0, .18);
+  color: #fff;
+  border-radius: 14px;
+  vertical-align: middle;
+  -webkit-transition: all .1s ease;
+  transition: all .1s ease;
 }
 
 .post-text .footnote-ref>a:hover {
-    color: #fff;
-    background-color: rgba(0,0,0,.98);
+  color: #fff;
+  background-color: rgba(0, 0, 0, .98);
 }
 
 .footnotes a[href^="#fnref"] {
-    border-bottom: 0;
+  border-bottom: 0;
 }
 
 .yue a {
-    color: rgba(0,0,0,.98);
-    word-wrap: break-word;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(0,0,0,.26);
+  color: rgba(0, 0, 0, .98);
+  word-wrap: break-word;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .26);
 }
 
 .post-title {
@@ -253,7 +258,8 @@ figure img {
 
 }
 
-.related, .cc {
+.related,
+.cc {
   border-top: 1px rgba(0, 0, 0, .1) solid;
 }
 
@@ -301,7 +307,8 @@ blockquote.centerquote {
   position: relative;
 }
 
-blockquote.centerquote::before, blockquote.centerquote::after{
+blockquote.centerquote::before,
+blockquote.centerquote::after {
   position: absolute;
   display: block;
   font-family: FontAwesome;
@@ -320,12 +327,12 @@ blockquote.centerquote::after {
   bottom: -8px;
 }
 
-.post-tags a {
+#main .post-tags a {
   font-size: 14px;
   color: rgba(0, 0, 0, .3);
   display: inline-block;
   padding: 2px 5px;
-  transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  border: none;
 }
 
 .post-tags a:hover {
