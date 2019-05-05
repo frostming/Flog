@@ -199,13 +199,19 @@ img.avatar {
   text-decoration: none;
 }
 
+.post-item-image {
+  width: 35%;
+}
+
 .post-item-image>a {
   border-bottom: none!important;
 }
 
-.post-item-image img {
-    margin-left: 0.8em;
-    max-width: 150px;
+.post-item-image figure {
+  width: 100%;
+  padding-top: 75%;
+  background: center center no-repeat;
+  background-size: cover;
 }
 
 #main {

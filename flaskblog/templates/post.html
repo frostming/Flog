@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block coverstyle %}
-{% if post.image %}style="background-image:url({{post.image}});"{% endif %}
+{% if post.image %}data-bg="url({{post.image}})"{% endif %}
 {% endblock %}
 
 {% block rightside %}
