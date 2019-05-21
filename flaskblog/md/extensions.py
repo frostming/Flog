@@ -68,7 +68,7 @@ class FlogRenderer(
 
     def _render_toc_item(self, slug, text):
         return '<a class="list-group-item" href="#{}">{}</a>\n'.format(
-            slug, text
+            slug, re.sub(r"<.+?>", "", text)
         )
 
     def render_toc(self, maxlevel=3):
