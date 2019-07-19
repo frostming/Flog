@@ -1,7 +1,5 @@
 import re
 from marko import block, HTMLRenderer
-from marko.ext.gfm import GFMParser, GFMRenderer
-from marko.ext import toc, pangu, footnote
 
 
 class PhotoSet(block.BlockElement):
@@ -25,17 +23,14 @@ class PhotoSet(block.BlockElement):
         return rv
 
 
-class FlogParser(footnote.FootnoteParserMixin, GFMParser):
+class FlogParserMixin:
 
     def __init__(self, *extras):
         super().__init__(*extras)
         self.add_element(PhotoSet)
 
 
-class FlogRenderer(
-    toc.TocRendererMixin, footnote.FootnoteRendererMixin, pangu.PanguRendererMixin,
-    GFMRenderer
-):
+class FlogRendererMixin:
     def render_image(self, element):
         result = super().render_image(element)
         result = result.replace(
@@ -80,3 +75,8 @@ class FlogRenderer(
     def render_html_block(self, element):
         # Disable tag filter, use the original render function
         return HTMLRenderer.render_html_block(self, element)
+
+
+class FlogExtension:
+    parser_mixins = [FlogParserMixin]
+    renderer_mixins = [FlogRendererMixin]
