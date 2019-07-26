@@ -10,9 +10,9 @@ from marko.ext.footnote import FootnoteDef
 from .extensions import FlogExtension
 
 markdown = Markdown(extensions=[
-    FlogExtension,
-    TocExtension,
+    GFMExtension,
     PanguExtension,
+    TocExtension,
     FootnoteDef,
-    GFMExtension
+    FlogExtension
 ])

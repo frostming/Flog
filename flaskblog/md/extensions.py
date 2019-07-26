@@ -23,13 +23,6 @@ class PhotoSet(block.BlockElement):
         return rv
 
 
-class FlogParserMixin:
-
-    def __init__(self, *extras):
-        super().__init__(*extras)
-        self.add_element(PhotoSet)
-
-
 class FlogRendererMixin:
     def render_image(self, element):
         result = super().render_image(element)
@@ -78,5 +71,5 @@ class FlogRendererMixin:
 
 
 class FlogExtension:
-    parser_mixins = [FlogParserMixin]
+    elements = [PhotoSet]
     renderer_mixins = [FlogRendererMixin]
