@@ -28,7 +28,7 @@ export default {
     clickToUpload: '点击上传',
     inputURL: '输入URL',
     dragUpload: '拖拽上传',
-    commentOn: '评论已打开',
+    commentOn: '打开评论',
     commentOff: '评论已关闭',
     turnOn: '打开',
     turnOff: '关闭',

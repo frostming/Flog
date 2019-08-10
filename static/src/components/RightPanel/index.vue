@@ -1,9 +1,13 @@
 <template>
-  <div ref="rightPanel" :class="{show:show}" class="rightPanel-container">
+  <div ref="rightPanel" :class="{ show: show }" class="rightPanel-container">
     <!-- <div class="rightPanel-background" /> -->
-    <div class="rightPanel" :class="{show:show}">
-      <div class="handle-button" :style="{'top':buttonTop,'background-color':theme}" @click="show=!show">
-        <i :class="show?'el-icon-close':'el-icon-setting'" />
+    <div class="rightPanel" :class="{ show: show }">
+      <div
+        class="handle-button"
+        :style="{ top: buttonTop, 'background-color': theme }"
+        @click="show = !show"
+      >
+        <i :class="show ? 'el-icon-close' : 'el-icon-setting'" />
       </div>
       <div class="rightPanel-items">
         <slot />
@@ -13,7 +17,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'RightPanel',
   props: {
@@ -55,14 +58,15 @@ export default {
   padding: 0 10px;
   width: 330px;
   top: 50px;
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, .05);
-  transition: all .25s cubic-bezier(.7, .3, .1, 1);
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s cubic-bezier(0.7, 0.3, 0.1, 1);
   transform: translate(100%);
   right: 0px;
 
   @media (min-width: 980px) {
     width: 380px;
-  };
+    transform: translate(0);
+  }
 }
 
 .rightPanel-items {
@@ -71,7 +75,7 @@ export default {
 }
 
 .show {
-  transition: all .3s cubic-bezier(.7, .3, .1, 1);
+  transition: all 0.3s cubic-bezier(0.7, 0.3, 0.1, 1);
 
   .rightPanel {
     transform: translate(0);
@@ -95,6 +99,10 @@ export default {
   i {
     font-size: 24px;
     line-height: 48px;
+  }
+
+  @media (min-width: 980px) {
+    display: none;
   }
 }
 </style>

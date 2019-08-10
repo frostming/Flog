@@ -47,7 +47,7 @@
       </el-form-item>
 
       <div style="margin-bottom:30px;">
-        <CommentDropdown v-model="postForm.comment" />
+        <el-checkbox v-model="postForm.comment">{{ $t('post.commentOn') }}</el-checkbox>
         <el-button v-loading="loading" style="margin-left: 10px;" type="success" @click="submitForm">
           {{ $t('post.publish' ) }}
         </el-button>
@@ -64,7 +64,6 @@ import MarkdownEditor from '@/components/MarkdownEditor'
 import Upload from '@/components/Upload/SingleImage'
 import MDinput from '@/components/MDinput'
 import { fetchPost, createPost, updatePost } from '@/api/post'
-import { CommentDropdown } from './Dropdown'
 import { categoryList, tagList } from '@/api/remote-search'
 import RightPanel from '@/components/RightPanel'
 import uploadData from '@/api/cos'
@@ -83,7 +82,7 @@ const defaultForm = {
 
 export default {
   name: 'ArticleDetail',
-  components: { MarkdownEditor, MDinput, Upload, CommentDropdown, RightPanel },
+  components: { MarkdownEditor, MDinput, Upload, RightPanel },
   props: {
     isEdit: {
       type: Boolean,
@@ -222,5 +221,11 @@ export default {
 
 .tui-editor-defaultUI {
   border-bottom: none;
+}
+
+@media (min-width: 980px) {
+  .form-container {
+    padding-right: 380px;
+  }
 }
 </style>
