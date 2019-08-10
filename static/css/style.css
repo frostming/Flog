@@ -1,7 +1,7 @@
 body {
   margin: 0;
   background: #f5f5f5;
-  font-family: Roboto, -apple-system, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-family: Roboto, -apple-system, "Helvetica Neue", "source-han-sans-cjk-ja", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   font-weight: normal;
   position: relative;
 }
@@ -10,7 +10,12 @@ body {
   font-weight: 900;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 600;
 }
 
@@ -18,7 +23,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
 }
 
-.site-des{
+.site-des {
   margin-top: 1rem;
 }
 
@@ -61,7 +66,8 @@ img.avatar {
   background-color: #e8e8e8;
 }
 
-.footer a, #main a {
+.footer a,
+#main a {
   color: inherit;
   transition: color .2s;
 }
@@ -70,7 +76,8 @@ img.avatar {
   border-bottom: 1px solid #ccc;
 }
 
-.footer a:hover, #main a:hover {
+.footer a:hover,
+#main a:hover {
   text-decoration: none;
   border-bottom: none;
   color: var(--primary-color);
@@ -80,11 +87,13 @@ img.avatar {
   margin-bottom: 0;
 }
 
-.social-links>li, .copyright>li {
+.social-links>li,
+.copyright>li {
   display: inline-block;
 }
 
-.social-links, .copyright {
+.social-links,
+.copyright {
   padding: 0
 }
 
@@ -101,8 +110,9 @@ img.avatar {
 .social-links {
   font-size: 1.75em;
 }
+
 @media (min-width: 992px) {
-  .copyright > li+li {
+  .copyright>li+li {
     margin-left: 1em;
     padding-left: 1em;
     border-left: 1px solid #dddddd;
@@ -113,7 +123,7 @@ img.avatar {
   color: rgba(255, 255, 255, .5);
 }
 
-.navbar-dark a.social-item:hover{
+.navbar-dark a.social-item:hover {
   color: rgba(255, 255, 255, .8);
   text-decoration: none;
 }
@@ -137,7 +147,7 @@ img.avatar {
   max-width: 100px;
   margin: 32px auto;
   border: 0 none;
-  border-top: 1px solid rgba(0,0,0,.1);
+  border-top: 1px solid rgba(0, 0, 0, .1);
 }
 
 .post-meta {
@@ -153,7 +163,7 @@ img.avatar {
 .post-cat {
   color: inherit;
   margin-left: 1em;
-  border: none!important;
+  border: none !important;
 }
 
 .post-cat:hover {
@@ -204,7 +214,7 @@ img.avatar {
 }
 
 .post-item-image>a {
-  border-bottom: none!important;
+  border-bottom: none !important;
 }
 
 .post-item-image figure {
@@ -236,7 +246,7 @@ img.avatar {
 .paginate a:hover {
   text-decoration: none;
   border-color: var(--primary-color);
-  border-bottom: solid 1px!important;
+  border-bottom: solid 1px !important;
 }
 
 #tag-cloud a {
@@ -259,11 +269,11 @@ img.avatar {
 }
 
 @media (max-width: 900px) {
-  .bio > h1 {
+  .bio>h1 {
     font-size: 3em;
   }
 
-  .bio > img {
+  .bio>img {
     width: 30%;
   }
 }
