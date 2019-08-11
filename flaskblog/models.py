@@ -124,6 +124,8 @@ def render_markdown(
 ) -> None:
     if not target.slug:
         target.slug = slugify(target.title)
+    if not target.date:
+        target.date = datetime.utcnow()
     target.html = markdown(target.content)
     target.toc = markdown.renderer.render_toc()
     target.url = "/{}/{}".format(target.date.strftime("%Y/%m-%d"), target.slug)
