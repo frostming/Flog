@@ -40,9 +40,7 @@ def post(year: str, date: str, title: str) -> str:
             break
     if not post:
         abort(404)
-    content = markdown(post.content)  # type: ignore
-    toc = markdown.renderer.render_toc()
-    return render_template("post.html", post=post, content=content, toc=toc)
+    return render_template("post.html", post=post)
 
 
 def about() -> str:

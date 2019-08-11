@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 from random import choice
-from typing import Union
+from typing import Union, Type
 
 import sqlalchemy as sa
 from flask import Flask, current_app, json, url_for
@@ -11,35 +11,40 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_whooshee import Whooshee
 from slugify import slugify
 from werkzeug.security import check_password_hash, generate_password_hash
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired
+from itsdangerous import (
+    TimedJSONWebSignatureSerializer as Serializer,
+    BadSignature,
+    SignatureExpired,
+)
+from .md import markdown
 
 db: SQLAlchemy = SQLAlchemy()
 whooshee: Whooshee = Whooshee()
 
 tags = db.Table(
-    'tags',
-    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
-    db.Column('post_id', db.Integer, db.ForeignKey('post.id')),
+    "tags",
+    db.Column("tag_id", db.Integer, db.ForeignKey("tag.id")),
+    db.Column("post_id", db.Integer, db.ForeignKey("post.id")),
 )  # type: sa.Table
 
 DEFAULT_SETTINGS = {
-    'locale': 'en',
-    'name': 'Flog',
-    'cover_url': '/static/images/cover.jpg',
-    'avatar': '/static/images/avatar.jpeg',
-    'description': 'A simple blog powered by Flask',
+    "locale": "en",
+    "name": "Flog",
+    "cover_url": "/static/images/cover.jpg",
+    "avatar": "/static/images/avatar.jpeg",
+    "description": "A simple blog powered by Flask",
 }
 
 
 def auto_delete_orphans(cls: sa.Column, attr: str) -> None:
-    @sa.event.listens_for(sa.orm.Session, 'after_flush')
+    @sa.event.listens_for(sa.orm.Session, "after_flush")
     def delete_orphan_listener(session, ctx):
         session.query(cls).filter(~getattr(cls, attr).any()).delete(
             synchronize_session=False
         )
 
 
-@whooshee.register_model('title', 'description', 'content')
+@whooshee.register_model("title", "description", "content")
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
@@ -50,33 +55,27 @@ class Post(db.Model):
     image = db.Column(db.String(400))
     lang = db.Column(db.String(20))
     content = db.Column(db.Text)
+    html = db.Column(db.Text)
+    toc = db.Column(db.Text)
+    url = db.Column(db.String(80))
     comment = db.Column(db.Boolean, default=True)
     description = db.Column(db.String(400))
     author = db.Column(db.String(50))
-    tags = db.relationship('Tag', secondary=tags, backref='posts')
+    tags = db.relationship("Tag", secondary=tags, backref="posts")
     slug = db.Column(db.String(100))
     is_draft = db.Column(db.Boolean, default=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey("category.id"))
 
     def __init__(self, **kwargs):
-        if isinstance(kwargs.get('category'), str):
-            kwargs['category'] = Category.get_one_or_new(kwargs['category'])
-        tags = kwargs.get('tags')
+        if isinstance(kwargs.get("category"), str):
+            kwargs["category"] = Category.get_one_or_new(kwargs["category"])
+        tags = kwargs.get("tags")
         if tags and isinstance(tags[0], str):
-            kwargs['tags'] = [Tag.get_one_or_new(tag) for tag in tags]
-        kwargs['is_draft'] = kwargs.pop('type', None) == 'draft'
-        kwargs.pop('date', None)
-        kwargs.pop('last_modified', None)
+            kwargs["tags"] = [Tag.get_one_or_new(tag) for tag in tags]
+        kwargs["is_draft"] = kwargs.pop("type", None) == "draft"
+        kwargs.pop("date", None)
+        kwargs.pop("last_modified", None)
         super().__init__(**kwargs)
-
-    @property
-    def url(self) -> str:
-        return '/%d/%02d-%02d/%s' % (
-            self.date.year,
-            self.date.month,
-            self.date.day,
-            self.slug,
-        )
 
     def to_dict(self, ensure_text=False) -> dict:
         return dict(
@@ -97,7 +96,7 @@ class Post(db.Model):
         )
 
     def __repr__(self) -> str:
-        return '<Post: %s>' % self.title
+        return "<Post: %s>" % self.title
 
     @property
     def previous(self) -> "Post":
@@ -118,18 +117,16 @@ class Post(db.Model):
         return None
 
 
-@sa.event.listens_for(Post, 'before_insert')
-def init_url(mapper, connection: sa.engine.Connection, target: sa.orm.Mapper) -> None:
-    if target.slug:
-        return
-    target.slug = slugify(target.title)
-
-
-@sa.event.listens_for(Post, 'before_update')
-def update_post(
-    mapper, connection: sa.engine.Connection, target: sa.orm.Mapper
+@sa.event.listens_for(Post, "before_insert")
+@sa.event.listens_for(Post, "before_update")
+def render_markdown(
+    mapper: Type[sa.orm.Mapper], connection: sa.engine.Connection, target: sa.orm.Mapper
 ) -> None:
-    target.last_modified = datetime.utcnow()
+    if not target.slug:
+        target.slug = slugify(target.title)
+    target.html = markdown(target.content)
+    target.toc = markdown.renderer.render_toc()
+    target.url = "/{}/{}".format(target.date.strftime("%Y/%m-%d"), target.slug)
 
 
 class User(db.Model, UserMixin):
@@ -140,9 +137,9 @@ class User(db.Model, UserMixin):
     settings = db.Column(db.Text())
 
     def __init__(self, **kwargs) -> None:
-        password = kwargs.pop('password')
+        password = kwargs.pop("password")
         password = generate_password_hash(password)
-        kwargs['password'] = password
+        kwargs["password"] = password
         super(User, self).__init__(**kwargs)
 
     def check_password(self, password: str) -> bool:
@@ -154,7 +151,7 @@ class User(db.Model, UserMixin):
         rv: Union[None, User] = cls.query.one_or_none()
         if not rv:
             rv = cls(
-                username='admin', password=current_app.config['DEFAULT_ADMIN_PASSWORD']
+                username="admin", password=current_app.config["DEFAULT_ADMIN_PASSWORD"]
             )
             db.session.add(rv)
             db.session.commit()
@@ -162,17 +159,17 @@ class User(db.Model, UserMixin):
 
     @classmethod
     def verify_auth_token(cls, token):
-        s = Serializer(current_app.config['SECRET_KEY'])
+        s = Serializer(current_app.config["SECRET_KEY"])
         try:
             data = s.loads(token)
         except (BadSignature, SignatureExpired):
             return None
-        user = cls.query.get(data['id'])
+        user = cls.query.get(data["id"])
         return user
 
     def generate_token(self, expiration=24 * 60 * 60):
-        s = Serializer(current_app.config['SECRET_KEY'], expires_in=expiration)
-        return s.dumps({'id': self.id})
+        s = Serializer(current_app.config["SECRET_KEY"], expires_in=expiration)
+        return s.dumps({"id": self.id})
 
     def read_settings(self) -> dict:
         return json.loads(self.settings or json.dumps(DEFAULT_SETTINGS))
@@ -198,11 +195,11 @@ class Tag(db.Model, GetOrNewMixin):
 
     def __init__(self, **kwargs) -> None:
         with current_app.test_request_context():
-            kwargs['url'] = url_for('tag', text=slugify(kwargs['text']))
+            kwargs["url"] = url_for("tag", text=slugify(kwargs["text"]))
         super(Tag, self).__init__(**kwargs)
 
     def __repr__(self) -> str:
-        return '<Tag: {}>'.format(self.text)
+        return "<Tag: {}>".format(self.text)
 
     @property
     def heat(self) -> int:
@@ -215,10 +212,10 @@ class Tag(db.Model, GetOrNewMixin):
 class Category(db.Model, GetOrNewMixin):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(50), unique=True)
-    posts = db.relationship('Post', backref='category')
+    posts = db.relationship("Post", backref="category")
 
     def __repr__(self) -> str:
-        return '<Category: {}>'.format(self.text)
+        return "<Category: {}>".format(self.text)
 
     def __str__(self) -> str:
         return self.text
@@ -235,5 +232,5 @@ def init_app(app: Flask) -> None:
     db.init_app(app)
     Migrate(app, db)
     whooshee.init_app(app)
-    auto_delete_orphans(Tag, 'posts')
-    auto_delete_orphans(Category, 'posts')
+    auto_delete_orphans(Tag, "posts")
+    auto_delete_orphans(Category, "posts")
