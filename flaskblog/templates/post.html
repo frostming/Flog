@@ -23,12 +23,12 @@
 {% endblock %}
 
 {% block rightside %}
-  {% if toc %}
+  {% if post.toc %}
   <div class="post-toc sticky-top">
     <div class="toc-head">
       {{_('TABLE OF CONTENTS')}}
     </div>
-    {{ toc | safe }}
+    {{ post.toc | safe }}
   </div>
   {% endif %}
 {% endblock %}
@@ -51,7 +51,7 @@
   <h1 class="post-title" itemprop="title">{{post.title}}</h1>
   <div class="post-subtitle" itemprop="subtitle">{% if post.description %}{{post.description}}{% endif %}</div>
   <div class="post-text yue" itemprop="content">
-    {{ content | safe }}
+    {{ post.html | safe }}
   </div>
   <div class="post-tail">
     {{_('Last edited')}} <time datetime="{{post.last_modified}}">{{moment(post.last_modified).fromNow()}}</time>
