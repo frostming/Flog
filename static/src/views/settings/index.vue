@@ -128,7 +128,7 @@ export default {
     },
     fetchSettings() {
       getSettings().then(resp => {
-        this.settingsForm = resp.data
+        this.settingsForm = { ...this.settingsForm, ...(resp.data || {}) }
       })
     },
     submitForm() {

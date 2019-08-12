@@ -78,6 +78,12 @@ style="background-image:url({{g.site.cover_url}});"
     {% endif %}
     </ul>
   </div>
+  {% for item in g.site.sociallinks if item.name|lower == 'twitter' %}
+  <div class="right-section">
+    <a class="twitter-timeline" data-height="800" href="{{item.link}}?ref_src=twsrc%5Etfw">Tweets</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </div>
+  {% endfor %}
 {% endblock %}
 
 {% block extrajs %}
