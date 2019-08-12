@@ -81,7 +81,7 @@ def favicon() -> Response:
 
 def feed() -> Response:
     feed = AtomFeed(g.site["name"], feed_url=request.url, url=request.url_root)
-    posts = Post.query.filter_by(is_draft=False).order_by(Post.date.desc())
+    posts = Post.query.filter_by(is_draft=False).order_by(Post.date.desc()).limit(15)
     for post in posts:
         feed.add(
             post.title,
@@ -96,7 +96,7 @@ def feed() -> Response:
 
 
 def sitemap() -> Response:
-    posts = Post.query.order_by(Post.date.desc())
+    posts = Post.query.filter_by(is_draft=False).order_by(Post.date.desc())
     fp = io.BytesIO(render_template("sitemap.xml", posts=posts).encode("utf-8"))
     return send_file(fp, attachment_filename="sitemap.xml")
 
