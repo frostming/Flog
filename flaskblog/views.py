@@ -81,7 +81,7 @@ def favicon() -> Response:
 
 def feed() -> Response:
     feed = AtomFeed(g.site["name"], feed_url=request.url, url=request.url_root)
-    posts = Post.query.order_by(Post.date.desc()).limit(15)
+    posts = Post.query.filter_by(is_draft=False).order_by(Post.date.desc())
     for post in posts:
         feed.add(
             post.title,
