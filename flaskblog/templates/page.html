@@ -3,12 +3,12 @@
 
 {% block mainbody %}
   {% block nav %}
-  <nav class="navbar fixed-top navbar-expand-lg {% block navstyle %}navbar-dark{% endblock %}">
+  <nav class="navbar fixed-top navbar-expand-lg {% block navstyle %}navbar-dark{% endblock %}" data-aos="fade-in">
     {% include '_partials/nav.html' %}
   </nav>
   {% endblock %}
 
-  <section class="container-fluid page-head lazy" {%block coverstyle %}{% endblock %}>
+  <section class="container-fluid page-head lazy" data-aos="fade-in" {%block coverstyle %}{% endblock %}>
     <div class="shade"></div>
     {% block pagehead %}{% endblock %}
   </section>
@@ -18,11 +18,11 @@
     <div class="container-fluid px-lg-5">
       <div class="row">
         <div class="col d-none d-xl-block"></div>
-        <div class="col-12 col-xl-6 col-lg-8 px-lg-5 center-box">
+        <div class="col-12 col-xl-6 col-lg-8 px-lg-5 center-box" data-aos="fade-up">
           {% block content %}
           {% endblock %}
         </div>
-        <div class="col d-none d-lg-block">
+        <div class="col d-none d-lg-block" data-aos="fade-left">
           {% block rightside %}
           {% endblock %}
         </div>
