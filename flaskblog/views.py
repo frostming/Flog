@@ -114,7 +114,7 @@ def archive() -> str:
         return item.date.year, item.date.month
 
     result = groupby(Post.query.order_by(Post.date.desc()), grouper)
-    return render_template("archive.html", items=result)
+    return render_template("archive.html", items=result, tag_cloud=get_tag_cloud())
 
 
 def init_app(app: Flask) -> None:
