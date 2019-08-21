@@ -64,6 +64,7 @@ ul.timeline-items > li {
 {% endblock %}
 
 {% block extrajs %}
+{{ super() }}
 <script>
   $(function() {
     $('.timeline-date').each(function(i, e) {
