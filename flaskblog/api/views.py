@@ -256,7 +256,9 @@ class PageItemView(MethodView):
     def put(self, id):
         data = request.get_json()
         data.pop('id', None)
-        Page.query.filter_by(id=id).update(data)
+        page = Page.query.get_or_404(id)
+        for k, v in data.items():
+            setattr(page, k, v)
         db.session.commit()
         return jsonify(SUCCESS_RESPONSE)
 
