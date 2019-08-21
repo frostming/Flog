@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import PostTab from './components/PostTab'
+import PostTab from '@/components/PostTab'
 
 export default {
   name: 'PostList',

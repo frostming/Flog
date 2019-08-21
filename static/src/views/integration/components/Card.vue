@@ -33,7 +33,28 @@
 <script>
 
 export default {
-  props: ['label', 'fields', 'initial', 'image', 'name'],
+  props: {
+    label: {
+      type: String,
+      default: () => ''
+    },
+    fields: {
+      type: Array,
+      default: () => []
+    },
+    initial: {
+      type: Object,
+      default: () => { return {} }
+    },
+    image: {
+      type: String,
+      default: () => ''
+    },
+    name: {
+      type: String,
+      default: () => ''
+    }
+  },
   data() {
     return {
       dialogVisible: false,

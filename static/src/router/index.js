@@ -92,7 +92,32 @@ export const asyncRoutes = [
       }
     ]
   },
-
+  {
+    path: '/page',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/page/list'),
+        name: 'Pages',
+        meta: { title: 'pages', icon: 'documentation' }
+      },
+      {
+        path: 'create',
+        component: () => import('@/views/page/create'),
+        name: 'CreatePage',
+        meta: { title: 'createPage', icon: 'edit' },
+        hidden: true
+      },
+      {
+        path: 'edit/:id(\\d+)',
+        component: () => import('@/views/page/edit'),
+        name: 'EditPage',
+        meta: { title: 'editPage', noCache: true, activeMenu: '/page/list' },
+        hidden: true
+      }
+    ]
+  },
   {
     path: '/settings',
     component: Layout,

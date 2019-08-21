@@ -3,7 +3,7 @@ from . import api
 from .utils import verify_auth
 from flask import request, jsonify, g, abort, json
 from flask.views import MethodView
-from ..models import Post, Category, Tag, db, generate_password_hash, Integration
+from ..models import Post, Category, Tag, db, generate_password_hash, Integration, Page
 from ..templating import get_integrations
 
 TOKEN_HEADER = 'X-Token'
@@ -18,37 +18,32 @@ def authenticate_view():
         return
     token = request.headers.get(TOKEN_HEADER)
     if not token or not verify_auth(token):
-        return jsonify({
-            'code': 50008,
-            'data': {'error': 'Invalid token'}
-        })
+        return jsonify({'code': 50008, 'data': {'error': 'Invalid token'}})
 
 
 @api.route('/user/login', methods=['POST'])
 def login():
     data = request.get_json()
     if not verify_auth(data.get('username'), data.get('password')):
-        return jsonify({
-            'code': 60204,
-            'message': 'Account and password are incorrect.'
-        })
-    return jsonify({
-        'code': 20000,
-        'data': {'token': g.user.generate_token().decode()}
-    })
+        return jsonify(
+            {'code': 60204, 'message': 'Account and password are incorrect.'}
+        )
+    return jsonify({'code': 20000, 'data': {'token': g.user.generate_token().decode()}})
 
 
 @api.route('/user/info')
 def get_info():
-    return jsonify({
-        'code': 20000,
-        'data': {
-            'roles': ['admin'],
-            'introduction': 'I am a super administrator',
-            'avatar': g.site['avatar'],
-            'name': 'Site Admin'
+    return jsonify(
+        {
+            'code': 20000,
+            'data': {
+                'roles': ['admin'],
+                'introduction': 'I am a super administrator',
+                'avatar': g.site['avatar'],
+                'name': 'Site Admin',
+            },
         }
-    })
+    )
 
 
 @api.route('/user/logout', methods=['POST'])
@@ -63,7 +58,10 @@ def change_password():
     if not g.user.check_password(data['old']):
         abort(401)
     if data['new'] != data['confirm']:
-        return jsonify({'code': 51123, 'message': 'New and confirm are not the same!'}), 400
+        return (
+            jsonify({'code': 51123, 'message': 'New and confirm are not the same!'}),
+            400,
+        )
     g.user.password = generate_password_hash(data['new'])
     db.session.add(g.user)
     db.session.commit()
@@ -73,10 +71,7 @@ def change_password():
 @api.route('/settings', methods=['GET', 'POST'])
 def settings():
     if request.method == 'GET':
-        return jsonify({
-            'code': 20000,
-            'data': g.site
-        })
+        return jsonify({'code': 20000, 'data': g.site})
     else:
         g.site.update(request.get_json())
         g.user.write_settings(g.site)
@@ -90,50 +85,59 @@ def theme():
         g.user.write_settings(g.site)
         return jsonify(SUCCESS_RESPONSE)
     else:
-        return jsonify({
-            'code': 20000,
-            'data': {'value': g.site.get('primary_color', '#000000')}
-        })
+        return jsonify(
+            {'code': 20000, 'data': {'value': g.site.get('primary_color', '#000000')}}
+        )
 
 
 @api.route('/settings/language', methods=['GET', 'POST'])
 def language():
     if request.method == "POST":
         locale_in_request = request.get_json().get('value')
-        g.site['locale'] = 'zh_Hans_CN' if locale_in_request == 'zh' else locale_in_request
+        g.site['locale'] = (
+            'zh_Hans_CN' if locale_in_request == 'zh' else locale_in_request
+        )
         g.user.write_settings(g.site)
         return jsonify(SUCCESS_RESPONSE)
     else:
         locale_in_g = g.site.get('locale')
-        return jsonify({
-            'code': 20000,
-            'data': {'value': 'zh' if str(locale_in_g).startswith('zh') else locale_in_g}
-        })
+        return jsonify(
+            {
+                'code': 20000,
+                'data': {
+                    'value': 'zh' if str(locale_in_g).startswith('zh') else locale_in_g
+                },
+            }
+        )
 
 
 @api.route('/categories')
 def categories():
     result = Category.query.all()
-    return jsonify({
-        'code': 20000,
-        'data': {
-            'total': len(result),
-            'items': [{'id': cat.id, 'name': cat.text} for cat in result]
+    return jsonify(
+        {
+            'code': 20000,
+            'data': {
+                'total': len(result),
+                'items': [{'id': cat.id, 'name': cat.text} for cat in result],
+            },
         }
-    })
+    )
 
 
 @api.route('/tags')
 def tags():
     name = request.args.get('name')
     result = Tag.query.filter(Tag.text.ilike(f'%{name}%')).all()
-    return jsonify({
-        'code': 20000,
-        'data': {
-            'total': len(result),
-            'items': [{'id': tag.id, 'name': tag.text} for tag in result]
+    return jsonify(
+        {
+            'code': 20000,
+            'data': {
+                'total': len(result),
+                'items': [{'id': tag.id, 'name': tag.text} for tag in result],
+            },
         }
-    })
+    )
 
 
 @api.route('/token/cos')
@@ -159,16 +163,13 @@ def cos_token():
             "name/cos:ListMultipartUploads",
             "name/cos:ListParts",
             "name/cos:UploadPart",
-            "name/cos:CompleteMultipartUpload"
-        ]
+            "name/cos:CompleteMultipartUpload",
+        ],
     }
 
     sts = Sts(config)
     response = sts.get_credential()
-    return jsonify({
-        'code': 20000,
-        'data': response
-    })
+    return jsonify({'code': 20000, 'data': response})
 
 
 class PostView(MethodView):
@@ -176,14 +177,21 @@ class PostView(MethodView):
         is_draft = request.args.get('type', 'published') == 'draft'
         page = int(request.args.get('page', 1))
         limit = int(request.args.get('limit', 20))
-        items = Post.query.filter_by(is_draft=is_draft).order_by(Post.date.desc()).paginate(page=page, per_page=limit).items
-        return jsonify({
-            'code': 20000,
-            'data': {
-                'total': Post.query.filter_by(is_draft=is_draft).count(),
-                'items': [post.to_dict(True) for post in items]
+        items = (
+            Post.query.filter_by(is_draft=is_draft)
+            .order_by(Post.date.desc())
+            .paginate(page=page, per_page=limit)
+            .items
+        )
+        return jsonify(
+            {
+                'code': 20000,
+                'data': {
+                    'total': Post.query.filter_by(is_draft=is_draft).count(),
+                    'items': [post.to_dict(True) for post in items],
+                },
             }
-        })
+        )
 
     def post(self):
         post_data = request.get_json()
@@ -196,10 +204,7 @@ class PostView(MethodView):
 class PostItemView(MethodView):
     def get(self, id):
         post = Post.query.get_or_404(id)
-        return jsonify({
-            'code': 20000,
-            'data': post.to_dict(True)
-        })
+        return jsonify({'code': 20000, 'data': post.to_dict(True)})
 
     def put(self, id):
         post = Post.query.get_or_404(id)
@@ -222,12 +227,49 @@ class PostItemView(MethodView):
         return jsonify(SUCCESS_RESPONSE)
 
 
+class PageView(MethodView):
+    def get(self):
+        items = Page.query
+        return jsonify(
+            {
+                'code': 20000,
+                'data': {
+                    'total': items.count(),
+                    'items': [post.to_dict() for post in items],
+                },
+            }
+        )
+
+    def post(self):
+        post_data = request.get_json()
+        page = Page(**post_data)
+        db.session.add(page)
+        db.session.commit()
+        return jsonify(SUCCESS_RESPONSE)
+
+
+class PageItemView(MethodView):
+    def get(self, id):
+        page = Page.query.get_or_404(id)
+        return jsonify({'code': 20000, 'data': page.to_dict()})
+
+    def put(self, id):
+        data = request.get_json()
+        data.pop('id', None)
+        Page.query.filter_by(id=id).update(data)
+        db.session.commit()
+        return jsonify(SUCCESS_RESPONSE)
+
+    def delete(self, id):
+        page = Page.query.get_or_404(id)
+        db.session.delete(page)
+        db.session.commit()
+        return jsonify(SUCCESS_RESPONSE)
+
+
 class IntegrationView(MethodView):
     def get(self):
-        return jsonify({
-            'code': 20000,
-            'data': get_integrations()['integration']
-        })
+        return jsonify({'code': 20000, 'data': get_integrations()['integration']})
 
     def post(self):
         data = request.get_json()
@@ -243,4 +285,6 @@ class IntegrationView(MethodView):
 
 api.add_url_rule('/post', view_func=PostView.as_view('post'))
 api.add_url_rule('/post/<int:id>', view_func=PostItemView.as_view('post_item'))
+api.add_url_rule('/page', view_func=PageView.as_view('page'))
+api.add_url_rule('/page/<int:id>', view_func=PageItemView.as_view('page_item'))
 api.add_url_rule('/integration', view_func=IntegrationView.as_view('integration'))

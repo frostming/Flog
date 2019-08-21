@@ -6,9 +6,8 @@
 </button>
 <div class="collapse navbar-collapse align-items-center justify-content-between" id="navbarNavAltMarkup">
   <div class="navbar-nav">
-    <a href="{{url_for('about')}}" class="nav-item nav-link">{{_('About')}}</a>
-    {% for item in categories %}
-      <a href="{{url_for('category', cat_id=item.id)}}" class="nav-item nav-link">{{_(item.text)|title}}</a>
+    {% for item in pages %}
+      <a href="/{{ item.slug }}" class="nav-item nav-link">{{_(item.title)|title}}</a>
     {% endfor %}
   </div>
   <form class="form-inline my-2 my-lg-0" action="{{url_for('search')}}">

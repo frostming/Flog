@@ -7,7 +7,7 @@ from werkzeug.contrib.atom import AtomFeed
 from werkzeug.wrappers import Response
 
 from .md import markdown
-from .models import Category, Post, Tag, User
+from .models import Category, Post, Tag, User, Page
 from .utils import get_tag_cloud
 
 
@@ -41,20 +41,6 @@ def post(year: str, date: str, title: str) -> str:
     if not post:
         abort(404)
     return render_template("post.html", post=post)
-
-
-def about() -> str:
-    lang = request.args.get("lang", "zh")
-    post = (
-        Post.query.filter_by(lang=lang)
-        .join(Post.category)
-        .filter(Category.text == "About")
-        .first()
-    )
-    if post:
-        return render_template("post.html", post=post, content=markdown(post.content))
-    else:
-        return render_template("about.html")
 
 
 def tag(text: str) -> str:
@@ -116,16 +102,21 @@ def search() -> str:
     return render_template("search.html", paginate=paginate, highlight=search_str)
 
 
+def page(slug: str) -> str:
+    item = Page.query.filter_by(slug=slug).first_or_404()
+    return render_template("page.html", page=item)
+
+
 def init_app(app: Flask) -> None:
     app.add_url_rule("/", "home", home)
     app.add_url_rule("/<int:year>/<date>/<title>", "post", post)
-    app.add_url_rule("/about", "about", about)
     app.add_url_rule("/tag/<text>", "tag", tag)
     app.add_url_rule("/cat/<int:cat_id>", "category", category)
     app.add_url_rule("/feed.xml", "feed", feed)
     app.add_url_rule("/sitemap.xml", "sitemap", sitemap)
     app.add_url_rule("/favicon.ico", "favicon", favicon)
     app.add_url_rule("/search", "search", search)
+    app.add_url_rule("/<path:slug>", "page", page)
 
     app.register_error_handler(404, not_found)
     app.before_request(load_site_config)

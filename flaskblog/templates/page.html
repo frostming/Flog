@@ -1,34 +1,15 @@
-{% extends 'layout.html' %}
+{% extends '_page.html' %}
+{% from '_partials/disqus.html' import disqus with context %}
 
+{% block content %}
+<article itemscope itemtype="http://schema.org/Article">
+  {% if page.ptype == "markdown"-%}<div class="post-text yue" itemprop="content">{%-endif %}
+    {{ page.html | safe }}
+  {% if page.ptype == "markdown"-%}</div>{%-endif %}
+</article>
+{{ disqus(page) }}
+{% endblock %}
 
-{% block mainbody %}
-  {% block nav %}
-  <nav class="navbar fixed-top navbar-expand-lg {% block navstyle %}navbar-dark{% endblock %}" data-aos="fade-in">
-    {% include '_partials/nav.html' %}
-  </nav>
-  {% endblock %}
-
-  <section class="container-fluid page-head lazy" data-aos="fade-in" {%block coverstyle %}{% endblock %}>
-    <div class="shade"></div>
-    {% block pagehead %}{% endblock %}
-  </section>
-  {% block pagebody %}
-  <section class="main" id="main" itemscope itemtype="http://schema.org/Article">
-    <meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{request.url}}">
-    <div class="container-fluid px-lg-5">
-      <div class="row">
-        <div class="col d-none d-xl-block"></div>
-        <div class="col-12 col-xl-6 col-lg-8 px-lg-5 center-box" data-aos="fade-up">
-          {% block content %}
-          {% endblock %}
-        </div>
-        <div class="col d-none d-lg-block" data-aos="fade-left">
-          {% block rightside %}
-          {% endblock %}
-        </div>
-      </div>
-    </div>
-    {% block additional %}{% endblock %}
-  </section>
-  {% endblock %}
+{% block additional %}
+  <a id="totop" title="Return to the top" class="invisible" href="javascript:void(0)"><i class="fa fa-fw fa-arrow-up"></i></a>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'page.html' %}
+{% extends '_page.html' %}
 {% import '_partials/helper.html' as helper with context %}
 
 {% block nav %}
@@ -61,7 +61,20 @@ style="background-image:url({{g.site.cover_url}});"
 {% endblock %}
 {% block rightside %}
   <div class="right-section">
+    <h2><i class="fa fa-list"></i> {{_('Category')}}</h2>
+    <hr>
+    <ul class="cat-list">
+      {% for item in categories %}
+        <li >
+          <i class="fa fa-caret-right"></i>
+          <a class="btn btn-light" href="{{url_for('category', cat_id=item.id)}}">{{_(item.text)|title}} <span class="badge badge-dark">{{item.posts.count()}}</span></a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="right-section">
     <h2><i class="fa fa-tags"></i> {{_('Tags')}}</h2>
+    <hr>
     <div class="mt-4" id="tag-cloud">
       {% for tag, heat in tag_cloud %}
         <a href="{{tag.url}}" rel="{{heat}}">{{tag.text}}</a>
@@ -70,6 +83,7 @@ style="background-image:url({{g.site.cover_url}});"
   </div>
   <div class="right-section">
     <h2><i class="fa fa-link"></i> {{_('Links')}}</h2>
+    <hr>
     <ul class="mt-4" id="friends">
     {% if g.site.links %}
     {% for link in g.site.links %}

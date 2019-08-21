@@ -214,7 +214,7 @@ class Tag(db.Model, GetOrNewMixin):
 class Category(db.Model, GetOrNewMixin):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(50), unique=True)
-    posts = db.relationship("Post", backref="category")
+    posts = db.relationship("Post", backref="category", lazy='dynamic')
 
     def __repr__(self) -> str:
         return "<Category: {}>".format(self.text)
@@ -228,6 +228,34 @@ class Integration(db.Model):
     name = db.Column(db.String(50), unique=True)
     settings = db.Column(db.Text())
     enabled = db.Column(db.Boolean())
+
+
+class Page(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    slug = db.Column(db.String(100), nullable=False, unique=True)
+    title = db.Column(db.String(50), nullable=False, unique=True)
+    display = db.Column(db.Boolean(), default=False)
+    ptype = db.Column(db.String(20), default="markdown")
+    content = db.Column(db.Text)
+    html = db.Column(db.Text)
+    comment = db.Column(db.Boolean(), default=False)
+
+    def to_dict(self):
+        return {
+            k: getattr(self, k)
+            for k in ('id', 'slug', 'title', 'display', 'ptype', 'content', 'comment')
+        }
+
+
+@sa.event.listens_for(Page, "before_insert")
+@sa.event.listens_for(Page, "before_update")
+def get_html(
+    mapper: Type[sa.orm.Mapper], connection: sa.engine.Connection, target: sa.orm.Mapper
+) -> None:
+    if target.ptype == "html":
+        target.html = target.content
+    else:
+        target.html = markdown(target.content)
 
 
 def init_app(app: Flask) -> None:
