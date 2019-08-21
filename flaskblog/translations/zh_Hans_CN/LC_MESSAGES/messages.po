@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-05-23 11:24+0800\n"
+"POT-Creation-Date: 2019-08-21 15:43+0800\n"
 "PO-Revision-Date: 2017-09-10 11:03+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -16,27 +16,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.6.0\n"
+"Generated-By: Babel 2.7.0\n"
 
-#: flaskblog/app.py:39
+#: flaskblog/app.py:37
 msgid "Please login"
 msgstr "请先登录"
 
 #: flaskblog/templates/404.html:538
 msgid "Return Home"
 msgstr "回到主页"
-
-#: flaskblog/templates/about.html:6
-msgid "About page is not created yet, please click"
-msgstr "关于页面未创建，请点击"
-
-#: flaskblog/templates/about.html:7
-msgid "this link"
-msgstr "此处"
-
-#: flaskblog/templates/about.html:7
-msgid "to create"
-msgstr "来创建"
 
 #: flaskblog/templates/index.html:15
 msgid "Blog"
@@ -46,7 +34,7 @@ msgstr "博客"
 msgid "About"
 msgstr "关于"
 
-#: flaskblog/templates/index.html:35
+#: flaskblog/templates/index.html:35 flaskblog/templates/index.html:64
 msgid "Category"
 msgstr "分类"
 
@@ -62,35 +50,35 @@ msgstr "较新文章"
 msgid "Older Posts"
 msgstr "较旧文章"
 
-#: flaskblog/templates/index.html:64
+#: flaskblog/templates/index.html:76
 msgid "Tags"
 msgstr "标签"
 
-#: flaskblog/templates/index.html:72
+#: flaskblog/templates/index.html:85
 msgid "Links"
 msgstr "链接"
 
-#: flaskblog/templates/post.html:29
+#: flaskblog/templates/post.html:30
 msgid "TABLE OF CONTENTS"
 msgstr "目录"
 
-#: flaskblog/templates/post.html:57
+#: flaskblog/templates/post.html:58
 msgid "Last edited"
 msgstr "最后编辑于"
 
-#: flaskblog/templates/post.html:61
+#: flaskblog/templates/post.html:62
 msgid "Post Link"
 msgstr "文章链接"
 
-#: flaskblog/templates/post.html:62
+#: flaskblog/templates/post.html:63
 msgid "This work is licensed under a "
 msgstr "本作品采用"
 
-#: flaskblog/templates/post.html:62
+#: flaskblog/templates/post.html:63
 msgid " License. "
 msgstr "许可。"
 
-#: flaskblog/templates/post.html:67
+#: flaskblog/templates/post.html:68
 msgid "RELATED POST"
 msgstr "相关文章"
 
@@ -98,7 +86,3 @@ msgstr "相关文章"
 #, python-format
 msgid "Search Result for '%(word)s'"
 msgstr "'%(word)s'的搜索结果"
-
-#~ msgid "Powered by Flog"
-#~ msgstr "由Flog构建"
-

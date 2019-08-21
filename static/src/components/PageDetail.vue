@@ -132,7 +132,6 @@ export default {
             type: 'success',
             duration: 2000
           })
-          this.postForm.status = 'published'
           this.loading = false
         })
       })
