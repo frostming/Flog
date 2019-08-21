@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+
+{% block extracss %}
+<style>
+ul.timeline {
+  list-style-type: none;
+  position: relative;
+}
+ul.timeline:before {
+  content: ' ';
+  background: #d4d9df;
+  display: inline-block;
+  position: absolute;
+  left: 29px;
+  width: 2px;
+  height: 100%;
+  z-index: 400;
+}
+ul.timeline > li {
+  margin: 20px 0;
+  padding-left: 20px;
+}
+ul.timeline > li:before {
+  content: ' ';
+  background: white;
+  display: inline-block;
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid var(--primary-color);
+  left: 20px;
+  width: 20px;
+  height: 20px;
+  z-index: 400;
+}
+ul.timeline-items {
+  padding-left: 20px;
+  list-style-type: square;
+}
+ul.timeline-items > li {
+  padding: 5px 0;
+}
+</style>
+{% endblock %}
+
+{% block pagehead %}
+<div class="blog-info mx-auto">
+<h1 class="heading">{{_('Archive')}}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<ul class="timeline">
+  {% for date, posts in items %}
+  <li>
+    <h4>{{ date[0] }}-{{ date[1] }}</h4>
+    <ul class="timeline-items">
+      {% for post in posts %}
+      <li>{{moment(post.date).format('YYYY/MM/DD')}} <a href="{{post.url}}">{{post.title}}</a></li>
+      {% endfor %}
+    </ul>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

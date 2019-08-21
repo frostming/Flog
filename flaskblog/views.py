@@ -107,6 +107,16 @@ def page(slug: str) -> str:
     return render_template("page.html", page=item)
 
 
+def archive() -> str:
+    from itertools import groupby
+
+    def grouper(item):
+        return item.date.year, item.date.month
+
+    result = groupby(Post.query.order_by(Post.date.desc()), grouper)
+    return render_template("archive.html", items=result)
+
+
 def init_app(app: Flask) -> None:
     app.add_url_rule("/", "home", home)
     app.add_url_rule("/<int:year>/<date>/<title>", "post", post)
@@ -116,6 +126,7 @@ def init_app(app: Flask) -> None:
     app.add_url_rule("/sitemap.xml", "sitemap", sitemap)
     app.add_url_rule("/favicon.ico", "favicon", favicon)
     app.add_url_rule("/search", "search", search)
+    app.add_url_rule("/archive", "archive", archive)
     app.add_url_rule("/<path:slug>", "page", page)
 
     app.register_error_handler(404, not_found)
