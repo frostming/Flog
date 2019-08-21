@@ -313,10 +313,11 @@
         },
         "qcloud-python-sts": {
             "hashes": [
-                "sha256:dafc421f4083de2be8fd678610e20e438f42f7c7c74b2534a329aa7613291bde"
+                "sha256:48a9977968d5fedd79b9e483ca665f27d1840bac2375816e1ec0d704867d64f6",
+                "sha256:6038af3be27f5721918f57d74c6c91555b7ec99491f41a2730d3afd6993c8080"
             ],
             "index": "pypi",
-            "version": "==3.0.0"
+            "version": "==3.0.2"
         },
         "requests": {
             "hashes": [
