@@ -3,7 +3,7 @@
 
 {% block nav %}
 {{ super() }}
-{% if request.url_rule.endpoint == 'index' %}
+{% if request.url_rule.endpoint == 'home' %}
 <div class="cover float-section text-light lazy" data-bg="url('{{g.site.cover_url}}')">
   <div class="mx-auto my-auto">
     <div class="bio">
