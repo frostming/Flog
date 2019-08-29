@@ -87,7 +87,7 @@ style="background-image:url({{g.site.cover_url}});"
     <ul class="mt-4" id="friends">
     {% if g.site.links %}
     {% for link in g.site.links %}
-      <li><a href="{{link.url}}">{{link.text}}</a></li>
+      <li><a href="{{link.url}}" target="_blank">{{link.text}}</a></li>
     {% endfor %}
     {% endif %}
     </ul>
