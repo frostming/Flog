@@ -17,11 +17,11 @@
     <meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{request.url}}">
     <div class="container">
       <div class="row">
-        <div class="col-12 col-lg-8 px-lg-5 center-box" data-aos="fade-up">
+        <div class="col-12 {% block center_col %}col-lg-8{% endblock %} px-lg-5 center-box" data-aos="fade-up">
           {% block content %}
           {% endblock %}
         </div>
-        <div class="col-12 col-lg-4" data-aos="fade-left">
+        <div class="col-12 {% block right_col %}col-lg-4{% endblock %}" data-aos="fade-left">
           {% block rightside %}
           {% endblock %}
         </div>

@@ -19,6 +19,9 @@
 <script>hljs.initHighlightingOnLoad();</script>
 {% endblock %}
 
+{% block center_col %}col-lg-9{% endblock %}
+{% block right_col %}col-lg-3{% endblock %}
+
 {% block coverstyle %}
 {% if post.image %}data-bg="url({{post.image}})"{% endif %}
 {% endblock %}
