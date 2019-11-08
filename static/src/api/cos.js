@@ -37,7 +37,7 @@ export default (file, { success, error, progress }) => {
     if (err) {
       error(err)
     } else {
-      success('/images/' + data.Key)
+      success(store.state.integration.cos.prefix + data.Key)
     }
   })
 }

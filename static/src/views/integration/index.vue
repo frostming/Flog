@@ -18,7 +18,7 @@
       label="Tencent COS"
       name="cos"
       :initial="integration.cos"
-      :fields="['secret_id', 'secret_key', 'bucket', 'region']"
+      :fields="['secret_id', 'secret_key', 'bucket', 'region', 'prefix']"
       image="https://avatars3.githubusercontent.com/u/12334581?s=200&v=4"
     />
     <card

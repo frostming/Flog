@@ -40,6 +40,7 @@ class ProductionConfig(BaseConfig):
     COS_SECRET_KEY = os.getenv("COS_SECRET_KEY")
     COS_BUCKET = "frostming-tencent-1252779928"
     COS_REGION = "ap-guangzhou"
+    SERVER_NAME = "frostming.com"
 
 
 class DevelopConfig(BaseConfig):
