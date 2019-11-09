@@ -1,9 +1,9 @@
-version: '3'
+version: "3"
 
 services:
   web:
     restart: always
-    image: frostming/flog
+    build: .
     env_file: .env
     volumes:
       - ./whooshee:/app/whooshee
