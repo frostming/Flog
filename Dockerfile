@@ -3,9 +3,15 @@
 # --------------------------
 FROM python:3.7-alpine
 
+ARG alpine_mirror=http://dl-cdn.alpinelinux.org
+ARG pypi_mirror=https://pypi.org/simple
+
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
+ENV PIPENV_PYPI_MIRROR $pypi_mirror
+ENV PIP_INDEX_URL $pypi_mirror
 
+RUN sed -i "s#http://dl-cdn.alpinelinux.org#$alpine_mirror#g" /etc/apk/repositories
 RUN apk add build-base postgresql-dev
 RUN pip install --upgrade pipenv
 

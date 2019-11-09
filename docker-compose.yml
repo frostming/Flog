@@ -4,6 +4,7 @@ services:
   web:
     restart: always
     build: .
+    image: frostming/flog:latest
     env_file: .env
     volumes:
       - ./whooshee:/app/whooshee
