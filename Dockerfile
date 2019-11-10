@@ -3,8 +3,9 @@
 # --------------------------
 FROM python:3.7-alpine
 
-ARG alpine_mirror=http://dl-cdn.alpinelinux.org
-ARG pypi_mirror=https://pypi.org/simple
+# Replace the address to a proper mirror.
+ARG alpine_mirror=https://mirrors.tencent.com
+ARG pypi_mirror=https://mirrors.tencent.com/pypi/simple
 
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
