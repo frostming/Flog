@@ -28,7 +28,7 @@ export default (file, { success, error, progress }) => {
   cos.sliceUploadFile({
     Bucket: store.state.integration.cos.bucket,
     Region: store.state.integration.cos.region,
-    Key: (new Date()).toISOString().slice(0, 7) + '-' + file.name,
+    Key: 'images/' + (new Date()).toISOString().slice(0, 7) + '-' + file.name,
     Body: file,
     onProgress: function(progressData) {
       progress(progressData.percent)

@@ -25,100 +25,109 @@ style="background-image:url({{g.site.cover_url}});"
 {% endblock %}
 {% block pagehead %}
 <div class="blog-info mx-auto">
-{% if not cat and not tag %}
+  {% if not cat and not tag %}
   <a href="/" class="blog-head-logo">
     <img class="avatar" src="{{ g.site.avatar }}" alt="{{ g.site.name }}">
   </a>
-{% endif %}
-<h1 class="heading">
-{% if cat %}
-  {{_('Category')}}: {{cat.text}}
-{% elif tag %}
-  {{_('Tag')}}: {{tag.text}}
-{% else %}
-  {{g.site.name}}
-{% endif %}
-</h1>
+  {% endif %}
+  <h1 class="heading">
+    {% if cat %}
+    {{_('Category')}}: {{cat.text}}
+    {% elif tag %}
+    {{_('Tag')}}: {{tag.text}}
+    {% else %}
+    {{g.site.name}}
+    {% endif %}
+  </h1>
 </div>
 {% endblock %}
 
 
 {% block content %}
-  {{ helper.render_posts(posts) }}
+{{ helper.render_posts(posts) }}
 
-  {% if paginate %}
-  <div class="paginate d-flex justify-content-between">
-    <a href="{{url_for('home', page=paginate.prev_num)}}" rel="prev"
-    {% if paginate.has_prev %} style="visibility: visible;"{% endif %}>
+{% if paginate %}
+<div class="paginate d-flex justify-content-between">
+  <a href="{{url_for('home', page=paginate.prev_num)}}" rel="prev" {% if paginate.has_prev %}
+    style="visibility: visible;" {% endif %}>
     <i class="fa fa-fw fa-angle-left"></i> {{_('Newer Posts')}}
-    </a>
-    <a href="{{url_for('home', page=paginate.next_num)}}" rel="next"
-    {% if paginate.has_next %} style="visibility: visible;"{% endif %}>
+  </a>
+  <a href="{{url_for('home', page=paginate.next_num)}}" rel="next" {% if paginate.has_next %}
+    style="visibility: visible;" {% endif %}>
     {{_('Older Posts')}} <i class="fa fa-fw fa-angle-right"></i>
-    </a>
-  </div>
-  {% endif %}
+  </a>
+</div>
+{% endif %}
 {% endblock %}
 {% block rightside %}
-  <div class="right-section">
-    <h2><i class="fa fa-list"></i> {{_('Category')}}</h2>
-    <hr>
-    <ul class="cat-list">
-      {% for item in categories %}
-        <li >
-          <i class="fa fa-caret-right"></i>
-          <a class="btn btn-light" href="{{url_for('category', cat_id=item.id)}}">{{_(item.text)|title}} <span class="badge badge-dark">{{item.posts.count()}}</span></a>
-        </li>
-      {% endfor %}
-    </ul>
+<div class="right-section">
+  <h2><i class="fa fa-list"></i> {{_('Category')}}</h2>
+  <hr>
+  <ul class="cat-list">
+    {% for item in categories %}
+    <li>
+      <i class="fa fa-caret-right"></i>
+      <a class="btn btn-light" href="{{url_for('category', cat_id=item.id)}}">{{_(item.text)|title}} <span
+          class="badge badge-dark">{{item.posts.count()}}</span></a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+<div class="right-section">
+  <h2><i class="fa fa-tags"></i> {{_('Tags')}}</h2>
+  <hr>
+  <div class="mt-4" id="tag-cloud">
+    {% for tag, heat in tag_cloud %}
+    <a href="{{tag.url}}" rel="{{heat}}">{{tag.text}}</a>
+    {% endfor %}
   </div>
-  <div class="right-section">
-    <h2><i class="fa fa-tags"></i> {{_('Tags')}}</h2>
-    <hr>
-    <div class="mt-4" id="tag-cloud">
-      {% for tag, heat in tag_cloud %}
-        <a href="{{tag.url}}" rel="{{heat}}">{{tag.text}}</a>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="right-section">
-    <h2><i class="fa fa-link"></i> {{_('Links')}}</h2>
-    <hr>
-    <ul class="mt-4" id="friends">
+</div>
+<div class="right-section">
+  <h2><i class="fa fa-link"></i> {{_('Links')}}</h2>
+  <hr>
+  <ul class="mt-4" id="friends">
     {% if g.site.links %}
     {% for link in g.site.links %}
-      <li><a href="{{link.url}}" target="_blank">{{link.text}}</a></li>
+    <li><a href="{{link.url}}" target="_blank">{{link.text}}</a></li>
     {% endfor %}
     {% endif %}
-    </ul>
-  </div>
-  {% for item in g.site.sociallinks if item.name|lower == 'twitter' %}
-  <div class="right-section">
-    <a class="twitter-timeline" data-height="800" href="{{item.link}}?ref_src=twsrc%5Etfw">Tweets</a>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-  </div>
-  {% endfor %}
+  </ul>
+</div>
+{% for item in g.site.sociallinks if item.name|lower == 'twitter' %}
+<div class="right-section">
+  <a class="twitter-timeline" data-height="800" href="{{item.link}}?ref_src=twsrc%5Etfw">Tweets</a>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+{% endfor %}
 {% endblock %}
 
 {% block extrajs %}
 <script type="text/javascript">
-  if($('#tag-cloud').length !== 0) {
-    async('https://static.frostming.com/js/color-hash.js', function(){
-      var colorHash = new ColorHash({saturation: 0.5});
-      $('#tag-cloud > a').each(function(i, e){
+  if ($('#tag-cloud').length !== 0) {
+    async ('https://static.frostming.com/js/color-hash.js', function () {
+      var colorHash = new ColorHash({
+        saturation: 0.5
+      });
+      $('#tag-cloud > a').each(function (i, e) {
         e.style["background-color"] = colorHash.hex(e.innerHTML.trim());
       });
     })
   }
-  var dismissCover = function(){
+  var dismissCover = function () {
     var headerHeight = document.getElementsByClassName('page-head')[0].clientHeight;
     $('.cover').animate({
       height: headerHeight,
       opacity: 0
-    }, 400, function(){
+    }, 400, function () {
       $(this).addClass('invisible');
     });
   };
   $(window).on('scroll', dismissCover);
+  $(function () {
+    if (window.location.search !== '') {
+      dismissCover();
+    }
+  })
+
 </script>
 {% endblock %}
