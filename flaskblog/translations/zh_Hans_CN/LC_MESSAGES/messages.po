@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-08-21 15:43+0800\n"
+"POT-Creation-Date: 2019-11-11 22:01+0800\n"
 "PO-Revision-Date: 2017-09-10 11:03+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -25,6 +25,10 @@ msgstr "请先登录"
 #: flaskblog/templates/404.html:538
 msgid "Return Home"
 msgstr "回到主页"
+
+#: flaskblog/templates/archive.html:47
+msgid "Archive"
+msgstr "归档"
 
 #: flaskblog/templates/index.html:15
 msgid "Blog"
@@ -50,35 +54,39 @@ msgstr "较新文章"
 msgid "Older Posts"
 msgstr "较旧文章"
 
-#: flaskblog/templates/index.html:76
+#: flaskblog/templates/index.html:77
 msgid "Tags"
 msgstr "标签"
 
-#: flaskblog/templates/index.html:85
+#: flaskblog/templates/index.html:86
 msgid "Links"
 msgstr "链接"
 
-#: flaskblog/templates/post.html:30
+#: flaskblog/templates/post.html:36
 msgid "TABLE OF CONTENTS"
 msgstr "目录"
 
-#: flaskblog/templates/post.html:58
+#: flaskblog/templates/post.html:64
 msgid "Last edited"
 msgstr "最后编辑于"
 
-#: flaskblog/templates/post.html:62
+#: flaskblog/templates/post.html:70
+msgid "Donate"
+msgstr "打赏"
+
+#: flaskblog/templates/post.html:75
 msgid "Post Link"
 msgstr "文章链接"
 
-#: flaskblog/templates/post.html:63
-msgid "This work is licensed under a "
+#: flaskblog/templates/post.html:76
+msgid "This work is released under "
 msgstr "本作品采用"
 
-#: flaskblog/templates/post.html:63
+#: flaskblog/templates/post.html:77
 msgid " License. "
 msgstr "许可。"
 
-#: flaskblog/templates/post.html:68
+#: flaskblog/templates/post.html:82
 msgid "RELATED POST"
 msgstr "相关文章"
 
@@ -86,3 +94,4 @@ msgstr "相关文章"
 #, python-format
 msgid "Search Result for '%(word)s'"
 msgstr "'%(word)s'的搜索结果"
+

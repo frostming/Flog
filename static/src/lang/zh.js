@@ -98,6 +98,7 @@ export default {
     icp: 'ICP备案号',
     icon: '图标',
     disqusShortname: 'Disqus短站点名',
-    fieldMissing: '必须提供所有值'
+    fieldMissing: '必须提供所有值',
+    donate: '赞赏二维码'
   }
 }

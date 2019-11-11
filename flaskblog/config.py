@@ -44,7 +44,9 @@ class ProductionConfig(BaseConfig):
 
 
 class DevelopConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "")
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        "DATABASE_URL", "sqlite:///" + op.join(here, "db.sqlite3")
+    )
     ENABLE_COS_UPLOAD = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 

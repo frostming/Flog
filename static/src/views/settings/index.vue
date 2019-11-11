@@ -55,6 +55,10 @@
           </el-row>
           <el-button type="primary" class="add-btn" icon="el-icon-plus" circle @click="addFriendLink" />
         </el-form-item>
+
+        <el-form-item :label="$t('settings.donate')">
+          <avatar-upload v-model="settingsForm.donate" :upload-image="uploadImage" />
+        </el-form-item>
       </el-col>
     </el-row>
   </el-form>

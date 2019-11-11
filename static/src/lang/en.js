@@ -98,6 +98,7 @@ export default {
     icp: 'ICP Number',
     icon: 'Icon',
     disqusShortname: 'Disqus Shortname',
-    fieldMissing: 'You must fill in all blanks to enable'
+    fieldMissing: 'You must fill in all blanks to enable',
+    donate: 'Donate QRCode'
   }
 }
