@@ -10,5 +10,4 @@ cd /home/fming/frostming.com
 sudo docker-compose build web
 docker-compose down
 docker-compose up -d
-docker images|grep "<none>"|awk '{print $3}'|xargs -t -i docker rmi {}
 EOF
