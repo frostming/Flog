@@ -16,7 +16,7 @@
   <meta property="og:url" content="{{ request.url }}">
   <meta property="og:image" content="{% block ogimg %}{{ url_for('static', filename='images/favicon.png', _external=True) }}{% endblock %}">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:image" content="{{ self.ogimg() }}"
+  <meta name="twitter:image" content="{{ self.ogimg() }}">
   {% for item in g.site.sociallinks if item.name|lower == 'twitter' %}
     <meta name="twitter:creator" content="@{{ item.link.split('/')|last }}">
     <meta name="twitter:site" content="@{{ item.link.split('/')|last }}">
