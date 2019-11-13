@@ -18,7 +18,7 @@
   {% for item in g.site.sociallinks if item.name|lower == 'twitter' %}
     <meta name="twitter:card" content="summary">
     <meta name="twitter:creator" content="@{{ item.link.split('/')|last }}">
-  {% endif %}
+  {% endfor %}
   <link rel="canonical" href="{{ request.url }}">
   {% include '_partials/head.html' %}
   {% block extracss %}
