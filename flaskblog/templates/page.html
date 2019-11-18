@@ -5,7 +5,7 @@
 {% block center_col %}{% endblock %}
 {% block right_col %}d-none{% endblock %}
 {% block content %}
-<article itemscope itemtype="http://schema.org/Article">
+<article>
   {% if page.ptype == "markdown"-%}<div class="post-text yue" itemprop="content">{%-endif %}
     {{ page.html | safe }}
   {% if page.ptype == "markdown"-%}</div>{%-endif %}
