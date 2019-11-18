@@ -270,7 +270,7 @@ class Comment(db.Model):
     floor = db.Column(db.Integer, nullable=False)
     content = db.Column(db.Text())
     html = db.Column(db.Text())
-    create_at = db.Column(db.Datetime(), default=datetime.utcnow)
+    create_at = db.Column(db.DateTime(), default=datetime.utcnow)
     parent_id = db.Column(db.Integer, db.ForeignKey("comment.id"))
     replies = db.relationship(
         "Comment", backref=db.backref("parent", remote_side=[id]), lazy="dynamic"
