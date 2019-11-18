@@ -185,6 +185,13 @@ class User(db.Model, UserMixin):
         self.settings = json.dumps(data)
         db.session.commit()
 
+    def to_dict(self):
+        return {
+            'username': self.username,
+            'email': self.email,
+            'is_admin': self.is_admin
+        }
+
 
 class GetOrNewMixin:
     @classmethod
@@ -277,6 +284,17 @@ class Comment(db.Model):
     )
 
     __table_args__ = (db.UniqueConstraint("post_id", "floor", name="_post_floor"),)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'author': self.author.to_dict(),
+            'floor': self.floor,
+            'content': self.content,
+            'html': self.html,
+            'create_at': self.create_at,
+            'parent_floor': self.parent.floor
+        }
 
 
 def init_app(app: Flask) -> None:
