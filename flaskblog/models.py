@@ -65,6 +65,7 @@ class Post(db.Model):
     slug = db.Column(db.String(100))
     is_draft = db.Column(db.Boolean, default=False)
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"))
+    comments = db.relationship("Comment", backref="post", lazy="dynamic")
 
     def __init__(self, **kwargs):
         if isinstance(kwargs.get("category"), str):
@@ -137,6 +138,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(100))
     password = db.Column(db.String(200))
     settings = db.Column(db.Text())
+    is_admin = db.Column(db.Boolean(), default=False)
+    comments = db.relationship("Comment", backref="author", lazy="dynamic")
 
     def __init__(self, **kwargs) -> None:
         password = kwargs.pop("password")
@@ -148,12 +151,14 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
     @classmethod
-    def get_one(cls) -> "User":
+    def get_admin(cls) -> "User":
         """Get the admin user. The only one will be returned."""
-        rv: Union[None, User] = cls.query.one_or_none()
+        rv: Union[None, User] = cls.query.filter_by(is_admin=True).get_one_or_none()
         if not rv:
             rv = cls(
-                username="admin", password=current_app.config["DEFAULT_ADMIN_PASSWORD"]
+                username="admin",
+                password=current_app.config["DEFAULT_ADMIN_PASSWORD"],
+                is_admin=True,
             )
             db.session.add(rv)
             db.session.commit()
@@ -214,7 +219,7 @@ class Tag(db.Model, GetOrNewMixin):
 class Category(db.Model, GetOrNewMixin):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(50), unique=True)
-    posts = db.relationship("Post", backref="category", lazy='dynamic')
+    posts = db.relationship("Post", backref="category", lazy="dynamic")
 
     def __repr__(self) -> str:
         return "<Category: {}>".format(self.text)
@@ -243,7 +248,7 @@ class Page(db.Model):
     def to_dict(self):
         return {
             k: getattr(self, k)
-            for k in ('id', 'slug', 'title', 'display', 'ptype', 'content', 'comment')
+            for k in ("id", "slug", "title", "display", "ptype", "content", "comment")
         }
 
 
@@ -256,6 +261,22 @@ def get_html(
         target.html = target.content
     else:
         target.html = markdown(target.content)
+
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey("post.id"))
+    author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    floor = db.Column(db.Integer, nullable=False)
+    content = db.Column(db.Text())
+    html = db.Column(db.Text())
+    create_at = db.Column(db.Datetime(), default=datetime.utcnow)
+    parent_id = db.Column(db.Integer, db.ForeignKey("comment.id"))
+    replies = db.relationship(
+        "Comment", backref=db.backref("parent", remote_side=[id]), lazy="dynamic"
+    )
+
+    __table_args__ = (db.UniqueConstraint("post_id", "floor", name="_post_floor"),)
 
 
 def init_app(app: Flask) -> None:

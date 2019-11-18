@@ -13,7 +13,7 @@ from .utils import get_tag_cloud
 
 def load_site_config() -> None:
     if "site" not in g:
-        user = User.get_one()
+        user = User.get_admin()
         g.site = user.read_settings()
 
 
