@@ -130,6 +130,18 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/comment',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/comment/list'),
+        name: 'Comments',
+        meta: { title: 'comments', icon: 'settings' }
+      }
+    ]
+  },
 
   {
     path: '/integration',

@@ -8,7 +8,8 @@ export default {
     createPost: 'Create Post',
     editPage: 'Edit Page',
     createPage: 'Create Page',
-    integration: 'Integration'
+    integration: 'Integration',
+    comments: 'Comments'
   },
   post: {
     draft: 'Draft',
@@ -28,6 +29,9 @@ export default {
     save: 'Save',
     pages: 'Pages',
     url: 'URL',
+    content: 'Content',
+    import: 'Import',
+    export: 'Export',
     ptype: 'Content Type',
     markdown: 'Markdown',
     html: 'HTML',

@@ -295,24 +295,27 @@ class IntegrationView(MethodView):
         return jsonify(SUCCESS_RESPONSE)
 
 
-class CommentView(MethodView):
-    def get(self, id):
-        page = int(request.args.get("page", 1))
-        limit = int(request.args.get("limit", 20))
-        post = Post.query.get_or_404(id)
-        queryset = post.comments.order_by(Comment.floor.asc())
-        return jsonify(
-            {
-                "code": 20000,
-                "data": {
-                    "total": queryset.count(),
-                    "items": [
-                        comment.to_dict()
-                        for comment in queryset.paginate(page=page, per_page=limit)
-                    ],
-                },
-            }
-        )
+def comment_list():
+    page = int(request.args.get("page", 1))
+    limit = int(request.args.get("limit", 20))
+    queryset = Comment.query.order_by(Comment.create_at.desc())
+    return jsonify(
+        {
+            "code": 20000,
+            "data": {
+                "total": queryset.count(),
+                "items": [
+                    comment.to_dict()
+                    for comment in queryset.paginate(page=page, per_page=limit).items
+                ],
+            },
+        }
+    )
+
+
+def delete_comment(id):
+    Comment.query.filter_by(id=id).delete()
+    db.session.commit()
 
 
 api.add_url_rule("/post", view_func=PostView.as_view("post"))
@@ -320,3 +323,5 @@ api.add_url_rule("/post/<int:id>", view_func=PostItemView.as_view("post_item"))
 api.add_url_rule("/page", view_func=PageView.as_view("page"))
 api.add_url_rule("/page/<int:id>", view_func=PageItemView.as_view("page_item"))
 api.add_url_rule("/integration", view_func=IntegrationView.as_view("integration"))
+api.add_url_rule("/comment", "comment_list", view_func=comment_list)
+api.add_url_rule("/comment/<int:id>", "delete_comment", view_func=delete_comment, methods=['DELETE'])

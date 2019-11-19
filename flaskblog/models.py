@@ -298,11 +298,11 @@ class Comment(db.Model):
         return {
             'id': self.id,
             'author': self.author.to_dict(),
+            'post': {'title': self.post.title, 'url': self.post.url},
             'floor': self.floor,
             'content': self.content,
             'html': self.html,
             'create_at': self.create_at,
-            'parent_floor': self.parent.floor
         }
 
 

@@ -8,6 +8,7 @@ export default {
     createPost: '创建文章',
     editPage: '编辑页面',
     createPage: '创建页面',
+    comments: '评论',
     integration: '集成'
   },
   post: {
@@ -24,6 +25,9 @@ export default {
     delete: '删除',
     actions: '操作',
     yes: '是',
+    content: '内容',
+    import: '导入',
+    export: '导出',
     no: '否',
     save: '保存',
     pages: '页面',
