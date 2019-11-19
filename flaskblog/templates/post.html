@@ -101,8 +101,8 @@
   </div>
 </section>
 {% endif %}
-{% if not config.DEBUG and page.comment and integration.disqus and integration.disqus.enabled %}
-{{ disqus(page) }}
+{% if not config.DEBUG and post.comment and integration.disqus and integration.disqus.enabled %}
+{{ disqus(post) }}
 {% endif %}
 {% if post.comment %}
 {{ render_comments(post, comments, comments_count) }}

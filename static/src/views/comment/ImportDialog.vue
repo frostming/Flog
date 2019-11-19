@@ -45,10 +45,9 @@ export default {
   },
   methods: {
     submitUpload() {
-      this.$refs.upload.submit().then(resp => {
-        this.dialogVisible = false
-        this.$emit('success')
-      })
+      this.$refs.upload.submit()
+      this.dialogVisible = false
+      this.$emit('success')
     }
   }
 }

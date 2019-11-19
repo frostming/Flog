@@ -73,7 +73,7 @@ export default {
       })
     },
     enableIntegration() {
-      if (Object.entries(this.settings).some(e => !e[1])) {
+      if (this.settings.enabled && Object.entries(this.settings).some(e => !e[1])) {
         this.$message({
           type: 'warning',
           message: this.$t('settings.fieldMissing')

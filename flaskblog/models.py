@@ -309,7 +309,7 @@ class Comment(db.Model):
             node = queue.pop(0)
             rv.append(node)
             queue.extend(node.replies or [])
-        return sorted(rv, lambda x: x.create_at)
+        return sorted(rv, key=lambda x: x.create_at)
 
     def to_dict(self):
         return {
