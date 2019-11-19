@@ -12,7 +12,7 @@
       name="google_analytics"
       :initial="integration.google_analytics"
       :fields="['id']"
-      image="https://frostming.com/images/2019-04-google-analytics.png"
+      image="https://static.frostming.com/images/2019-04-google-analytics.png"
     />
     <card
       label="Tencent COS"
@@ -26,7 +26,7 @@
       name="addthis"
       :initial="integration.addthis"
       :fields="['pubid']"
-      image="https://frostming.com/images/word-image-456.png"
+      image="https://static.frostming.com/images/word-image-456.png"
     />
   </div>
 </template>

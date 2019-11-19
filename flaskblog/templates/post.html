@@ -49,9 +49,9 @@
     <div class="post-meta">
       <time datetime="{{post.date}}" itemprop="datePublished">{{ moment(post.date).format('ll') }}</time>
       {% if post.author %}
-      <a itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <span itemprop="author" itemscope itemtype="http://schema.org/Person">
         <span class="post-author" itemprop="name">{{post.author}}</span>
-      </a>
+      </span>
       {% endif %}
     </div>
     <meta itemprop="keywords" content="{{ post.tags|map(attribute='text')|join(',') }}">
@@ -70,18 +70,18 @@
     {{_('Last edited')}} <time datetime="{{post.last_modified}}" itemprop="dateModified">{{moment(post.last_modified).fromNow()}}</time>
   </div>
 </article>
-<section class="cc text-center p-2">
-  {% if g.site.donate %}
-  <div id="donate">
-    <div id="donate-btn">{{_('Donate')}}</div>
-    <div id="donate-qrcode"><img src="{{ g.site.donate }}"></div>
-  </div>
-  {% endif %}
-
-  {{_('Post Link')}}: <a href="{{request.url}}">{{request.url}}</a><br />
+<div class="cc text-center p-2">
+  <p>{{_('Post Link')}}: <a href="{{request.url}}">{{request.url}}</a><br/>
   <i class="fa fa-cc"></i> {{_('This work is released under ')}}<a rel="license"
-    itemprop="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA{{_(' License. ')}}</a><br />
-</section>
+    itemprop="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA{{_(' License. ')}}</a></p>
+  <div>
+    <button class="btn" type="button" data-toggle="collapse" data-target="#donate-qrcode" aria-expanded="false" aria-controls="donate-qrcode" style="background-color:var(--primary-color); color:white">
+      <i class="fa fa-heart"></i> {{_('Donate')}}
+    </button>
+  </div>
+  <div id="donate-qrcode" class="collapse"><img src="https://github.com/frostming.png"></div>
+
+</div>
 {% set related = post.related_post() %}
 {% if related %}
 <section class="related">
