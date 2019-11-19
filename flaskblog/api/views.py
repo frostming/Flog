@@ -24,7 +24,6 @@ def authenticate_view():
     if request.path == "/api/user/login":
         return
     token = request.headers.get(TOKEN_HEADER)
-    return
     if not token or not verify_auth(token):
         return jsonify({"code": 50008, "data": {"error": "Invalid token"}})
 
@@ -359,7 +358,7 @@ def import_disqus_comment():
             author=author,
             post=post,
             parent=parent,
-            message=message,
+            content=message,
             create_at=create_at
         )
         db.session.add(instance)
