@@ -354,6 +354,7 @@ def import_disqus_comment():
         if not author:
             author = User(username=author_username, name=author_name)
             db.session.add(author)
+            db.session.commit()
         instance = Comment(
             author=author,
             post=post,
