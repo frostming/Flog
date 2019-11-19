@@ -7,7 +7,7 @@ from flask_babel import Babel, lazy_gettext
 from flask_login import LoginManager
 from flask_moment import Moment
 
-from . import cli, config, models, templating, views, api, admin, STATIC_PATH
+from . import cli, config, models, templating, views, api, admin, STATIC_PATH, auth
 from .md import markdown
 
 
@@ -24,6 +24,7 @@ def create_app(env: Union[str, None] = None) -> Flask:
         admin.init_app(app)
     templating.init_app(app)
     api.init_app(app)
+    auth.init_app(app)
     Environment(app)
 
     @babel.localeselector

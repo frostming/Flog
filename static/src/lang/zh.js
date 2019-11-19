@@ -8,6 +8,7 @@ export default {
     createPost: '创建文章',
     editPage: '编辑页面',
     createPage: '创建页面',
+    comments: '评论',
     integration: '集成'
   },
   post: {
@@ -24,6 +25,9 @@ export default {
     delete: '删除',
     actions: '操作',
     yes: '是',
+    content: '内容',
+    import: '导入',
+    export: '导出',
     no: '否',
     save: '保存',
     pages: '页面',
@@ -52,7 +56,10 @@ export default {
     saveSuccess: '保存成功',
     missingField: '请填写标题和内容',
     delSuccess: '删除成功',
-    confirmDelete: '确认删除？'
+    confirmDelete: '确认删除？',
+    pickFile: '选择文件',
+    format: '文件格式',
+    upload: '上传至服务器'
   },
   navbar: {
     logOut: '退出登录',

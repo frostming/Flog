@@ -372,3 +372,8 @@ input[name=search]:focus {
 .navbar-dark input[name=search]:hover {
   border-bottom: 2px solid rgba(255, 255, 255, .7);
 }
+
+.btn-primary {
+  background-color: var(--primary-color)!important;
+  border-color: var(--primary-color)!important;
+}

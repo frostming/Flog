@@ -34,12 +34,6 @@
         </el-select>
       </el-form-item>
 
-      <div style="margin-bottom:30px;">
-        <el-checkbox v-model="postForm.comment">{{ $t('post.commentOn') }}</el-checkbox>
-        <el-button v-loading="loading" style="margin-left: 10px;" type="success" @click="submitForm">
-          {{ $t('post.save' ) }}
-        </el-button>
-      </div>
     </right-panel>
   </el-form>
 </template>
@@ -54,8 +48,7 @@ const defaultForm = {
   title: '', // 文章题目
   content: '', // 文章内容
   display: false,
-  ptype: 'markdown',
-  comment: true
+  ptype: 'markdown'
 }
 
 export default {

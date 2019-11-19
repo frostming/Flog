@@ -225,14 +225,11 @@ figure img {
   text-decoration: none;
 }
 
-#comments {
+.comments {
   margin-top: 2em;
   padding-top: .5em;
   border-top: 1px rgba(0, 0, 0, .1) solid;
-}
-
-#comments a {
-  color: var(--primary-color);
+  font-size: .92em;
 }
 
 #totop {
@@ -359,4 +356,26 @@ blockquote.centerquote::after {
 #copyright {
   margin-bottom: .5em;
   font-size: .85em;
+}
+
+.comments .CodeMirror {
+  min-height: auto;
+  height: 160px;
+}
+
+.comment-item {
+  border-top: 1px #eee solid;
+}
+
+.comment-item .gravatar {
+  width: 40px;
+}
+
+.comment-item .media-body time {
+  font-size: 0.8em;
+  color: #888;
+}
+
+.comment-item .media-body:hover .comment-hidden {
+  display: inline-block!important;
 }

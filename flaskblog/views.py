@@ -2,18 +2,19 @@ import io
 from typing import Tuple
 from urllib.parse import urljoin
 
-from flask import Flask, abort, current_app, g, render_template, request, send_file
+from flask import Flask, abort, current_app, g, render_template, request, send_file, jsonify
+from flask_login import current_user, login_required
 from werkzeug.contrib.atom import AtomFeed
 from werkzeug.wrappers import Response
 
 from .md import markdown
-from .models import Category, Post, Tag, User, Page
+from .models import Category, Comment, Page, Post, Tag, User, db
 from .utils import get_tag_cloud
 
 
 def load_site_config() -> None:
     if "site" not in g:
-        user = User.get_one()
+        user = User.get_admin()
         g.site = user.read_settings()
 
 
@@ -40,7 +41,13 @@ def post(year: str, date: str, title: str) -> str:
             break
     if not post:
         abort(404)
-    return render_template("post.html", post=post)
+    comments = (
+        post.comments.filter_by(parent=None).order_by(Comment.create_at.asc()).all()
+        if post.comment
+        else []
+    )
+    comments_count = post.comments.count()
+    return render_template("post.html", post=post, comments=comments, comments_count=comments_count)
 
 
 def tag(text: str) -> str:
@@ -117,6 +124,24 @@ def archive() -> str:
     return render_template("archive.html", items=result, tag_cloud=get_tag_cloud())
 
 
+@login_required
+def comment():
+    post_id = request.form['post_id']
+    content = request.form['content']
+    parent_id = request.form['parent_id']
+    post = Post.query.get_or_404(post_id)
+    last_comment = post.comments.order_by(Comment.floor.desc()).first()
+    floor = (last_comment.floor or 0) + 1 if last_comment else 1
+    parent = None
+    if parent_id:
+        parent = Comment.query.get_or_404(parent_id)
+        floor = None
+    comment = Comment(post=post, content=content, floor=floor, author=current_user, parent=parent)
+    db.session.add(comment)
+    db.session.commit()
+    return jsonify({'message': 'success'})
+
+
 def init_app(app: Flask) -> None:
     app.add_url_rule("/", "home", home)
     app.add_url_rule("/<int:year>/<date>/<title>", "post", post)
@@ -128,6 +153,7 @@ def init_app(app: Flask) -> None:
     app.add_url_rule("/search", "search", search)
     app.add_url_rule("/archive", "archive", archive)
     app.add_url_rule("/<path:slug>", "page", page)
+    app.add_url_rule("/comment", "comment", comment, methods=['POST'])
 
     app.register_error_handler(404, not_found)
     app.before_request(load_site_config)

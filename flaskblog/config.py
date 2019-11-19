@@ -12,6 +12,7 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = True
     WHOOSHEE_MIN_STRING_LEN = 2
+    ADMIN_EMAIL = 'mianghong@gmail.com'
 
 
 class ProductionConfig(BaseConfig):
