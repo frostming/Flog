@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+import hashlib
 from datetime import datetime
 from random import choice
-from typing import Union, Type
+from typing import Type, Union
 
 import sqlalchemy as sa
 from flask import Flask, current_app, json, url_for
@@ -9,13 +10,11 @@ from flask_login import UserMixin
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_whooshee import Whooshee
+from itsdangerous import BadSignature, SignatureExpired
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from slugify import slugify
 from werkzeug.security import check_password_hash, generate_password_hash
-from itsdangerous import (
-    TimedJSONWebSignatureSerializer as Serializer,
-    BadSignature,
-    SignatureExpired,
-)
+
 from .md import markdown
 
 db: SQLAlchemy = SQLAlchemy()
@@ -134,17 +133,20 @@ def render_markdown(
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True)
+    username = db.Column(db.String(64))
     email = db.Column(db.String(100))
     password = db.Column(db.String(200))
     settings = db.Column(db.Text())
     is_admin = db.Column(db.Boolean(), default=False)
     comments = db.relationship("Comment", backref="author", lazy="dynamic")
 
+    __table_args__ = (db.UniqueConstraint("username", "email", name="_username_email"),)
+
     def __init__(self, **kwargs) -> None:
-        password = kwargs.pop("password")
-        password = generate_password_hash(password)
-        kwargs["password"] = password
+        password = kwargs.pop("password", None)
+        if password:
+            password = generate_password_hash(password)
+            kwargs["password"] = password
         super(User, self).__init__(**kwargs)
 
     def check_password(self, password: str) -> bool:
@@ -153,16 +155,23 @@ class User(db.Model, UserMixin):
     @classmethod
     def get_admin(cls) -> "User":
         """Get the admin user. The only one will be returned."""
-        rv: Union[None, User] = cls.query.filter_by(is_admin=True).get_one_or_none()
+        rv: Union[None, User] = cls.query.filter_by(is_admin=True).first()
         if not rv:
             rv = cls(
                 username="admin",
+                email=current_app.config["ADMIN_EMAIL"],
                 password=current_app.config["DEFAULT_ADMIN_PASSWORD"],
                 is_admin=True,
             )
             db.session.add(rv)
             db.session.commit()
         return rv
+
+    @property
+    def avatar(self) -> str:
+        """Get the gravatar image"""
+        email_hash = hashlib.md5((self.email or '').strip().lower().encode()).hexdigest()
+        return f'https://www.gravatar.com/avatar/{email_hash}?d=identicon'
 
     @classmethod
     def verify_auth_token(cls, token):
@@ -189,7 +198,8 @@ class User(db.Model, UserMixin):
         return {
             'username': self.username,
             'email': self.email,
-            'is_admin': self.is_admin
+            'is_admin': self.is_admin,
+            'avatar': self.avatar
         }
 
 
@@ -250,12 +260,11 @@ class Page(db.Model):
     ptype = db.Column(db.String(20), default="markdown")
     content = db.Column(db.Text)
     html = db.Column(db.Text)
-    comment = db.Column(db.Boolean(), default=False)
 
     def to_dict(self):
         return {
             k: getattr(self, k)
-            for k in ("id", "slug", "title", "display", "ptype", "content", "comment")
+            for k in ("id", "slug", "title", "display", "ptype", "content")
         }
 
 
@@ -274,7 +283,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey("post.id"))
     author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    floor = db.Column(db.Integer, nullable=False)
+    floor = db.Column(db.Integer)
     content = db.Column(db.Text())
     html = db.Column(db.Text())
     create_at = db.Column(db.DateTime(), default=datetime.utcnow)
@@ -295,6 +304,14 @@ class Comment(db.Model):
             'create_at': self.create_at,
             'parent_floor': self.parent.floor
         }
+
+
+@sa.event.listens_for(Comment, "before_insert")
+@sa.event.listens_for(Comment, "before_update")
+def comment_html(
+    mapper: Type[sa.orm.Mapper], connection: sa.engine.Connection, target: sa.orm.Mapper
+) -> None:
+    target.html = markdown(target.content)
 
 
 def init_app(app: Flask) -> None:

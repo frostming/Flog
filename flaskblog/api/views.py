@@ -3,6 +3,7 @@ from . import api
 from .utils import verify_auth
 from flask import request, jsonify, g, abort, json
 from flask.views import MethodView
+from flask_login import current_user, logout_user
 from ..models import (
     Post,
     Category,
@@ -37,7 +38,7 @@ def login():
         return jsonify(
             {"code": 60204, "message": "Account and password are incorrect."}
         )
-    return jsonify({"code": 20000, "data": {"token": g.user.generate_token().decode()}})
+    return jsonify({"code": 20000, "data": {"token": current_user.generate_token().decode()}})
 
 
 @api.route("/user/info")
@@ -57,22 +58,22 @@ def get_info():
 
 @api.route("/user/logout", methods=["POST"])
 def logout():
-    g.user = None
+    logout_user()
     return jsonify(SUCCESS_RESPONSE)
 
 
 @api.route("/user/password", methods=["POST"])
 def change_password():
     data = request.get_json()
-    if not g.user.check_password(data["old"]):
+    if not current_user.check_password(data["old"]):
         abort(401)
     if data["new"] != data["confirm"]:
         return (
             jsonify({"code": 51123, "message": "New and confirm are not the same!"}),
             400,
         )
-    g.user.password = generate_password_hash(data["new"])
-    db.session.add(g.user)
+    current_user.password = generate_password_hash(data["new"])
+    db.session.add(current_user)
     db.session.commit()
     return jsonify(SUCCESS_RESPONSE)
 
@@ -83,7 +84,7 @@ def settings():
         return jsonify({"code": 20000, "data": g.site})
     else:
         g.site.update(request.get_json())
-        g.user.write_settings(g.site)
+        current_user.write_settings(g.site)
         return jsonify(SUCCESS_RESPONSE)
 
 
@@ -91,7 +92,7 @@ def settings():
 def theme():
     if request.method == "POST":
         g.site["primary_color"] = request.get_json().get("value")
-        g.user.write_settings(g.site)
+        current_user.write_settings(g.site)
         return jsonify(SUCCESS_RESPONSE)
     else:
         return jsonify(
@@ -106,7 +107,7 @@ def language():
         g.site["locale"] = (
             "zh_Hans_CN" if locale_in_request == "zh" else locale_in_request
         )
-        g.user.write_settings(g.site)
+        current_user.write_settings(g.site)
         return jsonify(SUCCESS_RESPONSE)
     else:
         locale_in_g = g.site.get("locale")
@@ -319,4 +320,3 @@ api.add_url_rule("/post/<int:id>", view_func=PostItemView.as_view("post_item"))
 api.add_url_rule("/page", view_func=PageView.as_view("page"))
 api.add_url_rule("/page/<int:id>", view_func=PageItemView.as_view("page_item"))
 api.add_url_rule("/integration", view_func=IntegrationView.as_view("integration"))
-

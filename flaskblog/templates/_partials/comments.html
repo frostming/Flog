@@ -1,0 +1,140 @@
+{% macro disqus(page) %}
+<section class="comments">
+  <div id="disqus_thread"></div>
+</section>
+
+<script>
+  disqus_shortname = '{{integration.disqus.shortname}}';
+  disqus_page_url = '{{request.url}}'; // optional
+  disqus_page_title = '{{page.title}}'; // optional
+
+</script>
+<script src="//a.typcdn.com/embed/disqus.js"></script>
+{% endmacro %}
+
+{% macro render_comments(post, items, count) %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<section class="comments">
+  <div class="mb-4">
+    {% if not current_user.is_authenticated %}
+    <div class="bg-light text-center p-4">
+      <p>{{_('Please login before comment')}}</p>
+      <form role="login" class="form-inline justify-content-center mb-4">
+        <input type="text" class="form-control mr-sm-2" name="username" placeholder="{{_('Username')}}" required>
+        <input type="text" class="form-control mr-sm-2" name="email" placeholder="{{_('Email')}}" required>
+        <button class="btn btn-primary">{{_('Login')}}</button>
+      </form>
+      <p>{{_('Or login with')}}
+        <a href="#" class="mr-2" title="Github {{_('Login')}}"><i class="fa fa-2x fa-github"></i></a>
+        <a href="#" title="Google {{_('Login')}}"><i class="fa fa-2x fa-google"></i></a>
+      </p>
+    </div>
+    {% else %}
+    <form role="comment">
+      <input type="hidden" name="post_id" value="{{post.id}}">
+      <input type="hidden" name="parent_id" value="">
+      <textarea name="content" placeholder="{{_('Type with markdown syntax')}}" required></textarea>
+      <div class="d-flex justify-content-between">
+        <div>
+          <strong>{{ current_user.username }}</strong>
+          {%-if current_user.is_admin-%}
+          <span class="text-success">({{ _('Admin') }})</span>
+          {%-endif-%}
+          <button class="btn btn-light btn-sm ml-2 d-none"><i class="fa fa-share"></i>@<span id="reply-to"></span></button>
+        </div>
+        <button class="btn btn-primary">{{_('Comment')}}</button>
+      </div>
+    </form>
+    <script>var simplemde = new SimpleMDE();</script>
+    {% endif %}
+  </div>
+  <div>
+    <div>{{ngettext('%(num)d comment', '%(num)d comments', count)}}</div>
+    {% for item in items %}
+    <div class="comment-item py-4">
+      <div class="media">
+        <img class="gravatar mr-2" src="{{item.author.avatar}}" class="mr-3" alt="{{item.author.username}}">
+        <div class="media-body">
+          <div>
+            <div class="float-right">
+              <div class="comment-hidden d-lg-none">
+                <a href="#" data-id="{{item.id}}" data-author="{{item.author.username}}">{{_('Reply')}}</a>
+              </div>
+            </div>
+            <strong>{{ item.author.username }}</strong>
+            {%-if item.author.is_admin-%}
+            <span class="text-success">({{ _('Admin') }})</span>
+            {%-endif-%}
+          </div>
+          <time datetime="{{item.create_at}}">{{moment(item.create_at).fromNow()}}</time>
+          <div class="comment-body mt-2">
+            {{ item.html|safe }}
+          </div>
+        </div>
+      </div>
+      {% for child in item.replies %}
+      <div class="comment-item py-3 ml-4 ml-lg-5">
+        <div class="media">
+          <img class="gravatar mr-2" src="{{child.author.avatar}}" class="mr-3" alt="{{child.author.username}}">
+          <div class="media-body">
+            <div>
+              <div class="float-right">
+                <div class="comment-hidden d-lg-none">
+                  <a href="#" data-id="{{child.id}}" data-author="{{child.author.username}}">{{_('Reply')}}</a>
+                </div>
+              </div>
+              <strong>{{ child.author.username }}</strong>
+              {%-if child.author.is_admin-%}
+              <span class="text-success">({{ _('Admin') }})</span>
+              {%-endif %} <i class="fa fa-share"></i>@{{ child.parent.author.username }}
+            </div>
+            <time datetime="{{child.create_at}}">{{moment(child.create_at).fromNow()}}</time>
+            <div class="comment-body mt-2">
+              {{ child.html|safe }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<script>
+  $(function() {
+    $('form[role=login]').submit(function(e) {
+      e.preventDefault();
+      fetch('/auth/login', {
+        method: 'post',
+        body: new FormData(this)
+      }).then(_ => {
+        location.reload();
+      });
+    });
+
+    $('form[role=comment]').submit(function(e) {
+      e.preventDefault();
+      fetch('/comment', {
+        method: 'post',
+        body: new FormData(this)
+      }).then(_ => {
+        location.reload();
+      });
+    });
+
+    $('[data-author]').click(function() {
+      $('#reply-to').text($(this).data('author')).parent().removeClass('d-none');
+      $('input[name=parent_id]').val($(this).data('id'));
+      return false;
+    });
+    $('#reply-to').parent().click(function() {
+      $(this).addClass('d-none');
+      $('#reply-to').text('');
+      $('input[name=parent_id]').val('');
+      return false;
+    })
+  });
+</script>
+{% endmacro %}

@@ -1,6 +1,4 @@
 {% extends '_page.html' %}
-{% from '_partials/disqus.html' import disqus with context %}
-
 
 {% block center_col %}{% endblock %}
 {% block right_col %}d-none{% endblock %}
@@ -10,7 +8,6 @@
     {{ page.html | safe }}
   {% if page.ptype == "markdown"-%}</div>{%-endif %}
 </article>
-{{ disqus(page) }}
 {% endblock %}
 
 {% block additional %}

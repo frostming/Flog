@@ -1,5 +1,6 @@
 {% extends '_page.html' %}
-{% from '_partials/disqus.html' import disqus with context %}
+{% from '_partials/comments.html' import disqus with context %}
+{% from '_partials/comments.html' import render_comments with context %}
 
 {% block lang %}{{post.lang}}{% endblock %}
 {% block title %}{{post.title}}{% endblock %}
@@ -75,7 +76,7 @@
   <i class="fa fa-cc"></i> {{_('This work is released under ')}}<a rel="license"
     itemprop="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA{{_(' License. ')}}</a></div>
   <div>
-    <button class="btn" type="button" data-toggle="collapse" data-target="#donate-qrcode" aria-expanded="false" aria-controls="donate-qrcode" style="background-color:var(--primary-color); color:white">
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#donate-qrcode" aria-expanded="false" aria-controls="donate-qrcode">
       <i class="fa fa-heart"></i> {{_('Donate')}}
     </button>
   </div>
@@ -98,7 +99,12 @@
   </div>
 </section>
 {% endif %}
-{{ disqus(post) }}
+{% if not config.DEBUG and page.comment and integration.disqus and integration.disqus.enabled %}
+{{ disqus(page) }}
+{% endif %}
+{% if post.comment %}
+{{ render_comments(post, comments, comments_count) }}
+{% endif %}
 {% endblock %}
 
 {% block additional %}
