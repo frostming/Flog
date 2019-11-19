@@ -134,6 +134,7 @@ def render_markdown(
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64))
+    name = db.Column(db.String(100))
     email = db.Column(db.String(100))
     password = db.Column(db.String(200))
     settings = db.Column(db.Text())
@@ -147,10 +148,16 @@ class User(db.Model, UserMixin):
         if password:
             password = generate_password_hash(password)
             kwargs["password"] = password
+        if not kwargs.get('username') and kwargs.get('name'):
+            kwargs['username'] = slugify(kwargs['name'])
         super(User, self).__init__(**kwargs)
 
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password, password)
+
+    @property
+    def display_name(self):
+        return self.name or self.username
 
     @classmethod
     def get_admin(cls) -> "User":
@@ -293,6 +300,16 @@ class Comment(db.Model):
     )
 
     __table_args__ = (db.UniqueConstraint("post_id", "floor", name="_post_floor"),)
+
+    @property
+    def children(self):
+        queue = [self]
+        rv = self.replies.all()
+        while queue:
+            node = queue.pop(0)
+            rv.append(node)
+            queue.extend(node.replies or [])
+        return sorted(rv, lambda x: x.create_at)
 
     def to_dict(self):
         return {

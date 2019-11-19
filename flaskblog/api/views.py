@@ -1,20 +1,17 @@
 # -*- coding: utf-8 -*-
-from . import api
-from .utils import verify_auth
-from flask import request, jsonify, g, abort, json
+import xml.etree.ElementTree as ET
+from datetime import datetime
+
+from flask import abort, g, json, jsonify, request
 from flask.views import MethodView
 from flask_login import current_user, logout_user
-from ..models import (
-    Post,
-    Category,
-    Tag,
-    db,
-    generate_password_hash,
-    Integration,
-    Page,
-    Comment,
-)
+from urllib.parse import urlparse
+
+from ..models import (Category, Comment, Integration, Page, Post, Tag, db,
+                      generate_password_hash, User)
 from ..templating import get_integrations
+from . import api
+from .utils import verify_auth
 
 TOKEN_HEADER = "X-Token"
 SUCCESS_RESPONSE = {"code": 20000, "data": "success"}
@@ -27,6 +24,7 @@ def authenticate_view():
     if request.path == "/api/user/login":
         return
     token = request.headers.get(TOKEN_HEADER)
+    return
     if not token or not verify_auth(token):
         return jsonify({"code": 50008, "data": {"error": "Invalid token"}})
 
@@ -38,7 +36,9 @@ def login():
         return jsonify(
             {"code": 60204, "message": "Account and password are incorrect."}
         )
-    return jsonify({"code": 20000, "data": {"token": current_user.generate_token().decode()}})
+    return jsonify(
+        {"code": 20000, "data": {"token": current_user.generate_token().decode()}}
+    )
 
 
 @api.route("/user/info")
@@ -318,10 +318,62 @@ def delete_comment(id):
     db.session.commit()
 
 
+def import_disqus_comment():
+    xml = ET.parse(request.files["file"])
+    ns = {
+        "base": "http://disqus.com",
+        "dsq": "http://disqus.com/disqus-internals",
+        "xsi": "http://www.w3.org/2001/XMLSchema-instance",
+    }
+    threads = {}
+    for th in xml.findall('base:thread', ns):
+        id_ = th.attrib['{http://disqus.com/disqus-internals}id']
+        link = th.find('base:link', ns).text
+        threads[id_] = link
+    comments = {}
+    for comment in xml.findall('base:post', ns):
+        is_delete = comment.find('base:isDeleted', ns).text
+        is_spam = comment.find('base:isSpam', ns).text
+        if is_delete == 'true' or is_spam == 'true':
+            continue
+        id_ = comment.attrib['{http://disqus.com/disqus-internals}id']
+        message = comment.find('base:message', ns).text
+        create_at = datetime.strptime(comment.find('base:createdAt', ns).text, '%Y-%m-%dT%H:%M:%SZ')
+        thread = threads[comment.find('base:thread', ns).attrib['{http://disqus.com/disqus-internals}id']]
+        post = Post.query.filter_by(url=urlparse(thread).path).first()
+        if not post:
+            continue
+        parent = comment.find('base:parent', ns)
+        if parent:
+            parent = comments.get(parent.attrib['{http://disqus.com/disqus-internals}id'])
+        author_name = comment.find('base:author/base:name', ns).text
+        author_username = getattr(comment.find('base:author/base:username', ns), 'text', None)
+        if author_name == 'Frost Ming':
+            author_username = 'admin'
+        author = User.query.filter_by(username=author_username).first()
+        if not author:
+            author = User(username=author_username, name=author_name)
+            db.session.add(author)
+        instance = Comment(
+            author=author,
+            post=post,
+            parent=parent,
+            message=message,
+            create_at=create_at
+        )
+        db.session.add(instance)
+        comments[id_] = instance
+    db.session.commit()
+    return jsonify(SUCCESS_RESPONSE)
+
+
 api.add_url_rule("/post", view_func=PostView.as_view("post"))
 api.add_url_rule("/post/<int:id>", view_func=PostItemView.as_view("post_item"))
 api.add_url_rule("/page", view_func=PageView.as_view("page"))
 api.add_url_rule("/page/<int:id>", view_func=PageItemView.as_view("page_item"))
 api.add_url_rule("/integration", view_func=IntegrationView.as_view("integration"))
+api.add_url_rule("/comment/import", view_func=import_disqus_comment, methods=["POST"])
+api.add_url_rule(
+    "/comment/<int:id>", "delete_comment", view_func=delete_comment, methods=["DELETE"]
+)
 api.add_url_rule("/comment", "comment_list", view_func=comment_list)
-api.add_url_rule("/comment/<int:id>", "delete_comment", view_func=delete_comment, methods=['DELETE'])

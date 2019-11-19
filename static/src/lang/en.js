@@ -56,7 +56,10 @@ export default {
     saveSuccess: 'Save success',
     missingField: 'Title and content must be provided',
     delSuccess: 'Delete success',
-    confirmDelete: 'Are you sure to delete?'
+    confirmDelete: 'Are you sure to delete?',
+    pickFile: 'Pick file',
+    format: 'File Format',
+    upload: 'Upload to server'
   },
   navbar: {
     logOut: 'Log Out',

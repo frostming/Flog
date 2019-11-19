@@ -1,67 +1,59 @@
 <template>
-  <div class="tab-container">
-    <el-tabs style="margin-top:15px;" type="border-card">
-      <el-tab-pane :label="$t('route.comments')">
-        <keep-alive>
-          <div class="app-container">
-            <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%">
-              <el-table-column align="center" label="ID" width="80">
-                <template slot-scope="scope">
-                  <span>{{ scope.row.id }}</span>
-                </template>
-              </el-table-column>
+  <div class="app-container">
+    <el-button slot="label" type="primary" style="margin-bottom: 20px;" icon="el-icon-edit" @click="importVisible = true">
+      {{ $t('post.import') }}
+    </el-button>
+    <import-dialog :visible.sync="importVisible" @success="getList" />
+    <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%">
+      <el-table-column align="center" label="ID" width="80">
+        <template slot-scope="scope">
+          <span>{{ scope.row.id }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column min-width="120px" align="center" :label="$t('route.posts')">
+        <template slot-scope="scope">
+          <a :href="scope.row.post.url">{{ scope.row.post.title }}</a>
+        </template>
+      </el-table-column>
 
-              <el-table-column min-width="120px" align="center" :label="$t('route.posts')">
-                <template slot-scope="scope">
-                  <a :href="scope.row.post.url">{{ scope.row.post.title }}</a>
-                </template>
-              </el-table-column>
+      <el-table-column :label="$t('post.author')" width="100px">
+        <template slot-scope="{row}">
+          <span>{{ row.author.username }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('post.date')" width="150px">
+        <template slot-scope="{row}">
+          <span>{{ row.create_at | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+        </template>
+      </el-table-column>
 
-              <el-table-column :label="$t('post.author')" width="100px">
-                <template slot-scope="{row}">
-                  <span>{{ row.author.username }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('post.date')" width="150px">
-                <template slot-scope="{row}">
-                  <span>{{ row.create_at | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-                </template>
-              </el-table-column>
+      <el-table-column :label="$t('post.content')">
+        <template slot-scope="{row}">
+          <span>{{ row.content }}</span>
+        </template>
+      </el-table-column>
 
-              <el-table-column :label="$t('post.content')">
-                <template slot-scope="{row}">
-                  <span>{{ row.content }}</span>
-                </template>
-              </el-table-column>
-
-              <el-table-column align="center" :label="$t('post.actions')" width="220">
-                <template slot-scope="scope">
-                  <el-button type="danger" size="small" icon="el-icon-delete" @click="handleDelete(scope.row)">
-                    {{ $t('post.delete') }}
-                  </el-button>
-                </template>
-              </el-table-column>
-            </el-table>
-            <pagination v-show="total>listQuery.page" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-          </div>
-        </keep-alive>
-      </el-tab-pane>
-      <el-tab-pane>
-        <el-button slot="label" type="primary" size="small" class="create-post-btn" icon="el-icon-edit">
-          {{ $t('post.import') }}
-        </el-button>
-      </el-tab-pane>
-    </el-tabs>
+      <el-table-column align="center" :label="$t('post.actions')" width="220">
+        <template slot-scope="scope">
+          <el-button type="danger" size="small" icon="el-icon-delete" @click="handleDelete(scope.row)">
+            {{ $t('post.delete') }}
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <pagination v-show="total>listQuery.page" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
   </div>
+
 </template>
 
 <script>
 import Pagination from '@/components/Pagination'
+import ImportDialog from './ImportDialog'
 import { fetchList, deleteComment } from '@/api/comment'
 
 export default {
   name: 'CommentList',
-  components: { Pagination },
+  components: { Pagination, ImportDialog },
   data() {
     return {
       list: null,
@@ -70,7 +62,8 @@ export default {
       listQuery: {
         page: 1,
         limit: 20
-      }
+      },
+      importVisible: false
     }
   },
   created() {

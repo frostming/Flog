@@ -138,7 +138,7 @@ export const asyncRoutes = [
         path: '',
         component: () => import('@/views/comment/list'),
         name: 'Comments',
-        meta: { title: 'comments', icon: 'settings' }
+        meta: { title: 'comments', icon: 'comment' }
       }
     ]
   },

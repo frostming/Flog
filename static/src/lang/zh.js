@@ -56,7 +56,10 @@ export default {
     saveSuccess: '保存成功',
     missingField: '请填写标题和内容',
     delSuccess: '删除成功',
-    confirmDelete: '确认删除？'
+    confirmDelete: '确认删除？',
+    pickFile: '选择文件',
+    format: '文件格式',
+    upload: '上传至服务器'
   },
   navbar: {
     logOut: '退出登录',

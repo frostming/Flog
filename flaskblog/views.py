@@ -135,8 +135,6 @@ def comment():
     parent = None
     if parent_id:
         parent = Comment.query.get_or_404(parent_id)
-        while getattr(parent, 'parent', None) is not None:
-            parent = getattr(parent, 'parent')
         floor = None
     comment = Comment(post=post, content=content, floor=floor, author=current_user, parent=parent)
     db.session.add(comment)

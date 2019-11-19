@@ -41,12 +41,16 @@
           {%-if current_user.is_admin-%}
           <span class="text-success">({{ _('Admin') }})</span>
           {%-endif-%}
-          <button class="btn btn-light btn-sm ml-2 d-none" type="button" name="reply"><i class="fa fa-share"></i>@<span id="reply-to"></span></button>
+          <button class="btn btn-light btn-sm ml-2 d-none" type="button" name="reply"><i class="fa fa-share"></i>@<span
+              id="reply-to"></span></button>
         </div>
         <button class="btn btn-primary" type="submit" name="comment">{{_('Comment')}}</button>
       </div>
     </form>
-    <script>var simplemde = new SimpleMDE();</script>
+    <script>
+      var simplemde = new SimpleMDE();
+
+    </script>
     {% endif %}
   </div>
   <div>
@@ -74,7 +78,7 @@
           </div>
         </div>
       </div>
-      {% for child in item.replies %}
+      {% for child in item.children %}
       <div class="comment-item py-2 ml-4 ml-lg-5">
         <div class="media">
           <img class="gravatar mr-2" src="{{child.author.avatar}}" class="mr-3" alt="{{child.author.username}}">
@@ -104,8 +108,8 @@
 </section>
 
 <script>
-  $(function() {
-    $('form[role=login]').submit(function(e) {
+  $(function () {
+    $('form[role=login]').submit(function (e) {
       e.preventDefault();
       fetch('/auth/login', {
         method: 'post',
@@ -115,7 +119,7 @@
       });
     });
 
-    $('form[role=comment]').submit(function(e) {
+    $('form[role=comment]').submit(function (e) {
       e.preventDefault();
       fetch('/comment', {
         method: 'post',
@@ -125,17 +129,18 @@
       });
     });
 
-    $('[data-author]').click(function() {
+    $('[data-author]').click(function () {
       $('#reply-to').text($(this).data('author')).parent().removeClass('d-none');
       $('input[name=parent_id]').val($(this).data('id'));
       return false;
     });
-    $('#reply-to').parent().click(function() {
+    $('#reply-to').parent().click(function () {
       $(this).addClass('d-none');
       $('#reply-to').text('');
       $('input[name=parent_id]').val('');
       return false;
     })
   });
+
 </script>
 {% endmacro %}
