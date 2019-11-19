@@ -34,16 +34,16 @@
     <form role="comment">
       <input type="hidden" name="post_id" value="{{post.id}}">
       <input type="hidden" name="parent_id" value="">
-      <textarea name="content" placeholder="{{_('Type with markdown syntax')}}" required></textarea>
+      <textarea name="content" placeholder="{{_('Type with markdown syntax')}}"></textarea>
       <div class="d-flex justify-content-between">
         <div>
           <strong>{{ current_user.username }}</strong>
           {%-if current_user.is_admin-%}
           <span class="text-success">({{ _('Admin') }})</span>
           {%-endif-%}
-          <button class="btn btn-light btn-sm ml-2 d-none"><i class="fa fa-share"></i>@<span id="reply-to"></span></button>
+          <button class="btn btn-light btn-sm ml-2 d-none" type="button" name="reply"><i class="fa fa-share"></i>@<span id="reply-to"></span></button>
         </div>
-        <button class="btn btn-primary">{{_('Comment')}}</button>
+        <button class="btn btn-primary" type="submit" name="comment">{{_('Comment')}}</button>
       </div>
     </form>
     <script>var simplemde = new SimpleMDE();</script>
@@ -52,15 +52,16 @@
   <div>
     <div>{{ngettext('%(num)d comment', '%(num)d comments', count)}}</div>
     {% for item in items %}
-    <div class="comment-item py-4">
+    <div class="comment-item py-4" id="post-comment-{{item.floor}}">
       <div class="media">
         <img class="gravatar mr-2" src="{{item.author.avatar}}" class="mr-3" alt="{{item.author.username}}">
         <div class="media-body">
           <div>
             <div class="float-right">
-              <div class="comment-hidden d-lg-none">
+              <span class="comment-hidden d-lg-none">
                 <a href="#" data-id="{{item.id}}" data-author="{{item.author.username}}">{{_('Reply')}}</a>
-              </div>
+              </span>
+              <a href="#post-comment-{{item.floor}}"># {{item.floor}}</a>
             </div>
             <strong>{{ item.author.username }}</strong>
             {%-if item.author.is_admin-%}
@@ -74,7 +75,7 @@
         </div>
       </div>
       {% for child in item.replies %}
-      <div class="comment-item py-3 ml-4 ml-lg-5">
+      <div class="comment-item py-2 ml-4 ml-lg-5">
         <div class="media">
           <img class="gravatar mr-2" src="{{child.author.avatar}}" class="mr-3" alt="{{child.author.username}}">
           <div class="media-body">

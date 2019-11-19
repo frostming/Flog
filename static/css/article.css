@@ -377,5 +377,5 @@ blockquote.centerquote::after {
 }
 
 .comment-item .media-body:hover .comment-hidden {
-  display: block!important;
+  display: inline-block!important;
 }
