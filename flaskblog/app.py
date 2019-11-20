@@ -32,6 +32,8 @@ def create_app(env: Union[str, None] = None) -> Flask:
         lang = request.accept_languages.best_match(['zh', 'en'])
         if not lang and 'site' in g:
             lang = g.site['locale']
+        if lang == 'zh':
+            lang = 'zh_Hans_CN'
         return lang
 
     login_manager = LoginManager(app)

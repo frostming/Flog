@@ -303,7 +303,7 @@ class Comment(db.Model):
 
     @property
     def children(self):
-        queue = [self.replies.all()]
+        queue = self.replies.all()
         rv = []
         while queue:
             node = queue.pop(0)
