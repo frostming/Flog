@@ -344,7 +344,7 @@ def import_disqus_comment():
         if not post:
             continue
         parent = comment.find('base:parent', ns)
-        if parent:
+        if parent is not None:
             parent = comments.get(parent.attrib['{http://disqus.com/disqus-internals}id'])
         author_name = comment.find('base:author/base:name', ns).text
         author_username = getattr(comment.find('base:author/base:username', ns), 'text', None)
