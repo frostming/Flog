@@ -1,0 +1,9 @@
+{% extends 'mail/layout.html' %}
+{% block title %}{{_("Your post '%(title)s' has got a new comment", title=comment.post.title)}}{% endblock %}
+{% block content %}
+<p><strong>{{ comment.author.display_name }}</strong></p>
+<p>{{ comment.create_at }}</p>
+{{ comment.html |safe }}
+
+<p>{{_('Please go to ')}}<a href="https://{{config.SERVER_NAME}}{{comment.post.url}}">https://{{config.SERVER_NAME}}{{comment.post.url}}</a>{{_(' for more information')}}</p>
+{% endblock %}

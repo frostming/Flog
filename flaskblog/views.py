@@ -10,6 +10,7 @@ from werkzeug.wrappers import Response
 from .md import markdown
 from .models import Category, Comment, Page, Post, Tag, User, db
 from .utils import get_tag_cloud
+from .tasks import notify_comment, notify_reply
 
 
 def load_site_config() -> None:
@@ -139,6 +140,13 @@ def comment():
     comment = Comment(post=post, content=content, floor=floor, author=current_user, parent=parent)
     db.session.add(comment)
     db.session.commit()
+    admin = User.get_admin()
+    if parent is not None and current_user != parent.author:
+        current_app.logger.info('notify_reply')
+        notify_reply(parent.to_dict(), comment.to_dict())
+    current_app.logger.info('notify_comment')
+    notify_comment(admin.to_dict(), comment.to_dict())
+
     return jsonify({'message': 'success'})
 
 

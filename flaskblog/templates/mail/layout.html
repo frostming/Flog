@@ -1,0 +1,43 @@
+<head>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px #eee solid;
+    border-radius: 10px;
+  }
+  #head {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    color: white;
+    background-color: #36ABC8;
+  }
+  #content {
+    padding: 10px;
+  }
+  footer {
+    font-size: .75em;
+    color: #888888;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div id="head">{{ g.site.name }}</div>
+    <div id="content">
+      <h1>{% block title %}{% endblock %}</h1>
+      {% block content %}{% endblock %}
+    </div>
+    <footer><p>{{_('This email is sent by system automatically. Please do not reply to the email directly.')}}</p></footer>
+  </div>
+</body>
