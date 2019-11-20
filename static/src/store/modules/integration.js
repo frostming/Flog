@@ -1,6 +1,9 @@
 import { fetchIntegration, updateIntegration } from '@/api/user'
 
 const state = {
+  comment: {
+    enabled: false
+  },
   disqus: {
     enabled: false,
     shortname: ''

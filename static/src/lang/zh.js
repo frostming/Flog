@@ -28,6 +28,8 @@ export default {
     content: '内容',
     import: '导入',
     export: '导出',
+    uploadSuccess: '上传成功',
+    uploadError: '上传失败',
     no: '否',
     save: '保存',
     pages: '页面',

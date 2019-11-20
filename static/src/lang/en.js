@@ -32,6 +32,8 @@ export default {
     content: 'Content',
     import: 'Import',
     export: 'Export',
+    uploadSuccess: 'Upload Success',
+    uploadError: 'Upload Error',
     ptype: 'Content Type',
     markdown: 'Markdown',
     html: 'HTML',

@@ -1,6 +1,6 @@
 {% extends '_page.html' %}
-{% from '_partials/comments.html' import disqus with context %}
-{% from '_partials/comments.html' import render_comments with context %}
+{% from 'partials/comments.html' import disqus with context %}
+{% from 'partials/comments.html' import render_comments with context %}
 
 {% block lang %}{{post.lang}}{% endblock %}
 {% block title %}{{post.title}}{% endblock %}
@@ -104,13 +104,13 @@
 {% if not config.DEBUG and post.comment and integration.disqus and integration.disqus.enabled %}
 {{ disqus(post) }}
 {% endif %}
-{% if post.comment %}
+{% if post.comment and integration.comment %}
 {{ render_comments(post, comments, comments_count) }}
 {% endif %}
 {% endblock %}
 
 {% block additional %}
-{% include '_partials/pswp.html' %}
+{% include 'partials/pswp.html' %}
 <a id="totop" title="Return to the top" class="invisible" href="javascript:void(0)"><i
     class="fa fa-fw fa-arrow-up"></i></a>
 {% endblock %}
@@ -119,5 +119,5 @@
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-574571fdae7f0521"></script>
 <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.2/dist/photoswipe.min.js" charset="utf-8"></script>
 <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.2/dist/photoswipe-ui-default.min.js" charset="utf-8"></script>
-{% include '_partials/math.html' %}
+{% include 'partials/math.html' %}
 {% endblock %}

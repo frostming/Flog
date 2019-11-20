@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-11-11 22:01+0800\n"
+"POT-Creation-Date: 2019-11-20 09:26+0800\n"
 "PO-Revision-Date: 2017-09-10 11:03+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: flaskblog/app.py:37
+#: flaskblog/app.py:38
 msgid "Please login"
 msgstr "请先登录"
 
@@ -26,7 +26,7 @@ msgstr "请先登录"
 msgid "Return Home"
 msgstr "回到主页"
 
-#: flaskblog/templates/archive.html:47
+#: flaskblog/templates/archive.html:47 flaskblog/templates/partials/nav.html:9
 msgid "Archive"
 msgstr "归档"
 
@@ -62,17 +62,13 @@ msgstr "标签"
 msgid "Links"
 msgstr "链接"
 
-#: flaskblog/templates/post.html:36
+#: flaskblog/templates/post.html:37
 msgid "TABLE OF CONTENTS"
 msgstr "目录"
 
-#: flaskblog/templates/post.html:64
+#: flaskblog/templates/post.html:71
 msgid "Last edited"
 msgstr "最后编辑于"
-
-#: flaskblog/templates/post.html:70
-msgid "Donate"
-msgstr "打赏"
 
 #: flaskblog/templates/post.html:75
 msgid "Post Link"
@@ -86,7 +82,11 @@ msgstr "本作品采用"
 msgid " License. "
 msgstr "许可。"
 
-#: flaskblog/templates/post.html:82
+#: flaskblog/templates/post.html:81
+msgid "Donate"
+msgstr "打赏"
+
+#: flaskblog/templates/post.html:91
 msgid "RELATED POST"
 msgstr "相关文章"
 
@@ -95,3 +95,49 @@ msgstr "相关文章"
 msgid "Search Result for '%(word)s'"
 msgstr "'%(word)s'的搜索结果"
 
+#: flaskblog/templates/partials/comments.html:22
+msgid "Please login before comment"
+msgstr "评论前请先登录"
+
+#: flaskblog/templates/partials/comments.html:24
+msgid "Username"
+msgstr "用户名"
+
+#: flaskblog/templates/partials/comments.html:25
+msgid "Email"
+msgstr "电子邮件"
+
+#: flaskblog/templates/partials/comments.html:26
+#: flaskblog/templates/partials/comments.html:29
+#: flaskblog/templates/partials/comments.html:30
+msgid "Login"
+msgstr "登录"
+
+#: flaskblog/templates/partials/comments.html:28
+msgid "Or login with"
+msgstr "或通过第三方登录"
+
+#: flaskblog/templates/partials/comments.html:37
+msgid "Type with markdown syntax"
+msgstr "评论使用Markdown语法"
+
+#: flaskblog/templates/partials/comments.html:42
+#: flaskblog/templates/partials/comments.html:72
+#: flaskblog/templates/partials/comments.html:94
+msgid "Admin"
+msgstr "博主"
+
+#: flaskblog/templates/partials/comments.html:47
+msgid "Comment"
+msgstr "评论"
+
+#: flaskblog/templates/partials/comments.html:57
+#, python-format
+msgid "%(num)d comment"
+msgid_plural "%(num)d comments"
+msgstr[0] "%(num)d 条评论"
+
+#: flaskblog/templates/partials/comments.html:66
+#: flaskblog/templates/partials/comments.html:89
+msgid "Reply"
+msgstr "回复"

@@ -1,6 +1,12 @@
 <template>
   <div class="integration-container">
     <card
+      :label="$t('route.comments')"
+      name="comment"
+      :initial="integration.comment"
+      image="https://static.frostming.com/images/comment.png"
+    />
+    <card
       label="Disqus"
       name="disqus"
       :initial="integration.disqus"

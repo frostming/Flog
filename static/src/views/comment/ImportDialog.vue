@@ -7,6 +7,9 @@
       ref="upload"
       action="/api/comment/import"
       :data="{type}"
+      :headers="headers"
+      :on-success="showSuccess"
+      :on-error="showError"
       :multiple="false"
       :limit="1"
       :auto-upload="false"
@@ -20,6 +23,8 @@
 </template>
 
 <script>
+import { getToken } from '@/utils/auth'
+
 export default {
   name: 'ImportDialog',
   props: {
@@ -41,13 +46,28 @@ export default {
       set(val) {
         this.$emit('update:visible', val)
       }
+    },
+    headers() {
+      return { 'X-Token': getToken() }
     }
   },
   methods: {
     submitUpload() {
       this.$refs.upload.submit()
+    },
+    showSuccess() {
       this.dialogVisible = false
+      this.$message({
+        type: 'success',
+        message: this.$t('post.uploadSuccess')
+      })
       this.$emit('success')
+    },
+    showError(e) {
+      this.$message({
+        type: 'danger',
+        message: this.$t('post.uploadError') + ': ' + e
+      })
     }
   }
 }
