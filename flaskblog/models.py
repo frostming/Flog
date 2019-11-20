@@ -177,7 +177,7 @@ class User(db.Model, UserMixin):
     @property
     def avatar(self) -> str:
         """Get the gravatar image"""
-        email_hash = hashlib.md5((self.email or '').strip().lower().encode()).hexdigest()
+        email_hash = hashlib.md5((self.email or self.username).strip().lower().encode()).hexdigest()
         return f'https://www.gravatar.com/avatar/{email_hash}?d=identicon'
 
     @classmethod
