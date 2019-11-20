@@ -315,6 +315,7 @@ def comment_list():
 def delete_comment(id):
     Comment.query.filter_by(id=id).delete()
     db.session.commit()
+    return jsonify(SUCCESS_RESPONSE)
 
 
 def import_disqus_comment():
