@@ -29,9 +29,10 @@ def create_app(env: Union[str, None] = None) -> Flask:
 
     @babel.localeselector
     def get_locale():
-        if 'site' in g:
-            return g.site['locale']
-        return request.accept_languages.best_match(['zh', 'en'])
+        lang = request.accept_languages.best_match(['zh', 'en'])
+        if not lang and 'site' in g:
+            lang = g.site['locale']
+        return lang
 
     login_manager = LoginManager(app)
     login_manager.login_view = 'admin.login'
