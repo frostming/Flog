@@ -1,8 +1,9 @@
-from flask import abort, request, jsonify
+from flask import Blueprint, abort, jsonify, request
 from flask_login import login_user
 
-from . import bp
 from ..models import User, db
+
+bp = Blueprint('auth', __name__)   # type: Blueprint
 
 
 @bp.route('/login', methods=['POST'])

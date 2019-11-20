@@ -23,6 +23,8 @@ cssmin = "*"
 jsmin = "*"
 qcloud-python-sts = "*"
 faker = "*"
+gevent = "*"
+authlib = "*"
 
 [dev-packages]
 flake8 = "*"
