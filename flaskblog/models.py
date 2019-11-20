@@ -139,6 +139,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(200))
     settings = db.Column(db.Text())
     is_admin = db.Column(db.Boolean(), default=False)
+    picture = db.Column(db.String(512))
     comments = db.relationship("Comment", backref="author", lazy="dynamic")
 
     __table_args__ = (db.UniqueConstraint("username", "email", name="_username_email"),)
@@ -177,6 +178,8 @@ class User(db.Model, UserMixin):
     @property
     def avatar(self) -> str:
         """Get the gravatar image"""
+        if self.picture:
+            return self.picture
         email_hash = hashlib.md5((self.email or self.username).strip().lower().encode()).hexdigest()
         return f'https://www.gravatar.com/avatar/{email_hash}?d=identicon'
 

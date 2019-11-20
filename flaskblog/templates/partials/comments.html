@@ -37,7 +37,7 @@
       <textarea name="content" placeholder="{{_('Type with markdown syntax')}}"></textarea>
       <div class="d-flex justify-content-between">
         <div>
-          <strong>{{ current_user.username }}</strong>
+          <strong>{{ current_user.display_name }}</strong>
           {%-if current_user.is_admin-%}
           <span class="text-success">({{ _('Admin') }})</span>
           {%-endif-%}
@@ -58,16 +58,16 @@
     {% for item in items %}
     <div class="comment-item py-4" id="post-comment-{{item.floor}}">
       <div class="media">
-        <img class="gravatar mr-2" src="{{item.author.avatar}}" class="mr-3" alt="{{item.author.username}}">
+        <img class="gravatar mr-2" src="{{item.author.avatar}}" class="mr-3" alt="{{item.author.display_name}}">
         <div class="media-body">
           <div>
             <div class="float-right">
               <span class="comment-hidden d-lg-none">
-                <a href="#" data-id="{{item.id}}" data-author="{{item.author.username}}">{{_('Reply')}}</a>
+                <a href="#" data-id="{{item.id}}" data-author="{{item.author.display_name}}">{{_('Reply')}}</a>
               </span>
               <a href="#post-comment-{{item.floor}}"># {{item.floor}}</a>
             </div>
-            <strong>{{ item.author.username }}</strong>
+            <strong>{{ item.author.display_name }}</strong>
             {%-if item.author.is_admin-%}
             <span class="text-success">({{ _('Admin') }})</span>
             {%-endif-%}
@@ -81,18 +81,18 @@
       {% for child in item.children %}
       <div class="comment-item py-2 ml-4 ml-lg-5">
         <div class="media">
-          <img class="gravatar mr-2" src="{{child.author.avatar}}" class="mr-3" alt="{{child.author.username}}">
+          <img class="gravatar mr-2" src="{{child.author.avatar}}" class="mr-3" alt="{{child.author.display_name}}">
           <div class="media-body">
             <div>
               <div class="float-right">
                 <div class="comment-hidden d-lg-none">
-                  <a href="#" data-id="{{child.id}}" data-author="{{child.author.username}}">{{_('Reply')}}</a>
+                  <a href="#" data-id="{{child.id}}" data-author="{{child.author.display_name}}">{{_('Reply')}}</a>
                 </div>
               </div>
-              <strong>{{ child.author.username }}</strong>
+              <strong>{{ child.author.display_name }}</strong>
               {%-if child.author.is_admin-%}
               <span class="text-success">({{ _('Admin') }})</span>
-              {%-endif %} <i class="fa fa-share"></i>@{{ child.parent.author.username }}
+              {%-endif %} <i class="fa fa-share"></i>@{{ child.parent.author.display_name }}
             </div>
             <time datetime="{{child.create_at}}">{{moment(child.create_at).fromNow()}}</time>
             <div class="comment-body mt-2">
