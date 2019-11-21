@@ -12,8 +12,8 @@ def background_task(f):
     def wrapper(*args, **kwargs):
         future = gevent.spawn(copy_current_request_context(f), *args, **kwargs)
 
-        def callback(futrue):
-            exc = future.exception
+        def callback(result):
+            exc = result.exception
             current_app.log_exception((type(exc), exc, exc.__traceback__))
 
         future.link_exception(copy_current_request_context(callback))
