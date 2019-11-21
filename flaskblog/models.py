@@ -209,7 +209,8 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'is_admin': self.is_admin,
-            'avatar': self.avatar
+            'avatar': self.avatar,
+            'display_name': self.display_name
         }
 
 

@@ -23,6 +23,9 @@ cssmin = "*"
 jsmin = "*"
 qcloud-python-sts = "*"
 faker = "*"
+gevent = "*"
+authlib = "*"
+flask-mail = "*"
 
 [dev-packages]
 flake8 = "*"

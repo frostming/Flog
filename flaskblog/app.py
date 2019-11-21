@@ -7,8 +7,12 @@ from flask_babel import Babel, lazy_gettext
 from flask_login import LoginManager
 from flask_moment import Moment
 
-from . import cli, config, models, templating, views, api, admin, STATIC_PATH, auth
+from . import (
+    STATIC_PATH, admin, api, auth, cli, config, models, templating, views
+)
 from .md import markdown
+from .tasks import mail
+import logging
 
 
 def create_app(env: Union[str, None] = None) -> Flask:
@@ -16,6 +20,8 @@ def create_app(env: Union[str, None] = None) -> Flask:
     app = Flask(__name__, static_folder=STATIC_PATH)  # type: Flask
     app.config.from_object(config.config_dict[env])
     Moment(app)
+    app.logger.setLevel(logging.DEBUG)
+    mail.init_app(app)
     babel = Babel(app)
     models.init_app(app)
     cli.init_app(app)
