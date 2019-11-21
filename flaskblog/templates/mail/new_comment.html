@@ -1,9 +1,11 @@
 {% extends 'mail/layout.html' %}
 {% block title %}{{_("Your post '%(title)s' has got a new comment", title=comment.post.title)}}{% endblock %}
 {% block content %}
-<p><strong>{{ comment.author.display_name }}</strong></p>
-<p>{{ comment.create_at }}</p>
-{{ comment.html |safe }}
+<h3>{{ comment.author.display_name }}</h3>
+<time datetime="{{comment.create_at}}" itemprop="datePublished">{{ comment.create_at.strftime('%Y-%m-%d %H:%M:%S') }}</time>
+<div class="comment">
+  {{ comment.html |safe }}
+</div>
 
 <p>{{_('Please go to ')}}<a href="https://{{config.SERVER_NAME}}{{comment.post.url}}">https://{{config.SERVER_NAME}}{{comment.post.url}}</a>{{_(' for more information')}}</p>
 {% endblock %}

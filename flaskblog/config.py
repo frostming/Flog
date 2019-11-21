@@ -13,10 +13,10 @@ class BaseConfig(object):
     WTF_CSRF_ENABLED = True
     WHOOSHEE_MIN_STRING_LEN = 2
     ADMIN_EMAIL = 'mianghong@gmail.com'
-    MAIL_DEFAULT_SENDER = 'mianghong@163.com'
+    MAIL_DEFAULT_SENDER = os.getenv('FLASK_MAIL_SENDER')
     MAIL_SERVER = os.getenv('FLASK_MAIL_SERVER', 'localhost')
-    MAIL_USERNAME = os.getenv('FLASK_MAIL_USERNAME', None)
-    MAIL_PASSWORD = os.getenv('FLASK_MAIL_PASSWORD', None)
+    MAIL_USERNAME = os.getenv('FLASK_MAIL_USERNAME')
+    MAIL_PASSWORD = os.getenv('FLASK_MAIL_PASSWORD')
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL", "sqlite:///" + op.join(here, "db.sqlite3")
     )

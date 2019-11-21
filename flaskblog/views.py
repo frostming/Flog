@@ -142,10 +142,9 @@ def comment():
     db.session.commit()
     admin = User.get_admin()
     if parent is not None and current_user != parent.author:
-        current_app.logger.info('notify_reply')
         notify_reply(parent.to_dict(), comment.to_dict())
-    current_app.logger.info('notify_comment')
-    notify_comment(admin.to_dict(), comment.to_dict())
+    if current_user != admin and parent.author != admin:
+        notify_comment(admin.to_dict(), comment.to_dict())
 
     return jsonify({'message': 'success'})
 
