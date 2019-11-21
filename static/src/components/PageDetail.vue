@@ -34,6 +34,12 @@
         </el-select>
       </el-form-item>
 
+      <div style="margin-bottom:30px;">
+        <el-button v-loading="loading" style="margin-left: 10px;" type="success" @click="submitForm">
+          {{ $t('post.save' ) }}
+        </el-button>
+      </div>
+
     </right-panel>
   </el-form>
 </template>
