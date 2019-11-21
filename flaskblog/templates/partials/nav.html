@@ -8,7 +8,9 @@
   <div class="navbar-nav">
     <a href="{{url_for('archive')}}" class="nav-item nav-link">{{_('Archive')}}</a>
     {% for item in pages %}
+      {% if item.display %}
       <a href="/{{ item.slug }}" class="nav-item nav-link">{{_(item.title)|title}}</a>
+      {% endif %}
     {% endfor %}
   </div>
   <form class="form-inline my-2 my-lg-0" action="{{url_for('search')}}">

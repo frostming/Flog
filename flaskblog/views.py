@@ -159,8 +159,8 @@ def init_app(app: Flask) -> None:
     app.add_url_rule("/favicon.ico", "favicon", favicon)
     app.add_url_rule("/search", "search", search)
     app.add_url_rule("/archive", "archive", archive)
-    app.add_url_rule("/<path:slug>", "page", page)
     app.add_url_rule("/comment", "comment", comment, methods=['POST'])
+    app.add_url_rule("/<path:slug>", "page", page)
 
     app.register_error_handler(404, not_found)
     app.before_request(load_site_config)
