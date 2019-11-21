@@ -8,6 +8,5 @@ rsync -avz --delete --exclude='*.pyc' Pipfile* ./docker-compose.yml Dockerfile f
 ssh fming@frostming.com bash -s << EOF
 cd /home/fming/frostming.com
 sudo docker-compose build web
-docker-compose down
-docker-compose up -d
+docker-compose up -d --force-recreate --no-deps web
 EOF
