@@ -25,12 +25,12 @@ msgstr "请先登录"
 #: flaskblog/tasks.py:32
 #, python-format
 msgid "New reply on '%(title)s'"
-msgstr "在《%(title)s》中收到新回复"
+msgstr "你在《%(title)s》中收到新回复"
 
 #: flaskblog/tasks.py:52
 #, python-format
 msgid "New comment on '%(title)s'"
-msgstr "在《%(title)s》中收到新评论"
+msgstr "你在《%(title)s》中收到新评论"
 
 #: flaskblog/templates/404.html:538
 msgid "Return Home"

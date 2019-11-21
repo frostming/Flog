@@ -2,7 +2,7 @@ from functools import update_wrapper
 
 import gevent
 from flask import render_template, current_app, g
-from flask.globals import _app_ctx_stack
+from flask.globals import _app_ctx_stack, _request_ctx_stack
 from flask_mail import Mail, Message
 from flask_babel import lazy_gettext
 
@@ -11,10 +11,12 @@ mail = Mail()
 
 def with_app_context(f):
     ctx = _app_ctx_stack.top
+    req_ctx = _request_ctx_stack.top.copy()
 
     def wrapper(*args, **kwargs):
         with ctx:
-            return f(*args, **kwargs)
+            with req_ctx:
+                return f(*args, **kwargs)
     return update_wrapper(wrapper, f)
 
 

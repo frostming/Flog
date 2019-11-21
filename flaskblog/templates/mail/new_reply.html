@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'mail/layout.html' %}
 {% block title %}{{_("Your comment in post '%(title)s' has got a new reply", title=comment.post.title)}}{% endblock %}
 {% block content %}
 <h3>{{ reply_to.author.display_name }}</h3>
