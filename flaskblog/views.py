@@ -143,7 +143,7 @@ def comment():
     admin = User.get_admin()
     if parent is not None and current_user != parent.author:
         notify_reply(parent.to_dict(), comment.to_dict())
-    if current_user != admin and parent.author != admin:
+    if current_user != admin and (not parent or parent.author != admin):
         notify_comment(admin.to_dict(), comment.to_dict())
 
     return jsonify({'message': 'success'})

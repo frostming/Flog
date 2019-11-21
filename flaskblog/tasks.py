@@ -1,22 +1,32 @@
 from functools import update_wrapper
 
 import gevent
-from flask import copy_current_request_context, render_template, current_app, g
+from flask import render_template, current_app, g
+from flask.globals import _app_ctx_stack
 from flask_mail import Mail, Message
 from flask_babel import lazy_gettext
 
 mail = Mail()
 
 
+def with_app_context(f):
+    ctx = _app_ctx_stack.top
+
+    def wrapper(*args, **kwargs):
+        with ctx:
+            return f(*args, **kwargs)
+    return update_wrapper(wrapper, f)
+
+
 def background_task(f):
     def wrapper(*args, **kwargs):
-        future = gevent.spawn(copy_current_request_context(f), *args, **kwargs)
+        future = gevent.spawn(with_app_context(f), *args, **kwargs)
 
         def callback(result):
             exc = result.exception
             current_app.log_exception((type(exc), exc, exc.__traceback__))
 
-        future.link_exception(copy_current_request_context(callback))
+        future.link_exception(with_app_context(callback))
         return future
 
     return update_wrapper(wrapper, f)
