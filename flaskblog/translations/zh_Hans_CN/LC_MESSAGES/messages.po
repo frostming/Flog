@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-11-20 09:26+0800\n"
+"POT-Creation-Date: 2019-11-21 11:20+0800\n"
 "PO-Revision-Date: 2017-09-10 11:03+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -18,9 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: flaskblog/app.py:38
+#: flaskblog/app.py:47
 msgid "Please login"
 msgstr "请先登录"
+
+#: flaskblog/tasks.py:32
+#, python-format
+msgid "New reply on '%(title)s'"
+msgstr "在《%(title)s》中收到新回复"
+
+#: flaskblog/tasks.py:52
+#, python-format
+msgid "New comment on '%(title)s'"
+msgstr "在《%(title)s》中收到新评论"
 
 #: flaskblog/templates/404.html:538
 msgid "Return Home"
@@ -95,6 +105,32 @@ msgstr "相关文章"
 msgid "Search Result for '%(word)s'"
 msgstr "'%(word)s'的搜索结果"
 
+#: flaskblog/templates/mail/layout.html:50
+msgid ""
+"This email is sent by system automatically. Please do not reply to the "
+"email directly."
+msgstr "本邮件由系统自动发出，请勿回复"
+
+#: flaskblog/templates/mail/new_comment.html:2
+#, python-format
+msgid "Your post '%(title)s' has got a new comment"
+msgstr "你的文章《%(title)s》收到一条新评论"
+
+#: flaskblog/templates/mail/new_comment.html:10
+#: flaskblog/templates/mail/new_reply.html:16
+msgid "Please go to "
+msgstr "请前往"
+
+#: flaskblog/templates/mail/new_comment.html:10
+#: flaskblog/templates/mail/new_reply.html:16
+msgid " for more information"
+msgstr "查看详情"
+
+#: flaskblog/templates/mail/new_reply.html:2
+#, python-format
+msgid "Your comment in post '%(title)s' has got a new reply"
+msgstr "你在文章《%(title)s》中的评论收到一条新回复"
+
 #: flaskblog/templates/partials/comments.html:22
 msgid "Please login before comment"
 msgstr "评论前请先登录"
@@ -108,8 +144,6 @@ msgid "Email"
 msgstr "电子邮件"
 
 #: flaskblog/templates/partials/comments.html:26
-#: flaskblog/templates/partials/comments.html:29
-#: flaskblog/templates/partials/comments.html:30
 msgid "Login"
 msgstr "登录"
 

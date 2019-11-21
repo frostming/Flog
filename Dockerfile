@@ -13,7 +13,7 @@ ENV PIPENV_PYPI_MIRROR $pypi_mirror
 ENV PIP_INDEX_URL $pypi_mirror
 
 RUN sed -i "s#http://dl-cdn.alpinelinux.org#$alpine_mirror#g" /etc/apk/repositories
-RUN apk add build-base postgresql-dev
+RUN apk add build-base postgresql-dev openssl-dev libffi-dev
 RUN pip install --upgrade pipfile-requirements
 
 # Application

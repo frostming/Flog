@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-{% block title %}{{_("Your post '%(title)s' has got a new reply", title=comment.post.title)}}{% endblock %}
+{% block title %}{{_("Your comment in post '%(title)s' has got a new reply", title=comment.post.title)}}{% endblock %}
 {% block content %}
 <h3>{{ reply_to.author.display_name }}</h3>
 <time datetime="{{reply_to.create_at}}" itemprop="datePublished">{{ reply_to.create_at.strftime('%Y-%m-%d %H:%M:%S') }}</time>

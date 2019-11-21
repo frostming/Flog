@@ -29,7 +29,7 @@ def notify_reply(reply_to, comment):
     recipients = [reply_to['author']['email']]
     subject = (
         "{}|".format(g.site['name'])
-        + lazy_gettext("New reply on '%s'") % comment['post']['title']
+        + lazy_gettext("New reply on '%(title)s'", title=comment['post']['title'])
     )
     html_content = render_template(
         'mail/new_reply.html', reply_to=reply_to, comment=comment
