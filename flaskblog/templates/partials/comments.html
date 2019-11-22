@@ -88,7 +88,7 @@
       {{ render_comment_item(item) }}
       {% for child in item.children %}
       <div class="comment-item py-2 ml-4 ml-lg-5">
-        {{ render_comment_item(child) }}
+        {{ render_comment_item(child, False) }}
       </div>
       {% endfor %}
     </div>
