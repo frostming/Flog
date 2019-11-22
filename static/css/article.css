@@ -380,3 +380,11 @@ blockquote.centerquote::after {
 .comment-item .media-body:hover .comment-hidden {
   display: inline-block!important;
 }
+
+.comment-item a.person-link {
+  border: none;
+}
+
+.comment-item a.person-link:hover {
+  color: inherit;
+}

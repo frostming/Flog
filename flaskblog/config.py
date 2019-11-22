@@ -17,6 +17,10 @@ class BaseConfig(object):
     MAIL_SERVER = os.getenv('FLASK_MAIL_SERVER', 'localhost')
     MAIL_USERNAME = os.getenv('FLASK_MAIL_USERNAME')
     MAIL_PASSWORD = os.getenv('FLASK_MAIL_PASSWORD')
+    GITHUB_CLIENT_ID = os.getenv('GITHUB_CLIENT_ID')
+    GITHUB_CLIENT_SECRET = os.getenv('GITHUB_CLIENT_SECRET')
+    GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+    GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL", "sqlite:///" + op.join(here, "db.sqlite3")
     )
