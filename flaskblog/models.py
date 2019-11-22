@@ -72,7 +72,6 @@ class Post(db.Model):
         tags = kwargs.get("tags")
         if tags and isinstance(tags[0], str):
             kwargs["tags"] = [Tag.get_one_or_new(tag) for tag in tags]
-        kwargs["is_draft"] = kwargs.pop("type", None) == "draft"
         kwargs.pop("date", None)
         kwargs.pop("last_modified", None)
         super().__init__(**kwargs)

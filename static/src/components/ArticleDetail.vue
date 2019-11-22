@@ -170,7 +170,11 @@ export default {
       uploadData(fileObj, callbacks)
     },
     sendPost(data) {
-      return (this.isEdit ? updatePost(data) : createPost(data))
+      return (data.id ? updatePost(data) : createPost(data)).then(resp => {
+        if (resp.data.id) {
+          this.postForm.id = resp.data.id
+        }
+      })
     },
     submitForm() {
       this.$refs.postForm.validate(valid => {

@@ -207,7 +207,7 @@ class PostView(MethodView):
         post = Post(**post_data)
         db.session.add(post)
         db.session.commit()
-        return jsonify(SUCCESS_RESPONSE)
+        return jsonify({'code': 20000, 'data': {'id': post.id}})
 
 
 class PostItemView(MethodView):
