@@ -139,7 +139,9 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(200))
     settings = db.Column(db.Text())
     is_admin = db.Column(db.Boolean(), default=False)
+    link = db.Column(db.String(128))
     picture = db.Column(db.String(512))
+    type = db.Column(db.String(16))
     comments = db.relationship("Comment", backref="author", lazy="dynamic")
 
     __table_args__ = (db.UniqueConstraint("username", "email", name="_username_email"),)

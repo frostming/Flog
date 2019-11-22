@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-11-21 11:20+0800\n"
+"POT-Creation-Date: 2019-11-22 13:37+0800\n"
 "PO-Revision-Date: 2017-09-10 11:03+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -22,12 +22,12 @@ msgstr ""
 msgid "Please login"
 msgstr "请先登录"
 
-#: flaskblog/tasks.py:32
+#: flaskblog/tasks.py:44
 #, python-format
 msgid "New reply on '%(title)s'"
 msgstr "你在《%(title)s》中收到新回复"
 
-#: flaskblog/tasks.py:52
+#: flaskblog/tasks.py:64
 #, python-format
 msgid "New comment on '%(title)s'"
 msgstr "你在《%(title)s》中收到新评论"
@@ -132,46 +132,48 @@ msgid "Your comment in post '%(title)s' has got a new reply"
 msgstr "你在文章《%(title)s》中的评论收到一条新回复"
 
 #: flaskblog/templates/partials/comments.html:22
-msgid "Please login before comment"
-msgstr "评论前请先登录"
+msgid "Reply"
+msgstr "回复"
 
-#: flaskblog/templates/partials/comments.html:24
-msgid "Username"
-msgstr "用户名"
-
-#: flaskblog/templates/partials/comments.html:25
-msgid "Email"
-msgstr "电子邮件"
-
-#: flaskblog/templates/partials/comments.html:26
-msgid "Login"
-msgstr "登录"
-
-#: flaskblog/templates/partials/comments.html:28
-msgid "Or login with"
-msgstr "或通过第三方登录"
-
-#: flaskblog/templates/partials/comments.html:37
-msgid "Type with markdown syntax"
-msgstr "评论使用Markdown语法"
-
-#: flaskblog/templates/partials/comments.html:42
-#: flaskblog/templates/partials/comments.html:72
-#: flaskblog/templates/partials/comments.html:94
+#: flaskblog/templates/partials/comments.html:30
+#: flaskblog/templates/partials/comments.html:70
 msgid "Admin"
 msgstr "博主"
 
-#: flaskblog/templates/partials/comments.html:47
+#: flaskblog/templates/partials/comments.html:48
+msgid "Please login before comment"
+msgstr "评论前请先登录"
+
+#: flaskblog/templates/partials/comments.html:50
+msgid "Username(Required)"
+msgstr "用户名称(必填)"
+
+#: flaskblog/templates/partials/comments.html:51
+msgid "Email(Required)"
+msgstr "电子邮件(必填)"
+
+#: flaskblog/templates/partials/comments.html:52
+msgid "Website(Optional)"
+msgstr "网址(选填)"
+
+#: flaskblog/templates/partials/comments.html:53
+msgid "Login"
+msgstr "登录"
+
+#: flaskblog/templates/partials/comments.html:56
+msgid "Or login with"
+msgstr "或通过第三方登录"
+
+#: flaskblog/templates/partials/comments.html:65
+msgid "Type with markdown syntax"
+msgstr "评论使用Markdown语法"
+
+#: flaskblog/templates/partials/comments.html:75
 msgid "Comment"
 msgstr "评论"
 
-#: flaskblog/templates/partials/comments.html:57
+#: flaskblog/templates/partials/comments.html:85
 #, python-format
 msgid "%(num)d comment"
 msgid_plural "%(num)d comments"
 msgstr[0] "%(num)d 条评论"
-
-#: flaskblog/templates/partials/comments.html:66
-#: flaskblog/templates/partials/comments.html:89
-msgid "Reply"
-msgstr "回复"
