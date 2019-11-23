@@ -6,6 +6,15 @@ _一个简单的博客系统，由 Flask 驱动_
 
 ![](/resources/preview.png)
 
+## 功能特性
+
+* 集成后台管理页面
+* 完善的SEO优化
+* 可选的，集成第三方登录的内置评论系统
+* 支持接入Disqus, Google Analytics, 腾讯云对象存储
+* Docker 部署
+* Letsencrypt SSL证书
+
 ## 开发本项目
 
 1. 安装 [pipenv](https://github.com/kennethreitz/pipenv)
