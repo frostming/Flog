@@ -67,17 +67,17 @@ img.avatar {
 }
 
 .footer a,
-.center-box a:not(.btn) {
+.center-box a:not(.btn):not(.fa) {
   color: inherit;
   transition: color .2s;
 }
 
-.center-box a:not(.btn) {
+.center-box a:not(.btn):not(.fa) {
   border-bottom: 1px solid #ccc;
 }
 
 .footer a:hover,
-.center-box a:not(.btn):hover {
+.center-box a:not(.btn):not(.fa):hover {
   text-decoration: none;
   border-bottom: none;
   color: var(--primary-color);

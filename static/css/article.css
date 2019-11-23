@@ -361,7 +361,7 @@ blockquote.centerquote::after {
 
 .comments .CodeMirror {
   min-height: auto;
-  height: 160px;
+  height: 120px;
 }
 
 .comment-item {
