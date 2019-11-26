@@ -19,7 +19,7 @@
     <div>
       <div class="float-right">
         <span class="comment-hidden d-lg-none">
-          <a href="#" data-id="{{item.id}}" data-author="{{item.author.display_name}}">{{_('Reply')}}</a>
+          <a href="#native-comment" data-id="{{item.id}}" data-author="{{item.author.display_name}}">{{_('Reply')}}</a>
         </span>
         {% if is_top-%}<a href="#post-comment-{{item.floor}}"># {{item.floor}}</a>{%-endif %}
       </div>
@@ -28,6 +28,7 @@
       {% if item.author.link-%}</a>{%-endif %}
       {%-if item.author.is_admin-%}
       <span class="text-success">({{ _('Admin') }})</span>
+      {%-if item.parent-%}<span class="ml-1 fa fa-share"> @{{ item.parent.author.display_name }}</span>{%-endif-%}
       {%-endif-%}
     </div>
     <time datetime="{{item.create_at}}">{{moment(item.create_at).fromNow()}}</time>
@@ -41,7 +42,7 @@
 {% macro render_comments(post, items, count) %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-<section class="comments">
+<section class="comments" id="native-comment">
   <div class="mb-4">
     {% if not current_user.is_authenticated %}
     <div class="bg-light text-center p-4">
@@ -76,7 +77,7 @@
       </div>
     </form>
     <script>
-      var simplemde = new SimpleMDE();
+      var simplemde = new SimpleMDE({ spellChecker: false });
 
     </script>
     {% endif %}
@@ -121,7 +122,6 @@
     $('[data-author]').click(function () {
       $('#reply-to').text($(this).data('author')).parent().removeClass('d-none');
       $('input[name=parent_id]').val($(this).data('id'));
-      return false;
     });
     $('#reply-to').parent().click(function () {
       $(this).addClass('d-none');

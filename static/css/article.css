@@ -7,6 +7,11 @@
 .yue h6 {
   font-family: inherit;
 }
+blockquote {
+  padding-left: .75em;
+  border-left: 5px #eeeeee solid;
+  color: #888888;
+}
 
 .yue blockquote {
   position: relative;
@@ -359,7 +364,7 @@ blockquote.centerquote::after {
   font-size: .85em;
 }
 
-.comments .CodeMirror {
+.comments .CodeMirror, .comments .CodeMirror-scroll {
   min-height: auto;
   height: 120px;
 }
@@ -382,9 +387,5 @@ blockquote.centerquote::after {
 }
 
 .comment-item a.person-link {
-  border: none;
-}
-
-.comment-item a.person-link:hover {
-  color: inherit;
+  border: none!important;
 }
