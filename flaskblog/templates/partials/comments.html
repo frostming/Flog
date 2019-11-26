@@ -28,8 +28,8 @@
       {% if item.author.link-%}</a>{%-endif %}
       {%-if item.author.is_admin-%}
       <span class="text-success">({{ _('Admin') }})</span>
-      {%-if item.parent-%}<span class="ml-1 fa fa-share"> @{{ item.parent.author.display_name }}</span>{%-endif-%}
       {%-endif-%}
+      {%-if item.parent-%}<span class="ml-1 fa fa-share"> @{{ item.parent.author.display_name }}</span>{%-endif-%}
     </div>
     <time datetime="{{item.create_at}}">{{moment(item.create_at).fromNow()}}</time>
     <div class="comment-body mt-2">
