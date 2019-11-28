@@ -308,13 +308,18 @@ img.avatar {
 
 .page-head {
   height: 480px;
-  margin-bottom: 20px;
   background: url(/static/images/postcover.jpg) center center no-repeat;
   background-size: cover;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+@media (min-width: 992px) {
+  .page-head {
+    margin-bottom: 20px;
+  }
 }
 
 .shade {
