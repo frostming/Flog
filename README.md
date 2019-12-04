@@ -14,6 +14,24 @@ _一个简单的博客系统，由 Flask 驱动_
 * 支持接入Disqus, Google Analytics, 腾讯云对象存储
 * Docker 部署
 * Letsencrypt SSL证书
+* 自由更改主题色
+
+## Markdown 特性
+
+Flog 的 Markdown 语法遵循 GitHub Flavored Markdown 规范，支持脚注、表格、文章目录、数字公式等。
+
+此外，Flog 还支持图片排版，使用方法是将多个图片放在一起（不换行），将渲染为多列图片。例：
+
+```
+![](/images/image1.jpg) ![](/images/image2.jpg)
+![](/images/image3.jpg) ![](/images/image4.jpg)
+```
+
+效果：
+
+![](/resources/sample_images.png)
+
+完整效果可见[我的博文](https://frostming.com/2018/01-04/from-2017-to-2018)。
 
 ## 开发本项目
 
@@ -59,9 +77,6 @@ $ pipenv run flask db upgrade
 
 ## 部署到远程服务器
 
-### 部署到 Heroku
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 ### 部署到云服务器
 
@@ -71,23 +86,6 @@ $ pipenv run flask db upgrade
 
 前往`$your_domain/admin`使用账号`admin`密码`admin`(默认)登录，然后就可以开始写文章了。
 前往`$your_domain/admin/setting`配置页更改密码及其他设定。
-
-## Markdown 特性
-
-Flog 的 Markdown 语法遵循 GitHub Flavored Markdown 规范，支持脚注、表格、文章目录、数字公式等。
-
-此外，Flog 还支持图片排版，使用方法是将多个图片放在一起（不换行），将渲染为多列图片。例：
-
-```
-![](/images/image1.jpg) ![](/images/image2.jpg)
-![](/images/image3.jpg) ![](/images/image4.jpg)
-```
-
-效果：
-
-![](/resources/sample_images.png)
-
-完整效果可见[我的博文](https://frostming.com/2018/01-04/from-2017-to-2018)。
 
 ## Flog 使用以下组件
 

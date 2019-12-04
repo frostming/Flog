@@ -104,7 +104,7 @@ style="background-image:url({{g.site.cover_url}});"
 {% block extrajs %}
 <script type="text/javascript">
   if ($('#tag-cloud').length !== 0) {
-    async ('https://static.frostming.com/js/color-hash.js', function () {
+    async ('{{url_for("static", filename="js/color-hash.js")}}', function () {
       var colorHash = new ColorHash({
         saturation: 0.5
       });

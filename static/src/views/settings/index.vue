@@ -18,6 +18,15 @@
         <el-form-item :label="$t('settings.avatar')">
           <avatar-upload v-model="settingsForm.avatar" :upload-image="uploadImage" />
         </el-form-item>
+        <el-form-item :label="$t('settings.owner')">
+          <el-input v-model="settingsForm.owner" />
+        </el-form-item>
+        <el-form-item :label="$t('settings.site_url')">
+          <el-input v-model="settingsForm.url" />
+        </el-form-item>
+        <el-form-item :label="$t('settings.start_from')">
+          <el-input v-model="settingsForm.start_from" />
+        </el-form-item>
         <el-form-item :label="$t('settings.icp')">
           <el-input v-model="settingsForm.icp" />
         </el-form-item>
