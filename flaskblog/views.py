@@ -79,7 +79,7 @@ def feed() -> Response:
         feed.add(
             post.title,
             post.html,
-            categories=[{'term': cat.text} for cat in post.categories],
+            categories=[{'term': post.category.text}],
             content_type="html",
             author=post.author or "Unnamed",
             url=urljoin(request.url_root, post.url),
