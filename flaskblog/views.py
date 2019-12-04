@@ -2,15 +2,14 @@ import io
 from typing import Tuple
 from urllib.parse import urljoin
 
-from flask import Flask, abort, current_app, g, render_template, request, send_file, jsonify
+from flask import Flask, abort, current_app, g, jsonify, render_template, request, send_file
 from flask_login import current_user, login_required
 from werkzeug.contrib.atom import AtomFeed
 from werkzeug.wrappers import Response
 
-from .md import markdown
 from .models import Category, Comment, Page, Post, Tag, User, db
-from .utils import get_tag_cloud
 from .tasks import notify_comment, notify_reply
+from .utils import get_tag_cloud
 
 
 def load_site_config() -> None:
@@ -79,7 +78,8 @@ def feed() -> Response:
     for post in posts:
         feed.add(
             post.title,
-            str(markdown(post.content)),
+            post.html,
+            categories=[{'term': cat.text} for cat in post.categories],
             content_type="html",
             author=post.author or "Unnamed",
             url=urljoin(request.url_root, post.url),
