@@ -13,6 +13,7 @@ class BaseConfig(object):
     WTF_CSRF_ENABLED = True
     WHOOSHEE_MIN_STRING_LEN = 2
     ADMIN_EMAIL = 'mianghong@gmail.com'
+    MAIL_USE_SSL = True
     MAIL_DEFAULT_SENDER = os.getenv('FLASK_MAIL_SENDER')
     MAIL_SERVER = os.getenv('FLASK_MAIL_SERVER', 'localhost')
     MAIL_USERNAME = os.getenv('FLASK_MAIL_USERNAME')
