@@ -33,13 +33,13 @@
   {% block mainbody %}{% endblock %}
 
   {% block footer %}
-  <footer class="footer text-center">
+  <footer class="footer text-center page-links">
     {% include 'partials/social_links.html' %}
     <ul class="copyright">
       <li>Powered by <a href="https://palletsprojects.com/p/flask/" target="_blank">Flask</a></li>
       <li>&copy;{{g.site.start_from}}-{{current_time.year}}<i class="fa fa-heart mx-2" style="color: var(--primary-color)"></i><a href="{{g.site.url}}">{{g.site.owner}}</a></li>
       {% if g.site.icp %}
-      <li><a href="http://www.miitbeian.gov.cn" target="_blank">{{g.site.icp}}</a></li>
+      <li><a href="http://beian.miit.gov.cn/" target="_blank">{{g.site.icp}}</a></li>
       {% endif %}
     </ul>
   </footer>

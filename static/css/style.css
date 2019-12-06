@@ -66,18 +66,16 @@ img.avatar {
   background-color: #e8e8e8;
 }
 
-.footer a,
-.center-box a:not(.btn):not(.fa) {
+.page-links a {
   color: inherit;
   transition: color .2s;
 }
 
-.center-box a:not(.btn):not(.fa) {
+.page-links .yue a {
   border-bottom: 1px solid #ccc;
 }
 
-.footer a:hover,
-.center-box a:not(.btn):not(.fa):hover {
+.page-links a:not(.fa):hover {
   text-decoration: none;
   border-bottom: none;
   color: var(--primary-color);
