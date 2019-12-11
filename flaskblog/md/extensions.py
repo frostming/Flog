@@ -29,7 +29,10 @@ class FlogRendererMixin:
         result = result.replace(
             '<img', '<img data-original="{}"'.format(self.escape_url(element.dest))
         )
-        caption = '<figcaption>{}</figcaption>'.format(element.title) if element.title else ''
+        caption = (
+            '<figcaption>{}</figcaption>'.format(element.title)
+            if element.title else ''
+        )
         return '<figure>{}{}</figure>'.format(result, caption)
 
     def render_photo_set(self, element):
@@ -41,8 +44,8 @@ class FlogRendererMixin:
         rv = [
             '<div class="block-code">\n'
             '<div class="code-head clearfix">{}<span class="copy-code"'
-            ' title="Copy code"></span></div>\n'
-            .format((element.lang or '').title()),
+            ' title="Copy code">{}</span></div>\n'
+            .format(element.extra, element.lang.upper()),
             super().render_fenced_code(element),
             '</div>\n'
         ]
@@ -70,6 +73,6 @@ class FlogRendererMixin:
         return HTMLRenderer.render_html_block(self, element)
 
 
-class FlogExtension:
+class Flog:
     elements = [PhotoSet]
     renderer_mixins = [FlogRendererMixin]

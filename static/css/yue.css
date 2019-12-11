@@ -174,16 +174,17 @@ code,
   color: #808080;
   font-size: 95%;
   padding: 1px 2px;
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: Monaco, Consolas, "Courier New", monospace;
   word-wrap: break-word;
 }
 .yue pre {
+  padding: 1em;
   border: none;
+  font-size: 90%;
   overflow: auto;
   line-height: 1.5;
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: Monaco, Consolas, "Courier New", monospace;
 }
-.yue pre code,
 .yue pre tt {
   padding: 1em;
   border: none;

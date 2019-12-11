@@ -284,7 +284,7 @@ figure img {
   background-color: #494949;
   color: #f8f8f2;
   padding: 0 1em;
-  font-size: 0.7em;
+  font-size: 0.85em;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
@@ -294,9 +294,10 @@ figure img {
   cursor: pointer;
 }
 
-.copy-code::before {
+.copy-code::after {
   font-family: FontAwesome;
   content: "\f0c5";
+  margin-left: .5em;
 }
 
 blockquote.centerquote {
