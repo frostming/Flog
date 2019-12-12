@@ -180,6 +180,7 @@ code,
 .yue pre {
   padding: 1em;
   border: none;
+  color: inherit;
   font-size: 90%;
   overflow: auto;
   line-height: 1.5;

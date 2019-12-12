@@ -66,7 +66,7 @@ export default {
   navbar: {
     logOut: 'Log Out',
     dashboard: 'Dashboard',
-    github: 'Github',
+    github: 'GitHub',
     theme: 'Theme',
     size: 'Global Size',
     changePassword: 'Change Password',

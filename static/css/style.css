@@ -66,7 +66,7 @@ img.avatar {
   background-color: #e8e8e8;
 }
 
-.page-links a {
+.page-links a:not(.btn) {
   color: inherit;
   transition: color .2s;
 }
@@ -75,7 +75,7 @@ img.avatar {
   border-bottom: 1px solid #ccc;
 }
 
-.page-links a:not(.fa):hover {
+.page-links a:not(.fa):not(.btn):hover {
   text-decoration: none;
   border-bottom: none;
   color: var(--primary-color);
