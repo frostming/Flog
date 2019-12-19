@@ -70,7 +70,7 @@ msgstr "标签"
 
 #: flaskblog/templates/index.html:86
 msgid "Links"
-msgstr "链接"
+msgstr "推荐"
 
 #: flaskblog/templates/post.html:37
 msgid "TABLE OF CONTENTS"
