@@ -1,5 +1,10 @@
 <template>
   <div class="tab-container">
+    <router-link slot="label" to="/page/create/">
+      <el-button type="primary" size="small" class="create-post-btn" icon="el-icon-edit">
+        {{ $t('post.newPage') }}
+      </el-button>
+    </router-link>
     <el-tabs style="margin-top:15px;" type="border-card">
       <el-tab-pane :label="$t('post.pages')">
         <keep-alive>
@@ -40,13 +45,6 @@
             </el-table>
           </div>
         </keep-alive>
-      </el-tab-pane>
-      <el-tab-pane>
-        <router-link slot="label" to="/page/create/">
-          <el-button type="primary" size="small" class="create-post-btn" icon="el-icon-edit">
-            {{ $t('post.newPage') }}
-          </el-button>
-        </router-link>
       </el-tab-pane>
     </el-tabs>
   </div>

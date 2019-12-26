@@ -26,14 +26,14 @@
             {{ $t('post.dragImage') }}<em>{{ $t('post.clickToUpload') }}</em>
           </div>
           <div class="switch-mode">
-            <a href="#" @click="changeMode('URL')"><i class="el-icon-arrow-right" />{{ $t('post.inputURL') }}</a>
+            <a href="#" @click.stop="changeMode('URL')"><i class="el-icon-arrow-right" />{{ $t('post.inputURL') }}</a>
           </div>
         </template>
       </el-upload>
       <div v-else class="image-input">
         <el-input :placeholder="$t('post.imageURL')" :value="value" @input="emitInput" />
         <div class="switch-mode">
-          <a href="#" @click="changeMode('Upload')"><i class="el-icon-arrow-right" />{{ $t('post.dragUpload') }}</a>
+          <a href="#" @click.stop="changeMode('Upload')"><i class="el-icon-arrow-right" />{{ $t('post.dragUpload') }}</a>
         </div>
       </div>
     </template>
