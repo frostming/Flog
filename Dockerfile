@@ -1,10 +1,10 @@
 # --------------------------
 # Docker file
 # --------------------------
-FROM python:3.7-alpine
+FROM python:3.7-slim
 
 # Replace the address to a proper mirror.
-ARG alpine_mirror=https://mirrors.tencent.com
+ARG package_mirror=https://mirrors.tencent.com
 ARG pypi_mirror=https://mirrors.tencent.com/pypi/simple
 
 ENV LC_ALL C.UTF-8
@@ -12,8 +12,8 @@ ENV LANG C.UTF-8
 ENV PIPENV_PYPI_MIRROR $pypi_mirror
 ENV PIP_INDEX_URL $pypi_mirror
 
-RUN sed -i "s#http://dl-cdn.alpinelinux.org#$alpine_mirror#g" /etc/apk/repositories
-RUN apk add build-base postgresql-dev openssl-dev libffi-dev
+RUN sed -i "s#http://deb.debian.org#$package_mirror#g" /etc/apt/sources.list
+RUN apt-get update && apt-get install -y gcc
 RUN pip install --upgrade pipfile-requirements
 
 # Application
