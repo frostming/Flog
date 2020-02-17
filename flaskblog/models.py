@@ -128,7 +128,7 @@ class Post(db.Model):
             "category": self.category.text,
         }
         meta_buffer = io.StringIO()
-        yaml.safe_dump(meta, meta_buffer)
+        yaml.safe_dump(meta, meta_buffer, allow_unicode=True)
         return "---\n{}---\n\n{}".format(meta_buffer.getvalue(), self.content)
 
 

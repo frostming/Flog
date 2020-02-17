@@ -164,7 +164,7 @@ def dump_articles():
             content = post.dump_md().encode("utf-8")
             zf.writestr(zinfo, content, zipfile.ZIP_DEFLATED)
     buffer.seek(0)
-    return send_file(buffer, "application/zip", True, "posts.zip")
+    return send_file(buffer, "application/zip", True, "posts.zip", cache_timeout=0)
 
 
 def init_app(app: Flask) -> None:
