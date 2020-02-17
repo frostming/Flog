@@ -1,4 +1,6 @@
 import io
+import os
+import zipfile
 from typing import Tuple
 from urllib.parse import urljoin
 
@@ -149,6 +151,22 @@ def comment():
     return jsonify({'message': 'success'})
 
 
+def dump_articles():
+    if not (
+        current_user.is_authenticated and current_user.is_admin
+        or request.args.get("token") == os.getenv("API_TOKEN")
+    ):
+        abort(401)
+    buffer = io.BytesIO()
+    with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+        for post in Post.query.all():
+            zinfo = zipfile.ZipInfo(post.url.strip("/") + ".md")
+            content = post.dump_md().encode("utf-8")
+            zf.writestr(zinfo, content, zipfile.ZIP_DEFLATED)
+    buffer.seek(0)
+    return send_file(buffer, "application/zip", True, "posts.zip")
+
+
 def init_app(app: Flask) -> None:
     app.add_url_rule("/", "home", home)
     app.add_url_rule("/<int:year>/<date>/<title>", "post", post)
@@ -161,6 +179,7 @@ def init_app(app: Flask) -> None:
     app.add_url_rule("/archive", "archive", archive)
     app.add_url_rule("/comment", "comment", comment, methods=['POST'])
     app.add_url_rule("/<path:slug>", "page", page)
+    app.add_url_rule("/dump_all", view_func=dump_articles)
 
     app.register_error_handler(404, not_found)
     app.before_request(load_site_config)

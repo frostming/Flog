@@ -13,3 +13,4 @@ whooshee/
 *.sqlite3
 *.mo
 .mypy_cache/
+.idea/
