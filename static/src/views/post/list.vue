@@ -5,6 +5,11 @@
         {{ $t('post.newPost') }}
       </el-button>
     </router-link>
+    <a href="/dump_all">
+      <el-button size="small" class="create-post-btn" icon="el-icon-download">
+        {{ $t('post.export') }}
+      </el-button>
+    </a>
     <el-tabs v-model="activeName" style="margin-top:15px;" type="border-card">
       <el-tab-pane v-for="(name,key) in tabMapOptions" :key="key" :label="name" :name="key">
         <keep-alive>

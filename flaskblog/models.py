@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 import hashlib
+import io
 from datetime import datetime
 from random import choice
 from typing import Type, Union
 
 import sqlalchemy as sa
+import yaml
 from flask import Flask, current_app, json, url_for
 from flask_login import UserMixin
 from flask_migrate import Migrate
@@ -114,6 +116,20 @@ class Post(db.Model):
         if posts.count() > 0:
             return choice(posts.all())
         return None
+
+    def dump_md(self) -> str:
+        meta = {
+            "title": self.title,
+            "author": self.author,
+            "date": self.date,
+            "description": self.description,
+            "image": self.image,
+            "tags": [tag.text for tag in self.tags],
+            "category": self.category.text,
+        }
+        meta_buffer = io.StringIO()
+        yaml.safe_dump(meta, meta_buffer)
+        return "---\n{}---\n\n{}".format(meta_buffer.getvalue(), self.content)
 
 
 @sa.event.listens_for(Post, "before_insert")
