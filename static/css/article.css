@@ -130,6 +130,7 @@ figure img {
   position: relative;
   padding: 3px 0px;
   margin: 0;
+  flex: 1;
 }
 
 .photo-set figure:first-of-type {
