@@ -41,9 +41,11 @@
   </div>
   <div class="comment-body">
     {{ item.html|safe }}
+    {% if is_top %}
     {% for child in item.children %}
       {{ render_comment_item(child, False) }}
     {% endfor %}
+    {% endif %}
   </div>
 </div>
 {% endmacro %}
