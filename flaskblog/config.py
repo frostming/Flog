@@ -8,7 +8,7 @@ here = op.dirname(__file__)
 class BaseConfig(object):
     SECRET_KEY = os.getenv("SECRET_KEY", "flask blog")
     DEFAULT_ADMIN_PASSWORD = "admin"
-    BLOG_PER_PAGE = 10
+    BLOG_PER_PAGE = 6
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = True
     WHOOSHEE_MIN_STRING_LEN = 2

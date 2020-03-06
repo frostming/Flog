@@ -13,28 +13,37 @@
 {% endmacro %}
 
 {% macro render_comment_item(item, is_top=True) %}
-<div class="media">
-  <img class="gravatar mr-2" src="{{item.author.avatar}}" class="mr-3" alt="{{item.author.display_name}}">
-  <div class="media-body">
-    <div>
-      <div class="float-right">
-        <span class="comment-hidden d-lg-none">
-          <a href="#native-comment" data-id="{{item.id}}" data-author="{{item.author.display_name}}">{{_('Reply')}}</a>
-        </span>
-        {% if is_top-%}<a href="#post-comment-{{item.floor}}"># {{item.floor}}</a>{%-endif %}
+<div class="comment-item">
+  <div class="comment-head d-flex justify-content-between">
+    <div class="d-flex align-items-center">
+      <div class="gravatar">
+        <img src="{{item.author.avatar}}" alt="{{item.author.display_name}}">
       </div>
-      {% if item.author.link-%}<a class="person-link" href="{{ item.author.link }}">{%-endif %}
-      <strong>{{ item.author.display_name }}</strong>
-      {% if item.author.link-%}</a>{%-endif %}
-      {%-if item.author.is_admin-%}
-      <span class="text-success">({{ _('Admin') }})</span>
-      {%-endif-%}
-      {%-if item.parent-%}<span class="ml-1 fa fa-share"> @{{ item.parent.author.display_name }}</span>{%-endif-%}
+      <div class="author">
+        <div>
+          {% if item.author.link-%}<a class="person-link" href="{{ item.author.link }}">{%-endif %}
+          <strong>{{ item.author.display_name }}</strong>
+          {% if item.author.link-%}</a>{%-endif %}
+          {%-if item.author.is_admin-%}
+          <span class="text-success">({{ _('Admin') }})</span>
+          {%-endif-%}
+          {%-if item.parent-%}<span class="ml-1 fa fa-share"> @{{ item.parent.author.display_name }}</span>{%-endif-%}
+        </div>
+        <time datetime="{{item.create_at}}">{{moment(item.create_at).fromNow()}}</time>
+      </div>
     </div>
-    <time datetime="{{item.create_at}}">{{moment(item.create_at).fromNow()}}</time>
-    <div class="comment-body mt-2">
-      {{ item.html|safe }}
+    <div class="comment-right">
+      <span class="comment-hidden d-lg-none">
+        <a href="#comment-form" data-id="{{item.id}}" data-author="{{item.author.display_name}}">{{_('Reply')}}</a>
+      </span>
+      {% if is_top-%}<a href="#post-comment-{{item.floor}}"># {{item.floor}}</a>{%-endif %}
     </div>
+  </div>
+  <div class="comment-body">
+    {{ item.html|safe }}
+    {% for child in item.children %}
+      {{ render_comment_item(child, False) }}
+    {% endfor %}
   </div>
 </div>
 {% endmacro %}
@@ -43,6 +52,14 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <section class="comments" id="native-comment">
+  <div>
+    <h6 class="comment-count">{{_('Post Comments')}}<span class="count-number">({{count}})</span></h6>
+    {% for item in items %}
+    <div class="comment-box" id="post-comment-{{item.floor}}">
+      {{ render_comment_item(item) }}
+    </div>
+    {% endfor %}
+  </div>
   <div class="mb-4">
     {% if not current_user.is_authenticated %}
     <div class="bg-light text-center p-4">
@@ -51,16 +68,16 @@
         <input type="text" class="form-control mr-sm-2" name="username" placeholder="{{_('Username(Required)')}}" required>
         <input type="text" class="form-control mr-sm-2" name="email" placeholder="{{_('Email(Required)')}}" required>
         <input type="text" class="form-control mr-sm-2" name="link" placeholder="{{_('Website(Optional)')}}">
-        <button class="btn btn-primary">{{_('Login')}}</button>
+        <button class="button">{{_('LOGIN')}}</button>
       </form>
-      <div>
-        <span class="d-sm-block d-lg-inline">{{_('Or login with')}}</span>
-        <a href="{{url_for('auth.github_login')}}" class="btn btn-primary"><i class="fa fa-github"></i> GitHub</a>
-        <a href="{{url_for('auth.google_login')}}" class="btn btn-primary"><i class="fa fa-google"></i> Google</a>
+      <div class="white-button">
+        <div>{{_('Or login with')}}</div>
+        <a href="{{url_for('auth.github_login')}}"><i class="fa fa-github"></i> GitHub</a>
+        <a href="{{url_for('auth.google_login')}}"><i class="fa fa-google"></i> Google</a>
       </div>
     </div>
     {% else %}
-    <form role="comment">
+    <form role="comment" id="comment-form">
       <input type="hidden" name="post_id" value="{{post.id}}">
       <input type="hidden" name="parent_id" value="">
       <textarea name="content" placeholder="{{_('Type with markdown syntax')}}"></textarea>
@@ -73,27 +90,14 @@
           <button class="btn btn-light btn-sm ml-2 d-none" type="button" name="reply"><i class="fa fa-share"></i>@<span
               id="reply-to"></span></button>
         </div>
-        <button class="btn btn-primary" type="submit" name="comment">{{_('Comment')}}</button>
+        <button class="button" type="submit" name="comment">{{_('Comment')}}</button>
       </div>
     </form>
     <script>
-      var simplemde = new SimpleMDE({ spellChecker: false });
+      var simplemde = new SimpleMDE({ spellChecker: false, status: false });
 
     </script>
     {% endif %}
-  </div>
-  <div>
-    <div>{{ngettext('%(num)d comment', '%(num)d comments', count)}}</div>
-    {% for item in items %}
-    <div class="comment-item py-4" id="post-comment-{{item.floor}}">
-      {{ render_comment_item(item) }}
-      {% for child in item.children %}
-      <div class="comment-item py-2 ml-4 ml-lg-5">
-        {{ render_comment_item(child, False) }}
-      </div>
-      {% endfor %}
-    </div>
-    {% endfor %}
   </div>
 </section>
 

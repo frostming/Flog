@@ -11,7 +11,6 @@ from werkzeug.wrappers import Response
 
 from .models import Category, Comment, Page, Post, Tag, User, db
 from .tasks import notify_comment, notify_reply
-from .utils import get_tag_cloud
 
 
 def load_site_config() -> None:
@@ -29,9 +28,8 @@ def home() -> str:
         .order_by(Post.date.desc())
         .paginate(per_page=current_app.config["BLOG_PER_PAGE"])
     )
-    tag_cloud = get_tag_cloud()
     return render_template(
-        "index.html", posts=paginate.items, tag_cloud=tag_cloud, paginate=paginate
+        "index.html", posts=paginate.items, paginate=paginate
     )
 
 
@@ -59,15 +57,13 @@ def tag(text: str) -> str:
         .filter(Tag.text == tag.text)
         .order_by(Post.date.desc())
     )
-    tag_cloud = get_tag_cloud()
-    return render_template("index.html", posts=posts, tag_cloud=tag_cloud, tag=tag)
+    return render_template("index.html", posts=posts, tag=tag)
 
 
 def category(cat_id: int) -> str:
     cat = Category.query.get(cat_id)
     posts = cat.posts
-    tag_cloud = get_tag_cloud()
-    return render_template("index.html", posts=posts, tag_cloud=tag_cloud, cat=cat)
+    return render_template("index.html", posts=posts, cat=cat)
 
 
 def favicon() -> Response:
@@ -124,7 +120,7 @@ def archive() -> str:
         return item.date.year, item.date.month
 
     result = groupby(Post.query.order_by(Post.date.desc()), grouper)
-    return render_template("archive.html", items=result, tag_cloud=get_tag_cloud())
+    return render_template("archive.html", items=result)
 
 
 @login_required
