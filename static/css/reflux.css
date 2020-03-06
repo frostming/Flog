@@ -4,6 +4,7 @@
 
 body {
   font-family: "Open Sans", -apple-system, "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 16px;
 }
 
 #page-wraper {
@@ -38,11 +39,6 @@ a, a:hover {
 
 a:hover {
   border-bottom: 2px solid var(--primary-color);
-}
-
-p {
-  font-size: 16px;
-  line-height: 24px;
 }
 
 h4 {
@@ -461,6 +457,7 @@ figure img {
 .article h4, .article h5, .article h6 {
   margin-top: .95em;
   margin-bottom: .5em;
+  font-weight: bold;
 }
 
 .article blockquote {
@@ -481,7 +478,7 @@ figure img {
   font-size: 90%;
   overflow: auto;
   line-height: 1.5;
-  font-family: Monaco,Consolas,"Courier New",monospace;
+  font-family: "SFMono-Regular", Monaco, Menlo,Consolas,"Courier New",monospace;
 }
 
 .article code {
@@ -536,6 +533,58 @@ figure img {
   padding: 20px;
   border: 2px solid var(--primary-color);
   transition: all 0.5s;
+}
+
+.article .footnotes {
+  line-height: 1.32;
+  opacity: .96;
+}
+
+.article hr {
+  display: block;
+  border: 0;
+  margin: 2.24em auto 2.86em;
+}
+
+.article hr::after {
+  color: rgba(0, 0, 0, .2);
+  font-size: 1.1em;
+  display: block;
+  content: "* * * * *";
+  text-align: center;
+}
+
+.article .footnotes::before {
+  content: "";
+  display: block;
+  border-top: 4px solid var(--primary-color);
+  width: 50%;
+  max-width: 100px;
+  margin: 40px 0 20px;
+}
+
+.article .footnote-ref>a {
+  display: inline-block;
+  text-indent: 0;
+  width: 14px;
+  text-align: center;
+  font: 700 8px/14px -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB, Droid Sans Fallback, Microsoft YaHei, sans-serif;
+  border-bottom: 0;
+  background-color: rgba(0, 0, 0, .18);
+  color: #fff;
+  border-radius: 14px;
+  vertical-align: middle;
+  -webkit-transition: all .1s ease;
+  transition: all .1s ease;
+}
+
+.article .footnote-ref>a:hover {
+  color: #fff;
+  background-color: rgba(0, 0, 0, .98);
+}
+
+.footnotes a[href^="#fnref"] {
+  border-bottom: 0;
 }
 
 /* Comments */
