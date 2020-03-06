@@ -1,5 +1,9 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Lato, -apple-system, "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-family: "Open Sans", -apple-system, "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 }
 
 #page-wraper {
@@ -517,7 +521,26 @@ figure img {
   margin: 10px 0 20px;
 }
 
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.right-item {
+  text-align: right;
+}
+
+.left-item, .right-item {
+  display: block;
+  padding: 20px;
+  border: 2px solid var(--primary-color);
+  transition: all 0.5s;
+}
+
 /* Comments */
+.comments {
+  margin-top: 10px;
+}
 .comments .CodeMirror, .comments .CodeMirror-scroll {
   min-height: auto;
   height: 120px;
@@ -525,34 +548,53 @@ figure img {
 
 .comments .editor-toolbar {
   border-radius: 0;
-  border: none;
+  background-color: rgba(0, 0, 0, .02);
+  border: 1px solid rgba(250,250,250,1);
 }
 
 .comments .CodeMirror {
   border-radius: 0;
-  background-color: rgba(250,250,250,0.1);
+  background-color: rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(250,250,250,1);
 }
 
-.comment-item {
-  border-top: 1px #eee solid;
-}
-
 .comment-item .gravatar {
-  width: 40px;
+  margin-right: 15px;
 }
 
-.comment-item .media-body time {
+.comment-item .author time {
   font-size: 0.8em;
-  color: #888;
+  color: #999;
 }
 
-.comment-item .media-body:hover .comment-hidden {
-  display: inline-block!important;
+.comment-item .gravatar img {
+  width: 40px;
+  border-radius: 50%;
 }
 
-.comment-item a.person-link {
-  border: none!important;
+.comment-head:hover .comment-hidden {
+  display: inline!important;
+}
+
+.comment-count {
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.count-number {
+  font-weight: normal;
+  color: #777;
+  font-size: .8em;
+  margin-left: 5px;
+}
+
+.comment-box > .comment-item > .comment-body {
+  margin: 10px 0 25px 55px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
 }
 
 @media screen and (min-width: 992px) {

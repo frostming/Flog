@@ -73,7 +73,20 @@
   <div id="donate-qrcode" class="collapse"><img src="{{ g.site.donate }}"></div>
 </div>
 {% endif %}
-
+<div class="post-nav">
+  <div {% if not post.previous %}style="visibility: hidden"{% endif %}>
+    <a href="{{post.previous.url}}" class="left-item">
+      <div>{{_('PREVIOUS POST')}}</div>
+      <h5>{{post.previous.title}}</h5>
+    </a>
+  </div>
+  <div {% if not post.next %}style="visibility: hidden"{% endif %}>
+    <a href="{{post.next.url}}" class="right-item">
+      <div>{{_('NEXT POST')}}</div>
+      <h5>{{post.next.title}}</h5>
+    </a>
+  </div>
+</div>
 {% if not config.DEBUG and post.comment and integration.disqus and integration.disqus.enabled %}
 {{ disqus(post) }}
 {% endif %}
