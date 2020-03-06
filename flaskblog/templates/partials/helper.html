@@ -1,31 +1,51 @@
-{% macro render_posts(posts) %}
-  {% for post in posts|sort(True, attribute='date') %}
-  <div class="post-info d-flex align-items-center justify-content-between" data-type="article">
-    <div flex="1">
-      <div class="post-meta">
-        <time datetime="{{post.date}}">{{ moment(post.date).format('ll') }}</time>
-        {% if post.category %}
-          <a class="post-cat" href="{{url_for('category', cat_id=post.category.id)}}"><i class="fa fa-folder-open"></i> {{post.category}}</a>
-        {% endif %}
-      </div>
-      <div class="post-item-content">
-        <a href="{{post.url}}">
-          <h3 class="post-item-title">{{post.title}}</h3>
-        </a>
-        {% if post.description %}
-        <a href="{{post.url}}">
-          <p class="post-item-subtitle lead">{{post.description}}</p>
-        </a>
-        {% endif %}
+{% macro render_left_post(post, even) %}
+<div class="post-item">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="post-item-image lazy" data-bg="url({{post.image}})">
       </div>
     </div>
-    {% if post.image %}
-      <div class="post-item-image">
-        <a href="{{post.url}}">
-          <figure class="lazy" data-bg="url({{post.image}})"></figure>
-        </a>
+    <div class="col-md-6">
+      <h4>{{ post.title }}</h4>
+      <div class="post-item-meta">
+        <span class="datetime">{{ moment(post.date).format('ll') }}</span>
+        {% if post.category %}
+        <span class="category"><a href="{{ url_for('category', cat_id=post.category.id) }}"><i class="fa fa-folder-open"></i> {{ post.category }}</a></span>
+        {% endif %}
       </div>
-    {% endif %}
+      <p>
+        {{ post.excerpt | striptags }}
+      </p>
+      <div class="white-button">
+        <a href="{{ post.url }}">{{_('Read More')}}</a>
+      </div>
+    </div>
   </div>
-  {% endfor %}
+</div>
+{% endmacro %}
+
+{% macro render_right_post(post) %}
+<div class="post-item">
+  <div class="row">
+    <div class="col-md-6">
+      <h4>{{ post.title }}</h4>
+      <div class="post-item-meta">
+        <span class="datetime">{{ moment(post.date).format('ll') }}</span>
+        {% if post.category %}
+        <span class="category"><a href="{{ url_for('category', cat_id=post.category.id) }}"><i class="fa fa-folder-open"></i> {{ post.category }}</a></span>
+        {% endif %}
+      </div>
+      <p>
+        {{ post.excerpt | striptags }}
+      </p>
+      <div class="white-button">
+        <a href="{{ post.url }}">{{_('Read More')}}</a>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="post-item-image lazy" data-bg="url({{post.image}})">
+      </div>
+    </div>
+  </div>
+</div>
 {% endmacro %}

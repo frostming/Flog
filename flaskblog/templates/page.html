@@ -1,15 +1,11 @@
-{% extends '_page.html' %}
+{% extends 'index.html' %}
 
-{% block center_col %}{% endblock %}
-{% block right_col %}d-none{% endblock %}
-{% block content %}
-<article>
-  {% if page.ptype == "markdown"-%}<div class="post-text yue" itemprop="content">{%-endif %}
-    {{ page.html | safe }}
-  {% if page.ptype == "markdown"-%}</div>{%-endif %}
-</article>
+{% block pagetitle %}
+<h2>{{ page.title }}</h2>
 {% endblock %}
 
-{% block additional %}
-  <a id="totop" title="Return to the top" class="invisible" href="javascript:void(0)"><i class="fa fa-fw fa-arrow-up"></i></a>
+{% block content %}
+<article class="article">
+  {{ page.html|safe }}
+</article>
 {% endblock %}

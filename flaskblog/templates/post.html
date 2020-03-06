@@ -1,4 +1,4 @@
-{% extends '_page.html' %}
+{% extends 'index.html' %}
 {% from 'partials/comments.html' import disqus with context %}
 {% from 'partials/comments.html' import render_comments with context %}
 
@@ -18,32 +18,21 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.2/dist/default-skin/default-skin.css">
 {% endblock %}
 
-{% block center_col %}col-lg-9{% endblock %}
-{% block right_col %}col-lg-3{% endblock %}
-
-{% block coverstyle %}
-{% if post.image %}data-bg="url({{post.image}})"{% endif %}
-{% endblock %}
-
-{% block rightside %}
-{% if post.toc %}
-<div class="post-toc sticky-top">
-  <div class="toc-head">
-    {{_('TABLE OF CONTENTS')}}
-  </div>
-  {{ post.toc | safe }}
+{% block pagehead %}
+<div class="section-heading">
+  <h2>{{ post.title }}</h2>
+  <div class="line-dec"></div>
+  {% if post.description %}<h3>{{ post.description }}</h3>{% endif %}
 </div>
-{% endif %}
 {% endblock %}
 
 {% block content %}
-<article itemscope itemtype="http://schema.org/Article">
-  <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-    <meta itemprop="url" content="{{ post.image }}">
-  </div>
-  <div class="d-lg-flex justify-content-between align-items-center">
-    <div class="post-meta">
-      <time datetime="{{post.date}}" itemprop="datePublished">{{ moment(post.date).format('ll') }}</time>
+<article class="article" itemscope itemtype="http://schema.org/Article">
+  <meta itemprop="headline" content="{{post.title}}">
+  {% if post.description %}<meta itemprop="subtitle" content="{{post.description}}">{% endif %}
+  <div class="d-lg-flex justify-content-between align-items-center text-center">
+    <div class="post-item-meta">
+      <span datetime="{{post.date}}" itemprop="datePublished">{{ moment(post.date).format('ll') }}</span>
       {% if post.author %}
       <span itemprop="author" itemscope itemtype="http://schema.org/Person">
         <span class="post-author" itemprop="name">{{post.author}}</span>
@@ -53,50 +42,38 @@
     <meta itemprop="keywords" content="{{ post.tags|map(attribute='text')|join(',') }}">
     <div class="post-tags">
       {% for tag in post.tags %}
-      <a href="{{tag.url}}">{{tag.text}}</a>
+      <a href="{{tag.url}}" class="button"><i class="fa fa-tags"></i> {{tag.text}}</a>
       {% endfor %}
     </div>
   </div>
-  <h1 class="post-title" itemprop="headline">{{post.title}}</h1>
-  <div class="post-subtitle" itemprop="subtitle">{% if post.description %}{{post.description}}{% endif %}</div>
-  <div class="post-text yue" itemprop="articleBody">
-    {{ post.html | safe }}
+  {% if post.image %}
+  <div class="cover-image" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+    <meta itemprop="url" content="{{ post.image }}">
+    <img class="lazy" data-src="{{ post.image }}" alt="">
   </div>
-  <div class="post-tail">
-    {{_('Last edited')}} <time datetime="{{post.last_modified}}" itemprop="dateModified">{{moment(post.last_modified).fromNow()}}</time>
+  {% endif %}
+  <div class="article-body" itemprop="articleBody">
+    {{ post.html | safe }}
   </div>
   <meta itemprop="license" content="http://creativecommons.org/licenses/by-sa/4.0/">
 </article>
-<div class="cc text-center p-2 yue">
-  <div id="copyright">{{_('Post Link')}}: <a href="{{request.url}}">{{request.url}}</a><br/>
-  <i class="fa fa-cc"></i> {{_('This work is released under ')}}<a rel="license"
-    href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>{{_(' License. ')}}</div>
-  {% if g.site.donate %}
+<div class="cc">
+  <div>{{_('Copyright')}}: <i class="fa fa-cc"></i> {{_('This work is released under')}} <a rel="license"
+    href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a> {{_('License. ')}}</div>
+  <div>{{_('Post Link')}}: <a href="{{request.url}}">{{request.url}}</a></div>
+  <div>{{_('Last edited at')}}: <time datetime="{{post.last_modified}}" itemprop="dateModified">{{moment(post.last_modified).fromNow()}}</time></div>
+</div>
+{% if g.site.donate %}
+<div class="text-center">
   <div>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#donate-qrcode" aria-expanded="false" aria-controls="donate-qrcode">
+    <button class="button" type="button" data-toggle="collapse" data-target="#donate-qrcode" aria-expanded="false" aria-controls="donate-qrcode">
       <i class="fa fa-heart"></i> {{_('Donate')}}
     </button>
   </div>
   <div id="donate-qrcode" class="collapse"><img src="{{ g.site.donate }}"></div>
-  {% endif %}
-
 </div>
-{% set related = post.related_post() %}
-{% if related %}
-<section class="related">
-  <div class="related-title">{{_('RELATED POST')}}</div>
-  <div class="post-item-content">
-    <a href="{{related.url}}">
-      <h4 class="post-item-title">{{related.title}}</h4>
-    </a>
-    {% if related.description %}
-    <a href="{{related.url}}">
-      <p class="post-item-subtitle lead">{{related.description}}</p>
-    </a>
-    {% endif %}
-  </div>
-</section>
 {% endif %}
+
 {% if not config.DEBUG and post.comment and integration.disqus and integration.disqus.enabled %}
 {{ disqus(post) }}
 {% endif %}
@@ -107,12 +84,12 @@
 
 {% block additional %}
 {% include 'partials/pswp.html' %}
-<a id="totop" title="Return to the top" class="invisible" href="javascript:void(0)"><i
-    class="fa fa-fw fa-arrow-up"></i></a>
 {% endblock %}
 
 {% block extrajs %}
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-574571fdae7f0521"></script>
+{% if integration.addthis %}
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid={{integration.addthis.pubid}}"></script>
+{% endif %}
 <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.2/dist/photoswipe.min.js" charset="utf-8"></script>
 <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.2/dist/photoswipe-ui-default.min.js" charset="utf-8"></script>
 {% include 'partials/math.html' %}

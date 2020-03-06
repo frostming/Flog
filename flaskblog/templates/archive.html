@@ -5,6 +5,7 @@
 ul.timeline {
   list-style-type: none;
   position: relative;
+  padding-inline-start: 40px;
 }
 ul.timeline:before {
   content: ' ';
@@ -17,7 +18,6 @@ ul.timeline:before {
   z-index: 400;
 }
 ul.timeline > li {
-  margin: 20px 0;
   padding-left: 20px;
 }
 ul.timeline > li:before {
@@ -42,10 +42,8 @@ ul.timeline-items > li {
 </style>
 {% endblock %}
 
-{% block pagehead %}
-<div class="blog-info mx-auto">
-<h1 class="heading">{{_('Archive')}}</h1>
-</div>
+{% block pagetitle %}
+  <h2>{{_('Archive')}}</h2>
 {% endblock %}
 
 {% block content %}

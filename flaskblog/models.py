@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import hashlib
 import io
+import re
 from datetime import datetime
 from random import choice
 from typing import Type, Union
@@ -18,6 +19,7 @@ from slugify import slugify
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .md import markdown
+from .utils import strip_tags
 
 db: SQLAlchemy = SQLAlchemy()
 whooshee: Whooshee = Whooshee()
@@ -106,6 +108,19 @@ class Post(db.Model):
     @property
     def next(self) -> "Post":
         return Post.query.order_by(Post.id.asc()).filter(Post.id > self.id).first()
+
+    @property
+    def excerpt(self) -> str:
+        """The excerpt of the post, detect <!--more--> tag as delimiter, or the first
+        200 characters.
+        """
+        match = re.match(r"^(.+?)<!--more-->", self.content, flags=re.DOTALL)
+        if match:
+            content = match.group(1)
+            return markdown(content)
+        else:
+            content = self.content
+            return strip_tags(markdown(content))[:200]
 
     def related_post(self) -> Union["Post", None]:
         posts = Post.query.join(Post.tags).filter(

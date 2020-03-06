@@ -1,133 +1,45 @@
-{% extends '_page.html' %}
+{% extends '_layout.html' %}
 {% import 'partials/helper.html' as helper with context %}
 
-{% block nav %}
-{{ super() }}
-{% if request.url_rule.endpoint == 'home' %}
-<div class="cover float-section text-light lazy" data-bg="url('{{g.site.cover_url}}')">
-  <div class="mx-auto my-auto">
-    <div class="bio">
-      <img class="avatar" src="{{ g.site.avatar }}" alt="{{ g.site.name }}">
-      <h1 class="display-3 heading">{{ g.site.name }}</h1>
-      <p class="lead site-des">{{ g.site.description }}</p>
-    </div>
-    <div class="links lead">
-      <a href="javascript:void(0)" class="btn btn-outline-light" onclick="dismissCover()">{{_('Blog')}}</a>
-      <a href="/about" class="btn btn-outline-light">{{_('About')}}</a>
-    </div>
-  </div>
-</div>
-{% endif %}
-{% endblock %}
-
-{% block coverstyle %}
-style="background-image:url({{g.site.cover_url}});"
-{% endblock %}
-{% block pagehead %}
-<div class="blog-info mx-auto">
-  {% if not cat and not tag %}
-  <a href="/" class="blog-head-logo">
-    <img class="avatar" src="{{ g.site.avatar }}" alt="{{ g.site.name }}">
-  </a>
-  {% endif %}
-  <h1 class="heading">
+{% block mainbody %}
+<div class="container">
+  {% block pagehead %}
+  <div class="section-heading">
+    {% block pagetitle %}
     {% if cat %}
-    {{_('Category')}}: {{cat.text}}
+      <h2>{{_('Category')}}: {{cat.text}}</h2>
     {% elif tag %}
-    {{_('Tag')}}: {{tag.text}}
+      <h2>{{_('Tag')}}: {{tag.text}}</h2>
     {% else %}
-    {{g.site.name}}
+      <h2>{{_('Articles')}}</h2>
     {% endif %}
-  </h1>
-</div>
-{% endblock %}
-
-
-{% block content %}
-{{ helper.render_posts(posts) }}
-
-{% if paginate %}
-<div class="paginate d-flex justify-content-between">
-  <a href="{{url_for('home', page=paginate.prev_num)}}" rel="prev" {% if paginate.has_prev %}
-    style="visibility: visible;" {% endif %}>
-    <i class="fa fa-fw fa-angle-left"></i> {{_('Newer Posts')}}
-  </a>
-  <a href="{{url_for('home', page=paginate.next_num)}}" rel="next" {% if paginate.has_next %}
-    style="visibility: visible;" {% endif %}>
-    {{_('Older Posts')}} <i class="fa fa-fw fa-angle-right"></i>
-  </a>
-</div>
-{% endif %}
-{% endblock %}
-{% block rightside %}
-<div class="right-section">
-  <h2><i class="fa fa-list"></i> {{_('Category')}}</h2>
-  <hr>
-  <ul class="cat-list">
-    {% for item in categories %}
-    <li>
-      <i class="fa fa-caret-right"></i>
-      <a class="btn btn-light" href="{{url_for('category', cat_id=item.id)}}">{{_(item.text)|title}} <span
-          class="badge badge-dark">{{item.posts.count()}}</span></a>
-    </li>
-    {% endfor %}
-  </ul>
-</div>
-<div class="right-section">
-  <h2><i class="fa fa-tags"></i> {{_('Tags')}}</h2>
-  <hr>
-  <div class="mt-4" id="tag-cloud">
-    {% for tag, heat in tag_cloud %}
-    <a href="{{tag.url}}" rel="{{heat}}">{{tag.text}}</a>
-    {% endfor %}
+    {% endblock %}
+    <div class="line-dec"></div>
   </div>
-</div>
-<div class="right-section">
-  <h2><i class="fa fa-link"></i> {{_('Links')}}</h2>
-  <hr>
-  <ul class="mt-4 page-links cat-list" id="friends">
-    {% if g.site.links %}
-    {% for link in g.site.links %}
-    <li><a href="{{link.url}}" target="_blank">{{link.text}}</a></li>
-    {% endfor %}
+  {% endblock %}
+  {% block content %}
+  {% for post in posts|sort(True, attribute='date') %}
+    {% if loop.index0 is even %}
+      {{ helper.render_left_post(post) }}
+    {% else %}
+      {{ helper.render_right_post(post) }}
     {% endif %}
-  </ul>
-</div>
-{% for item in g.site.sociallinks if item.name|lower == 'twitter' %}
-<div class="right-section">
-  <a class="twitter-timeline" data-height="800" href="{{item.link}}?ref_src=twsrc%5Etfw">Tweets</a>
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-</div>
-{% endfor %}
-{% endblock %}
+  {% endfor %}
 
-{% block extrajs %}
-<script type="text/javascript">
-  if ($('#tag-cloud').length !== 0) {
-    async ('{{url_for("static", filename="js/color-hash.js")}}', function () {
-      var colorHash = new ColorHash({
-        saturation: 0.5
-      });
-      $('#tag-cloud > a').each(function (i, e) {
-        e.style["background-color"] = colorHash.hex(e.innerHTML.trim());
-      });
-    })
-  }
-  var dismissCover = function () {
-    var headerHeight = document.getElementsByClassName('page-head')[0].clientHeight;
-    $('.cover').animate({
-      height: headerHeight,
-      opacity: 0
-    }, 400, function () {
-      $(this).addClass('invisible');
-    });
-  };
-  $(window).on('scroll', dismissCover);
-  $(function () {
-    if (window.location.search !== '') {
-      dismissCover();
-    }
-  })
-
-</script>
+  {% if paginate %}
+  <div class="post-item d-flex justify-content-between">
+    <div class="white-button" {% if not paginate.has_prev %}style="visibility: hidden;"{% endif %}>
+      <a href="{{url_for('home', page=paginate.prev_num)}}" rel="prev">
+        <i class="fa fa-fw fa-angle-left"></i> {{_('Newer Posts')}}
+      </a>
+    </div>
+    <div class="white-button" {% if not paginate.has_next %}style="visibility: hidden;"{% endif %}>
+      <a href="{{url_for('home', page=paginate.next_num)}}" rel="next">
+        {{_('Older Posts')}} <i class="fa fa-fw fa-angle-right"></i>
+      </a>
+    </div>
+  </div>
+  {% endif %}
+  {% endblock %}
+</div>
 {% endblock %}
