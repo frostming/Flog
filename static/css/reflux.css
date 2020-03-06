@@ -151,6 +151,7 @@ html {
 
 .menu .social-network ul li {
   margin: 0 3px;
+  display: inline;
 }
 
 .menu .social-network ul li a {
