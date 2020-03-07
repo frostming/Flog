@@ -61,7 +61,7 @@
   <div>{{_('Copyright')}}: <i class="fa fa-cc"></i> {{_('This work is released under')}} <a rel="license"
     href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a> {{_('License. ')}}</div>
   <div>{{_('Post Link')}}: <a href="{{request.url}}">{{request.url}}</a></div>
-  <div>{{_('Last edited at')}}: <time datetime="{{post.last_modified}}" itemprop="dateModified">{{moment(post.last_modified).fromNow()}}</time></div>
+  <div>{{_('Last edited at')}}: <time datetime="{{post.last_modified}}" itemprop="dateModified">{{moment(post.last_modified).format('lll')}}</time></div>
 </div>
 {% if g.site.donate %}
 <div class="text-center">

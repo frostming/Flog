@@ -70,7 +70,7 @@ msgstr "本作品基于"
 
 #: flaskblog/templates/post.html:62
 msgid "License. "
-msgstr "许可证。"
+msgstr "许可证共享"
 
 #: flaskblog/templates/post.html:63
 msgid "Post Link"

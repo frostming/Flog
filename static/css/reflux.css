@@ -641,8 +641,13 @@ figure img {
   margin-left: 5px;
 }
 
+.comment-item .comment-body {
+  margin-top: 10px;
+  margin-left: 55px;
+}
+
 .comment-box > .comment-item > .comment-body {
-  margin: 10px 0 25px 55px;
+  margin-bottom: 25px;
   padding-bottom: 15px;
   border-bottom: 1px solid #eee;
 }

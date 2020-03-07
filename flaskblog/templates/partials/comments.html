@@ -84,7 +84,7 @@
       <input type="hidden" name="parent_id" value="">
       <textarea name="content" placeholder="{{_('Type with markdown syntax')}}"></textarea>
       <div class="d-flex justify-content-between">
-        <div>
+        <div class="d-flex align-items-center">
           <strong>{{ current_user.display_name }}</strong>
           {%-if current_user.is_admin-%}
           <span class="text-success">({{ _('Admin') }})</span>
