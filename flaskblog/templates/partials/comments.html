@@ -21,9 +21,9 @@
       </div>
       <div class="author">
         <div>
-          {% if item.author.link-%}<a class="person-link" href="{{ item.author.link }}">{%-endif %}
+          {% if item.author.link-%}<a class="person-link" href="{{ item.author.link }}">{%-endif-%}
           <strong>{{ item.author.display_name }}</strong>
-          {% if item.author.link-%}</a>{%-endif %}
+          {%-if item.author.link-%}</a>{%-endif %}
           {%-if item.author.is_admin-%}
           <span class="text-success">({{ _('Admin') }})</span>
           {%-endif-%}
