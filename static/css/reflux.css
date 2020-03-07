@@ -475,7 +475,7 @@ figure img {
   padding: 1em;
   border: none;
   color: inherit;
-  font-size: 90%;
+  font-size: .9em;
   overflow: auto;
   line-height: 1.5;
   font-family: "SFMono-Regular", Monaco, Menlo,Consolas,"Courier New",monospace;
@@ -585,6 +585,14 @@ figure img {
 
 .footnotes a[href^="#fnref"] {
   border-bottom: 0;
+}
+
+#donate-qrcode {
+  margin-bottom: 1.5rem;
+}
+
+#donate-qrcode img {
+  max-width: 480px;
 }
 
 /* Comments */
