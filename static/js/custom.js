@@ -80,7 +80,7 @@
 
   var getItems = function() {
     var items = []
-    $('figure img').each(function() {
+    $('.article-body figure img').each(function() {
       var src = $(this).attr('src')
       var width = this.naturalWidth
       var height = this.naturalHeight
@@ -102,7 +102,7 @@
 
   var bindEvent = function() {
     var items = getItems()
-    $('figure img').each(function(i) {
+    $('.article-body figure img').each(function(i) {
       $(this).on('click', function(e) {
         e.preventDefault()
 

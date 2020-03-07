@@ -47,10 +47,11 @@
     </div>
   </div>
   {% if post.image %}
-  <div class="cover-image" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+  <figure class="cover-image" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
     <meta itemprop="url" content="{{ post.image }}">
     <img class="lazy" data-src="{{ post.image }}" alt="">
-  </div>
+    {% if post.image_caption %}<figcaption>{{ post.image_caption }}</figcaption>{% endif %}
+  </figure>
   {% endif %}
   <div class="article-body" itemprop="articleBody">
     {{ post.html | safe }}

@@ -19,6 +19,9 @@
       <el-form-item prop="image" :label="$t('post.coverImage')">
         <upload v-model="postForm.image" :upload-image="uploadImage" />
       </el-form-item>
+      <el-form-item :label="$t('post.coverCaption')">
+        <el-input v-model="postForm.image_caption" />
+      </el-form-item>
 
       <el-form-item :label="$t('post.author')" class="postInfo-container-item">
         <el-input v-model="postForm.author" :placeholder="$t('post.author')" />

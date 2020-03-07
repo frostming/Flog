@@ -56,6 +56,7 @@ class Post(db.Model):
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
     )
     image = db.Column(db.String(400))
+    image_caption = db.Column(db.String(400))
     lang = db.Column(db.String(20))
     content = db.Column(db.Text)
     html = db.Column(db.Text)
@@ -86,6 +87,7 @@ class Post(db.Model):
             title=self.title,
             date=self.date,
             image=self.image,
+            image_caption=self.image_caption,
             category=self.category if not ensure_text else str(self.category),
             lang=self.lang,
             comment=self.comment,

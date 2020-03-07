@@ -61,7 +61,8 @@ export default {
     confirmDelete: 'Are you sure to delete?',
     pickFile: 'Pick file',
     format: 'File Format',
-    upload: 'Upload to server'
+    upload: 'Upload to server',
+    coverCaption: 'Cover image caption'
   },
   navbar: {
     logOut: 'Log Out',

@@ -405,10 +405,18 @@ button:hover, .button:hover {
 .cover-image {
   margin: 10px 0 40px;
   width: 100%;
+  position: relative;
 }
 
 .cover-image img {
   width: 100%;
+}
+
+.cover-image figcaption {
+  color: rgba(0, 0, 0, .2);
+  font-size: 0.85em;
+  text-align: right;
+  margin-top: 2px;
 }
 
 .photo-set figure {
