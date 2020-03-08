@@ -98,8 +98,8 @@ html {
 }
 .tlinks{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
 .main-nav li a {
-  height: 70px;
-  line-height: 70px;
+  height: 55px;
+  line-height: 55px;
   display: inline-block;
   font-size: 16px;
   font-weight: 700;
@@ -150,9 +150,9 @@ html {
   display: inline;
 }
 
-.menu .social-network ul li a {
-  width: 40px;
+.menu .social-network a {
   height: 40px;
+  padding: 0 10px;
   display: inline-block;
   text-align: center;
   line-height: 40px;
@@ -162,7 +162,7 @@ html {
   transition: all 0.5s;
 }
 
-.menu .social-network ul li a:hover {
+.menu .social-network a:hover {
   background-color: #fff;
   color: var(--primary-color);
 }
@@ -269,6 +269,31 @@ html {
   line-height: 60px;
 }
 
+#search-modal .modal-dialog {
+  max-width: 960px;
+}
+
+input#search-text {
+  border-radius: 0;
+  flex: 1;
+}
+
+.search-result-item {
+  border-bottom: 1px solid #e9ecef;
+  padding: 1em 0 .3em;
+}
+
+.search-result-item h6 {
+  font-weight: bold;
+}
+
+.search-result-item .search-hll {
+  color: var(--primary-color);
+}
+
+.search-result-item a {
+  color: inherit
+}
 
 /* Section */
 

@@ -1,0 +1,62 @@
+<div class="responsive-nav">
+  <i class="fa fa-bars" id="menu-toggle"></i>
+  <div id="menu" class="menu">
+    <i class="fa fa-times" id="menu-close"></i>
+    <div class="container">
+      <div class="image">
+        <a href="#"><img src="{{ g.site.avatar }}" alt="" /></a>
+      </div>
+      <div class="author-content">
+        <h4>{{ g.site.name }}</h4>
+        <span>{{ g.site.description }}</span>
+      </div>
+      <nav class="main-nav" role="navigation">
+        <ul class="main-menu">
+          <li {% if request.endpoint == 'home' %}class="active"{% endif %}><a href="{{ url_for('home') }}">{{_('Articles')}}</a></li>
+          <li {% if request.endpoint == 'archive' %}class="active"{% endif %}><a href="{{ url_for('archive') }}">{{_('Archive')}}</a></li>
+          {% for item in pages %}
+            {% if item.display %}
+            <li {% if request.path == '/' + item.slug %}class="active"{% endif %}><a href="/{{ item.slug }}">{{_(item.title)|title}}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </nav>
+      <div class="social-network">
+        <a href="#" class="search-btn mb-2" data-toggle="modal" data-target="#search-modal"><i class="fa fa-search"></i> {{_('SEARCH')}}</a>
+        <ul class="social-icons">
+          {% for item in g.site.sociallinks %}
+          <li>
+            <a href="{{item.link}}" target="_blank" title="{{item.name}}">
+              {% if not item.icon %}
+                {% set iconclass="fa fa-fw fa-globe" %}
+              {% elif item.icon.startswith('iconfont') %}
+                {% set iconclass="iconfont icon-%s" % item.icon.split('||')[1] %}
+              {% else %}
+                {% set iconclass="fa fa-fw fa-%s" % item.icon %}
+              {% endif %}
+              <i class="{{iconclass}}"></i>
+            </a>
+          </li>
+          {% endfor %}
+          <li><a href="{{url_for('feed')}}" title="RSS"><i class="fa fa-fw fa-rss"></i></a></li>
+        </ul>
+      </div>
+      <div class="copyright-text">
+        <p>Copyright &copy; {{g.site.start_from}}-{{current_time.year}} {{g.site.owner}}<br>
+          {% if g.site.icp %}<a href="http://beian.miit.gov.cn/" target="_blank">{{g.site.icp}}</a>{% endif %}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-labelledby="searchTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header align-items-top">
+        <input type="text" class="form-control mr-2" id="search-text">
+        <button><i class="fa fa-search"></i> {{_("SEARCH")}}</button>
+      </div>
+      <div class="modal-body">
+      </div>
+    </div>
+  </div>
+</div>

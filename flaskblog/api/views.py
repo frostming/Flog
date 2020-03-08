@@ -2,14 +2,14 @@
 import xml.etree.ElementTree as ET
 from datetime import datetime
 
-from flask import abort, g, json, jsonify, request
+from flask import abort, g, json, jsonify, request, current_app
 from flask.views import MethodView
 from flask_login import current_user, logout_user
 from urllib.parse import urlparse
 
 from ..models import (Category, Comment, Integration, Page, Post, Tag, db,
                       generate_password_hash, User)
-from ..templating import get_integrations
+from ..templating import get_integrations, text_part
 from . import api
 from .utils import verify_auth
 
@@ -17,11 +17,17 @@ TOKEN_HEADER = "X-Token"
 SUCCESS_RESPONSE = {"code": 20000, "data": "success"}
 
 
+def auth_exempt(view_func):
+    view_func._auth_exempt = True
+    return view_func
+
+
 @api.before_request
 def authenticate_view():
     if request.method == "OPTIONS":
         return
-    if request.path == "/api/user/login":
+    view = current_app.view_functions.get(request.endpoint)
+    if getattr(view, "_auth_exempt", False):
         return
     token = request.headers.get(TOKEN_HEADER)
     if not token or not verify_auth(token):
@@ -29,6 +35,7 @@ def authenticate_view():
 
 
 @api.route("/user/login", methods=["POST"])
+@auth_exempt
 def login():
     data = request.get_json()
     if not verify_auth(data.get("username"), data.get("password")):
@@ -368,6 +375,28 @@ def import_disqus_comment():
     return jsonify(SUCCESS_RESPONSE)
 
 
+@auth_exempt
+def search():
+    search_str = request.args.get("q")
+    items = [
+        {
+            "title": post.title,
+            "content": text_part(post.content, search_str),
+            "url": post.url
+        }
+        for post in Post.query.filter(~Post.is_draft)
+        .whooshee_search(search_str)
+        .order_by(Post.date.desc())
+    ]
+    return jsonify({
+        "code": 20000,
+        "data": {
+            "total": len(items),
+            "items": items
+        }
+    })
+
+
 api.add_url_rule("/post", view_func=PostView.as_view("post"))
 api.add_url_rule("/post/<int:id>", view_func=PostItemView.as_view("post_item"))
 api.add_url_rule("/page", view_func=PageView.as_view("page"))
@@ -378,3 +407,4 @@ api.add_url_rule(
     "/comment/<int:id>", "delete_comment", view_func=delete_comment, methods=["DELETE"]
 )
 api.add_url_rule("/comment", "comment_list", view_func=comment_list)
+api.add_url_rule("/search", "search", search)
