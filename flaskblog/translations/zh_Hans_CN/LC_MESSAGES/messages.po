@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-03-06 22:22+0800\n"
+"POT-Creation-Date: 2020-03-08 19:28+0800\n"
 "PO-Revision-Date: 2017-09-10 11:03+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -36,11 +36,8 @@ msgstr "你在《%(title)s》中收到新评论"
 msgid "Return Home"
 msgstr "回到主页"
 
-#: flaskblog/templates/_layout.html:54 flaskblog/templates/index.html:14
-msgid "Articles"
-msgstr "文章"
-
-#: flaskblog/templates/_layout.html:55 flaskblog/templates/archive.html:46
+#: flaskblog/templates/archive.html:46
+#: flaskblog/templates/partials/sidebar.html:16
 msgid "Archive"
 msgstr "归档"
 
@@ -52,6 +49,11 @@ msgstr "分类"
 msgid "Tag"
 msgstr "标签"
 
+#: flaskblog/templates/index.html:14
+#: flaskblog/templates/partials/sidebar.html:15
+msgid "Articles"
+msgstr "文章"
+
 #: flaskblog/templates/index.html:33
 msgid "Newer Posts"
 msgstr "较新文章"
@@ -60,42 +62,37 @@ msgstr "较新文章"
 msgid "Older Posts"
 msgstr "较旧文章"
 
-#: flaskblog/templates/post.html:61
+#: flaskblog/templates/post.html:62
 msgid "Copyright"
 msgstr "版权声明"
 
-#: flaskblog/templates/post.html:61
+#: flaskblog/templates/post.html:62
 msgid "This work is released under"
 msgstr "本作品基于"
 
-#: flaskblog/templates/post.html:62
+#: flaskblog/templates/post.html:63
 msgid "License. "
 msgstr "许可证共享"
 
-#: flaskblog/templates/post.html:63
+#: flaskblog/templates/post.html:64
 msgid "Post Link"
 msgstr "文章链接"
 
-#: flaskblog/templates/post.html:64
+#: flaskblog/templates/post.html:65
 msgid "Last edited at"
 msgstr "最后编辑于"
 
-#: flaskblog/templates/post.html:70
+#: flaskblog/templates/post.html:71
 msgid "Donate"
 msgstr "打赏"
 
-#: flaskblog/templates/post.html:79
+#: flaskblog/templates/post.html:80
 msgid "PREVIOUS POST"
 msgstr "上一篇"
 
-#: flaskblog/templates/post.html:85
+#: flaskblog/templates/post.html:86
 msgid "NEXT POST"
 msgstr "下一篇"
-
-#: flaskblog/templates/search.html:3 flaskblog/templates/search.html:6
-#, python-format
-msgid "Search Result for '%(word)s'"
-msgstr "'%(word)s'的搜索结果"
 
 #: flaskblog/templates/mail/layout.html:50
 msgid ""
@@ -172,3 +169,8 @@ msgstr "评论"
 #: flaskblog/templates/partials/helper.html:42
 msgid "Read More"
 msgstr "继续阅读"
+
+#: flaskblog/templates/partials/sidebar.html:25
+#: flaskblog/templates/partials/sidebar.html:56
+msgid "SEARCH"
+msgstr "搜索"
