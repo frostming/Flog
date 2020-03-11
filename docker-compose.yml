@@ -25,10 +25,10 @@ services:
 
   nginx:
     restart: always
-    image: really/nginx-certbot
+    image: staticfloat/nginx-certbot
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d:rw
-      - ./nginx/letsencrypt:/etc/letsencrypt:rw
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/letsencrypt:/etc/letsencrypt
       - ./nginx/log:/var/log/nginx
       - ./static:/opt/static
     ports:
