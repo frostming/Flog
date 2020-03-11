@@ -43,7 +43,6 @@ def create_app(env: Union[str, None] = None) -> Flask:
         return lang
 
     login_manager = LoginManager(app)
-    login_manager.login_view = 'admin.login'
     login_manager.login_message = lazy_gettext('Please login')
     login_manager.login_message_category = 'warning'
 

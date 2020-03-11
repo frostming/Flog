@@ -119,7 +119,8 @@
       e.preventDefault();
       fetch('/comment', {
         method: 'post',
-        body: new FormData(this)
+        body: new FormData(this),
+        credentials: 'same-origin'
       }).then(_ => {
         location.reload();
       });
