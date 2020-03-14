@@ -622,10 +622,8 @@ figure img {
 
 #donate-qrcode {
   margin-bottom: 1.5rem;
-}
-
-#donate-qrcode img {
   max-width: 480px;
+  margin: 0 auto;
 }
 
 /* Comments */
