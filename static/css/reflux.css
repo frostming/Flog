@@ -626,6 +626,10 @@ figure img {
   margin: 0 auto;
 }
 
+#donate-qrcode img {
+  max-width: 100%;
+}
+
 /* Comments */
 .comments {
   margin-top: 10px;
