@@ -1,0 +1,52 @@
+[build-system]
+build-backend = ["pdm.builders.api"]
+requires = ["pdm"]
+
+[tool.pdm]
+author = "Frost Ming <mianghong@gmail.com>"
+description = ""
+homepage = ""
+license = "MIT"
+name = "Flog"
+python_requires = ">=3.7"
+version = "1.1.8"
+
+[tool.pdm.dependencies]
+authlib = "*"
+cssmin = "*"
+faker = "*"
+flask = "*"
+flask-assets = "*"
+flask-babel = "*"
+flask-cors = "*"
+flask-login = "*"
+flask-mail = "*"
+flask-migrate = "*"
+flask-moment = "*"
+flask-sqlalchemy = "*"
+flask-whooshee = "*"
+gevent = "*"
+jsmin = "*"
+psycopg2-binary = "*"
+python-slugify = "*"
+pyyaml = "*"
+qcloud-python-sts = "*"
+six = "*"
+gunicorn = {version = "<20.0.0", marker = "sys_platform != \"win32\""}
+marko = {version = "*", extras = ["toc", "codehilite"]}
+
+[tool.pdm.dev-dependencies]
+flake8 = "*"
+flask-shell-ipython = "*"
+mypy = "*"
+appnope = {version = "*", marker = "sys_platform == \"darwin\""}
+python-dotenv = "<1.0.0,>=0.12.0"
+
+
+[[tool.pdm.source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[tool.pdm.mysql-dependencies]
+pymysql = "<1.0.0,>=0.9.3"
