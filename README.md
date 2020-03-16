@@ -35,21 +35,21 @@ Flog 的 Markdown 语法遵循 GitHub Flavored Markdown 规范，支持脚注、
 
 ## 开发本项目
 
-1. 安装 [pipenv](https://github.com/kennethreitz/pipenv)
+1. 安装 [pdm](https://github.com/frostming/pdm)
 
 ```bash
-$ pip install pipenv
+$ pipx install pdm
 ```
 
 2. 常用命令
 
 ```bash
 # 安装所有开发依赖
-$ pipenv install -d
+$ pdm install -d
 # 生成翻译文件
-$ pipenv run make compile
+$ pdm run make compile
 # 升级DB
-$ pipenv run flask db upgrade
+$ pdm run flask db upgrade
 ```
 
 ### 后台开发
@@ -65,14 +65,14 @@ $ pipenv run flask db upgrade
 2. 前后端联调
 
    - 确保`static/env.development`中`VUE_APP_BASE_API = 'http://127.0.0.1:5000/api`
-   - 启动后端开发服务器：`FLASK_ENV=development pipenv run flask run`，地址为<http://127.0.0.1:5000>
+   - 启动后端开发服务器：`FLASK_ENV=development pdm run flask run`，地址为<http://127.0.0.1:5000>
    - 启动前端开发服务器：`cd static && npm run dev`，地址为<http://localhost:9527>
    - 此模式下前后端改动均能自动重启，且后端请求真实发至后端服务器
 
 3. 准生产环境调试
 
    - 构建前端页面`cd static && npm run build:prod`，此时前端页面将以生产模式编译压缩
-   - 启动后端开发服务器：`FLASK_ENV=development pipenv run flask run`
+   - 启动后端开发服务器：`FLASK_ENV=development pdm run flask run`
    - 此模式将模拟生产环境行为，后端服务器可更新，但前端不可以。
 
 ## 部署到远程服务器

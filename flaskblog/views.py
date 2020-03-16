@@ -6,9 +6,9 @@ from urllib.parse import urljoin
 
 from flask import Flask, abort, current_app, g, jsonify, render_template, request, send_file
 from flask_login import current_user, login_required
-from werkzeug.contrib.atom import AtomFeed
 from werkzeug.wrappers import Response
 
+from .atom import AtomFeed
 from .models import Category, Comment, Page, Post, Tag, User, db
 from .tasks import notify_comment, notify_reply
 
@@ -119,7 +119,9 @@ def archive() -> str:
     def grouper(item):
         return item.date.year, item.date.month
 
-    result = groupby(Post.query.order_by(Post.date.desc()), grouper)
+    result = groupby(
+        Post.query.filter_by(is_draft=False).order_by(Post.date.desc()), grouper
+    )
     return render_template("archive.html", items=result)
 
 
