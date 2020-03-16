@@ -80,6 +80,7 @@ def feed() -> Response:
             categories=[{'term': post.category.text}],
             content_type="html",
             author=post.author or "Unnamed",
+            summary=post.excerpt,
             url=urljoin(request.url_root, post.url),
             updated=post.last_modified,
             published=post.date,
