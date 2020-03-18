@@ -105,11 +105,15 @@ class Post(db.Model):
 
     @property
     def previous(self) -> "Post":
-        return Post.query.order_by(Post.id.desc()).filter(Post.id < self.id).first()
+        return Post.query.order_by(Post.id.desc()).filter(
+            Post.is_draft == False, Post.id < self.id   # noqa
+        ).first()
 
     @property
     def next(self) -> "Post":
-        return Post.query.order_by(Post.id.asc()).filter(Post.id > self.id).first()
+        return Post.query.order_by(Post.id.asc()).filter(
+            Post.is_draft == False, Post.id > self.id   # noqa
+        ).first()
 
     @property
     def excerpt(self) -> str:
