@@ -386,6 +386,7 @@ button:hover, .button:hover {
   width: 100%;
   padding-top: 70%;
   background-size: cover;
+  background-position: center;
 }
 
 .post-tags a {

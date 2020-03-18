@@ -11,9 +11,9 @@ ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 ENV PIP_INDEX_URL $pypi_mirror
 
-RUN sed -i "s#http://deb.debian.org#$package_mirror#g" /etc/apt/sources.list
-RUN apt-get update && apt-get install -y gcc
-RUN pip install --upgrade pdm
+RUN sed -i "s#http://deb.debian.org#$package_mirror#g" /etc/apt/sources.list && \
+    apt-get update && apt-get install -y gcc && \
+    pip install --upgrade pdm
 
 # Application
 WORKDIR /app
