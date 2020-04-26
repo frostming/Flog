@@ -5,6 +5,7 @@
         ref="editor"
         v-model="postForm.content"
         height="90vh"
+        :upload-image="uploadImage"
         :options="{previewStyle: 'tab', hideModeSwitch: true}"
       />
     </el-form-item>
@@ -49,6 +50,7 @@ import MarkdownEditor from '@/components/MarkdownEditor'
 import MDinput from '@/components/MDinput'
 import { fetchPage, createPage, updatePage } from '@/api/page'
 import RightPanel from '@/components/RightPanel'
+import uploadData from '@/api/cos'
 
 const defaultForm = {
   title: '', // 文章题目
@@ -119,6 +121,9 @@ export default {
     },
     sendPage(data) {
       return (this.isEdit ? updatePage(data) : createPage(data))
+    },
+    uploadImage(fileObj, callbacks) {
+      uploadData(fileObj, callbacks)
     },
     submitForm() {
       this.$refs.postForm.validate(valid => {
