@@ -1,0 +1,46 @@
+name: Deploy static files
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'static/**'
+      - 'nginx/**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: Install Yarn
+      run: npm i -g yarn
+    - name: Build static files
+      run: cd static && yarn install && yarn run build:prod && cd -
+      env:
+        CI: true
+    - name: Deploy to Server
+      uses: easingthemes/ssh-deploy@v2.1.1
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+        ARGS: -avz --delete --include='cards/' --include='css/' --include='js/' --include='images/'
+          --include='iconfont/' --include="robots.txt" --include='dist/' --exclude='/*'
+        SOURCE: static/
+        REMOTE_HOST: ${{ secrets.SSH_HOST }}
+        REMOTE_USER: ${{ secrets.SSH_USERNAME }}
+        TARGET: /home/fming/frostming.com/static/
+    - name: Deploy Nginx Config
+      uses: easingthemes/ssh-deploy@v2.1.1
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+        ARGS: -avz
+        SOURCE: nginx/
+        REMOTE_HOST: ${{ secrets.SSH_HOST }}
+        REMOTE_USER: ${{ secrets.SSH_USERNAME }}
+        TARGET: /home/fming/frostming.com/nginx/
