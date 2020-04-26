@@ -1,0 +1,39 @@
+name: Deploy static files
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - 'static/**'
+      - 'nginx/**'
+      - README.md
+      - LICENSE
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Deploy to Server
+      uses: easingthemes/ssh-deploy@v2.1.1
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+        ARGS: -avz --delete --exclude='*.pyc'
+        SOURCE: pyproject.toml pdm.lock ./docker-compose.yml Dockerfile flaskblog migrations start_server.sh
+        REMOTE_HOST: frostming.com
+        REMOTE_USER: fming
+        TARGET: /home/fming/frostming.com/
+    - name: Rebuild and Restart Docker
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        script: |
+          cd /home/fming/frostming.com
+          sudo docker-compose build web
+          docker-compose up -d --force-recreate --no-deps web
