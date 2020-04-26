@@ -26,21 +26,23 @@ jobs:
       env:
         CI: true
     - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@v2.1.1
+      uses: AEnterprise/rsync-deploy@v1.0
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         ARGS: -avz --delete --include='cards/' --include='css/' --include='js/' --include='images/'
           --include='iconfont/' --include="robots.txt" --include='dist/' --exclude='/*'
-        SOURCE: static/
-        REMOTE_HOST: ${{ secrets.SSH_HOST }}
-        REMOTE_USER: ${{ secrets.SSH_USERNAME }}
-        TARGET: /home/fming/frostming.com/static/
+        FOLDER: static/
+        SERVER_PORT: '22'
+        SERVER_IP: ${{ secrets.SSH_HOST }}
+        USERNAME: ${{ secrets.SSH_USERNAME }}
+        SERVER_DESTINATION: /home/fming/frostming.com/static/
     - name: Deploy Nginx Config
-      uses: easingthemes/ssh-deploy@v2.1.1
+      uses: AEnterprise/rsync-deploy@v1.0
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         ARGS: -avz
-        SOURCE: nginx/
-        REMOTE_HOST: ${{ secrets.SSH_HOST }}
-        REMOTE_USER: ${{ secrets.SSH_USERNAME }}
-        TARGET: /home/fming/frostming.com/nginx/
+        FOLDER: nginx/
+        SERVER_PORT: '22'
+        SERVER_IP: ${{ secrets.SSH_HOST }}
+        USERNAME: ${{ secrets.SSH_USERNAME }}
+        SERVER_DESTINATION: /home/fming/frostming.com/nginx/

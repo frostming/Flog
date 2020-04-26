@@ -19,14 +19,15 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@v2.1.1
+      uses: AEnterprise/rsync-deploy@v1.0
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         ARGS: -avz --delete --exclude='*.pyc'
-        SOURCE: pyproject.toml pdm.lock ./docker-compose.yml Dockerfile flaskblog migrations start_server.sh
-        REMOTE_HOST: frostming.com
-        REMOTE_USER: fming
-        TARGET: /home/fming/frostming.com/
+        SERVER_PORT: '22'
+        FOLDER: pyproject.toml pdm.lock ./docker-compose.yml Dockerfile flaskblog migrations start_server.sh
+        SERVER_IP: frostming.com
+        USERNAME: fming
+        SERVER_DESTINATION: /home/fming/frostming.com/
     - name: Rebuild and Restart Docker
       uses: appleboy/ssh-action@master
       with:
