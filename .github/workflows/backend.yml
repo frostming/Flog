@@ -1,4 +1,4 @@
-name: Deploy static files
+name: Deploy backend files
 
 on:
   push:
