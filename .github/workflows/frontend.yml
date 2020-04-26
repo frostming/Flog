@@ -26,7 +26,7 @@ jobs:
       env:
         CI: true
     - name: Deploy to Server
-      uses: AEnterprise/rsync-deploy@v1.0
+      uses: AEnterprise/rsync-deploy@master
       env:
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         ARGS: -avz --delete --include='cards/' --include='css/' --include='js/' --include='images/'
@@ -37,7 +37,7 @@ jobs:
         USERNAME: ${{ secrets.SSH_USERNAME }}
         SERVER_DESTINATION: /home/fming/frostming.com/static/
     - name: Deploy Nginx Config
-      uses: AEnterprise/rsync-deploy@v1.0
+      uses: AEnterprise/rsync-deploy@master
       env:
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         ARGS: -avz
