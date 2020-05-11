@@ -69,7 +69,9 @@ class Post(db.Model):
     slug = db.Column(db.String(100))
     is_draft = db.Column(db.Boolean, default=False)
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"))
-    comments = db.relationship("Comment", backref="post", lazy="dynamic")
+    comments = db.relationship(
+        "Comment", cascade="all, delete-orphan", backref="post", lazy="dynamic"
+    )
 
     def __init__(self, **kwargs):
         if isinstance(kwargs.get("category"), str):
@@ -218,7 +220,9 @@ class User(db.Model, UserMixin):
         """Get the gravatar image"""
         if self.picture:
             return self.picture
-        email_hash = hashlib.md5((self.email or self.username).strip().lower().encode()).hexdigest()
+        email_hash = hashlib.md5(
+            (self.email or self.username).strip().lower().encode()
+        ).hexdigest()
         return f'https://www.gravatar.com/avatar/{email_hash}?d=identicon'
 
     @classmethod
@@ -338,7 +342,8 @@ class Comment(db.Model):
     create_at = db.Column(db.DateTime(), default=datetime.utcnow)
     parent_id = db.Column(db.Integer, db.ForeignKey("comment.id"))
     replies = db.relationship(
-        "Comment", backref=db.backref("parent", remote_side=[id]), lazy="dynamic"
+        "Comment", cascade="all, delete-orphan",
+        backref=db.backref("parent", remote_side=[id]), lazy="dynamic"
     )
 
     __table_args__ = (db.UniqueConstraint("post_id", "floor", name="_post_floor"),)
