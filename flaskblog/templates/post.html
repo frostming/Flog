@@ -97,10 +97,12 @@
 {% endblock %}
 
 {% block right_extra %}
+{% if post.toc %}
 <div class="segment" id="contents">
   <h4>{{_('Contents')}}</h4>
   {{ post.toc|safe }}
 </div>
+{% endif %}
 {% endblock %}
 
 {% block additional %}
