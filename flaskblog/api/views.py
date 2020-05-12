@@ -320,7 +320,7 @@ def comment_list():
 
 
 def delete_comment(id):
-    Comment.query.filter_by(id=id).delete()
+    db.session.delete(Comment.query.get(id))
     db.session.commit()
     return jsonify(SUCCESS_RESPONSE)
 
