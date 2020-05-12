@@ -298,13 +298,41 @@ input#search-text {
 /* Section */
 
 .section {
-  width: 55%;
-  right: 10%;
-  left: 30%;
+  width: 80%;
+  left: 20%;
+  display: flex;
   position: relative;
   min-height: 100vh;
-  padding-bottom: 80px;
   border-bottom: 3px solid rgba(250, 250, 250, 0.25);
+}
+
+.right-panel {
+  width: 25%;
+  padding: 221px 10px 0 10px;
+  background-color: #f8f8f8;
+}
+
+.right-panel h4:after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: var(--primary-color);
+  margin: 6px 0 12px 0;
+}
+
+.segment {
+  margin-bottom: 20px;
+}
+
+.tags > .button {
+  text-transform: uppercase;
+  padding: 10px;
+}
+
+#contents {
+  position: sticky;
+  top: 40px;
 }
 
 .section-heading {
@@ -710,15 +738,6 @@ figure img {
   }
 }
 
-@media screen and (max-width: 1680px) {
-
-  .section {
-    width: 65%;
-    right: 5%;
-    left: 30%;
-  }
-}
-
 @media screen and (max-width: 1680px) and (min-width: 846px) {
   .menu .social-network ul li a {
     width: 36px;
@@ -816,6 +835,9 @@ figure img {
     width: 94%;
     right: 3%;
     left: 3%;
+  }
+  .right-panel {
+    display: none;
   }
   .isotope-item {
     width: 94%;

@@ -6,7 +6,7 @@ from jinja2 import Markup
 from slugify import slugify
 
 from .md import markdown
-from .models import Category, Integration, Page
+from .models import Category, Integration, Page, Tag
 
 
 def date(s: datetime, format: str = '%Y-%m-%d') -> str:
@@ -31,9 +31,13 @@ def blog_objects() -> dict:
     url = request.url
     title = request.url_rule.endpoint if request.url_rule else ''
     categories = Category.query.filter(Category.text != 'About').all()
+    tags = Tag.query.all()
     pages = Page.query.order_by(Page.id.asc()).all()
     rv = {'url': url, 'title': title.title()}
-    return {'page': rv, 'urljoin': urljoin, 'categories': categories, 'pages': pages}
+    return {
+        'page': rv, 'urljoin': urljoin, 'categories': categories,
+        'pages': pages, 'tags': tags
+    }
 
 
 def make_slugify(s) -> str:

@@ -42,4 +42,26 @@
   {% endif %}
   {% endblock %}
 </div>
+<div class="right-panel">
+  <div class="segment">
+    <h4>{{_('Categories')}}</h4>
+    <div>
+      {% for cat in categories %}
+      <div class="py-1">
+        <a href="{{ url_for('category', cat_id=cat.id) }}"><i class="fa fa-folder-open"></i> {{ cat.text }}</a>
+        <span class="badge badge-light">{{ cat.posts.count() }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="segment">
+    <h4>{{_('Tags')}}</h4>
+    <div class="tags">
+      {% for tag in tags %}
+      <a href="{{ tag.url }}" class="button"><i class="fa fa-tag"></i> {{ tag.text }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  {% block right_extra %}{% endblock %}
+</div>
 {% endblock %}

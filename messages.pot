@@ -1,18 +1,17 @@
-# Chinese (Simplified, China) translations for PROJECT.
-# Copyright (C) 2017 ORGANIZATION
+# Translations template for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2020-05-12 13:57+0800\n"
-"PO-Revision-Date: 2017-09-10 11:03+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: zh_Hans_CN\n"
-"Language-Team: zh_Hans_CN <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,169 +19,170 @@ msgstr ""
 
 #: flaskblog/app.py:46
 msgid "Please login"
-msgstr "请先登录"
+msgstr ""
 
 #: flaskblog/tasks.py:44
 #, python-format
 msgid "New reply on '%(title)s'"
-msgstr "你在《%(title)s》中收到新回复"
+msgstr ""
 
 #: flaskblog/tasks.py:64
 #, python-format
 msgid "New comment on '%(title)s'"
-msgstr "你在《%(title)s》中收到新评论"
+msgstr ""
 
 #: flaskblog/templates/404.html:538
 msgid "Return Home"
-msgstr "回到主页"
+msgstr ""
 
 #: flaskblog/templates/archive.html:46
 #: flaskblog/templates/partials/sidebar.html:16
 msgid "Archive"
-msgstr "归档"
+msgstr ""
 
 #: flaskblog/templates/index.html:10
 msgid "Category"
-msgstr "分类"
+msgstr ""
 
 #: flaskblog/templates/index.html:12
 msgid "Tag"
-msgstr "标签"
+msgstr ""
 
 #: flaskblog/templates/index.html:14
 #: flaskblog/templates/partials/sidebar.html:15
 msgid "Articles"
-msgstr "文章"
+msgstr ""
 
 #: flaskblog/templates/index.html:33
 msgid "Newer Posts"
-msgstr "较新文章"
+msgstr ""
 
 #: flaskblog/templates/index.html:38
 msgid "Older Posts"
-msgstr "较旧文章"
+msgstr ""
 
 #: flaskblog/templates/index.html:47
 msgid "Categories"
-msgstr "文章分类"
+msgstr ""
 
 #: flaskblog/templates/index.html:58
 msgid "Tags"
-msgstr "文章标签"
+msgstr ""
 
 #: flaskblog/templates/post.html:62
 msgid "Copyright"
-msgstr "版权声明"
+msgstr ""
 
 #: flaskblog/templates/post.html:62
 msgid "This work is released under"
-msgstr "本作品基于"
+msgstr ""
 
 #: flaskblog/templates/post.html:63
 msgid "License. "
-msgstr "许可证共享"
+msgstr ""
 
 #: flaskblog/templates/post.html:64
 msgid "Post Link"
-msgstr "文章链接"
+msgstr ""
 
 #: flaskblog/templates/post.html:65
 msgid "Last edited at"
-msgstr "最后编辑于"
+msgstr ""
 
 #: flaskblog/templates/post.html:71
 msgid "Donate"
-msgstr "打赏"
+msgstr ""
 
 #: flaskblog/templates/post.html:80
 msgid "PREVIOUS POST"
-msgstr "上一篇"
+msgstr ""
 
 #: flaskblog/templates/post.html:86
 msgid "NEXT POST"
-msgstr "下一篇"
+msgstr ""
 
 #: flaskblog/templates/post.html:101
 msgid "Contents"
-msgstr "目录"
+msgstr ""
 
 #: flaskblog/templates/mail/layout.html:50
 msgid ""
 "This email is sent by system automatically. Please do not reply to the "
 "email directly."
-msgstr "本邮件由系统自动发出，请勿回复"
+msgstr ""
 
 #: flaskblog/templates/mail/new_comment.html:2
 #, python-format
 msgid "Your post '%(title)s' has got a new comment"
-msgstr "你的文章《%(title)s》收到一条新评论"
+msgstr ""
 
 #: flaskblog/templates/mail/new_comment.html:10
 #: flaskblog/templates/mail/new_reply.html:16
 msgid "Please go to "
-msgstr "请前往"
+msgstr ""
 
 #: flaskblog/templates/mail/new_comment.html:10
 #: flaskblog/templates/mail/new_reply.html:16
 msgid " for more information"
-msgstr "查看详情"
+msgstr ""
 
 #: flaskblog/templates/mail/new_reply.html:2
 #, python-format
 msgid "Your comment in post '%(title)s' has got a new reply"
-msgstr "你在文章《%(title)s》中的评论收到一条新回复"
+msgstr ""
 
 #: flaskblog/templates/partials/comments.html:26
 #: flaskblog/templates/partials/comments.html:86
 msgid "Admin"
-msgstr "博主"
+msgstr ""
 
 #: flaskblog/templates/partials/comments.html:34
 msgid "Reply"
-msgstr "回复"
+msgstr ""
 
 #: flaskblog/templates/partials/comments.html:55
 msgid "Post Comments"
-msgstr "文章评论"
+msgstr ""
 
 #: flaskblog/templates/partials/comments.html:65
 msgid "Please login before comment"
-msgstr "评论前请先登录"
+msgstr ""
 
 #: flaskblog/templates/partials/comments.html:67
 msgid "Username(Required)"
-msgstr "用户名称(必填)"
+msgstr ""
 
 #: flaskblog/templates/partials/comments.html:68
 msgid "Email(Required)"
-msgstr "电子邮件(必填)"
+msgstr ""
 
 #: flaskblog/templates/partials/comments.html:69
 msgid "Website(Optional)"
-msgstr "网址(选填)"
+msgstr ""
 
 #: flaskblog/templates/partials/comments.html:70
 msgid "LOGIN"
-msgstr "登录"
+msgstr ""
 
 #: flaskblog/templates/partials/comments.html:73
 msgid "Or login with"
-msgstr "或通过第三方登录"
+msgstr ""
 
 #: flaskblog/templates/partials/comments.html:82
 msgid "Type with markdown syntax"
-msgstr "评论使用Markdown语法"
+msgstr ""
 
 #: flaskblog/templates/partials/comments.html:90
 msgid "Comment"
-msgstr "评论"
+msgstr ""
 
 #: flaskblog/templates/partials/helper.html:20
 #: flaskblog/templates/partials/helper.html:42
 msgid "Read More"
-msgstr "继续阅读"
+msgstr ""
 
 #: flaskblog/templates/partials/sidebar.html:25
 #: flaskblog/templates/partials/sidebar.html:56
 msgid "SEARCH"
-msgstr "搜索"
+msgstr ""
+

@@ -34,7 +34,7 @@
   <style>:root {--primary-color: {{ g.site.primary_color|default('black') }};}</style>
 </head>
 
-<body>
+<body data-spy="scroll" data-target="#contents">
   <div id="page-wraper">
     <!-- Sidebar Menu -->
     {% include 'partials/sidebar.html' %}

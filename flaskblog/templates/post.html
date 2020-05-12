@@ -42,7 +42,7 @@
     <meta itemprop="keywords" content="{{ post.tags|map(attribute='text')|join(',') }}">
     <div class="post-tags">
       {% for tag in post.tags %}
-      <a href="{{tag.url}}" class="button"><i class="fa fa-tags"></i> {{tag.text}}</a>
+      <a href="{{tag.url}}" class="button"><i class="fa fa-tag"></i> {{tag.text}}</a>
       {% endfor %}
     </div>
   </div>
@@ -94,6 +94,13 @@
 {% if post.comment and integration.comment %}
 {{ render_comments(post, comments, comments_count) }}
 {% endif %}
+{% endblock %}
+
+{% block right_extra %}
+<div class="segment" id="contents">
+  <h4>{{_('Contents')}}</h4>
+  {{ post.toc|safe }}
+</div>
 {% endblock %}
 
 {% block additional %}
