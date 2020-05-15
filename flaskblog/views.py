@@ -132,7 +132,7 @@ def comment():
     content = request.form['content']
     parent_id = request.form['parent_id']
     post = Post.query.get_or_404(post_id)
-    last_comment = post.comments.order_by(Comment.floor.desc()).first()
+    last_comment = post.comments.filter(Comment.floor.isnot(None)).order_by(Comment.floor.desc()).first()
     floor = (last_comment.floor or 0) + 1 if last_comment else 1
     parent = None
     if parent_id:
