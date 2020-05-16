@@ -1,12 +1,45 @@
 from functools import update_wrapper
 
-import gevent
 from flask import render_template, current_app, g
 from flask.globals import _app_ctx_stack, _request_ctx_stack
 from flask_mail import Mail, Message
 from flask_babel import lazy_gettext
 
 mail = Mail()
+
+try:
+    import gevent
+except ModuleNotFoundError:
+    # On windows gevent can't be installed, fall back to concurrent.futures instead.
+    from concurrent.futures import ThreadPoolExecutor
+
+    pool = ThreadPoolExecutor()
+
+    def background_task(f):
+        def callback(result):
+            exc = result.exception
+            if exc:
+                current_app.log_exception((type(exc), exc, exc.__traceback__))
+
+        def wrapper(*args, **kwargs):
+            future = pool.submit(with_app_context(f), *args, **kwargs)
+            future.add_done_callback(with_app_context(callback))
+            return future
+
+        return update_wrapper(wrapper, f)
+else:
+    def background_task(f):
+        def callback(result):
+            exc = result.exception
+            current_app.log_exception((type(exc), exc, exc.__traceback__))
+
+        def wrapper(*args, **kwargs):
+            future = gevent.spawn(with_app_context(f), *args, **kwargs)
+
+            future.link_exception(with_app_context(callback))
+            return future
+
+        return update_wrapper(wrapper, f)
 
 
 def with_app_context(f):
@@ -20,18 +53,6 @@ def with_app_context(f):
     return update_wrapper(wrapper, f)
 
 
-def background_task(f):
-    def wrapper(*args, **kwargs):
-        future = gevent.spawn(with_app_context(f), *args, **kwargs)
-
-        def callback(result):
-            exc = result.exception
-            current_app.log_exception((type(exc), exc, exc.__traceback__))
-
-        future.link_exception(with_app_context(callback))
-        return future
-
-    return update_wrapper(wrapper, f)
 
 
 @background_task
