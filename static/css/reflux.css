@@ -779,12 +779,6 @@ figure img {
   padding-right: 0;
 }
 
-@media screen and (max-width: 1280px) and (min-width: 846px) {
-  .menu {
-    width: 25%;
-  }
-}
-
 #menu-toggle,
 #menu-close {
   display: none;
