@@ -53,8 +53,6 @@ def with_app_context(f):
     return update_wrapper(wrapper, f)
 
 
-
-
 @background_task
 def notify_reply(reply_to, comment):
     if not reply_to['author'].get('email'):

@@ -47,10 +47,10 @@ $ pipx install pdm
 ```bash
 # 安装所有开发依赖
 $ pdm install -d
-# 生成翻译文件
-$ pdm run make compile
 # 升级DB
 $ pdm run flask db upgrade
+# 生成翻译文件
+$ pdm run make compile
 ```
 
 ### 后台开发
