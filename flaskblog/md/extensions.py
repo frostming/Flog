@@ -17,7 +17,7 @@ class PhotoSet(block.BlockElement):
         return source.expect_re(cls.pattern)
 
     @classmethod
-    def parse(self, source):
+    def parse(cls, source):
         rv = source.match
         source.consume()
         return rv
