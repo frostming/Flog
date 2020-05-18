@@ -329,12 +329,30 @@ input#search-text {
 .tags > .button {
   text-transform: uppercase;
   padding: 10px;
+  margin-bottom: 10px;
 }
 
 #contents {
   position: sticky;
   top: 40px;
 }
+
+#contents .list-group-item {
+  background-color: transparent;
+  border: none;
+  padding: 2px 1em 2px 0;
+  color: #c6c6c6;
+}
+
+#contents .list-group .list-group {
+  margin-left: 1em;
+}
+
+#contents .list-group-item.active {
+  color: #434343;
+  font-weight: bold;
+}
+
 
 .section-heading {
   text-align: center;
