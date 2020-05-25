@@ -2,7 +2,7 @@
 {% import 'partials/helper.html' as helper with context %}
 
 {% block mainbody %}
-<div class="container">
+<div class="container" data-aos="fade-in">
   {% block pagehead %}
   <div class="section-heading">
     {% block pagetitle %}
@@ -42,7 +42,7 @@
   {% endif %}
   {% endblock %}
 </div>
-<div class="right-panel">
+<div class="right-panel" data-aos="fade-left">
   <div class="segment">
     <h4>{{_('Categories')}}</h4>
     <div>

@@ -2,6 +2,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" crossorgin="anonymous"></script>
 <script async src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@12.0.0/dist/lazyload.min.js"></script>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 {% assets filters="jsmin", output="dist/custom.js", "js/custom.js" %}
-  <script src="{{ ASSET_URL }}"></script>
+<script src="{{ ASSET_URL }}"></script>
 {% endassets %}
+<script>
+  AOS.init();
+</script>
