@@ -1,10 +1,12 @@
 {% macro render_left_post(post, even) %}
 <div class="post-item">
   <div class="row">
+    {% if post.image-%}
     <div class="col-md-6">
       <div class="post-item-image lazy" data-bg="url({{post.image}})">
       </div>
     </div>
+    {%-endif %}
     <div class="col-md-6">
       <h4>{{ post.title }}</h4>
       <div class="post-item-meta">
@@ -42,10 +44,12 @@
         <a href="{{ post.url }}">{{_('Read More')}}</a>
       </div>
     </div>
+    {% if post.image-%}
     <div class="col-md-6">
       <div class="post-item-image lazy" data-bg="url({{post.image}})">
       </div>
     </div>
+    {%-endif %}
   </div>
 </div>
 {% endmacro %}
