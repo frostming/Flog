@@ -73,6 +73,16 @@ class FlogRendererMixin:
         return HTMLRenderer.render_html_block(self, element)
 
 
+class StrictHTMLRendererMixin:
+    def render_html_block(self, element):
+        # Disable tag filter, use the original render function
+        return self.tagfilter.sub(r'&lt;\1', element.children)
+
+
 class Flog:
     elements = [PhotoSet]
     renderer_mixins = [FlogRendererMixin]
+
+
+class StrictFlog:
+    renderer_mixins = [StrictHTMLRendererMixin]

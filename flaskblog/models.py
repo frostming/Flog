@@ -18,7 +18,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from slugify import slugify
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from .md import markdown
+from .md import markdown, strict_markdown
 from .utils import strip_tags
 
 db: SQLAlchemy = SQLAlchemy()
@@ -375,7 +375,8 @@ class Comment(db.Model):
 def comment_html(
     mapper: Type[sa.orm.Mapper], connection: sa.engine.Connection, target: sa.orm.Mapper
 ) -> None:
-    target.html = markdown(target.content)
+    # Use a more strict version of markdown parser for untrusted source.
+    target.html = strict_markdown(target.content)
 
 
 def init_app(app: Flask) -> None:
