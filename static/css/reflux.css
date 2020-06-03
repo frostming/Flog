@@ -676,12 +676,13 @@ figure img {
 
 #donate-qrcode {
   margin-bottom: 1.5rem;
-  max-width: 480px;
   margin: 0 auto;
 }
 
 #donate-qrcode img {
   max-width: 100%;
+  max-height: 400px;
+  margin-bottom: 20px;
 }
 
 /* Comments */
