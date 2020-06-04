@@ -3,7 +3,7 @@
 }
 
 body {
-  font-family: "Open Sans", -apple-system, "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-family: "Open Sans", -apple-system, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 16px;
 }
 
@@ -538,6 +538,11 @@ figure img {
 
 .photo-set figure:hover figcaption {
   opacity: 1;
+}
+
+.article-body {
+  font-size: 18px;
+  line-height: 1.66;
 }
 
 .article h1, .article h2, .article h3,
