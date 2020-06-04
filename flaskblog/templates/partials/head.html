@@ -30,3 +30,15 @@
 
 </script>
 {% endif %}
+{% if integration.baidu_analytics and integration.baidu_analytics.enabled %}
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?{{ integration.baidu_analytics.id }}";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+{% endif %}

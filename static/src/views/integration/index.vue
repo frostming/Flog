@@ -21,6 +21,13 @@
       image="https://static.frostming.com/images/2019-04-google-analytics.png"
     />
     <card
+      label="百度统计"
+      name="baidu_analytics"
+      :initial="integration.baidu_analytics"
+      :fields="['id']"
+      image="https://static.frostming.com/baidu-logo.png"
+    />
+    <card
       label="Tencent COS"
       name="cos"
       :initial="integration.cos"
