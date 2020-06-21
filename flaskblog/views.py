@@ -118,7 +118,7 @@ def archive() -> str:
     from itertools import groupby
 
     def grouper(item):
-        return item.date.year, item.date.month
+        return item.date.year
 
     result = groupby(
         Post.query.filter_by(is_draft=False).order_by(Post.date.desc()), grouper
