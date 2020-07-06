@@ -1,5 +1,6 @@
 from flask import Blueprint, abort, current_app, jsonify, redirect, request, session, url_for
 from flask_login import login_user
+import sqlalchemy as sa
 
 from ..models import User, db
 from .models import OAuth2Token
@@ -11,7 +12,12 @@ bp = Blueprint('auth', __name__)   # type: Blueprint
 @bp.route('/login', methods=['POST'])
 def login():
     form = request.form
-    user = User.query.filter_by(**form).first()
+    user = User.query.filter(
+        sa.or_(
+            User.username == form["username"],
+            User.email == form["email"]
+        )
+    ).first()
     if not user:
         user = User(**form)
         db.session.add(user)
