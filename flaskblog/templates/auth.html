@@ -13,7 +13,7 @@
 <p>Logging in...</p>
 <script>
 if (window.opener) {
-  opener.location.refresh();
+  opener.location.reload();
   setTimeout(function() {window.close();}, 500);
 } else {
   location.href = '{{ back_url }}';
