@@ -1,4 +1,6 @@
-from flask import Blueprint, abort, current_app, jsonify, redirect, request, session, url_for
+from flask import (
+    Blueprint, abort, current_app, jsonify, request, url_for, render_template, session
+)
 from flask_login import login_user
 import sqlalchemy as sa
 
@@ -30,7 +32,7 @@ def login():
 
 @bp.route('/github/login')
 def github_login():
-    origin_url = request.headers['Referer']
+    origin_url = request.headers.get('Referer', '')
     session['oauth_origin'] = origin_url
     redirect_uri = url_for('.github_auth', _external=True)
     if not current_app.debug:
@@ -79,13 +81,12 @@ def github_auth():
         db.session.add(oauth_token)
         db.session.commit()
     login_user(user)
-    next_url = session.pop('oauth_origin', None)
-    return redirect(next_url or url_for('home'))
+    return render_template("auth.html", back_url=session.pop("oauth_origin", None))
 
 
 @bp.route('/google/login')
 def google_login():
-    origin_url = request.headers['Referer']
+    origin_url = request.headers.get('Referer', '')
     session['oauth_origin'] = origin_url
     redirect_uri = url_for('.google_auth', _external=True)
     if not current_app.debug:
@@ -129,5 +130,4 @@ def google_auth():
         db.session.add(oauth_token)
         db.session.commit()
     login_user(user)
-    next_url = session.pop('oauth_origin', None)
-    return redirect(next_url or url_for('home'))
+    return render_template("auth.html", back_url=session.pop("oauth_origin", None))
