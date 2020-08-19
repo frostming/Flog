@@ -44,15 +44,11 @@
     </section>
   </div>
   {% block additional %}{% endblock %}
+  <script>
+    window.searchApiUrl = "{{url_for('api.search')}}"
+  </script>
   {% block scripts %}
     {% include 'partials/scripts.html' %}
   {% endblock %}
-  <script>
-    window.searchApiUrl = "{{url_for('api.search')}}"
-    window.lazyLoadOptions = {
-      elements_selector: ".lazy",
-      // ... more custom settings?
-    };
-  </script>
   {% block extrajs %}{% endblock %}
 </body>
