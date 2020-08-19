@@ -3,7 +3,7 @@
   <div class="row">
     {% if post.image-%}
     <div class="col-md-6">
-      <div class="post-item-image lazy" data-bg="url({{post.image}})">
+      <div class="post-item-image lazy" data-bg="{{post.image}}">
       </div>
     </div>
     {%-endif %}
@@ -46,7 +46,7 @@
     </div>
     {% if post.image-%}
     <div class="col-md-6">
-      <div class="post-item-image lazy" data-bg="url({{post.image}})">
+      <div class="post-item-image lazy" data-bg="{{post.image}}">
       </div>
     </div>
     {%-endif %}
