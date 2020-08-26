@@ -747,6 +747,7 @@ figure img {
 .comment-item .comment-body {
   margin-top: 10px;
   margin-left: 55px;
+  font-size: .95em;
 }
 
 .comment-box > .comment-item > .comment-body {
