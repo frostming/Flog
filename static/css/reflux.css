@@ -630,6 +630,7 @@ figure img {
 .article .footnotes {
   line-height: 1.32;
   opacity: .96;
+  font-size: 16px;
 }
 
 .article hr {
