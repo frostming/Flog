@@ -630,6 +630,7 @@ figure img {
 .article .footnotes {
   line-height: 1.32;
   opacity: .96;
+  font-size: 16px;
 }
 
 .article hr {
@@ -747,6 +748,7 @@ figure img {
 .comment-item .comment-body {
   margin-top: 10px;
   margin-left: 55px;
+  font-size: 15px;
 }
 
 .comment-box > .comment-item > .comment-body {
