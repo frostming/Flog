@@ -143,7 +143,7 @@ class Post(db.Model):
     def dump_md(self) -> str:
         meta = {
             "title": self.title,
-            "author": self.author,
+            "template": "post",
             "date": self.date,
             "description": self.description,
             "image": self.image,
