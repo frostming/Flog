@@ -58,7 +58,7 @@ def export_wxr():
                 continue
             posts.append(post)
         with open("wxr.xml", "w", encoding="utf-8") as f:
-            f.write(render_template("wxr.xml"))
+            f.write(render_template("wxr.xml", posts=posts))
 
 
 def init_app(app):
