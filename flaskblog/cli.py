@@ -3,7 +3,7 @@ from flask.cli import with_appcontext
 import faker
 from .models import Post, db
 import random
-from flask import render_template
+from flask import render_template, current_app
 
 fake = faker.Faker()
 
@@ -52,12 +52,13 @@ def fake_db():
 def export_wxr():
     """Export comments into WXR file"""
     posts = []
-    for post in Post.query.all():
-        if not post.comments:
-            continue
-        posts.append(post)
-    with open("wxr.xml", "w", encoding="utf-8") as f:
-        f.write(render_template("wxr.xml"))
+    with current_app.test_request_context("/"):
+        for post in Post.query.all():
+            if not post.comments:
+                continue
+            posts.append(post)
+        with open("wxr.xml", "w", encoding="utf-8") as f:
+            f.write(render_template("wxr.xml"))
 
 
 def init_app(app):
