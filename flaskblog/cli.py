@@ -3,23 +3,26 @@ from flask.cli import with_appcontext
 import faker
 from .models import Post, db
 import random
+from flask import render_template
 
 fake = faker.Faker()
 
 
 def generate_on_fake_post():
     return {
-        'title': fake.sentence(nb_words=6, variable_nb_words=True),
-        'description': fake.sentence(nb_words=6, variable_nb_words=True),
-        'image': fake.image_url(width=800, height=400),
-        'slug': fake.slug(),
-        'content': '## Hello World\n我是测试数据我是测试数据\n\n![](https://wpimg.wallstcn.com/4c69009c-0fd4-4153-b112-6cb53d1cf943)\n',
-        'author': fake.name(),
-        'date': fake.date_time(),
-        'is_draft': random.choice([False, True]),
-        'lang': random.choice(['en', 'zh_Hans_CN']),
-        'category': random.choice(['programming', 'essay']),
-        'tags': random.sample(['test', 'python', 'algorithm', 'reading'], random.randint(1, 3))
+        "title": fake.sentence(nb_words=6, variable_nb_words=True),
+        "description": fake.sentence(nb_words=6, variable_nb_words=True),
+        "image": fake.image_url(width=800, height=400),
+        "slug": fake.slug(),
+        "content": "## Hello World\n我是测试数据我是测试数据\n\n![](https://wpimg.wallstcn.com/4c69009c-0fd4-4153-b112-6cb53d1cf943)\n",
+        "author": fake.name(),
+        "date": fake.date_time(),
+        "is_draft": random.choice([False, True]),
+        "lang": random.choice(["en", "zh_Hans_CN"]),
+        "category": random.choice(["programming", "essay"]),
+        "tags": random.sample(
+            ["test", "python", "algorithm", "reading"], random.randint(1, 3)
+        ),
     }
 
 
@@ -42,6 +45,19 @@ def fake_db():
         db.session.add(post)
     db.session.commit()
     click.echo("Add 100 posts")
+
+
+@click.command()
+@with_appcontext
+def export_wxr():
+    """Export comments into WXR file"""
+    posts = []
+    for post in Post.query.all():
+        if not post.comments:
+            continue
+        posts.append(post)
+    with open("wxr.xml", "w", encoding="utf-8") as f:
+        f.write(render_template("wxr.xml"))
 
 
 def init_app(app):

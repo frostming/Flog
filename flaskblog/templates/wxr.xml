@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dsq="http://www.disqus.com/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:wp="http://wordpress.org/export/1.0/"
+>
+  <channel>
+    {% for post in posts-%}
+    <item>
+      <title>{{ post.title }}</title>
+      <link>https://frostming.com{{ post.url }}</link>
+      <content:encoded><![CDATA[{{ post.html | safe }}]]></content:encoded>
+      <dsq:thread_identifier>{{ post.id }}</dsq:thread_identifier>
+      <wp:post_date_gmt>{{ post.date|date("%Y-%m-%d %H:%M:%S") }}</wp:post_date_gmt>
+      <wp:comment_status>open</wp:comment_status>
+      {% for comment in post.comments-%}
+      <wp:comment>
+        <dsq:remote>
+          <dsq:id>{{ comment.author.username }}</dsq:id>
+          <dsq:avatar>{{ comment.author.avatar }}</dsq:avatar>
+        </dsq:remote>
+        <wp:comment_id>{{ comment.id }}</wp:comment_id>
+        <wp:comment_author>{{ comment.author.name }}</wp:comment_author>
+        <wp:comment_author_email>{{ comment.author.email }}</wp:comment_author_email>
+        <wp:comment_author_url>{{ comment.author.link }}</wp:comment_author_url>
+        <wp:comment_date_gmt>{{ comment.create_at|date("%Y-%m-%d %H:%M:%S") }}</wp:comment_date_gmt>
+        <wp:comment_content><![CDATA[{{ comment.html|safe }}]]></wp:comment_content>
+        <wp:comment_approved>1</wp:comment_approved>
+        {% if comment.parent_id-%}
+        <wp:comment_parent>{{ comment.parent_id }}</wp:comment_parent>
+        {%-endif %}
+      </wp:comment>
+      {%-endfor %}
+    </item>
+    {%-endfor %}
+  </channel>
+</rss>
