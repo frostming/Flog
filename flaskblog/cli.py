@@ -63,3 +63,4 @@ def export_wxr():
 def init_app(app):
     app.cli.add_command(reindex)
     app.cli.add_command(fake_db)
+    app.cli.add_command(export_wxr)
