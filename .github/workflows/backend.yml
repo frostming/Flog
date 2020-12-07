@@ -25,8 +25,8 @@ jobs:
         ARGS: -avz --delete --exclude='*.pyc'
         SERVER_PORT: '22'
         FOLDER: pyproject.toml pdm.lock ./docker-compose.yml Dockerfile flaskblog migrations start_server.sh
-        SERVER_IP: frostming.com
-        USERNAME: fming
+        SERVER_IP: ${{ secrets.SSH_HOST }}
+        USERNAME: ${{ secrets.SSH_USERNAME }}
         SERVER_DESTINATION: /home/fming/frostming.com/
     - name: Rebuild and Restart Docker
       uses: appleboy/ssh-action@master
