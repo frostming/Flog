@@ -34,7 +34,7 @@ DEFAULT_SETTINGS = {
     "locale": "en",
     "name": "Flog",
     "cover_url": "/static/images/cover.jpg",
-    "avatar": "/static/images/avatar.jpeg",
+    "avatar": "/static/images/flog.png",
     "description": "A simple blog powered by Flask",
 }
 
@@ -107,15 +107,19 @@ class Post(db.Model):
 
     @property
     def previous(self) -> "Post":
-        return Post.query.order_by(Post.id.desc()).filter(
-            Post.is_draft == False, Post.id < self.id   # noqa
-        ).first()
+        return (
+            Post.query.order_by(Post.id.desc())
+            .filter(Post.is_draft == False, Post.id < self.id)  # noqa
+            .first()
+        )
 
     @property
     def next(self) -> "Post":
-        return Post.query.order_by(Post.id.asc()).filter(
-            Post.is_draft == False, Post.id > self.id   # noqa
-        ).first()
+        return (
+            Post.query.order_by(Post.id.asc())
+            .filter(Post.is_draft == False, Post.id > self.id)  # noqa
+            .first()
+        )
 
     @property
     def excerpt(self) -> str:
@@ -189,8 +193,8 @@ class User(db.Model, UserMixin):
         if password:
             password = generate_password_hash(password)
             kwargs["password"] = password
-        if not kwargs.get('username') and kwargs.get('name'):
-            kwargs['username'] = slugify(kwargs['name'])
+        if not kwargs.get("username") and kwargs.get("name"):
+            kwargs["username"] = slugify(kwargs["name"])
         super(User, self).__init__(**kwargs)
 
     def check_password(self, password: str) -> bool:
@@ -223,7 +227,7 @@ class User(db.Model, UserMixin):
         email_hash = hashlib.md5(
             (self.email or self.username).strip().lower().encode()
         ).hexdigest()
-        return f'https://www.gravatar.com/avatar/{email_hash}?d=identicon'
+        return f"https://www.gravatar.com/avatar/{email_hash}?d=identicon"
 
     @classmethod
     def verify_auth_token(cls, token):
@@ -248,11 +252,11 @@ class User(db.Model, UserMixin):
 
     def to_dict(self):
         return {
-            'username': self.username,
-            'email': self.email,
-            'is_admin': self.is_admin,
-            'avatar': self.avatar,
-            'display_name': self.display_name
+            "username": self.username,
+            "email": self.email,
+            "is_admin": self.is_admin,
+            "avatar": self.avatar,
+            "display_name": self.display_name,
         }
 
 
@@ -342,8 +346,10 @@ class Comment(db.Model):
     create_at = db.Column(db.DateTime(), default=datetime.utcnow)
     parent_id = db.Column(db.Integer, db.ForeignKey("comment.id"))
     replies = db.relationship(
-        "Comment", cascade="all, delete-orphan",
-        backref=db.backref("parent", remote_side=[id]), lazy="dynamic"
+        "Comment",
+        cascade="all, delete-orphan",
+        backref=db.backref("parent", remote_side=[id]),
+        lazy="dynamic",
     )
 
     __table_args__ = (db.UniqueConstraint("post_id", "floor", name="_post_floor"),)
@@ -360,13 +366,13 @@ class Comment(db.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'author': self.author.to_dict(),
-            'post': {'title': self.post.title, 'url': self.post.url},
-            'floor': self.floor,
-            'content': self.content,
-            'html': self.html,
-            'create_at': self.create_at,
+            "id": self.id,
+            "author": self.author.to_dict(),
+            "post": {"title": self.post.title, "url": self.post.url},
+            "floor": self.floor,
+            "content": self.content,
+            "html": self.html,
+            "create_at": self.create_at,
         }
 
 

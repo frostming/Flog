@@ -6,6 +6,7 @@ __pycache__/
 .vscode/
 
 .env
+.flaskenv
 .webassets-cache/
 flaskblog/.cos_secret.json
 .envrc
@@ -14,6 +15,6 @@ whooshee/
 *.mo
 .mypy_cache/
 .idea/
-__pypackages__/
+
 .pdm.toml
 *.egg-info/

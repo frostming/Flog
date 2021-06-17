@@ -1,7 +1,7 @@
 # --------------------------
 # Docker file
 # --------------------------
-FROM python:3.7-slim
+FROM python:3.9-slim
 
 # Replace the address to a proper mirror.
 ARG package_mirror=https://mirrors.tencent.com
@@ -19,7 +19,7 @@ RUN sed -i "s#http://deb.debian.org#$package_mirror#g" /etc/apt/sources.list && 
 WORKDIR /app
 COPY pyproject.toml pyproject.toml
 COPY pdm.lock pdm.lock
-RUN pdm sync
+RUN pdm sync -s postgres --prod
 
 COPY flaskblog flaskblog
 COPY migrations migrations

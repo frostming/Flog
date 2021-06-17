@@ -5,7 +5,10 @@
 
 _一个简单的博客系统，由 Flask 驱动_
 
-![](/resources/preview.png)
+<div align="center">
+
+![](/static/images/flog.png)
+</div>
 
 ## 功能特性
 
