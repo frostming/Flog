@@ -19,7 +19,7 @@ RUN sed -i "s#http://deb.debian.org#$package_mirror#g" /etc/apt/sources.list && 
 WORKDIR /app
 COPY pyproject.toml pyproject.toml
 COPY pdm.lock pdm.lock
-RUN pdm sync -s postgres --prod
+RUN pdm sync -G postgres --prod
 
 COPY flaskblog flaskblog
 COPY migrations migrations

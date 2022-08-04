@@ -1,8 +1,5 @@
 # Flog
 
-![Deploy static files](https://github.com/frostming/Flog/workflows/Deploy%20static%20files/badge.svg)
-![Deploy backend files](https://github.com/frostming/Flog/workflows/Deploy%20backend%20files/badge.svg)
-
 _一个简单的博客系统，由 Flask 驱动_
 
 <div align="center">
